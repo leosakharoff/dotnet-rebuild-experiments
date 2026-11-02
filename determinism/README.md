@@ -1,0 +1,3 @@
+# determinism
+
+To come.
