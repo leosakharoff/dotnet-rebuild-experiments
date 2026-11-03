@@ -5,10 +5,10 @@
 Reads `results/categories.tsv` and `results/runs.tsv` and writes to `figures/`:
   categories.pdf, .png  the Figure 3 category of the 127 measured packages at each comparison level
                         (Benedetti's Fig. 3: one 100 % bar per row, blues from light to dark)
-  variations.pdf, .png  per variation, the share of the 127 whose two builds differ in content, default and
-                        configured (Benedetti's Fig. 4). The whole-file level is left out: every default
-                        pair differs or fails there, because NuGet stamps each ZIP entry with the build time, and
-                        with DeterministicTimestamp it equals content. The DLL level equals content.
+  variations.pdf, .png  per variation, the share of the 127 whose two builds differ, default and configured
+                        (Benedetti's Fig. 4), in two panels: the package file, and the package entries and
+                        assemblies together, whose counts are the same on every variation in both conditions.
+                        A run that failed counts as not differing, as in the README's axis table.
 With THESIS_IMAGES, the PDFs are also written there as 2a-categories.pdf and 2a-variations.pdf.
 
 Needs matplotlib. The 97 packages that did not build have no category and are left out of both figures.
@@ -29,7 +29,8 @@ FIGURES = os.path.join(HERE, 'figures')
 CATEGORY_COLOURS = {'as is': '#bdd7ee', 'with configuration': '#5b9bd5', 'unreproducible': '#0b2a55'}
 CATEGORY_LABELS = {'as is': 'Reproducible as is', 'with configuration': 'Reproducible with configuration',
                    'unreproducible': 'Unreproducible'}
-LEVELS = (('cat_whole_file', 'Whole file'), ('cat_content', 'Content'), ('cat_dll', 'DLLs'))
+LEVELS = (('cat_package_file', '1 Package file'), ('cat_package_entries', '2 Package entries'),
+          ('cat_assemblies', '3 Assemblies'))
 
 # The README's order: build_path, time, then the six that behave alike. Kernel is not varied here.
 AXES = (('build_path', 'Build path'), ('time', 'Time'), ('environment', 'Environment'), ('locales', 'Locales'),
@@ -77,7 +78,7 @@ def save(fig, name, thesis):
 
 
 def categories(thesis):
-    rows = [r for r in read_tsv('categories.tsv') if r['cat_whole_file']]
+    rows = [r for r in read_tsv('categories.tsv') if r['cat_package_file']]
     fig, ax = plt.subplots(figsize=(6.0, 1.7))
     labels = []
     for y, (column, label) in enumerate(reversed(LEVELS)):
@@ -99,22 +100,30 @@ def categories(thesis):
 def variations(thesis):
     runs = [r for r in read_tsv('runs.tsv') if r['mode'] in MODE_COLOURS and r['axes'] in dict(AXES)]
     packages = {r['package'] + ' ' + r['version'] for r in runs}
-    fig, ax = plt.subplots(figsize=(6.0, 2.6))
-    for y, (axis, _) in enumerate(reversed(AXES)):
-        for i, mode in enumerate(MODE_COLOURS):
-            n = sum(r['axes'] == axis and r['mode'] == mode and r['b2'] == 'differs' for r in runs)
-            share = n / len(packages)
-            bar = y + (0.18 if i == 0 else -0.18)
-            ax.barh(bar, share, height=0.34, color=MODE_COLOURS[mode], label=MODE_LABELS[mode] if y == 0 else None)
-            if share > 0.15:
-                count_label(ax, share - 0.015, bar, n, MODE_COLOURS[mode], ha='right')
-            else:
-                count_label(ax, share + 0.015, bar, n, '#ffffff', ha='left')
-    ax.set_yticks(range(len(AXES)), [label for _, label in reversed(AXES)])
-    ax.set_ylabel('Variations')
-    style(ax, f'% Packages whose content differs (n = {len(packages)})')
-    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.22), ncol=2, handlelength=1, handleheight=1)
+    # Level 2 and level 3 have the same counts on every variation in both conditions, so they share a panel.
+    panels = (('b1', '1 Package file'), ('b2', '2 Package entries and 3 Assemblies'))
+    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.7), sharey=True, gridspec_kw={'wspace': 0.16})
+    for ax, (level, title) in zip(axes, panels):
+        for y, (axis, _) in enumerate(reversed(AXES)):
+            for i, mode in enumerate(MODE_COLOURS):
+                n = sum(r['axes'] == axis and r['mode'] == mode and r[level] == 'differs' for r in runs)
+                share = n / len(packages)
+                bar = y + (0.18 if i == 0 else -0.18)
+                ax.barh(bar, share, height=0.34, color=MODE_COLOURS[mode],
+                        label=MODE_LABELS[mode] if y == 0 and ax is axes[0] else None)
+                if share > 0.25:
+                    count_label(ax, share - 0.02, bar, n, MODE_COLOURS[mode], ha='right')
+                else:
+                    count_label(ax, share + 0.02, bar, n, '#ffffff', ha='left')
+        ax.set_title(title, fontsize=8)
+        style(ax, '')
+    axes[0].set_yticks(range(len(AXES)), [label for _, label in reversed(AXES)])
+    axes[0].set_ylabel('Variations')
+    fig.supxlabel(f'% Packages whose two builds differ (n = {len(packages)})', fontsize=8, y=-0.02)
+    fig.legend(*axes[0].get_legend_handles_labels(), loc='upper center', bbox_to_anchor=(0.5, -0.06), ncol=2,
+               handlelength=1, handleheight=1)
     save(fig, 'variations', thesis)
+
 
 if __name__ == '__main__':
     thesis = sys.argv[1] if len(sys.argv) > 1 else None

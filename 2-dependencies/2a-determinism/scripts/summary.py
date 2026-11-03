@@ -8,10 +8,10 @@ Write `summary.md` to OUTDIR (default LAB) with:
   3. per package, Benedetti's Figure 3 category at each level
      (as is / with configuration / unreproducible / not reached)
   4. the packages the configuration does not fix, with the first difference
-  5. the packages whose DLLs are identical under every axis as is
+  5. the packages whose assemblies are identical under every axis as is
 and `categories.tsv` with one row per package and the category columns.
 
-Category rules, per level L in {1 whole file, 2 content, 3 DLLs}:
+Category rules, per level L in {1 package file, 2 package entries, 3 assemblies}:
   as is               every default run is `same` at L ("as is" is Benedetti's term for the default build)
   with configuration  not as is; every default run that differed at L has a configured run that is `same` at L
   unreproducible      some configured run differs or fails at L
@@ -20,7 +20,7 @@ Category rules, per level L in {1 whole file, 2 content, 3 DLLs}:
 import collections, json, os, re, sys
 
 AXES = ['build_path', 'environment', 'locales', 'exec_path', 'time', 'timezone', 'umask', 'fileordering']
-LEVELS = (('b1', '1 whole file'), ('b2', '2 content'), ('b3', '3 DLLs'))
+LEVELS = (('b1', '1 package file'), ('b2', '2 package entries'), ('b3', '3 assemblies'))
 CATEGORIES = ['as is', 'with configuration', 'unreproducible', 'not reached']
 
 
@@ -98,7 +98,7 @@ def main():
     lines.append('')
 
     lines += ['## 2. Per axis, default build: packages that differ', '',
-              '| axis | runs | differs at 1 (whole file) | differs at 2 (content) | differs at 3 (DLL) | build failed |',
+              '| axis | runs | differs at 1 (package file) | differs at 2 (package entries) | differs at 3 (assemblies) | build failed |',
               '|---|---|---|---|---|---|']
     for axis in AXES:
         runs = [s['runs'][f'default:{axis}'] for s in built if f'default:{axis}' in s.get('runs', {})]
@@ -115,7 +115,7 @@ def main():
         lines.append(f'| {name} | ' + ' | '.join(str(count.get(c, 0)) for c in CATEGORIES) + ' |')
     lines.append('')
 
-    lines += ['## 4. Not fixed by the configuration (level 3, DLLs)', '']
+    lines += ['## 4. Not fixed by the configuration (level 3, assemblies)', '']
     for s in built:
         if cats[s['id']]['b3'] != 'unreproducible':
             continue
@@ -132,7 +132,7 @@ def main():
         lines.append(f'- {name_of(s)}: ' + '; '.join(bad))
     lines.append('')
 
-    lines += ['## 5. Identical DLLs under every axis with the default build (level 3 "as is")', '']
+    lines += ['## 5. Identical assemblies under every axis with the default build (level 3 "as is")', '']
     for s in built:
         if cats[s['id']]['b3'] == 'as is':
             lines.append(f'- {name_of(s)}')
@@ -140,7 +140,7 @@ def main():
 
     os.makedirs(outdir, exist_ok=True)
     open(os.path.join(outdir, 'summary.md'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
-    columns = ['package', 'version', 'repo', 'screen', 'global_json', 'cat_whole_file', 'cat_content', 'cat_dll',
+    columns = ['package', 'version', 'repo', 'screen', 'global_json', 'cat_package_file', 'cat_package_entries', 'cat_assemblies',
                'axes_run', 'first_difference_all_axes']
     with open(os.path.join(outdir, 'categories.tsv'), 'w', encoding='utf-8') as f:
         f.write('\t'.join(columns) + '\n')

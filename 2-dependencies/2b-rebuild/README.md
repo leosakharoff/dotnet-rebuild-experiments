@@ -98,8 +98,8 @@ deleted between builds.
 
 The comparison uses the DLL shipped in Phoenix, extracted both from our rebuilt
 package and from the package on nuget.org. This is the census file for the
-package's target framework. It narrows part 2a's level 3 comparison of all DLLs
-to the single DLL loaded by Phoenix.
+package's target framework. It narrows part 2a's level 3, the assemblies, from
+all DLLs to the single DLL loaded by Phoenix.
 
 `../tools/dllreport.cs` reads both DLLs and hashes each section, metadata stream
 and resource separately. `scripts/level.py` then grades the pair:
@@ -111,16 +111,17 @@ and resource separately. `scripts/level.py` then grades the pair:
 | same code | only the build identity: MVID, PE timestamp, PDB id and checksum |
 | other code | anything in IL, the metadata streams or the resources |
 
-Part 2a's level 1 comparison cannot be applied to nuget.org packages. After
-upload, nuget.org adds its repository signature, `.signature.p7s`. A rebuilt
-package therefore cannot be byte-for-byte identical to the served package.
+Part 2a's level 1, the package file, cannot be applied to nuget.org packages.
+After upload, nuget.org adds its repository signature, `.signature.p7s`. A
+rebuilt package therefore cannot be byte-for-byte identical to the served
+package.
 
 Levels 2 and 3 can still be determined from the stored package listings
 (`results/compare.txt`). Of the 86 packages built and compared, 9 are equal at
-level 2, which excludes NuGet's packaging files and repository signature. Eleven
-are equal at level 3, which compares every DLL under `lib/`, `ref/` and
-`runtimes/`. Every signed package fails both levels because of the signature
-alone. Part 2b therefore grades the single DLL.
+level 2, the package entries without NuGet's packaging files and repository
+signature. Eleven are equal at level 3, the assemblies, every DLL under `lib/`,
+`ref/` and `runtimes/`. Every signed package fails both levels because of the
+signature alone. Part 2b therefore grades the single DLL.
 
 We group packages by result:
 
@@ -392,9 +393,9 @@ working repository's "best of all versions" from 28 October.
   `RepositoryUrl` read from the shipped DLL. Matching these attributes alone is
   not evidence. The evidence comes from the IL, metadata and resources.
 - The eight release-build rows graded as identical without signatures were
-  assessed from report lines, not whole-file hashes produced with
-  `stripsign.cs`. The 35 corresponding publisher-build rows were hashed as whole
-  files.
+  assessed from report lines, not from hashes of the complete DLL produced
+  with `stripsign.cs`. The 35 corresponding publisher-build rows were hashed as
+  complete DLLs.
 - Rule 3 selects the lowest SDK containing the compiler. Higher SDKs with the
   same compiler are listed but not tested.
 - Rule 7 reads `AssemblyName` directly from the `.csproj` text instead of
@@ -445,7 +446,7 @@ working repository's "best of all versions" from 28 October.
       nupkg-repository-build.yml   the workflow from the Windows run; not active here
     results/
       publisher-build.tsv     one row per package, with a source column
-      signature-stripped.txt  whole-file checks for the 35 reproduced packages
+      signature-stripped.txt  complete-DLL hashes for the 35 reproduced packages
 ```
 
 `../tools/` holds `install-sdk.py`, `dllreport.cs` and `stripsign.cs`, shared

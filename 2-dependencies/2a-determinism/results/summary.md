@@ -132,7 +132,7 @@ Did not build, per package:
 
 ## 2. Per axis, default build: packages that differ
 
-| axis | runs | differs at 1 (whole file) | differs at 2 (content) | differs at 3 (DLL) | build failed |
+| axis | runs | differs at 1 (package file) | differs at 2 (package entries) | differs at 3 (assemblies) | build failed |
 |---|---|---|---|---|---|
 | build_path | 127 | 127 | 123 | 123 | 0 |
 | environment | 127 | 127 | 5 | 5 | 0 |
@@ -148,11 +148,11 @@ Did not build, per package:
 
 | level | as is | with configuration | unreproducible | not reached |
 |---|---|---|---|---|
-| 1 whole file | 0 | 102 | 25 | 0 |
-| 2 content | 4 | 98 | 25 | 0 |
-| 3 DLLs | 4 | 98 | 25 | 0 |
+| 1 package file | 0 | 102 | 25 | 0 |
+| 2 package entries | 4 | 98 | 25 | 0 |
+| 3 assemblies | 4 | 98 | 25 | 0 |
 
-## 4. Not fixed by the configuration (level 3, DLLs)
+## 4. Not fixed by the configuration (level 3, assemblies)
 
 - Azure.Communication.Email 1.0.1: time: differs (Azure.Communication.Email.1.0.1-alpha.20261101.1.nupkg:lib/netstandard2.0/Azure.Communication.Email.dll)
 - Azure.Core 1.50.0: time: differs (Azure.Core.1.50.0-alpha.20261101.1.nupkg:lib/netstandard2.0/Azure.Core.dll)
@@ -180,7 +180,7 @@ Did not build, per package:
 - System.ClientModel 1.8.0: time: differs (System.ClientModel.1.8.0-alpha.20261101.1.nupkg:lib/netstandard2.0/System.ClientModel.dll)
 - System.IdentityModel.Tokens.Jwt 8.23.0: build_path: differs (System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101212635.nupkg:lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll); environment: differs (System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101213316.nupkg:lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll); locales: differs (System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101214035.nupkg:lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll); exec_path: differs (System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101214721.nupkg:lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll); time: differs (System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101215404.nupkg:lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll); timezone: differs (System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101220049.nupkg:lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll); umask: differs (System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101220731.nupkg:lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll); fileordering: differs (System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101221412.nupkg:lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll)
 
-## 5. Identical DLLs under every axis with the default build (level 3 "as is")
+## 5. Identical assemblies under every axis with the default build (level 3 "as is")
 
 - CsvHelper 33.1.0
 - FluentValidation 11.11.0

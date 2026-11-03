@@ -58,11 +58,22 @@ All builds ran on one machine with Arch Linux, kernel 7.2.11, glibc 2.44,
 reprotest 0.7.32, disorderfs 0.6.2 and faketime 0.9.13.
 `results/environment.txt` contains the full environment record.
 
-### Build commands
+### Two build conditions
 
-Two commands are used:
+Every package is built under two conditions:
 
-| mode | command |
+- the build as the repository has it, with the ecosystem's default build and
+  pack commands and nothing added;
+- the same build with the three properties the .NET ecosystem offers for
+  deterministic output set: `ContinuousIntegrationBuild` maps source paths to
+  `/_/`, `Deterministic` makes the compilation deterministic, and
+  `DeterministicTimestamp`, set to the commit's time, fixes the ZIP entry
+  times.
+
+`results/runs.tsv` labels the two conditions `default` and `configured` in its
+`mode` column. The rest of this README uses those two labels.
+
+| condition | command |
 |---|---|
 | default | `dotnet build PROJECT -c Release --no-restore && dotnet pack PROJECT -c Release --no-build -o out` |
 | configured | the same plus `-p:ContinuousIntegrationBuild=true -p:Deterministic=true -p:DeterministicTimestamp=<commit time>` |
@@ -70,19 +81,27 @@ Two commands are used:
 Both include `-p:UseSharedCompilation=false` to disable the compiler server,
 which hangs under the `time` variation.
 
-The default command builds and packs a cloned project as a consumer would. This
-is Benedetti's “as is” category. The configured command is Benedetti's
-“reproducible with infrastructure configuration” category. It sets the three
-properties the .NET ecosystem offers for deterministic output: source paths
-mapped to `/_/`, deterministic compilation and fixed ZIP entry times. It does
-not reproduce configuration from the publisher's CI.
+The default build is how a consumer builds and packs a cloned project. This is
+Benedetti's “as is” category. The configured build is Benedetti's “reproducible
+with infrastructure configuration” category. It does not reproduce configuration
+from the publisher's CI.
 
 ### Environmental variations
 
-The experiment applies reprotest's eight variations one at a time, each against
-its own control build: `build_path`, `environment`, `locales`, `exec_path`,
-`time` (with the clock approximately one year ahead), `timezone`, `umask` and
-`fileordering` (disorderfs).
+The experiment applies reprotest's eight variations one at a time:
+`build_path`, `environment`, `locales`, `exec_path`, `time` (with the clock
+approximately one year ahead), `timezone`, `umask` and `fileordering`
+(disorderfs).
+
+Each variation is one reprotest run, and each run builds the package twice: a
+control build, then a build with that one variation. `build_twice` in
+`scripts/build-and-compare.py` starts a new run for every variation in each
+condition, so no control build is shared between runs. A package gets 8
+variations × 2 conditions = 16 runs, which is 16 × 2 = 32 compared builds.
+Before the first run, `try_build` builds and packs it once with the default
+command to see whether it builds at all. That build is not compared, so each of
+the 127 measured packages was built 33 times. The 85 runs from 1 November that
+vary all eight at once (see Results) each add two builds to their package.
 
 `kernel` is not varied because it requires a second kernel. `user_group` and
 `domain_host` are also excluded. Reprotest runs both through `sudo`, and the lab
@@ -94,11 +113,11 @@ Each pair of builds is compared at three levels:
 
 | level | compares |
 |---|---|
-| 1 whole file | the `.nupkg` byte for byte |
-| 2 content | every archive entry by bytes, except NuGet's packaging files (`nuget.psmdcp`, `_rels/.rels`, `[Content_Types].xml`) |
-| 3 DLLs | the assemblies (`.dll`, `.exe`) under `lib/`, `ref/`, `runtimes/` |
+| 1 package file | the `.nupkg` byte for byte |
+| 2 package entries | every archive entry by bytes, except NuGet's own packaging files (`nuget.psmdcp`, `_rels/.rels`, `[Content_Types].xml`) |
+| 3 assemblies | only the assemblies (`.dll`, `.exe`) under `lib/`, `ref/`, `runtimes/` |
 
-Each combination of package, mode and axis receives one of three verdicts:
+Each combination of package, condition and axis receives one of three verdicts:
 `same`, `differs` (including the first differing entry) or `failed` (when a
 build produces no package).
 
@@ -130,7 +149,7 @@ python3 -I ../tools/install-sdk.py 10.0.403 $LAB/sdk | tee $LAB/install-sdk.log
 ```
 
 2. Everything, from `population.tsv` to `results/`. Every package, eight axes,
-   both modes. `TMPDIR` keeps reprotest's build trees out of `/tmp`. On the
+   both conditions. `TMPDIR` keeps reprotest's build trees out of `/tmp`. On the
    recorded machine, `/tmp` was a 31 GB tmpfs, and four parallel batches over
    the Roslyn, EF Core and Azure SDK trees did not fit in it.
 
@@ -160,7 +179,7 @@ measured. The remaining 97 did not build with the default command.
 `results/runs.tsv` contains 2214 rows:
 
 - 16 runs for each of the 127 measured packages, covering eight axes and two
-  modes;
+  conditions;
 - 85 runs using all eight variations at once, carried over from 1 November;
 - one row for each of the 97 packages that did not build.
 
@@ -173,9 +192,9 @@ The Figure 3 categories for the 127 measured packages are:
 
 | level | as is | with configuration | unreproducible |
 |---|---|---|---|
-| 1 whole file | 0 | 102 | 25 |
-| 2 content | 4 | 98 | 25 |
-| 3 DLLs | 4 | 98 | 25 |
+| 1 package file | 0 | 102 | 25 |
+| 2 package entries | 4 | 98 | 25 |
+| 3 assemblies | 4 | 98 | 25 |
 
 ![Categories at each comparison level](figures/categories.png)
 
@@ -183,15 +202,15 @@ The categories of the 127 at each level. The 25 unreproducible are 23 whose
 configured build differs and 2 whose configured `time` build fails, the npm
 packages (see Packages not fixed by configuration).
 
-No package is reproducible as is at the whole-file level because NuGet stamps
+No package file is reproducible as is at level 1 because NuGet stamps
 every ZIP entry with the build time. `DeterministicTimestamp` removes this
 source of variation.
 
-Four packages are reproducible as is at both the content and DLL levels:
+Four packages are reproducible as is at the package-entry and assembly levels:
 CsvHelper, FluentValidation, FluentValidation.DependencyInjectionExtensions and
 ScottPlot. They set `ContinuousIntegrationBuild` in their own project files.
 
-Configuration resolves the content and assembly differences for another 98
+Configuration resolves the entry and assembly differences for another 98
 packages. This gives 102 successful packages at all three levels. Of the
 remaining 25, 23 have byte differences and two fail during the time variation.
 The diagnoses below separate build logic that uses the clock or path from
@@ -202,23 +221,28 @@ failures involving npm and the clock-manipulation tool.
 The table counts how many of the 127 packages differ between the two default
 builds on each axis:
 
-| axis | whole file | content | DLLs | build failed |
+| axis | package file | package entries | assemblies | build failed |
 |---|---|---|---|---|
 | build_path | 127 | 123 | 123 | 0 |
 | time | 125 | 18 | 18 | 2 |
 | environment, locales, exec_path, timezone, umask, fileordering (each) | 127 | 5 | 5 | 0 |
 
-![Content differences per variation](figures/variations.png)
+![Differences per variation at the package file and in the entries](figures/variations.png)
 
-Packages whose content differs per axis, default and configured. The whole-file
-and DLL levels are left out: the first differs for every default pair, the
-second equals the content level.
+Packages whose two builds differ per axis, default and configured. The left
+panel is the package file, and the right panel is the package entries and the
+assemblies, which have the same counts on every axis in both conditions. In the
+default build every package file differs on every axis, except under `time`,
+where 2 builds fail and 125 differ. In the entries, only `build_path` and
+`time` move. The configured bars are the same in both panels because
+`DeterministicTimestamp` removes the ZIP entry times. Source:
+`results/runs.tsv`.
 
 `build_path` produces the most assembly differences in this population. The
 compiler writes absolute source paths into the PDB and the PDB ID into the DLL.
 The DLL therefore varies with the path unless PathMap is enabled.
 
-For the other six variations, content and assembly differences occur only in the
+For the other six variations, entry and assembly differences occur only in the
 five IdentityModel 8.23.0 packages whose versions include the clock. Two builds
 a minute apart receive different versions. A difference under each axis
 therefore does not establish that each axis independently caused it.
@@ -285,7 +309,7 @@ repository at the declared commit.
 
 ### Comparison with Benedetti et al.
 
-At the whole-file level, 0% of packages are reproducible as is, 80% are
+At level 1, the package file, 0% of packages are reproducible as is, 80% are
 reproducible with configuration and 20% remain unreproducible. “As is” is
 Benedetti's term for the default build.
 
@@ -338,14 +362,14 @@ Three differences in the study designs limit a direct comparison:
   figures/
     pipeline-2a.drawio        the method as a pipeline; pipeline-2a.drawio.png is its export
     categories.pdf, .png      the categories of the 127 at each level, from results/categories.tsv
-    variations.pdf, .png      content differences per axis, default and configured, from results/runs.tsv
+    variations.pdf, .png      differences per axis at the package file and in the entries, from results/runs.tsv
   scripts/
     population.py             derives population.tsv from ../population/results/shipped-packages.txt
     build-and-compare.py      the driver: try-build, build-twice, batch, results, environment
     summary.py                the tables: results/summary.md and categories.tsv from the lab
     figures.py                the figures from results/: python3 -I scripts/figures.py [THESIS_IMAGES]
   results/
-    runs.tsv                  one row per run (package, mode, axis, verdict at three levels)
+    runs.tsv                  one row per run (package, condition in `mode`, axis, verdict at three levels)
     categories.tsv            one row per package with its category at each level
     summary.md                the tables printed by summary.py
     environment.txt           host, SDK and tools as they were when the run was made
@@ -360,7 +384,7 @@ Three differences in the study designs limit a direct comparison:
   repository. On 2 November, the current version was checked against the stored
   runs and produced the recorded verdict for every run from that lab. `batch`
   skips a package whose result is recorded. A package takes 2 to 3 minutes per
-  axis and mode, and a Roslyn package takes 30. One package by hand:
+  axis and condition, and a Roslyn package takes 30. One package by hand:
   `scripts/build-and-compare.py try-build population.tsv Quartz $LAB`, then
   `build-twice population.tsv Quartz $LAB default build_path` (or `configured`,
   or another axis). The lab's `pwsh` was PowerShell 7.6.9 installed as a dotnet

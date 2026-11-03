@@ -373,7 +373,7 @@ def compare_builds(store, package_id):
         verdict['b1'] = 'differs'
     hashes_a, hashes_b = entry_hashes(a), entry_hashes(b)
     if verdict['b1'] == 'differs' and not verdict['first']:
-        # the whole file differs but every entry is the same: only the entry timestamps can differ
+        # the package file differs but every entry is the same: only the entry timestamps can differ
         verdict['first'] = 'entry timestamps only' if hashes_a == hashes_b else 'packaging files only'
     for entry in sorted(set(hashes_a) | set(hashes_b)):
         if hashes_a.get(entry) == hashes_b.get(entry) or is_nuget_metadata(entry):

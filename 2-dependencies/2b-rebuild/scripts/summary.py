@@ -87,7 +87,7 @@ def listings(path):
 
 
 def scope(lines):
-    """Apply 2a's levels to a compare.py listing: whole file, content, DLLs.
+    """Apply 2a's levels to a compare.py listing: package file, package entries, assemblies.
     Column 0 is nuget.org; column 1 is ours."""
     whole = content = dlls = True
     signed = False
@@ -160,10 +160,10 @@ def main():
             whole, content, dlls, signed = scope(listed[f'{k[0]}-{k[1]}'])
             levels['listed'] += 1; levels['whole'] += whole; levels['content'] += content; levels['dlls'] += dlls; levels['signed'] += signed
     lines += ['### Against part 2a\'s levels', '',
-              f'Of the {len(compared)} packages compared, {levels["listed"]} have a package listing. Level 1 (whole file): '
+              f'Of the {len(compared)} packages compared, {levels["listed"]} have a package listing. Level 1 (package file): '
               f'{levels["whole"]}; nuget.org\'s package carries its repository signature (`.signature.p7s`) in '
-              f'{levels["signed"]} of them, which no rebuild can produce. Level 2 (content without NuGet\'s packaging files '
-              f'and that signature): {levels["content"]}. Level 3 (every DLL under lib/, ref/, runtimes/): {levels["dlls"]}. '
+              f'{levels["signed"]} of them, which no rebuild can produce. Level 2 (package entries without NuGet\'s packaging files '
+              f'and that signature): {levels["content"]}. Level 3 (assemblies: every DLL under lib/, ref/, runtimes/): {levels["dlls"]}. '
               f'The DLL that ships in Phoenix, identical: {sum(out[k] == "identical" for k in compared)}.', '']
 
     a2 = collections.Counter(release[k]['a_eq_a2'] for k in compared)

@@ -1,4 +1,4 @@
-package	version	repo	screen	global_json	cat_whole_file	cat_content	cat_dll	axes_run	first_difference_all_axes
+package	version	repo	screen	global_json	cat_package_file	cat_package_entries	cat_assemblies	axes_run	first_difference_all_axes
 Ardalis.GuardClauses	5.0.0	https://github.com/ardalis/GuardClauses	built	none	with configuration	with configuration	with configuration	8	Ardalis.GuardClauses.5.0.0.nupkg:lib/netstandard2.1/Ardalis.GuardClauses.dll
 Ardalis.Specification	8.0.0	https://github.com/ardalis/Specification	built	none	with configuration	with configuration	with configuration	8	Ardalis.Specification.8.0.0.nupkg:lib/netstandard2.0/Ardalis.Specification.dll
 Ardalis.Specification.EntityFrameworkCore	8.0.0	https://github.com/ardalis/Specification	built	none	with configuration	with configuration	with configuration	8	Ardalis.Specification.EntityFrameworkCore.8.0.0.nupkg:lib/net8.0/Ardalis.Specification.EntityFrameworkCore.dll
