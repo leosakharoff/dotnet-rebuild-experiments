@@ -10,7 +10,7 @@ repository. Every package is keyed by name and version together (folders
  0. the .NET 10 SDK that runs dllreport.cs, alone in LAB/report-sdk
     (../tools/install-sdk.py, when the folder has none);
  1. derive every package (derive.py) into LAB/derive/<key>/; a package with
-    a facts.txt from an earlier run is kept, a failed derivation is redone;
+    a derivation.txt from an earlier run is kept, a failed derivation is redone;
  2. choose where each recipe builds: a Windows recipe on a windows-2022
     machine, a Linux recipe here, or on GitHub's ubuntu-24.04 runner when the
     build folder the PDB records (/home/runner/work/...) cannot be made here;
@@ -171,9 +171,9 @@ def level_of(outdir, recipe, log):
     return m.group(1), m.group(2), other.rstrip('; ')
 
 
-def sdk_alternatives(facts_path):
-    """Read the SDKs left unexamined by rule 3 from the derivation's facts."""
-    for line in open(facts_path, encoding='utf-8'):
+def sdk_alternatives(derivation_path):
+    """Read the SDKs left unexamined by rule 3 from derivation.txt."""
+    for line in open(derivation_path, encoding='utf-8'):
         if line.startswith('sdk:'):
             m = re.search(r'not read: ([^)]*)\)', line)
             return '' if not m or m.group(1) == 'none' else m.group(1)
@@ -195,17 +195,17 @@ def environment(outdir):
 
 
 def derive(pkg, ver, population, lab, dest):
-    """Run derive.py for one package; read its category, OS and SDK from facts.txt and recipe.toml."""
-    if not os.path.exists(os.path.join(dest, 'facts.txt')):
+    """Run derive.py for one package; read its category, OS and SDK from derivation.txt and recipe.toml."""
+    if not os.path.exists(os.path.join(dest, 'derivation.txt')):
         shutil.rmtree(dest, ignore_errors=True)
         r = subprocess.run([sys.executable, '-I', os.path.join(HERE, 'derive.py'), pkg, ver, population, lab, dest],
                            capture_output=True, text=True)
-        if not os.path.exists(os.path.join(dest, 'facts.txt')):
+        if not os.path.exists(os.path.join(dest, 'derivation.txt')):
             err = (r.stderr.strip().splitlines() or [f'exit {r.returncode}'])[-1]
             os.makedirs(dest, exist_ok=True)
             open(os.path.join(dest, 'error.txt'), 'w', encoding='utf-8').write(r.stdout + r.stderr)
             return f'skipped (derive.py failed: {err[:160]})', '', ''
-    cat = [l for l in open(os.path.join(dest, 'facts.txt'), encoding='utf-8') if l.startswith('category:')][-1].strip()[len('category: '):]
+    cat = [l for l in open(os.path.join(dest, 'derivation.txt'), encoding='utf-8') if l.startswith('category:')][-1].strip()[len('category: '):]
     rec = os.path.join(dest, 'recipe.toml')
     if os.path.exists(rec):
         t = tomllib.load(open(rec, 'rb'))
@@ -229,9 +229,9 @@ def main():
         log(f'{k}: {cat}')
         results[k] = dict(package=pkg, version=ver, category=cat, os=os_, runner='', sdk=sdk, sdk_alternatives='', environment='',
                           build='', publisher_match='', a_eq_a2='', variation='not tested', differs='', note='')
-        facts = os.path.join(lab, 'derive', k, 'facts.txt')
-        if os.path.exists(facts):
-            results[k]['sdk_alternatives'] = sdk_alternatives(facts)
+        derivation = os.path.join(lab, 'derive', k, 'derivation.txt')
+        if os.path.exists(derivation):
+            results[k]['sdk_alternatives'] = sdk_alternatives(derivation)
     derived = {k: r for k, r in results.items() if r['category'].startswith('derived')}
     log(f'derived {len(derived)} of {len(results)}; skipped: ' + ', '.join(k for k in results if k not in derived))
 

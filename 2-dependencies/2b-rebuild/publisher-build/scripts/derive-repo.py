@@ -1,21 +1,21 @@
 """Derive publisher-build recipes for a package list, grouped by repository and commit.
 
-Usage: python3 -I derive-repo.py LIST POPULATION_TSV FACTS_DIR LAB OUT
+Usage: python3 -I derive-repo.py LIST POPULATION_TSV DERIVE_DIR LAB OUT
 
 The publisher's build runs an Arcade repository's own script and takes every listed
 package from that build (README, "What the publisher's own build
 adds"). This script reads, per package: the repository, the commit, the shipped DLL and
-the project (from the release build's facts.txt in FACTS_DIR/<Package>-<version>/ when
+the project (from the release build's derivation.txt in DERIVE_DIR/<Package>-<version>/ when
 they exist, else from the nupkg's .nuspec and POPULATION_TSV), and the DLL's
-AssemblyFileVersionAttribute (from the facts, else from the nupkg via dllreport). It
+AssemblyFileVersionAttribute (from the derivation, else from the nupkg via dllreport). It
 decodes Arcade's official build id from the file version, finds each package's project in
 the repository (a .csproj named like the package id, not under ref/), and groups the
 packages by repository, commit and inner repository (for dotnet/dotnet, the src/<name>/
-that holds the project) into OUT/<repo>-<inner>-<commit7>/recipe.toml, with facts.txt and
+that holds the project) into OUT/<repo>-<inner>-<commit7>/recipe.toml, with derivation.txt and
 a [[products]] list. Packages it does not cover (the runtime packs) go to
 OUT/not-covered.txt with the reason.
 
-The rules, as recorded in each facts.txt:
+The rules, as recorded in each derivation.txt:
   R2   SDK: the repository's own, from global.json, installed by its eng/common/tools.sh.
   R3   command: the repository's entry script with --ci -c Release and --pack; aspnetcore
        builds its shared framework first, then packs one project at a time; standalone
@@ -173,7 +173,7 @@ NODE_BY_SDK = {8: '18.20.8', 9: '22.23.4'}   # R3d: the Node LTS line each aspne
 
 
 def main():
-    lst, population, facts_dir, lab, out = sys.argv[1:6]
+    lst, population, derive_dir, lab, out = sys.argv[1:6]
     os.makedirs(out, exist_ok=True)
     cen = {}
     for l in open(population, encoding='utf-8'):
@@ -190,15 +190,15 @@ def main():
         key = f'{pkg}-{ver}'
         if pkg in NOT_COVERED:
             notes.append(f'{key}: not covered: {NOT_COVERED[pkg]}'); continue
-        facts = os.path.join(facts_dir, key, 'facts.txt')
-        t = open(facts, encoding='utf-8').read() if os.path.exists(facts) else ''
+        record = os.path.join(derive_dir, key, 'derivation.txt')
+        t = open(record, encoding='utf-8').read() if os.path.exists(record) else ''
         ships = (re.search(r'^shipped file: (\S+)', t, re.M) or [None, cen.get((pkg, ver))])[1]
         commit = (re.search(r'^commit: ([0-9a-f]{40})', t, re.M) or [None, None])[1]
         url = (re.search(r'^clone url: (\S+)', t, re.M) or [None, None])[1]
         project = (re.search(r'^project: (\S+\.csproj)', t, re.M) or [None, None])[1]
         filever = (re.search(r'^file version: (\S+)', t, re.M) or [None, None])[1]
         src = []
-        # Read the nupkg when the facts lack the commit, URL or file version.
+        # Read the nupkg when the derivation lacks the commit, URL or file version.
         lid, lver = pkg.lower(), ver.lower()
         np = os.path.join(lab, 'nupkg', f'{lid}.{lver}.nupkg')
         if not (commit and url and filever):
@@ -248,22 +248,22 @@ def main():
             notes.append(f'{key}: not derived: {how}'); continue
         g = groups.setdefault((url, commit, inner), {'kind': kind, 'products': [], 'files': files})
         g['products'].append({'package': pkg, 'version': ver, 'ships': ships, 'project': project,
-                              'file_version': filever, 'build_id': bid, 'how': how, 'source': ', '.join(src) or 'release-only facts'})
+                              'file_version': filever, 'build_id': bid, 'how': how, 'source': ', '.join(src) or 'release-only record'})
     for (url, commit, inner), g in groups.items():
         name = f'{url.rstrip("/").split("/")[-1]}-{(inner.split("/")[-1] + "-") if inner else ""}{commit[:7]}'
         root = inner + '/' if inner else ''
         ids = collections.Counter(p['build_id'] for p in g['products'])
-        facts = [f'{name}: repository build derivation', f'repository: {url}', f'commit: {commit}',
+        record = [f'{name}: repository build derivation', f'repository: {url}', f'commit: {commit}',
                  f'inner repository: {inner or "none (the repository itself)"}', f'kind: {g["kind"]}']
         for p in g['products']:
-            facts.append(f'product {p["package"]} {p["version"]}: ships {p["ships"]}; project {p["project"]}; file version {p["file_version"]} -> {p["build_id"]} [{p["how"]}; from {p["source"]}]')
+            record.append(f'product {p["package"]} {p["version"]}: ships {p["ships"]}; project {p["project"]}; file version {p["file_version"]} -> {p["build_id"]} [{p["how"]}; from {p["source"]}]')
         if len(ids) > 1:
             notes.append(f'{name}: not derived: its products decode to different build ids {dict(ids)}; one build cannot have two')
             d = os.path.join(out, name); os.makedirs(d, exist_ok=True)
-            open(os.path.join(d, 'facts.txt'), 'w', encoding='utf-8').write('\n'.join(facts + [notes[-1]]) + '\n')
+            open(os.path.join(d, 'derivation.txt'), 'w', encoding='utf-8').write('\n'.join(record + [notes[-1]]) + '\n')
             continue
         bid = next(iter(ids))
-        facts.append(f'official build id: {bid}  [rule R4]')
+        record.append(f'official build id: {bid}  [rule R4]')
         props = f'/p:OfficialBuildId={bid}'
         # R4b: the shipped versions carry no prerelease label, so the build is told it is the release; the
         # Arcade repositories gate DotNetFinalVersionKind=release on StabilizePackageVersion (eng/Versions.props)
@@ -273,22 +273,22 @@ def main():
                 # the Roslyn rule (28/10 07:50): Roslyn's official pipeline passes -officialBuildId only (azure-pipelines-official.yml at
                 # the commit); the shipped assembly keeps the prerelease informational version (5.0.0-2.25567.12+sha, Windows run of
                 # version 3) and the package is stabilised by repacking, so the two properties are not the official build's input here
-                facts.append('the Roslyn rule: no StabilizePackageVersion/DotNetFinalVersionKind for Roslyn (the official build passes OfficialBuildId only; the package is repacked to its release version)  [read]')
+                record.append('the Roslyn rule: no StabilizePackageVersion/DotNetFinalVersionKind for Roslyn (the official build passes OfficialBuildId only; the package is repacked to its release version)  [read]')
             else:
                 props += ' /p:StabilizePackageVersion=true /p:DotNetFinalVersionKind=release'
-            facts.append('release branding: StabilizePackageVersion=true, DotNetFinalVersionKind=release  [read: the shipped versions have no prerelease label; rule R4b]')
+            record.append('release branding: StabilizePackageVersion=true, DotNetFinalVersionKind=release  [read: the shipped versions have no prerelease label; rule R4b]')
         else:
-            facts.append('release branding: none passed (a shipped version has a prerelease label)')
+            record.append('release branding: none passed (a shipped version has a prerelease label)')
         if inner:
             # the VMR forces the SDK's compiler on every inner repository (repo-projects/Directory.Build.targets);
             # the PDB compiler records of the shipped DLLs name the SDK's csc, not Microsoft.Net.Compilers.Toolset's
             props += ' /p:UsingToolMicrosoftNetCompilers=false'
-            facts.append('compiler: UsingToolMicrosoftNetCompilers=false  [read: the VMR passes it to every inner build; the PDBs record the SDK\'s csc]')
+            record.append('compiler: UsingToolMicrosoftNetCompilers=false  [read: the VMR passes it to every inner build; the PDBs record the SDK\'s csc]')
         # R5b: an official build (OfficialBuildId set) acquires IBC optimization data from a
         # Microsoft-internal drop through eng/common/internal (msbuild: UsingToolIbcOptimization=true; 27/10 22:29,
         # 401 on the devdiv feed). The documented suppression is EnableNgenOptimization=false.
         props += ' /p:EnableNgenOptimization=false'
-        facts.append('R5b: EnableNgenOptimization=false (the optimization-data step needs a Microsoft-internal drop; its tools restore from a 401 feed)  [rule]')
+        record.append('R5b: EnableNgenOptimization=false (the optimization-data step needs a Microsoft-internal drop; its tools restore from a 401 feed)  [rule]')
         if inner:
             import json
             man = json.loads(sh(['git', '-C', mirror_of(url, lab), 'show', f'{commit}:src/source-manifest.json']).stdout)
@@ -296,7 +296,7 @@ def main():
             if not orig:
                 notes.append(f'{name}: not derived: {inner} not in src/source-manifest.json'); continue
             props += f' /p:RepositoryUrl={url} /p:RepoOriginalSourceRevisionId={orig}'
-            facts.append(f'R4c, VMR identity: RepositoryUrl={url} (the DLL\'s RepositoryUrl attribute), RepoOriginalSourceRevisionId={orig} (src/source-manifest.json at the commit; the DLL\'s OriginalRepoCommitHash attribute where the repository emits it)  [read]')
+            record.append(f'R4c, VMR identity: RepositoryUrl={url} (the DLL\'s RepositoryUrl attribute), RepoOriginalSourceRevisionId={orig} (src/source-manifest.json at the commit; the DLL\'s OriginalRepoCommitHash attribute where the repository emits it)  [read]')
         cd = f'cd {inner} && ' if inner else ''
         if g['kind'] == 'aspnetcore':
             # the shared-framework project is a .csproj up to .NET 9 and a .sfxproj in .NET 10 (docs/BuildErrors.md still says .csproj)
@@ -308,7 +308,7 @@ def main():
             # each step's output is read for that marker: s() runs a step and fails on it
             wrap = 'L=$(mktemp); s() { "$@" > "$L" 2>&1; c=$?; cat "$L"; grep -q "task.complete result=Failed" "$L" && return 1; return $c; }; '
             first = f's ./eng/build.sh --ci -nobl -c Release --projects "$PWD/{app[len(root):]}" {props} || exit 1; ' if app else ''
-            facts.append('shared framework first: ' + (f'yes, {app} (docs/BuildErrors.md)' if first else 'no: App.Runtime project not found under src/Framework/App.Runtime/src'))
+            record.append('shared framework first: ' + (f'yes, {app} (docs/BuildErrors.md)' if first else 'no: App.Runtime project not found under src/Framework/App.Runtime/src'))
             # Call --pack once per project: the shell strips quotes from a ';'-joined list, then MSBuild splits it.
             packs = ' '.join('"$PWD/' + p['project'][len(root):] + '"' for p in g['products'])
             build = f'{cd}{wrap}{first}ok=0; for p in {packs}; do s ./eng/build.sh --ci -nobl -c Release --pack --projects "$p" {props} || ok=1; done; exit $ok'
@@ -342,7 +342,7 @@ def main():
             # "Libraries_AllConfigurations" leg, "-s tools+libs -allConfigurations" on windows_x64 (eng/pipelines/runtime-official.yml)
             build = f'{cd}./build.sh {tools}{subset} -allconfigurations -c Release -ci -nobl -pack {props}'
             win = f'./build.cmd -subset {tools}{subset} -allconfigurations -c Release -ci -nobl -pack {props}; exit $LASTEXITCODE'
-            facts.append(f'R3c: subset {tools}{subset} -allconfigurations (eng/Subsets.props at the commit names these; libs.native and libs.pretest left out; the official leg Libraries_AllConfigurations builds tools+libs -allConfigurations on windows_x64)  [read]')
+            record.append(f'R3c: subset {tools}{subset} -allconfigurations (eng/Subsets.props at the commit names these; libs.native and libs.pretest left out; the official leg Libraries_AllConfigurations builds tools+libs -allConfigurations on windows_x64)  [read]')
         elif g['kind'] == 'runtime':
             build = f'{cd}./build.sh libs -c Release -ci -nobl -pack {props}'
             win = f'./build.cmd -subset libs -c Release -ci -nobl -pack {props}; exit $LASTEXITCODE'
@@ -354,15 +354,15 @@ def main():
         else:
             build = f'{cd}./build.sh --restore --build --pack --ci -nobl -c Release {props}'
             win = f'./{win_entry(url, commit, lab, ("-restore", "-build", "-pack"))} -ci -nobl -c Release {props}; exit $LASTEXITCODE'
-        facts.append(f'command: {build}  [rule R3]')
+        record.append(f'command: {build}  [rule R3]')
         if inner:   # Build the VMR only on Linux here. Windows needs Visual Studio's native toolchain and hours.
             win = ''
-            facts.append('no Windows command: a VMR inner build is not run on a Windows runner (no build_windows)')
+            record.append('no Windows command: a VMR inner build is not run on a Windows runner (no build_windows)')
         else:
-            facts.append(f'command on a Windows runner (pwsh): {win}  [rule R3]')
+            record.append(f'command on a Windows runner (pwsh): {win}  [rule R3]')
         gj = f'{root}global.json'
-        facts.append(f'sdk: from {gj}, installed by the repository\'s own eng/common/tools.sh into {root}.dotnet  [rule R2]')
-        toml = [f'# Derived by derive-repo.py (repository-build method), see facts.txt beside it.',
+        record.append(f'sdk: from {gj}, installed by the repository\'s own eng/common/tools.sh into {root}.dotnet  [rule R2]')
+        toml = [f'# Derived by derive-repo.py (repository-build method), see derivation.txt beside it.',
                 f'name = "{name}"', f'repo = "{url}"', f'commit = "{commit}"', f'inner = "{inner}"', f'kind = "{g["kind"]}"',
                 f'official_build_id = "{bid}"', 'shell = "bash"', f"build = '''{build}'''",
                 *([f"build_windows = '''{win}'''"] if win else []),
@@ -372,7 +372,7 @@ def main():
                 'git_config = ["core.autocrlf=true"]',
                 'strip_internal_feeds = true']
         major = sdk_major(mirror_of(url, lab), commit, root)
-        facts.append(f'sdk major from global.json: {major if major else "unreadable"}')
+        record.append(f'sdk major from global.json: {major if major else "unreadable"}')
         if g['kind'] == 'aspnetcore' and not inner and major in NODE_BY_SDK:
             # R3d: the standalone aspnetcore build runs its npm projects (eng/Build.props adds NodeJsProjects
             # whenever node is on PATH; Components.Server references Web.JS.npmproj, so they cannot be left out) and the
@@ -381,18 +381,18 @@ def main():
             node = os.path.join(lab, 'node', f'node-v{NODE_BY_SDK[major]}-linux-x64', 'bin')
             toml.append(f'path_prepend = ["{node}"]')
             toml.append(f'node = "{NODE_BY_SDK[major]}"')   # The workflow installs the same Node line on Windows.
-            facts.append(f'R3d: Node {NODE_BY_SDK[major]} (nodejs.org, sha256 checked) first on PATH for the npm projects of the .NET {major} tree  [rule]')
+            record.append(f'R3d: Node {NODE_BY_SDK[major]} (nodejs.org, sha256 checked) first on PATH for the npm projects of the .NET {major} tree  [rule]')
         # SDKs below .NET 8 get invariant globalization, assumed not to start on Arch's ICU 78. For .NET 7 that is
         # wrong (the SDK starts, and invariant mode turns NETSDK1188 into errors; the package is still produced);
         # the stored run kept this rule, so it stays here.
         if major and major < 8:
             toml.append('[env]'); toml.append('DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = "1"')
-            facts.append(f'env: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 (SDK {major}.x: assumed not to start on Arch\'s ICU 78)')
+            record.append(f'env: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 (SDK {major}.x: assumed not to start on Arch\'s ICU 78)')
         for p in g['products']:
             toml += ['', '[[products]]', f'package = "{p["package"]}"', f'version = "{p["version"]}"', f'ships = "{p["ships"]}"', f'project = "{p["project"]}"', f'file_version = "{p["file_version"]}"']
         d = os.path.join(out, name); os.makedirs(d, exist_ok=True)
         open(os.path.join(d, 'recipe.toml'), 'w', encoding='utf-8').write('\n'.join(toml) + '\n')
-        open(os.path.join(d, 'facts.txt'), 'w', encoding='utf-8').write('\n'.join(facts) + '\n')
+        open(os.path.join(d, 'derivation.txt'), 'w', encoding='utf-8').write('\n'.join(record) + '\n')
         print(f'{name}: {len(g["products"])} products, build id {bid}')
     open(os.path.join(out, 'not-covered.txt'), 'w', encoding='utf-8').write('\n'.join(notes) + '\n')
     for n in notes:

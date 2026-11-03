@@ -67,8 +67,7 @@ Every package is built under two conditions:
 - the same build with the three properties the .NET ecosystem offers for
   deterministic output set: `ContinuousIntegrationBuild` maps source paths to
   `/_/`, `Deterministic` makes the compilation deterministic, and
-  `DeterministicTimestamp`, set to the commit's time, fixes the ZIP entry
-  times.
+  `DeterministicTimestamp`, set to the commit's time, fixes the ZIP entry times.
 
 `results/runs.tsv` labels the two conditions `default` and `configured` in its
 `mode` column. The rest of this README uses those two labels.
@@ -88,10 +87,9 @@ from the publisher's CI.
 
 ### Environmental variations
 
-The experiment applies reprotest's eight variations one at a time:
-`build_path`, `environment`, `locales`, `exec_path`, `time` (with the clock
-approximately one year ahead), `timezone`, `umask` and `fileordering`
-(disorderfs).
+The experiment applies reprotest's eight variations one at a time: `build_path`,
+`environment`, `locales`, `exec_path`, `time` (with the clock approximately one
+year ahead), `timezone`, `umask` and `fileordering` (disorderfs).
 
 Each variation is one reprotest run, and each run builds the package twice: a
 control build, then a build with that one variation. `build_twice` in
@@ -169,9 +167,9 @@ python3 -I scripts/summary.py $LAB results    # results/summary.md, results/cate
 
 The experiment ran on `arch` from 2 November at 17:43 to 3 November at 08:49,
 2026. The 1008 verdicts from the 1 to 2 November run were carried over
-unchanged. The remaining packages were built during the night of 2 November.
-Runs that failed with the full `/tmp` were repeated on the morning of 3
-November, as described under Caveats.
+      unchanged. The remaining packages were built during the night of 2
+      November. Runs that failed with the full `/tmp` were repeated on the
+      morning of 3 November, as described under Caveats.
 
 Of the 224 eligible rows, 127 packages from 68 repositories built and were
 measured. The remaining 97 did not build with the default command.
@@ -202,9 +200,9 @@ The categories of the 127 at each level. The 25 unreproducible are 23 whose
 configured build differs and 2 whose configured `time` build fails, the npm
 packages (see Packages not fixed by configuration).
 
-No package file is reproducible as is at level 1 because NuGet stamps
-every ZIP entry with the build time. `DeterministicTimestamp` removes this
-source of variation.
+No package file is reproducible as is at level 1 because NuGet stamps every ZIP
+entry with the build time. `DeterministicTimestamp` removes this source of
+variation.
 
 Four packages are reproducible as is at the package-entry and assembly levels:
 CsvHelper, FluentValidation, FluentValidation.DependencyInjectionExtensions and
@@ -227,14 +225,15 @@ builds on each axis:
 | time | 125 | 18 | 18 | 2 |
 | environment, locales, exec_path, timezone, umask, fileordering (each) | 127 | 5 | 5 | 0 |
 
-![Differences per variation at the package file and in the entries](figures/variations.png)
+![Differences per variation at the package file and in the
+entries](figures/variations.png)
 
 Packages whose two builds differ per axis, default and configured. The left
 panel is the package file, and the right panel is the package entries and the
 assemblies, which have the same counts on every axis in both conditions. In the
 default build every package file differs on every axis, except under `time`,
-where 2 builds fail and 125 differ. In the entries, only `build_path` and
-`time` move. The configured bars are the same in both panels because
+where 2 builds fail and 125 differ. In the entries, only `build_path` and `time`
+move. The configured bars are the same in both panels because
 `DeterministicTimestamp` removes the ZIP entry times. Source:
 `results/runs.tsv`.
 
@@ -251,6 +250,17 @@ therefore does not establish that each axis independently caused it.
 reads the clock.
 
 ### Packages not fixed by configuration
+
+The three properties act on the compiler and the packer. Every cause below is a
+value the repository's own build logic computes before the compiler runs: a
+version or copyright year read from the clock, a folder named by a hash of the
+path, a PDB path left unmapped, or a tool that does not run under the variation.
+The compiler does what it is told; the input is already different.
+
+![Where the causes enter the build and where the properties act](figures/build-stages.drawio.png)
+
+The four inputs enter at MSBuild's evaluation, before the compiler and the
+packer that the properties act on.
 
 The causes for the 25 packages that remain unreproducible after configuration
 are:
@@ -361,6 +371,7 @@ Three differences in the study designs limit a direct comparison:
   population.tsv              the 341 shipped packages with repository, commit, project and status; 224 are `ok`
   figures/
     pipeline-2a.drawio        the method as a pipeline; pipeline-2a.drawio.png is its export
+    build-stages.drawio       where the causes enter the build; build-stages.drawio.png is its export
     categories.pdf, .png      the categories of the 127 at each level, from results/categories.tsv
     variations.pdf, .png      differences per axis at the package file and in the entries, from results/runs.tsv
   scripts/

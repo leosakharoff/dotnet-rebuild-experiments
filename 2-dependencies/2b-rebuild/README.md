@@ -50,10 +50,10 @@ compiler record, so a package without that record cannot receive a recipe. Part
 ### Deriving a build recipe
 
 `scripts/derive.py` derives each package's build parameters from its release
-using eight rules. The `facts.txt` file beside each recipe marks every value as
-*read*, *inferred* or *default*. Read values name their source. Inferred values
-name the rule that turned an observation into a choice. Defaults state why they
-were used.
+using eight rules. The `derivation.txt` file beside each recipe marks every
+value as *read*, *inferred* or *default*. Read values name their source.
+Inferred values name the rule that turned an observation into a choice. Defaults
+state why they were used.
 
 | rule | value | taken from |
 |---|---|---|
@@ -99,8 +99,8 @@ deleted between builds.
 
 The comparison uses the DLL shipped in Phoenix, extracted both from our rebuilt
 package and from the package on nuget.org. This is the file `population.tsv`
-names for the package. It narrows part 2a's level 3, the assemblies, from
-all DLLs to the single DLL loaded by Phoenix.
+names for the package. It narrows part 2a's level 3, the assemblies, from all
+DLLs to the single DLL loaded by Phoenix.
 
 `../tools/dllreport.cs` reads both DLLs and hashes each section, metadata stream
 and resource separately. `scripts/level.py` then decides how well the pair
@@ -248,9 +248,9 @@ Core provider; ScottPlot; TimeZoneConverter; and UnitsNet.
 
 Cronos, Hangfire.InMemory, NodaTime, Microsoft.Identity.Abstractions,
 Microsoft.Identity.Web.Certificateless, .Diagnostics, .TokenCache and
-Microsoft.OpenApi matched as *identical without signatures*. These eight
-cases were assessed from DLL reports. The complete signature-stripped files were
-not hashed.
+Microsoft.OpenApi matched as *identical without signatures*. These eight cases
+were assessed from DLL reports. The complete signature-stripped files were not
+hashed.
 
 ### Builds with other code
 
@@ -395,8 +395,8 @@ working repository's "best of all versions" from 28 October.
   `RepositoryUrl` read from the shipped DLL. Matching these attributes alone is
   not evidence. The evidence comes from the IL, metadata and resources.
 - The eight release-build rows matched as identical without signatures were
-  assessed from report lines, not from hashes of the complete DLL produced
-  with `stripsign.cs`. The 35 corresponding publisher-build rows were hashed as
+  assessed from report lines, not from hashes of the complete DLL produced with
+  `stripsign.cs`. The 35 corresponding publisher-build rows were hashed as
   complete DLLs.
 - Rule 3 selects the lowest SDK containing the compiler. Higher SDKs with the
   same compiler are listed but not tested.
@@ -424,7 +424,7 @@ working repository's "best of all versions" from 28 October.
     pipeline-2b.drawio        the method as a pipeline; pipeline-2b.drawio.png is its export
     match.pdf, .png           the matches per group, release and publisher's build, from results/categories.tsv
   scripts/
-    derive.py                 the eight rules: release facts to recipe.toml and facts.txt
+    derive.py                 the eight rules: release facts to recipe.toml and derivation.txt
     rebuild.py                one recipe: SDK by hash, fresh clone, build A and A2, pack
     compare.py                two packages entry by entry
     level.py                  matches one DLL pair from two dllreport.cs reports
@@ -512,12 +512,12 @@ Checked on 3 November:
   the eight rows matched as identical without signatures. The copy of
   `rebuild.py` here has not run on Windows.
 
-Every recipe, `facts.txt`, build log and DLL report is in the working
-repository, [Speciale2026](https://github.com/peterjuulm/Speciale2026), at
-`f127442` under `dependencies/experiments/nupkg/recipes/` and the data folders
-named above. The notes of record are
-`dependencies/notes/2026-10-26-nupkg-release-only.md` (the rules),
-`2026-10-27-nupkg-release-only-batch2-v3.md` and
+Every recipe, `derivation.txt` (then named `facts.txt`), build log and DLL
+report is in the working repository,
+[Speciale2026](https://github.com/peterjuulm/Speciale2026), at `f127442` under
+`dependencies/experiments/nupkg/recipes/` and the data folders named above. The
+notes of record are `dependencies/notes/2026-10-26-nupkg-release-only.md` (the
+rules), `2026-10-27-nupkg-release-only-batch2-v3.md` and
 `2026-10-27-nupkg-release-only-batch3-microsoft.md` (version 3 and its run),
 `2026-10-27-nupkg-repository-build-plan.md`,
 `2026-10-28-nupkg-repository-build.md`,

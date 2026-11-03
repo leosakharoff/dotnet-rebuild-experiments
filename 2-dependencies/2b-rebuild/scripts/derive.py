@@ -44,7 +44,7 @@ The rules, in the order they run (README, Method):
     version, AssemblyVersion and FileVersion from the DLL's attributes, and
     PackageVersion from the .nuspec.
 
-OUT gets recipe.toml (for rebuild.py), facts.txt (one line per rule, with
+OUT gets recipe.toml (for rebuild.py), derivation.txt (one line per rule, with
 its mark) and the report of the published DLL.
 
 Uses version 3 of the method (Speciale2026,
@@ -56,14 +56,14 @@ import xml.etree.ElementTree as ET
 HERE = os.path.dirname(os.path.abspath(__file__))
 TOOLS = os.path.join(HERE, '..', '..', 'tools')
 REPORT_SDK = os.environ.get('DLLREPORT_DOTNET', 'dotnet')   # Use a .NET 10 SDK for the file-based dllreport.cs.
-facts, defaults, skipped = [], [], None
+record, defaults, skipped = [], [], None
 
 
 inferred = []
 
 
 def fact(rule, value, mark):
-    facts.append(f'{rule}: {value}  [{mark}]')
+    record.append(f'{rule}: {value}  [{mark}]')
     if mark.startswith('default'):
         defaults.append(rule)
     if mark.startswith('inferred'):
@@ -73,7 +73,7 @@ def fact(rule, value, mark):
 def skip(rule, why):
     global skipped
     skipped = skipped or f'{rule}: {why}'
-    facts.append(f'{rule}: SKIPPED, {why}')
+    record.append(f'{rule}: SKIPPED, {why}')
 
 
 def download(url, path):
@@ -467,9 +467,9 @@ def main():
 
 
 def finish(out, pkg, ver, recipe):
-    with open(os.path.join(out, 'facts.txt'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(out, 'derivation.txt'), 'w', encoding='utf-8') as f:
         f.write(f'{pkg} {ver}, release-build derivation\n')
-        f.write('\n'.join(facts) + '\n')
+        f.write('\n'.join(record) + '\n')
         if skipped:
             cat = f'skipped ({skipped})'
         elif defaults:
@@ -479,7 +479,7 @@ def finish(out, pkg, ver, recipe):
         f.write(f'category: {cat}\n')
     if recipe:
         with open(os.path.join(out, 'recipe.toml'), 'w', encoding='utf-8') as f:
-            f.write(f'# Derived by derive.py (release build), see facts.txt beside it.\n')
+            f.write(f'# Derived by derive.py (release build), see derivation.txt beside it.\n')
             for k, v in recipe.items():
                 if isinstance(v, list):
                     f.write(f'{k} = [{", ".join(json.dumps(x) for x in v)}]\n')
@@ -488,7 +488,7 @@ def finish(out, pkg, ver, recipe):
                 else:
                     f.write(f'{k} = {json.dumps(v)}\n')
         tomllib.load(open(os.path.join(out, 'recipe.toml'), 'rb'))
-    print(open(os.path.join(out, 'facts.txt'), encoding='utf-8').read())
+    print(open(os.path.join(out, 'derivation.txt'), encoding='utf-8').read())
 
 
 if __name__ == '__main__':
