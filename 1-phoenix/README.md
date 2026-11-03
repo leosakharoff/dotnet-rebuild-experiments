@@ -1,3 +1,5 @@
-# 1-phoenix
+# Rebuilding Phoenix
 
-To come.
+This experiment examines what is needed to rebuild a Phoenix release
+byte for byte across machines.
+The method and results will be documented here.

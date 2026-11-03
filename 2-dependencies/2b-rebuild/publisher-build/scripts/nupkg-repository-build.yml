@@ -1,0 +1,79 @@
+name: Nupkg repository build
+run-name: publisher's build on ${{ inputs.runner }}
+
+# The publisher's build of Arcade repositories on GitHub-hosted runners: repo-build.py
+# builds each repository at its commit with its own Windows build script and compares the
+# packages with nuget.org. One job per recipe, in parallel; a failed build is a result, not
+# a failed job. Started by hand. Not active in this repository: copy this file to
+# .github/workflows/ in a fork, commit the recipe folders run-repo-batch.py derived
+# (LAB/repo-recipes/<name>/, those listed in LAB/repo-runner.txt), and pass their
+# recipe.toml paths as a JSON list. The stored run used this workflow in Speciale2026,
+# where standard runners are free on a public repository.
+
+on:
+  workflow_dispatch:
+    inputs:
+      recipes:
+        description: Paths of recipe.toml files in this repository, a JSON list
+        required: true
+        type: string
+      runner:
+        description: Runner image
+        required: true
+        default: windows-2022
+        type: choice
+        options:
+          - windows-2022
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.recipe }} on ${{ inputs.runner }}
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      matrix:
+        recipe: ${{ fromJSON(inputs.recipes) }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+      - name: Read the recipe
+        id: recipe
+        shell: pwsh
+        env:
+          RECIPE: ${{ matrix.recipe }}
+        run: |
+          $node = python -I -c "import os, tomllib; print(tomllib.load(open(os.environ['RECIPE'], 'rb')).get('node', ''))"
+          "node=$node" >> $env:GITHUB_OUTPUT
+          $name = python -I -c "import os, tomllib; print(tomllib.load(open(os.environ['RECIPE'], 'rb'))['name'])"
+          "name=$name" >> $env:GITHUB_OUTPUT
+          $drive = (Get-PSDrive -PSProvider FileSystem | Where-Object Free | Sort-Object Free -Descending)[0]
+          Get-PSDrive -PSProvider FileSystem | Where-Object Free | Format-Table Name, @{n='FreeGB'; e={[int]($_.Free / 1GB)}}
+          "work=$($drive.Root)w" >> $env:GITHUB_OUTPUT
+      - name: Set up the recipe's Node line
+        if: steps.recipe.outputs.node != ''
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: ${{ steps.recipe.outputs.node }}
+      - name: Build and compare
+        shell: pwsh
+        env:
+          RECIPE: ${{ matrix.recipe }}
+          WORK: ${{ steps.recipe.outputs.work }}
+        run: python -I 2-dependencies/2b-rebuild/publisher-build/scripts/repo-build.py $env:RECIPE $env:WORK
+      - name: Upload the results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ steps.recipe.outputs.name }}-${{ inputs.runner }}
+          path: ${{ steps.recipe.outputs.work }}/out
+          if-no-files-found: error

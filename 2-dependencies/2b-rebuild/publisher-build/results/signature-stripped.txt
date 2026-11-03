@@ -1,0 +1,39 @@
+# from 2026-10-28-nupkg-repository-build-windows/signature-stripped.txt
+# Whole-file comparison with the signatures removed (stripsign.cs), every level-2 row of the Windows set, 28 October 2026 08:02 on arch
+# columns: package-version, equal/differ, shipped bytes and sha256 prefix after stripping, ours
+Microsoft.Extensions.Diagnostics.HealthChecks-8.0.0            equal  shipped 44554 bytes 0ff6b393ec8c18b7  ours 44554 bytes 0ff6b393ec8c18b7
+Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions-8.0.0 equal  shipped 12298 bytes 2a241529ed5120ec  ours 12298 bytes 2a241529ed5120ec
+Microsoft.AspNetCore.Authentication.JwtBearer-9.0.0            equal  shipped 40970 bytes 64996e46ef3e0f83  ours 40970 bytes 64996e46ef3e0f83
+Microsoft.AspNetCore.Authentication.OpenIdConnect-9.0.0        equal  shipped 116234 bytes 643fe64ce74d4185  ours 116234 bytes 643fe64ce74d4185
+Microsoft.AspNetCore.DataProtection-9.0.0                      equal  shipped 195594 bytes 9d63f9e6e4873eed  ours 195594 bytes 9d63f9e6e4873eed
+Microsoft.AspNetCore.DataProtection.Abstractions-9.0.0         equal  shipped 16906 bytes 5bbeb5d04326a0ad  ours 16906 bytes 5bbeb5d04326a0ad
+Microsoft.Build.Framework-18.0.2                               equal  shipped 258570 bytes d8169faf21a4422f  ours 258570 bytes d8169faf21a4422f
+Yarp.ReverseProxy-2.1.0                                        equal  shipped 357898 bytes e909e26fd28a87f8  ours 357898 bytes e909e26fd28a87f8
+System.IO.Hashing-6.0.0                                        equal  shipped 19466 bytes 7d1820eb2620084a  ours 19466 bytes 7d1820eb2620084a
+Microsoft.Bcl.AsyncInterfaces-8.0.0                            equal  shipped 8202 bytes 95a06eb0e902919b  ours 8202 bytes 95a06eb0e902919b
+System.Reflection.MetadataLoadContext-8.0.0                    equal  shipped 242186 bytes be22f95ea9c0ea85  ours 242186 bytes be22f95ea9c0ea85
+Microsoft.Extensions.DependencyModel-8.0.2                     equal  shipped 68618 bytes ca3ac192ee418ba4  ours 68618 bytes ca3ac192ee418ba4
+System.IO.Packaging-8.0.1                                      equal  shipped 131082 bytes e519287186e608ac  ours 131082 bytes e519287186e608ac
+System.Memory.Data-8.0.1                                       equal  shipped 19466 bytes 522ba45182f26612  ours 19466 bytes 522ba45182f26612
+Microsoft.Bcl.TimeProvider-8.0.1                               equal  shipped 6666 bytes bc6e9dcab38892b2  ours 6666 bytes bc6e9dcab38892b2
+System.Configuration.ConfigurationManager-9.0.11               equal  shipped 432138 bytes 35b43fd7ea22d336  ours 432138 bytes 35b43fd7ea22d336
+System.Diagnostics.EventLog-9.0.11                             equal  shipped 42506 bytes b6037c6c9e910797  ours 42506 bytes b6037c6c9e910797
+System.Security.Cryptography.Pkcs-9.0.11                       equal  shipped 254474 bytes 48fc8105f51fdb09  ours 254474 bytes 48fc8105f51fdb09
+System.Security.Cryptography.ProtectedData-9.0.11              equal  shipped 27658 bytes c54a0bcb5df75551  ours 27658 bytes c54a0bcb5df75551
+Microsoft.Extensions.FileProviders.Abstractions-9.0.0   equal  shipped 12810 bytes 4b2faf820deb4436  ours 12810 bytes 4b2faf820deb4436
+Microsoft.Extensions.Hosting.Abstractions-9.0.0         equal  shipped 42506 bytes 0177220ea723daf1  ours 42506 bytes 0177220ea723daf1
+System.Composition.AttributedModel-9.0.0                equal  shipped 9226 bytes 9d8825e7f37f8f81  ours 9226 bytes 9d8825e7f37f8f81
+System.Composition.Convention-9.0.0                     equal  shipped 43018 bytes 113dad5b0941972e  ours 43018 bytes 113dad5b0941972e
+System.Composition.Hosting-9.0.0                        equal  shipped 45066 bytes 236b75b1a4187201  ours 45066 bytes 236b75b1a4187201
+System.Composition.Runtime-9.0.0                        equal  shipped 16394 bytes cc9cc364dd95ea44  ours 16394 bytes cc9cc364dd95ea44
+System.Composition.TypedParts-9.0.0                     equal  shipped 54794 bytes 8af9e2b36165f54a  ours 54794 bytes 8af9e2b36165f54a
+System.Security.Cryptography.Xml-9.0.0                  equal  shipped 189962 bytes 2a9b4a33d24f08d3  ours 189962 bytes 2a9b4a33d24f08d3
+# from 2026-10-28-nupkg-repository-build-windows-v5/signature-stripped.txt
+Microsoft.CodeAnalysis.Common-5.0.0           equal  shipped 3047946 bytes 5831e43ce3120b12  ours 3047946 bytes 5831e43ce3120b12
+Microsoft.CodeAnalysis.CSharp-5.0.0           equal  shipped 6828554 bytes 98ec2e62ae2d0f82  ours 6828554 bytes 98ec2e62ae2d0f82
+Microsoft.CodeAnalysis.CSharp.Features-5.0.0  equal  shipped 2205706 bytes 1fdbd521a89095dd  ours 2205706 bytes 1fdbd521a89095dd
+Microsoft.CodeAnalysis.CSharp.Workspaces-5.0.0 equal  shipped 933898 bytes 0df5e3b002b7fa81  ours 933898 bytes 0df5e3b002b7fa81
+Microsoft.CodeAnalysis.Features-5.0.0         equal  shipped 5554698 bytes 01861f375770ad69  ours 5554698 bytes 01861f375770ad69
+Microsoft.CodeAnalysis.Scripting.Common-5.0.0 equal  shipped 126986 bytes 69a3f1c95f218dca  ours 126986 bytes 69a3f1c95f218dca
+Microsoft.CodeAnalysis.Workspaces.Common-5.0.0 equal  shipped 4219402 bytes 3673540a67be00cc  ours 4219402 bytes 3673540a67be00cc
+Microsoft.CodeAnalysis.Workspaces.MSBuild-5.0.0 equal  shipped 10250 bytes 08528497b362d557  ours 10250 bytes 08528497b362d557

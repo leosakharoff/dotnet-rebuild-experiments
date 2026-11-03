@@ -1,0 +1,62 @@
+name: Nupkg rebuild
+run-name: ${{ inputs.recipe }} on ${{ inputs.runner }}
+
+# The release build of one package on a GitHub-hosted runner: rebuild.py builds it twice
+# from the commit it declares and compares it with the package on nuget.org. Started by
+# hand. Not active in this repository: copy this file to .github/workflows/ in a fork,
+# commit the recipe.toml files run-batch.py derived (LAB/derive/<Package>-<version>/), and
+# pass the path of one as the recipe input. The stored run used this workflow in
+# Speciale2026, where standard runners are free on a public repository.
+
+on:
+  workflow_dispatch:
+    inputs:
+      recipe:
+        description: Path of a recipe.toml in this repository
+        required: true
+        type: string
+      runner:
+        description: Runner image
+        required: true
+        default: windows-2022
+        type: choice
+        options:
+          - windows-2022
+          - ubuntu-24.04
+
+permissions:
+  contents: read
+
+jobs:
+  rebuild:
+    name: ${{ inputs.recipe }} on ${{ inputs.runner }}
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 60
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+      - name: Rebuild
+        shell: bash
+        env:
+          RECIPE: ${{ inputs.recipe }}
+        run: python -I 2-dependencies/2b-rebuild/scripts/rebuild.py "$RECIPE" "$RUNNER_TEMP/nupkg"
+      - name: Name the artifact
+        if: always()
+        shell: bash
+        env:
+          RECIPE: ${{ inputs.recipe }}
+        run: echo "name=$(basename "$(dirname "$RECIPE")")-${{ inputs.runner }}" >> "$GITHUB_OUTPUT"
+        id: artifact
+      - name: Upload the results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ steps.artifact.outputs.name }}
+          path: ${{ runner.temp }}/nupkg/out
+          if-no-files-found: error

@@ -1,0 +1,240 @@
+"""Rebuild one NuGet package from its declared commit, twice, and compare.
+
+Usage: python3 -I rebuild.py RECIPE WORKDIR
+
+RECIPE is a recipe.toml made by derive.py: repository and commit, branch or
+tag if the .nuspec names one, git config for the checkout's line endings,
+the build folder if the PDB records one, the SDK, the build command, where
+the package lands. WORKDIR must not exist. The script
+
+1. installs the recipe's SDK alone into WORKDIR/sdk (2-dependencies/tools/install-sdk.py);
+2. builds twice, each time from a fresh full clone: A in the recipe's
+   clone_dir if it has one (the path the publisher built in), else in
+   WORKDIR/A/src; then A2 in exactly A's paths again (clone, HOME and
+   package cache deleted first), so that A against A2 measures
+   repeatability with nothing varied;
+3. downloads the package from nuget.org, and its .snupkg if there is one;
+4. compares A with nuget.org's package and A with A2, for the shipped DLL
+   and its PDB, and lists every entry of all three (compare.py).
+
+Logs, the built packages and the comparisons land in WORKDIR/out, and a
+summary goes to stdout. The exit code is 0 when the script ran to the end,
+whatever the verdicts: a build that fails is a result, recorded in the
+summary.
+
+The build's environment. On Linux it is empty apart from HOME, PATH (the SDK
+first, then /usr/bin), LANG, NUGET_PACKAGES, DOTNET_CLI_TELEMETRY_OPTOUT,
+DOTNET_NOLOGO, NuGetAudit and the recipe's [env] (derive.py writes none;
+publisher-build/derive-repo.py writes one for old SDKs). Windows cannot run a build in an empty
+environment, so there the build keeps the machine's environment minus a
+GitHub runner's own CI identity and .NET settings (GITHUB_*, RUNNER_*,
+ACTIONS_*, DOTNET_*, NUGET_*, CI), with no other dotnet on PATH.
+
+Every build gets NuGetAudit=false. The audit checks the restored packages
+against today's advisory database, so an advisory published after the
+release can fail a restore that passed at the time. The audit only warns or
+fails; it does not change what is compiled.
+
+The working repository's rebuild.py (Speciale2026 at f127442) without the
+local git mirrors and the shallow-clone and extra-runtime options of the
+pilot's hand-written recipes.
+"""
+import datetime, hashlib, os, re, shutil, subprocess, sys, tomllib, urllib.error, urllib.request
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+TOOLS = os.path.join(HERE, '..', '..', 'tools')
+WINDOWS = os.name == 'nt'
+SECRET = re.compile('TOKEN|SECRET|KEY|PASSWORD|CREDENTIAL', re.I)
+
+
+def now():
+    return datetime.datetime.now().astimezone().isoformat(timespec='seconds')
+
+
+def run(log, cmd, env=None, cwd=None):
+    """Run cmd with its output appended to the open log; return the exit code.
+
+    The program is looked up on the build's PATH, not ours: on Windows a child
+    process is otherwise found through the parent's PATH, which would pick the
+    runner's own dotnet."""
+    log.write(f'$ {" ".join(cmd)}\n')
+    log.flush()
+    exe = shutil.which(cmd[0], path=env['PATH']) if env else cmd[0]
+    if not exe:
+        log.write(f'{cmd[0]}: not on the build\'s PATH\n')
+        return 127
+    return subprocess.run([exe] + cmd[1:], env=env, cwd=cwd, stdout=log, stderr=subprocess.STDOUT).returncode
+
+
+def must(log, cmd, env=None, cwd=None):
+    code = run(log, cmd, env, cwd)
+    if code:
+        raise RuntimeError(f'{" ".join(cmd)} exited {code}')
+
+
+def build_env(r, sdk, home, nuget, src):
+    if WINDOWS:
+        drop = ('GITHUB_', 'RUNNER_', 'ACTIONS_', 'DOTNET_', 'NUGET_')
+        env = {k: v for k, v in os.environ.items() if not k.upper().startswith(drop) and k.upper() != 'CI'}
+        path = [p for p in env.get('PATH', '').split(os.pathsep) if p and 'dotnet' not in p.lower()]
+        env.update(PATH=os.pathsep.join([sdk] + path), DOTNET_ROOT=sdk, DOTNET_CLI_HOME=home,
+                   NUGET_HTTP_CACHE_PATH=os.path.join(home, 'nuget-http-cache'))
+    else:
+        env = {'HOME': home, 'PATH': f'{sdk}:/usr/bin', 'LANG': 'C.UTF-8'}
+    env.update(NUGET_PACKAGES=nuget, DOTNET_CLI_TELEMETRY_OPTOUT='1', DOTNET_NOLOGO='1', NuGetAudit='false')
+    env.update({k: str(v).replace('{src}', src) for k, v in r.get('env', {}).items()})
+    return env
+
+
+def clone(r, src, env, log):
+    git = ['git', '-C', src]
+    must(log, ['git', 'init', '-q', src], env)
+    must(log, git + ['remote', 'add', 'origin', r['repo']], env)
+    if os.name == 'nt':   # Windows' 260-character path limit: the VMR has test files beyond it (27/10, 51 runs)
+        must(log, git + ['config', 'core.longpaths', 'true'], env)
+    for c in r.get('git_config', []):
+        must(log, git + ['config'] + c.split('=', 1), env)
+    detached = ['-c', 'advice.detachedHead=false', 'checkout', '-q']
+    # a full clone, every branch and tag, and the commit itself in case no branch holds it
+    must(log, git + ['fetch', '-q', '--tags', 'origin', '+refs/heads/*:refs/remotes/origin/*'], env)
+    must(log, git + ['fetch', '-q', 'origin', r['commit']], env)
+    if r.get('tag'):       # as actions/checkout for a pushed tag: HEAD detached at it
+        must(log, git + detached + [f'refs/tags/{r["tag"]}'], env)
+    else:
+        if r.get('branch'):  # HEAD on the pushed branch
+            must(log, git + ['checkout', '-q', '-B', r['branch'], r['commit']], env)
+        else:
+            must(log, git + detached + [r['commit']], env)
+    head = subprocess.run([shutil.which('git', path=env['PATH']), '-C', src, 'rev-parse', 'HEAD'],
+                          env=env, capture_output=True, text=True).stdout.strip()
+    if head != r['commit']:
+        raise RuntimeError(f'HEAD is {head}, not the declared {r["commit"]}')
+
+
+def build(r, name, src, work, sdk, out):
+    d = os.path.join(work, name.rstrip('2'))   # A2 reuses A's paths
+    # an empty package cache, unless the recipe names the CI's own: a package
+    # that adds source files to the build puts their cache path into the PDB
+    home, nuget = os.path.join(d, 'home'), r.get('nuget_packages') or os.path.join(d, 'nuget')
+    nuget = nuget.rstrip('/\\') + os.sep   # NuGetPackageRoot is taken as given; a SourceRoot must end in a separator (ExCSS, 26/10)
+    if name.endswith('2'):
+        for p in (src, home, nuget):
+            shutil.rmtree(p, ignore_errors=True)
+    os.makedirs(home)
+    os.makedirs(nuget, exist_ok=True)
+    env = build_env(r, sdk, home, nuget, src)
+    dest = os.path.join(out, name)
+    os.makedirs(dest)
+    with open(os.path.join(dest, 'build.log'), 'w', encoding='utf-8') as log:
+        log.write(f'start {now()}\nbuild {name} in {src}\n')
+        for k in ('ImageOS', 'ImageVersion', 'RUNNER_OS', 'RUNNER_ARCH'):   # GitHub's runner image, before it is dropped
+            if k in os.environ:
+                log.write(f'runner {k}={os.environ[k]}\n')
+        if 'ImageOS' not in os.environ:   # not a GitHub runner: the machine's kernel and distribution
+            u = os.uname(); log.write(f'kernel {u.sysname} {u.release} {u.machine}\n')
+        log.write('--- environment\n')
+        for k in sorted(env):
+            log.write(f'{k}={"<redacted>" if SECRET.search(k) else env[k]}\n')
+        log.write(f'--- clone {now()}\n')
+        clone(r, src, env, log)
+        run(log, ['git', '-C', src, 'config', '--list', '--show-origin'], env)
+        for args in (['rev-parse', 'HEAD'], ['rev-parse', '--abbrev-ref', 'HEAD'], ['tag', '--points-at', 'HEAD']):
+            run(log, ['git', '-C', src] + args, env)
+        log.write(f'--- toolchain {now()}\n')
+        run(log, ['dotnet', '--info'], env, src)
+        for root, _, files in os.walk(os.path.join(sdk, 'sdk')):
+            if 'csc.dll' in files and root.endswith(os.path.join('Roslyn', 'bincore')):
+                csc = os.path.join(root, 'csc.dll')
+                data = open(csc, 'rb').read()
+                # the informational version's attribute blob: prolog 01 00, a length byte, the string
+                v = re.search(rb'\x01\x00.(\d+\.\d+\.\d+-[0-9.]+\+[0-9a-f]{40})', data, re.S)
+                log.write(f'csc.dll {v.group(1).decode() if v else "version not found"}, '
+                          f'sha256 {hashlib.sha256(data).hexdigest()} ({csc})\n')
+        log.write(f'--- build {now()}\n')
+        run(log, ['dotnet', 'build-server', 'shutdown'], env, src)
+        shell = {'pwsh': ['pwsh', '-NoProfile', '-NonInteractive', '-Command'],
+                 'cmd': ['cmd', '/c'], 'bash': ['bash', '-c']}[r.get('shell', 'bash')]
+        code = run(log, shell + [r['build']], env, src)
+        run(log, ['dotnet', 'build-server', 'shutdown'], env, src)
+        log.write(f'build exit code {code}\nend {now()}\n')
+    if r.get('project'):   # the resolved dependencies, for the record
+        assets = os.path.join(src, os.path.dirname(r['project']), 'obj', 'project.assets.json')
+        if os.path.exists(assets):
+            shutil.copy(assets, os.path.join(dest, 'project.assets.json'))
+    found = []
+    want = {f'{r["package"]}.{r["version"]}.{x}'.lower() for x in ('nupkg', 'snupkg')}
+    pkgdir = os.path.join(src, r.get('packages', '.'))   # where the CI took the package from
+    for f in os.listdir(pkgdir) if os.path.isdir(pkgdir) else []:
+        if f.lower() in want:
+            shutil.copy(os.path.join(pkgdir, f), dest)
+            found.append(f)
+    return code, sorted(found)
+
+
+def download(url, path):
+    try:
+        with urllib.request.urlopen(url, timeout=300) as resp, open(path, 'wb') as f:
+            shutil.copyfileobj(resp, f)
+        return True
+    except urllib.error.HTTPError as e:
+        print(f'{url}: HTTP {e.code}')
+        return False
+
+
+def main():
+    recipe_path, work = sys.argv[1], os.path.abspath(sys.argv[2])
+    with open(recipe_path, 'rb') as f:
+        r = tomllib.load(f)
+    os.makedirs(work)
+    out = os.path.join(work, 'out')
+    os.makedirs(out)
+    shutil.copy(recipe_path, os.path.join(out, 'recipe.toml'))
+    pid, ver = r['package'], r['version']
+    print(f'{pid} {ver} from {r["repo"]} at {r["commit"]}, SDK {r["sdk"]}, start {now()}', flush=True)
+
+    sdk = os.path.join(work, 'sdk')
+    with open(os.path.join(out, 'sdk.txt'), 'w', encoding='utf-8') as log:
+        must(log, [sys.executable, '-I', os.path.join(TOOLS, 'install-sdk.py'), r['sdk'], sdk])
+
+    results = {}
+    a_src = r.get('clone_dir') or os.path.join(work, 'A', 'src')
+    for name, src in (('A', a_src), ('A2', a_src)):
+        if os.path.exists(src) and name != 'A2':
+            sys.exit(f'{src} exists')
+        results[name] = build(r, name, src, work, sdk, out)
+        print(f'build {name} in {src}: exit {results[name][0]}, packages {results[name][1]}', flush=True)
+
+    ref = os.path.join(out, 'nuget-org')
+    os.makedirs(ref)
+    lid, lver = pid.lower(), ver.lower()
+    download(f'https://api.nuget.org/v3-flatcontainer/{lid}/{lver}/{lid}.{lver}.nupkg', os.path.join(ref, f'{lid}.{lver}.nupkg'))
+    download(f'https://www.nuget.org/api/v2/symbolpackage/{pid}/{ver}', os.path.join(ref, f'{lid}.{lver}.snupkg'))
+
+    summary = [f'{pid} {ver}: builds ' + ', '.join(f'{n} exit {c}' for n, (c, _) in results.items())]
+    pdb = r['ships'][:-4] + '.pdb'
+    for kind, inner in (('nupkg', r['ships']), ('snupkg', pdb)):
+        def pkg(d):
+            return next((os.path.join(d, f) for f in os.listdir(d) if f.lower() == f'{lid}.{lver}.{kind}'), None)
+        p = {'nuget.org': pkg(ref), 'A': pkg(os.path.join(out, 'A')), 'A2': pkg(os.path.join(out, 'A2'))}
+        present = [n for n in p if p[n]]
+        if len(present) < 2:
+            summary.append(f'{kind}: not compared, fewer than two packages')
+            continue
+        # every entry of every package, for reading; then one verdict per pair
+        with open(os.path.join(out, f'compare-{kind}.txt'), 'w', encoding='utf-8') as f:
+            subprocess.run([sys.executable, '-I', os.path.join(HERE, 'compare.py'), inner] + [p[n] for n in present], stdout=f)
+        for x, y in (('A', 'nuget.org'), ('A', 'A2')):
+            if p[x] and p[y]:
+                same = subprocess.run([sys.executable, '-I', os.path.join(HERE, 'compare.py'), inner, p[y], p[x]],
+                                      stdout=subprocess.DEVNULL).returncode == 0
+                summary.append(f'{kind}: {inner} {x} vs {y}: {"identical" if same else "differs"}')
+            else:
+                summary.append(f'{kind}: {x} vs {y}: not compared, a package is missing')
+    summary.append(f'end {now()}')
+    with open(os.path.join(out, 'summary.txt'), 'w', encoding='utf-8') as f:
+        f.write('\n'.join(summary) + '\n')
+    print('\n'.join(summary))
+
+
+if __name__ == '__main__':
+    main()
