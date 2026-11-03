@@ -1,9 +1,9 @@
-"""Derive the publisher's-build recipes: one per repository and commit, for the packages in a list.
+"""Derive publisher-build recipes for a package list, grouped by repository and commit.
 
 Usage: python3 -I derive-repo.py LIST POPULATION_TSV FACTS_DIR LAB OUT
 
-The publisher's build builds a whole Arcade repository with its own build script and
-takes every listed package from that one build (README, "What the publisher's own build
+The publisher's build runs an Arcade repository's own script and takes every listed
+package from that build (README, "What the publisher's own build
 adds"). This script reads, per package: the repository, the commit, the shipped DLL and
 the project (from the release build's facts.txt in FACTS_DIR/<Package>-<version>/ when
 they exist, else from the nupkg's .nuspec and POPULATION_TSV), and the DLL's
@@ -38,15 +38,15 @@ LIST lines are "Package Version"; '#' starts a comment. LAB holds bare mirrors o
 repositories (LAB/mirrors, read with git ls-tree and git show, never built from) and the
 downloaded nupkgs (LAB/nupkg).
 
-The working repository's derive-repo.py (Speciale2026 at f127442) run with --v5, the flag
-every final recipe was derived with, with the flags and the rules of the other versions
-removed and the report SDK's lab path replaced.
+Adapted from derive-repo.py (Speciale2026 at f127442) with the --v5 rules used for
+every final recipe. Other versions' flags and rules were removed, and the report SDK's
+lab path was replaced.
 """
 import os, re, subprocess, sys, zipfile, urllib.request, shutil, collections
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TOOLS = os.path.join(HERE, '..', '..', '..', 'tools')
-REPORT_DOTNET = os.environ.get('DLLREPORT_DOTNET', 'dotnet')   # a .NET 10 SDK, for the file-based dllreport.cs
+REPORT_DOTNET = os.environ.get('DLLREPORT_DOTNET', 'dotnet')   # Use a .NET 10 SDK for the file-based dllreport.cs.
 INNER_KINDS = {'runtime': 'runtime', 'aspnetcore': 'aspnetcore', 'efcore': 'arcade', 'roslyn': 'roslyn',
                'msbuild': 'arcade', 'symreader': 'arcade', 'reverse-proxy': 'arcade'}
 NOT_COVERED = {
@@ -62,10 +62,10 @@ def sh(args, **kw):
 def mirror_of(url, lab):
     m = os.path.join(lab, 'mirrors', re.sub(r'[^A-Za-z0-9._-]+', '_', url) + '.git')
     if os.path.isdir(m) and not sh(['git', '-C', m, 'for-each-ref', '--count=1']).stdout.strip():
-        shutil.rmtree(m, ignore_errors=True)   # a fetch that was interrupted: no refs yet
+        shutil.rmtree(m, ignore_errors=True)   # The interrupted fetch has no refs yet.
     if not os.path.isdir(m):
-        # a mirror of the branches and tags only: `git clone --mirror` would also take GitHub's refs/pull/*,
-        # which for dotnet/runtime is several GB of pull-request history the build never needs
+        # Mirror only branches and tags. `git clone --mirror` also fetches GitHub's refs/pull/*:
+        # several GB of dotnet/runtime pull-request history that the build does not need.
         os.makedirs(os.path.dirname(m), exist_ok=True)
         subprocess.run(['git', 'init', '-q', '--bare', m], check=True)
         subprocess.run(['git', '-C', m, 'remote', 'add', 'origin', url], check=True)
@@ -85,7 +85,7 @@ def mirror_of(url, lab):
 
 def tree(mirror, commit):
     r = sh(['git', '-C', mirror, 'ls-tree', '-r', '--name-only', commit])
-    if r.returncode:   # the commit may be missing from the mirror: fetch it
+    if r.returncode:   # Fetch the commit if the mirror lacks it.
         subprocess.run(['git', '-C', mirror, 'fetch', '-q', 'origin', commit], check=False)
         r = sh(['git', '-C', mirror, 'ls-tree', '-r', '--name-only', commit])
     return r.stdout.split('\n') if r.returncode == 0 else None
@@ -126,7 +126,7 @@ def decode_build_id(filever, pkgver, vmr, year_hint):
 
 
 def publish_year(pkg, ver):
-    """The year nuget.org lists the version as published, for a file version that lost its year."""
+    """Read the publish year from nuget.org when the file version no longer contains it."""
     try:
         import json
         with urllib.request.urlopen(f'https://api.nuget.org/v3/registration5-gz-semver2/{pkg.lower()}/{ver.lower()}.json', timeout=60) as r:
@@ -142,7 +142,7 @@ def publish_year(pkg, ver):
 
 
 def sdk_major(mirror, commit, root):
-    """The major version of the SDK in global.json at the commit, for the environment rule on old SDKs."""
+    """Read the SDK major version from global.json at the commit for the old-SDK environment rule."""
     r = sh(['git', '-C', mirror, 'show', f'{commit}:{root}global.json'])
     m = re.search(r'"version"\s*:\s*"(\d+)\.', r.stdout) if r.returncode == 0 else None
     return int(m.group(1)) if m else None
@@ -158,7 +158,7 @@ def report_attr(nupkg, ships, lab, name):
 
 
 def win_entry(url, commit, lab, flags):
-    """The repository's Windows entry script at the commit (build.cmd or Build.cmd) with the flags it does not add itself.
+    """Find the Windows entry script at the commit (build.cmd or Build.cmd). Add only flags it does not supply.
 
     Arcade's standard build.cmd calls eng/common/build.ps1 with -restore -build already (msbuild: -build -restore;
     Roslyn's Build.cmd adds -build only), and PowerShell refuses a switch given twice (28/10 07:20, reverse-proxy on
@@ -198,7 +198,7 @@ def main():
         project = (re.search(r'^project: (\S+\.csproj)', t, re.M) or [None, None])[1]
         filever = (re.search(r'^file version: (\S+)', t, re.M) or [None, None])[1]
         src = []
-        # the nupkg: needed when the facts lack the commit, the URL or the file version
+        # Read the nupkg when the facts lack the commit, URL or file version.
         lid, lver = pkg.lower(), ver.lower()
         np = os.path.join(lab, 'nupkg', f'{lid}.{lver}.nupkg')
         if not (commit and url and filever):
@@ -229,7 +229,7 @@ def main():
         if files is None:
             notes.append(f'{key}: not derived: commit {commit[:9]} not reachable in {url}'); continue
         if not project:
-            cands = [f for f in files if f.lower().endswith(f'/{lid}.csproj') and '/ref/' not in f.lower() and '/referencepackages/' not in f.lower() and '/shims/' not in f.lower()]   # runtime's src/libraries/shims/stubs are facades, not the library
+            cands = [f for f in files if f.lower().endswith(f'/{lid}.csproj') and '/ref/' not in f.lower() and '/referencepackages/' not in f.lower() and '/shims/' not in f.lower()]   # Exclude runtime's src/libraries/shims/stubs: they are facades, not the library.
             if not cands:
                 notes.append(f'{key}: not derived: no {pkg}.csproj in the tree (rule 7)'); continue
             project = sorted(cands, key=len)[0]
@@ -309,7 +309,7 @@ def main():
             wrap = 'L=$(mktemp); s() { "$@" > "$L" 2>&1; c=$?; cat "$L"; grep -q "task.complete result=Failed" "$L" && return 1; return $c; }; '
             first = f's ./eng/build.sh --ci -nobl -c Release --projects "$PWD/{app[len(root):]}" {props} || exit 1; ' if app else ''
             facts.append('shared framework first: ' + (f'yes, {app} (docs/BuildErrors.md)' if first else 'no: App.Runtime project not found under src/Framework/App.Runtime/src'))
-            # one --pack call per project: a ';'-joined list loses its quotes in the shell and MSBuild splits it
+            # Call --pack once per project: the shell strips quotes from a ';'-joined list, then MSBuild splits it.
             packs = ' '.join('"$PWD/' + p['project'][len(root):] + '"' for p in g['products'])
             build = f'{cd}{wrap}{first}ok=0; for p in {packs}; do s ./eng/build.sh --ci -nobl -c Release --pack --projects "$p" {props} || ok=1; done; exit $ok'
             # the same steps for a Windows runner (28/10 07:30): eng/build.cmd, the official entry point, runs
@@ -355,7 +355,7 @@ def main():
             build = f'{cd}./build.sh --restore --build --pack --ci -nobl -c Release {props}'
             win = f'./{win_entry(url, commit, lab, ("-restore", "-build", "-pack"))} -ci -nobl -c Release {props}; exit $LASTEXITCODE'
         facts.append(f'command: {build}  [rule R3]')
-        if inner:   # the VMR is built on Linux only here: its Windows build needs Visual Studio's native toolchain and hours
+        if inner:   # Build the VMR only on Linux here. Windows needs Visual Studio's native toolchain and hours.
             win = ''
             facts.append('no Windows command: a VMR inner build is not run on a Windows runner (no build_windows)')
         else:
@@ -380,7 +380,7 @@ def main():
             # The build gets the Node LTS line of the tree's era from nodejs.org, first on PATH; nothing compared contains JS.
             node = os.path.join(lab, 'node', f'node-v{NODE_BY_SDK[major]}-linux-x64', 'bin')
             toml.append(f'path_prepend = ["{node}"]')
-            toml.append(f'node = "{NODE_BY_SDK[major]}"')   # the same line for a Windows runner, installed by the workflow
+            toml.append(f'node = "{NODE_BY_SDK[major]}"')   # The workflow installs the same Node line on Windows.
             facts.append(f'R3d: Node {NODE_BY_SDK[major]} (nodejs.org, sha256 checked) first on PATH for the npm projects of the .NET {major} tree  [rule]')
         # SDKs below .NET 8 get invariant globalization, assumed not to start on Arch's ICU 78. For .NET 7 that is
         # wrong (the SDK starts, and invariant mode turns NETSDK1188 into errors; the package is still produced);

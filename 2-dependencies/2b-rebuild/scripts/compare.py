@@ -1,10 +1,10 @@
-"""Compare the files in two or more .nupkg files, entry by entry.
+"""Compare two or more .nupkg archives, entry by entry.
 
 Usage: python3 -I compare.py SHIPPED REFERENCE.nupkg OTHER.nupkg...
 
-SHIPPED is the path inside the package of the DLL that ships in Phoenix, for
-example lib/net9.0/Serilog.dll. Each entry is listed with its SHA-256 per
-package; "same" when every package has the same bytes. Packaging files that
+SHIPPED is the path to Phoenix's DLL inside the package, for example
+lib/net9.0/Serilog.dll. List each entry's SHA-256 for each package; mark it
+"same" when the bytes match across all packages. Packaging files that
 are random or added by nuget.org (the .psmdcp core-properties file, its
 _rels, [Content_Types].xml, .signature.p7s) are listed but marked, since the
 test compares DLLs and PDBs only (decision 6). The last line is the verdict

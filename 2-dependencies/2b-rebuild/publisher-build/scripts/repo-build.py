@@ -1,4 +1,4 @@
-"""Build one repository at its declared commit with its own build script, and compare its packages.
+"""Run a repository's own build script at the declared commit and compare its packages.
 
 Usage: python3 -I repo-build.py RECIPE WORKDIR
 
@@ -21,14 +21,14 @@ in WORKDIR/out/toolchain.txt.
 
 One build only, no A2. Exit code 0 when the script ran to the end, whatever the verdicts.
 
-The working repository's repo-build.py (Speciale2026 at f127442), reading rebuild.py and
-compare.py from 2b-rebuild/scripts/.
+Adapted from repo-build.py (Speciale2026 at f127442). Read rebuild.py and compare.py
+from 2b-rebuild/scripts/.
 """
 import glob, hashlib, importlib.util, os, platform, re, shutil, subprocess, sys, tomllib
 import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PARENT = os.path.join(HERE, '..', '..', 'scripts')   # rebuild.py and compare.py, the release build's
+PARENT = os.path.join(HERE, '..', '..', 'scripts')   # Import rebuild.py and compare.py from the release build.
 spec = importlib.util.spec_from_file_location('rebuild', os.path.join(PARENT, 'rebuild.py'))
 rebuild = importlib.util.module_from_spec(spec); spec.loader.exec_module(rebuild)
 now, run, download = rebuild.now, rebuild.run, rebuild.download
@@ -65,7 +65,7 @@ def strip_internal_feeds(src, inner, log):
 
 
 def fetch(url, path, log, tries=3):
-    """Download with retries; a timeout or a partial file is not a crash."""
+    """Retry downloads after a timeout or partial file instead of crashing."""
     import time, urllib.request
     for i in range(tries):
         try:
@@ -114,20 +114,20 @@ def main():
     src, home, nuget = os.path.join(work, 'A', 'src'), os.path.join(work, 'A', 'home'), os.path.join(work, 'A', 'nuget') + os.sep
     os.makedirs(home); os.makedirs(nuget)
     env = rebuild.build_env(r, '', home, nuget, src)
-    if WINDOWS:   # the runner's environment minus its own dotnet (rebuild.build_env); the recipe's Node line is the workflow's job
+    if WINDOWS:   # rebuild.build_env removes the runner's dotnet; the workflow supplies the recipe's Node line.
         env['PATH'] = os.pathsep.join(p for p in env['PATH'].split(os.pathsep) if p)
     else:
         env['PATH'] = '/usr/bin'
         for d in reversed(r.get('path_prepend', [])):   # a toolchain the recipe names (version 3, R3d: a Node line the tree accepts)
             env['PATH'] = d + os.pathsep + env['PATH']
-    env.update(GIT_HTTP_LOW_SPEED_LIMIT='1000', GIT_HTTP_LOW_SPEED_TIME='120')   # a stalled fetch aborts instead of hanging
+    env.update(GIT_HTTP_LOW_SPEED_LIMIT='1000', GIT_HTTP_LOW_SPEED_TIME='120')   # Abort a stalled fetch.
     env['DOTNET_INSTALL_DIR'] = os.path.join(src, inner, '.dotnet') if inner else os.path.join(src, '.dotnet')
     env['DOTNET_ROOT'] = env['DOTNET_INSTALL_DIR']
     code = None
     with open(os.path.join(out, 'build.log'), 'w', encoding='utf-8') as log:
         log.write(f'start {now()}\nrepository build {r["name"]} in {src}\n')
         u = platform.uname(); log.write(f'kernel {u.system} {u.release} {u.machine}\n')
-        for k in ('ImageOS', 'ImageVersion'):   # a GitHub-hosted runner names its image so; run-batch.py reads these lines
+        for k in ('ImageOS', 'ImageVersion'):   # Record the GitHub runner image in the format run-batch.py reads.
             if os.environ.get(k):
                 log.write(f'runner {k}={os.environ[k]}\n')
         log.write('--- environment\n')
@@ -185,14 +185,14 @@ def main():
         open(os.path.join(d, 'A', 'build.log'), 'w', encoding='utf-8').write(
             header + f'--- build: the repository build, see ../../build.log\nbuild exit code {code}\n')
         assets = os.path.join(src, os.path.dirname(p.get('project', '')), 'obj', 'project.assets.json')
-        if p.get('project') and os.path.exists(assets):   # the resolved dependencies, for the record (rule R5)
+        if p.get('project') and os.path.exists(assets):   # Record the resolved dependencies (rule R5).
             shutil.copy(assets, os.path.join(d, 'project.assets.json'))
         got = []
         for kind in ('nupkg', 'snupkg'):
             f = found.get(f'{lid}.{lver}.{kind}')
             if f:
-                shutil.copy(f, os.path.join(d, 'A', f'{lid}.{lver}.{kind}')); got.append(kind)   # lower-case name: the comparison looks for it so
-        if 'nupkg' not in got:   # packed under another version: copied too, so the DLL is still compared (run-batch's fallback)
+                shutil.copy(f, os.path.join(d, 'A', f'{lid}.{lver}.{kind}')); got.append(kind)   # Use a lower-case name for the comparison lookup.
+        if 'nupkg' not in got:   # Also copy other package versions so the DLL is compared (run-batch's fallback).
             others = [k for k in found if k.startswith(lid + '.') and k.endswith('.nupkg') and re.fullmatch(rf'{re.escape(lid)}\.\d[^/]*\.nupkg', k)]
             for k in others[:1]:
                 shutil.copy(found[k], os.path.join(d, 'A', k))

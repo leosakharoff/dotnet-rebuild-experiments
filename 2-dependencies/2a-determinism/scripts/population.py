@@ -1,5 +1,5 @@
-"""The population of the determinism experiment: for a list of NuGet packages,
-which ones name a source we can build, and which project file builds them.
+"""Find source commits and project files for the determinism experiment
+from a list of NuGet packages.
 
     python3 -I population.py shipped-packages.txt WORK population.tsv
 
@@ -16,9 +16,9 @@ shipped-packages.txt has one "Package Version" per line (# comments allowed). Fo
     and shim projects (ref/, referencePackages/, shims/) are dropped, then the one named like
     the package wins; still none or several stops here, and the row says which were found.
 
-population.tsv gets one row per package: package, version, repo, commit, project, dll,
-status. status is "ok" when the row can be built, else the step that stopped and why.
-Nothing is built, and nothing but public sources is read.
+Write one row per package to population.tsv: package, version, repo, commit, project, dll,
+status. status is "ok" when the row can be built; otherwise it records where and why it stopped.
+Read only public sources. Do not build anything.
 """
 import hashlib, os, re, shutil, subprocess, sys, urllib.request, zipfile
 import xml.etree.ElementTree as ET
@@ -37,7 +37,7 @@ def fetch_nupkg(pkg, ver, workdir):
 
 
 def read_nuspec(nupkg):
-    """(repository url, commit) from the package's .nuspec, '' where absent."""
+    """Read (repository url, commit) from the package's .nuspec; use '' for missing values."""
     with zipfile.ZipFile(nupkg) as z:
         name = next(n for n in z.namelist() if n.endswith('.nuspec') and '/' not in n)
         root = ET.fromstring(z.read(name))
@@ -48,7 +48,7 @@ def read_nuspec(nupkg):
 
 
 def shipped_dll(nupkg, pkg):
-    """The assembly under lib/ (satellite resource assemblies in culture folders left out)."""
+    """Find the assembly under lib/, excluding satellite resources in culture folders."""
     with zipfile.ZipFile(nupkg) as z:
         dlls = sorted({os.path.basename(n) for n in z.namelist()
                        if n.startswith('lib/') and n.endswith('.dll') and n.count('/') == 2})
@@ -59,14 +59,14 @@ def shipped_dll(nupkg, pkg):
 
 
 def fetch_source(repo, commit, workdir):
-    """A shallow checkout of one commit, shared by every package at that repository and commit."""
+    """Check out one commit shallowly; share it across packages from that repository and commit."""
     key = hashlib.sha256(f'{repo.lower()} {commit}'.encode()).hexdigest()[:16]
     src = os.path.join(workdir, 'src', key)
     if os.path.exists(os.path.join(src, '.population-ok')):
         return src
-    shutil.rmtree(src, ignore_errors=True)   # a fetch that failed earlier left a half-made folder
+    shutil.rmtree(src, ignore_errors=True)   # An earlier failed fetch left an incomplete folder.
     os.makedirs(src)
-    # large files (git-lfs) are not needed to read project files, so the lfs filter is turned off
+    # Disable git-lfs: reading project files does not need the large files.
     git = ['git', '-c', 'filter.lfs.smudge=', '-c', 'filter.lfs.process=', '-c', 'filter.lfs.required=false']
     cmds = [git + ['init', '-q'], git + ['remote', 'add', 'origin', repo],
             git + ['fetch', '-q', '--depth=1', 'origin', commit],
@@ -81,7 +81,7 @@ def fetch_source(repo, commit, workdir):
 
 
 def project_candidates(src, asm):
-    """Every .csproj under SRC whose assembly name is ASM: its <AssemblyName> when set, else its file name."""
+    """Find .csproj files under SRC with assembly name ASM: <AssemblyName> if set, else the file name."""
     hits = []
     for root, dirs, files in os.walk(src):
         dirs[:] = [d for d in dirs if d != '.git']
@@ -101,9 +101,9 @@ def project_candidates(src, asm):
 
 
 def choose_project(hits, asm, pkg):
-    """One project out of the candidates, or '' and the reason. Of several, reference-assembly and shim
-    projects (ref/, referencePackages/, shims/) are dropped: they build what ships under ref/ or a stub,
-    not the lib/ assembly. Of the rest, the one named like the package wins."""
+    """Choose one project, or return '' with a reason. For multiple candidates, exclude
+    reference-assembly and shim projects (ref/, referencePackages/, shims/): these build
+    ref/ assemblies or stubs, not the lib/ assembly. Then prefer the package's name."""
     if len(hits) == 1:
         return hits[0], ''
     if not hits:
@@ -149,7 +149,7 @@ def main():
                     else:
                         row['project'], why = find_project(src, row['dll'], pkg)
                         row['status'] = why or 'ok'
-        except Exception as e:   # a failed download, a broken package: the row says so, the run goes on
+        except Exception as e:   # Record a failed download or broken package and continue.
             row['status'] = f'{type(e).__name__}: {str(e)[:150]}'
         rows.append(row)
         print(f'{pkg} {ver}: {row["status"]}' + (f' {row["project"]}' if row['project'] else ''), flush=True)

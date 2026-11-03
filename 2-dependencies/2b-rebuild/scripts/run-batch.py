@@ -1,4 +1,4 @@
-"""The release build for every package of the population, start to finish, with a log and a table.
+"""Derive, build and compare the release recipe for each package; write a log and result table.
 
 Usage: python3 -I run-batch.py POPULATION_TSV LAB
 
@@ -29,8 +29,8 @@ repository. Every package is keyed by name and version together (folders
     same packages and leave the others (source column: run-batch.py and
     the date).
 
-A second run in the same LAB reuses the derivations and every build whose
-output exists, so the runner half is classified once its outputs are in.
+Reruns in the same LAB reuse derivations and existing build outputs.
+Once runner outputs arrive, a rerun classifies them too.
 
 results.tsv keeps the questions apart: publisher_match (the level.py
 level against nuget.org: 1 identical, 2 identical without signatures, 3 same
@@ -42,10 +42,9 @@ an uncertainty, not a match), environment (the runner image or this
 machine's kernel, from the build log), build, differs (the report lines that
 differ, from level.py), note.
 
-The working repository's run-batch.py and derive-batch.py (Speciale2026 at
-f127442) in one, without what served the lab there: committing and pushing
-the recipes, dispatching and polling the GitHub runs, the git mirrors, the
-disk guard, the copy into the data folder.
+Combines run-batch.py and derive-batch.py (Speciale2026 at f127442). Omits
+recipe commits and pushes, GitHub dispatch and polling, git mirrors, the
+disk guard and copying into the data folder.
 """
 import datetime, os, re, shutil, subprocess, sys, tomllib, zipfile
 
@@ -85,7 +84,7 @@ def sh(args, log, cwd=None, timeout=None):
 
 
 def report_sdk(lab, log):
-    """LAB/report-sdk, installed when it has no dotnet; derive.py and derive-repo.py find it through DLLREPORT_DOTNET."""
+    """Install LAB/report-sdk if dotnet is missing; expose it to derive.py and derive-repo.py via DLLREPORT_DOTNET."""
     global REPORT_DOTNET
     sdk = os.path.join(lab, 'report-sdk')
     if not os.path.exists(os.path.join(sdk, 'dotnet')):
@@ -96,7 +95,7 @@ def report_sdk(lab, log):
 
 
 def merge_results(results, sections, log):
-    """The lab's rows and comparisons into results/, replacing those of the same packages; the others stay as they are."""
+    """Merge lab rows and comparisons into results/. Replace matching packages and keep the others."""
     tsv, listing = os.path.join(RESULTS, 'release-build.tsv'), os.path.join(RESULTS, 'compare.txt')
     rows = {}
     if os.path.exists(tsv):
@@ -133,7 +132,7 @@ def report(dll, out, log):
 
 
 def can_make(path):
-    """Whether this user can create PATH here: its nearest existing ancestor is writable."""
+    """Check whether PATH can be created: its nearest existing ancestor must be writable."""
     if not path or not path.startswith('/'):
         return True
     p = path
@@ -143,14 +142,15 @@ def can_make(path):
 
 
 def level_of(outdir, recipe, log):
-    """The level of A's shipped DLL against nuget.org's, from their reports, and the differing lines; '' when a package is missing."""
+    """Grade A's shipped DLL against nuget.org's from their reports; return differing lines too.
+    Return '' when a package is missing."""
     ships = recipe['ships']
     lid, lver = recipe['package'].lower(), recipe['version'].lower()
     ref = os.path.join(outdir, 'nuget-org', f'{lid}.{lver}.nupkg')
     packed = sorted(f for f in os.listdir(os.path.join(outdir, 'A')) if f.lower().endswith('.nupkg')) if os.path.isdir(os.path.join(outdir, 'A')) else []
     a = next((os.path.join(outdir, 'A', f) for f in packed if f.lower() == f'{lid}.{lver}.nupkg'), None)
     other = ''
-    if not a and len(packed) == 1:   # packed under another version (a version tool's own); the DLL is still compared
+    if not a and len(packed) == 1:   # Also compare the DLL when a version tool gives the package another version.
         a = os.path.join(outdir, 'A', packed[0]); other = f'packed as {packed[0]}, not {lid}.{lver}.nupkg; '
     if not (a and os.path.exists(ref)):
         return '', '', 'no package to compare' + (f' (packed: {", ".join(packed)})' if packed else '')
@@ -172,7 +172,7 @@ def level_of(outdir, recipe, log):
 
 
 def sdk_alternatives(facts_path):
-    """The SDKs rule 3 did not read, from the derivation's facts."""
+    """Read the SDKs left unexamined by rule 3 from the derivation's facts."""
     for line in open(facts_path, encoding='utf-8'):
         if line.startswith('sdk:'):
             m = re.search(r'not read: ([^)]*)\)', line)
@@ -181,7 +181,7 @@ def sdk_alternatives(facts_path):
 
 
 def environment(outdir):
-    """The runner image, or the kernel, as rebuild.py logged it for build A."""
+    """Read the runner image or kernel logged by rebuild.py for build A."""
     p = os.path.join(outdir, 'A', 'build.log')
     if not os.path.exists(p):
         return ''
@@ -195,7 +195,7 @@ def environment(outdir):
 
 
 def derive(pkg, ver, population, lab, dest):
-    """derive.py for one package; its category, OS and SDK from facts.txt and recipe.toml."""
+    """Run derive.py for one package; read its category, OS and SDK from facts.txt and recipe.toml."""
     if not os.path.exists(os.path.join(dest, 'facts.txt')):
         shutil.rmtree(dest, ignore_errors=True)
         r = subprocess.run([sys.executable, '-I', os.path.join(HERE, 'derive.py'), pkg, ver, population, lab, dest],
@@ -259,7 +259,7 @@ def main():
         res = sh([sys.executable, '-I', os.path.join(HERE, 'rebuild.py'), recipe_path, work], log, timeout=7200)
         r['build'] = 'ran' if res.returncode == 0 else f'rebuild.py exit {res.returncode}'
         log(f'{k}: ' + res.stdout.strip().replace('\n', ' | ')[-400:])
-        for d in ('A', 'sdk'):   # the clone, cache and SDK go once the output is saved; out/ stays
+        for d in ('A', 'sdk'):   # After saving the output, remove the clone, cache and SDK; keep out/.
             shutil.rmtree(os.path.join(work, d), ignore_errors=True)
         recipe = tomllib.load(open(recipe_path, 'rb'))
         if recipe.get('clone_dir'):

@@ -60,7 +60,7 @@ REPROTEST = shutil.which('reprotest') or os.path.expanduser('~/.local/bin/reprot
 # The population table and the lab
 
 def load(table):
-    """One dict per row of population.tsv, with an id used for the lab's folders."""
+    """Read population.tsv into row dictionaries; add an id for each package's lab folders."""
     rows = list(csv.DictReader(open(table, encoding='utf-8'), delimiter='\t'))
     for row in rows:
         row['id'] = f'{row["package"].lower()}-{row["version"].lower()}'
@@ -68,7 +68,7 @@ def load(table):
 
 
 def find(rows, name):
-    """The row named on the command line: a package id, or id@version."""
+    """Find the row named by a package id or id@version on the command line."""
     package, _, version = name.partition('@')
     hits = [row for row in rows
             if row['package'].lower() == package.lower() and (not version or row['version'] == version)]
@@ -78,8 +78,7 @@ def find(rows, name):
 
 
 class Lab:
-    """Where everything lives for one package: the shared SDK, cache and tools,
-    and its own clone and output."""
+    """Paths for one package: shared SDK, cache and tools; separate clone and output."""
 
     def __init__(self, root, row):
         self.root = os.path.abspath(root)
@@ -101,8 +100,8 @@ class Lab:
         json.dump(state, open(os.path.join(self.out, 'state.json'), 'w'), indent=1)
 
     def build_env(self):
-        """Only the lab's SDK on PATH, the lab's cache, no telemetry. The trailing slash on
-        NUGET_PACKAGES matters: Source Link's source-root check rejects a package root without one."""
+        """Use the lab's SDK and cache, with telemetry disabled.
+        Keep the trailing slash on NUGET_PACKAGES: Source Link rejects a root without it."""
         env = dict(os.environ)
         env['PATH'] = f'{self.sdk}:{self.tools}:{os.environ["PATH"]}'
         env['DOTNET_ROOT'] = self.sdk
@@ -120,7 +119,7 @@ def now():
 
 
 def run_logged(log, cmd, env, cwd=None, check=False):
-    """Run cmd with its output appended to the open log; return the exit code."""
+    """Append cmd output to the open log and return its exit code."""
     log.write(f'$ {" ".join(cmd)}\n')
     log.flush()
     code = subprocess.run(cmd, env=env, cwd=cwd, stdout=log, stderr=subprocess.STDOUT).returncode
@@ -130,7 +129,7 @@ def run_logged(log, cmd, env, cwd=None, check=False):
 
 
 def first_error(text):
-    """The first line of a build log that reports an error, for the results table."""
+    """Return the first error line from the build log for the results table."""
     for line in text.splitlines():
         if re.search(r'error [A-Z]*\d*\s*:|fatal:|Unhandled exception|command not found', line):
             return line.strip()[:300]
@@ -140,8 +139,8 @@ def first_error(text):
 # The build command
 
 def pack_command(row, mode, commit_time):
-    """Build, then pack what was built. `dotnet pack` alone trips over GeneratePackageOnBuild in
-    multi-targeting projects (NU5026); the two-step form packs the same bytes."""
+    """Build, then pack the output. `dotnet pack` alone fails with GeneratePackageOnBuild
+    in multi-targeting projects (NU5026). The two steps pack the same bytes."""
     props = '-p:UseSharedCompilation=false'
     if mode == 'configured':
         props += ' -p:ContinuousIntegrationBuild=true -p:Deterministic=true'
@@ -151,16 +150,16 @@ def pack_command(row, mode, commit_time):
             f'dotnet pack {project} -c Release --no-build -o out {props}')
 
 
-# Getting the source ready: clone, unpin the SDK, restore
+# Prepare the source: clone, remove the SDK pin, restore
 
 def clone(row, lab, env, log):
-    """A clone at the declared commit, sources as committed (no CRLF conversion), submodules in."""
+    """Clone the declared commit with submodules and no CRLF conversion."""
     shutil.rmtree(lab.src, ignore_errors=True)
     git = ['git', '-C', lab.src]
     run_logged(log, ['git', 'clone', '-q', '--no-checkout', row['repo'], lab.src], env, check=True)
     have_commit = subprocess.run(git + ['cat-file', '-e', f'{row["commit"]}^{{commit}}'], capture_output=True)
     if have_commit.returncode:
-        # the commit is on no branch or tag; GitHub still serves it when asked for by name
+        # No branch or tag contains this commit, but GitHub can still fetch it by name.
         run_logged(log, git + ['fetch', '-q', 'origin', row['commit']], env)
     run_logged(log, git + ['config', 'core.autocrlf', 'false'], env, check=True)
     checkout = git + ['-c', 'advice.detachedHead=false', 'checkout', '-q', row['commit']]
@@ -170,10 +169,9 @@ def clone(row, lab, env, log):
 
 
 def unpin_sdk(src):
-    """The repository's global.json may pin an SDK the lab does not have. The pin is removed so the
-    one fixed SDK builds every package; the msbuild-sdks entries (Arcade in tree) are kept. What was
-    done is returned and recorded with the package. Called after every checkout, since
-    `git checkout -- .` puts the file back."""
+    """Remove an SDK pin from global.json so every package uses the lab's fixed SDK.
+    Keep msbuild-sdks entries (Arcade in tree). Return the change for the package record.
+    Repeat after each checkout: `git checkout -- .` restores the file."""
     path = os.path.join(src, 'global.json')
     if not os.path.exists(path):
         return 'none'
@@ -193,8 +191,8 @@ def unpin_sdk(src):
 
 
 def clean_and_restore(row, lab, env, log):
-    """Leave the tree clean but restored: obj/ holds restore output only, so every build that
-    follows compiles from scratch. Returns restore's exit code."""
+    """Clean and restore the tree; return restore's exit code.
+    Only restore output remains in obj/, so the next build compiles from scratch."""
     run_logged(log, ['git', '-C', lab.src, 'clean', '-xdfq'], env, check=True)
     run_logged(log, ['git', '-C', lab.src, 'checkout', '-q', '--', '.'], env)
     unpin_sdk(lab.src)
@@ -205,8 +203,8 @@ def clean_and_restore(row, lab, env, log):
 
 
 def clone_and_restore(row, lab):
-    """Make sure the package's clone exists, at the commit, restored. Records the commit time and
-    what was done to global.json. A clone that is already there is left alone."""
+    """Prepare a restored clone at the commit, or reuse an existing clone.
+    Record the commit time and changes to global.json."""
     state = lab.read_state()
     if 'recipe' not in state:
         state['recipe'] = {key: row[key] for key in ('package', 'version', 'repo', 'commit', 'project')}
@@ -221,7 +219,7 @@ def clone_and_restore(row, lab):
         try:
             clone(row, lab, env, log)
         except RuntimeError as error:
-            # the source cannot be had: that is a result about the package, not a fault of the driver
+            # Record unavailable source as a package result, not a driver error.
             state.update(screen='clone failed', screen_error=str(error)[:300], global_json='', nupkgs=[])
             lab.write_state(state)
             return state
@@ -231,13 +229,13 @@ def clone_and_restore(row, lab):
         state['global_json'] = unpin_sdk(lab.src)
         state['prepared'] = now()
         if 'screen' in state:
-            # the clone was dropped after an earlier run and made again: restore it as try_build left it
+            # This clone replaces one removed after an earlier run; restore its try_build state.
             clean_and_restore(row, lab, env, log)
     lab.write_state(state)
     return state
 
 
-# One plain build: does the project build at all under the fixed SDK?
+# Check whether the project builds under the fixed SDK.
 
 def try_build(row, lab):
     state = clone_and_restore(row, lab)
@@ -262,7 +260,7 @@ def try_build(row, lab):
             else:
                 state['screen'] = 'built'
         log.write(f'end {now()} {state["screen"]}\n')
-        clean_and_restore(row, lab, env, log)   # back to clean-and-restored for the reprotest builds
+        clean_and_restore(row, lab, env, log)   # Leave a clean, restored tree for reprotest.
     state['screen_seconds'] = round((datetime.datetime.now() - started).total_seconds())
     if state['screen'] == 'built':
         state['screen_error'] = ''
@@ -272,11 +270,11 @@ def try_build(row, lab):
     return state
 
 
-# Two builds with one thing varied, then the comparison
+# Build a control and a variation, then compare them.
 
 def build_twice(row, lab, mode, axes):
-    """reprotest builds the package twice, the second time with AXES varied, and stores both
-    out/ folders. The verdict goes into the package's state under "<mode>:<axis>"."""
+    """Build twice with reprotest, varying AXES in the second build. Keep both out/ folders.
+    Store the verdict under "<mode>:<axis>" in the package state."""
     state = try_build(row, lab)
     if state['screen'] != 'built':
         return state
@@ -284,10 +282,10 @@ def build_twice(row, lab, mode, axes):
     key = f'{mode}:{name}'
     if key in state.get('runs', {}):
         return state
-    state = clone_and_restore(row, lab)   # the clone may have been dropped after an earlier package
+    state = clone_and_restore(row, lab)   # An earlier package may have removed the clone.
     env = lab.build_env()
-    # reprotest runs the command in a shell of its own, so the build environment is set once more
-    # inside the command; the build server is shut down after it so nothing crosses into the next build
+    # Set the environment again inside reprotest's shell. Shut down the build server
+    # afterwards so it does not carry state into the next build.
     exports = (f'export PATH={lab.sdk}:{lab.tools}:$PATH DOTNET_ROOT={lab.sdk} DOTNET_CLI_HOME={lab.clihome} '
                f'NUGET_PACKAGES={lab.nuget}/ DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1 NuGetAudit=false')
     command = (f'{exports} && rm -rf out && {pack_command(row, mode, state["commit_time"])}; '
@@ -305,7 +303,7 @@ def build_twice(row, lab, mode, axes):
         log.write(f'end {now()} exit {code}\n')
     verdict = compare_builds(store, row['package'])
     verdict['reprotest_exit'] = code
-    if code not in (0, 1):   # 0 is reproducible, 1 is not; anything else is reprotest or the build failing
+    if code not in (0, 1):   # 0: reproducible; 1: differs; other codes: reprotest or build failure.
         log_text = open(log_path, encoding='utf-8', errors='replace').read()
         verdict['note'] = first_error(log_text) or f'reprotest exit {code}'
     state.setdefault('runs', {})[key] = verdict
@@ -315,7 +313,7 @@ def build_twice(row, lab, mode, axes):
 
 
 def keep_packages_only(store):
-    """The store holds two full out/ folders per run; only the packages are kept for later reading."""
+    """Keep only packages from the two stored out/ folders for later inspection."""
     for root, _, files in os.walk(store):
         for name in files:
             if not name.endswith(('.nupkg', '.snupkg')):
@@ -323,10 +321,9 @@ def keep_packages_only(store):
 
 
 def packages_in(folder, package_id=None, names_only=False):
-    """The .nupkg files under FOLDER. With PACKAGE_ID, the ones of that package, paired by id and
-    not by file name: a build that puts the clock into the version names its two packages
-    differently. When the project packs under another id than the table names, every package
-    produced is taken instead and the verdict's note says so."""
+    """Find .nupkg files under FOLDER. With PACKAGE_ID, select by id rather than file name:
+    clock-based versions give the two builds different names. If the project uses another
+    id, return all produced packages and note this in the verdict."""
     found = []
     for root, _, files in os.walk(folder) if os.path.isdir(folder) else []:
         for name in files:
@@ -357,7 +354,7 @@ def is_assembly(name):
 
 
 def compare_builds(store, package_id):
-    """Levels 1 to 3 between reprotest's control build and its varied build."""
+    """Compare reprotest's control and varied builds at levels 1 to 3."""
     control = packages_in(os.path.join(store, 'control'), package_id)
     varied = packages_in(os.path.join(store, 'experiment-1'), package_id)
     if not control or not varied:
@@ -390,10 +387,10 @@ def compare_builds(store, package_id):
     return verdict
 
 
-# Everything, for every package
+# Run the batch and collect its results.
 
 def describe(state, key):
-    """One run's verdict as a short line for the log."""
+    """Format one run's verdict as a log line."""
     verdict = state.get('runs', {}).get(key)
     if not verdict:
         return state.get('screen', '?')
@@ -406,9 +403,9 @@ def describe(state, key):
 
 
 def batch(table, root):
-    """Every package of the table in turn: build it once, then every axis as is and configured.
-    A package with its result recorded is skipped, so a stopped batch continues where it was.
-    The clone is dropped after each package; a package's failure does not stop the batch."""
+    """Build each package once, then test every axis as is and configured.
+    Skip recorded results so interrupted batches can resume. Remove each clone afterwards.
+    A package failure does not stop the batch."""
     root = os.path.abspath(root)
     os.makedirs(root, exist_ok=True)
     runlog = open(os.path.join(root, 'run.log'), 'a', encoding='utf-8')
@@ -429,7 +426,7 @@ def batch(table, root):
 
 
 def record_not_built(row, lab):
-    """population.py found no source or project for this row: recorded, not built."""
+    """Record a row for which population.py found no source or project; do not build it."""
     state = lab.read_state()
     if 'screen' not in state:
         state.update(recipe={key: row[key] for key in ('package', 'version', 'repo', 'commit', 'project')},
@@ -452,7 +449,7 @@ def build_all_axes(row, lab):
 
 
 def write_results(root, out_tsv):
-    """One row per (package, mode, axis) from every state file in the lab."""
+    """Write one row per (package, mode, axis) from the lab state files."""
     columns = ['package', 'version', 'repo', 'commit', 'project', 'global_json', 'screen', 'screen_error',
                'mode', 'axes', 'b1', 'b2', 'b3', 'first_difference', 'note']
     rows = []
@@ -482,7 +479,7 @@ def write_results(root, out_tsv):
 
 
 def record_environment(root):
-    """environment.txt: the host, the SDK and the tools, as they were when the run was made."""
+    """Record the host, SDK and tool versions for this run in environment.txt."""
     sdk = os.path.join(root, 'sdk')
 
     def output_of(command):

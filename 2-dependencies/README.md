@@ -1,9 +1,8 @@
 # Experiment 2: Phoenix's NuGet dependencies
 
-What does a rebuild of the packages Phoenix ships need to know, and does
-any record of the release name it? Three steps, each in its own folder
-with the same shape (README, `scripts/`, `results/`, and for the two
-measurements `population.tsv` and `figures/`):
+What information is needed to rebuild Phoenix's packages, and does the release
+record it? The three steps each have a folder with a README, `scripts/` and
+`results/`. The two measurements also have `population.tsv` and `figures/`:
 
 | folder | step | one line |
 |---|---|---|
@@ -19,10 +18,9 @@ population/results/shipped-packages.txt  (341)  →  2a/scripts/population.py  �
 population/results/packages.tsv  (what each declares)  →  2b's filter  →  2b/population.tsv  (198 with commit and compiler record)
 ```
 
-2a holds the toolchain fixed and asks what the build itself does; 2b
-derives the toolchain from what the release names and asks whether the
-publisher's bytes come back. Each README states the question, the
-population, the exact commands, the comparison levels, the result tables
-and the caveats; the working repository
-[Speciale2026](https://github.com/peterjuulm/Speciale2026) holds every
-run, log and dated note behind them.
+2a uses a fixed toolchain to test the build itself. 2b derives the toolchain
+from the release records and tries to reproduce the published bytes. Each README
+gives the question, population, commands, comparison levels, result tables and
+caveats. The working repository
+[Speciale2026](https://github.com/peterjuulm/Speciale2026) holds every run, log
+and dated note behind them.

@@ -1,9 +1,8 @@
-"""The match level of a rebuilt DLL against the published one, from two
-dllreport.cs reports.
+"""Grade a rebuilt DLL against the published DLL using two dllreport.cs reports.
 
 Usage: python3 -I level.py REPORT_NUGETORG REPORT_OURS
 
-Prints one line: the level and the report lines that differ, by label.
+Print one line: the level and the labels of differing report lines.
 Levels (dependencies/notes/2026-10-21-nupkg-pilot-serilog-runners.md):
 
   1  identical: the same sha256.
@@ -15,8 +14,8 @@ Levels (dependencies/notes/2026-10-21-nupkg-pilot-serilog-runners.md):
      identity, MVID, timestamp, PDB) may differ.
   4  different code: anything else.
 
-Only the DLL's own sections are read (up to "## PDB" or "## Source Link"):
-the PDB is compared by the package comparison, not here.
+Read only DLL sections, up to "## PDB" or "## Source Link".
+The package comparison handles the PDB separately.
 
 Written 26 October 2026.
 """

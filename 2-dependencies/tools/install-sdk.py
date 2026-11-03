@@ -1,19 +1,18 @@
-"""Install one .NET SDK, alone, into an empty directory.
+"""Install a single .NET SDK into an empty directory.
 
 Usage: python3 -I install-sdk.py VERSION DIR
        python3 -I install-sdk.py --runtime VERSION DIR
 
-Takes the archive for this machine (linux-x64, or win-x64 on Windows) and its
-SHA-512 from Microsoft's release metadata for the SDK's channel, checks the
-hash, and unpacks it into DIR, which must be empty or missing. With nothing
+Read the archive URL for this machine (linux-x64, or win-x64 on Windows)
+and its SHA-512 from Microsoft's release metadata for the SDK's channel.
+Check the hash and unpack into DIR, which must be empty or missing. With nothing
 else in DIR, the compiler runs on the runtime that came with this SDK and no
 other (W58: csc rolls forward to the newest runtime it finds, and the PDB
 records which one).
 
-With --runtime, it adds the shared runtime VERSION (its shared/ folder only)
-to an SDK already in DIR, for tests that target an older .NET, as a CI image
-with several runtimes would run them. The compiler still runs on the SDK's
-own runtime.
+With --runtime, add shared runtime VERSION (only its shared/ folder) to
+the SDK in DIR. This supports tests targeting an older .NET, as on a CI
+image with several runtimes. The compiler still uses the SDK's own runtime.
 
 Written 21 October 2026 for the nupkg pilot; Windows added the same day for
 the builds on GitHub's Windows runners.

@@ -2,12 +2,10 @@
 
 Usage: python3 -I derive.py PACKAGE VERSION POPULATION_TSV LAB OUT
 
-The recipe may use only what the release publishes (the .nupkg with its
-.nuspec, the shipped DLL's attributes, its PDB) and the source at the
-declared commit with its standard .NET files. CI files and build scripts
-are not read. Every value in the recipe gets one of three marks: "read",
-with where it was read from; "inferred", where a rule turns an observation
-into a choice (the lowest SDK with the compiler, LF means Linux, mapped
+Use only the published release (.nupkg, .nuspec, shipped DLL attributes and PDB)
+and the source at the declared commit, including standard .NET files.
+Do not read CI files or build scripts. Mark each recipe value as "read", with its source; "inferred", where a rule
+turns an observation into a choice (the lowest SDK with the compiler, LF means Linux, mapped
 paths mean ContinuousIntegrationBuild, version properties from the
 informational version); or "default", with the reason. A package the rules
 cannot handle gets "skipped" with the rule that failed.
@@ -49,7 +47,7 @@ The rules, in the order they run (README, Method):
 OUT gets recipe.toml (for rebuild.py), facts.txt (one line per rule, with
 its mark) and the report of the published DLL.
 
-Version 3 of the method of the working repository (Speciale2026,
+Uses version 3 of the method (Speciale2026,
 dependencies/experiments/nupkg/derive.py at f127442), with lab paths removed.
 """
 import hashlib, json, os, re, shutil, subprocess, sys, tomllib, urllib.error, urllib.request, zipfile
@@ -57,7 +55,7 @@ import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TOOLS = os.path.join(HERE, '..', '..', 'tools')
-REPORT_SDK = os.environ.get('DLLREPORT_DOTNET', 'dotnet')   # a .NET 10 SDK, for the file-based dllreport.cs
+REPORT_SDK = os.environ.get('DLLREPORT_DOTNET', 'dotnet')   # Use a .NET 10 SDK for the file-based dllreport.cs.
 facts, defaults, skipped = [], [], None
 
 
@@ -97,12 +95,12 @@ def vkey(v):
     return [int(x) for x in core.split('.')] + [0 if pre else 1, pre]
 
 
-CSC_TABLE = os.path.join(HERE, 'sdk-csc.json')   # SDK version -> the version string in its csc.dll, read once per SDK
+CSC_TABLE = os.path.join(HERE, 'sdk-csc.json')   # Cache each SDK version and its csc.dll version string; read once per SDK.
 
 
 def csc_of(sdk_version, meta):
-    """The compiler version string of one SDK release, read from the csc.dll in its linux-x64 archive
-    (streamed, nothing installed), remembered in sdk-csc.json. None when the archive has no csc.dll."""
+    """Stream an SDK's linux-x64 archive to read its csc.dll compiler version without installing it.
+    Cache the version in sdk-csc.json. Return None if csc.dll is absent."""
     table = json.load(open(CSC_TABLE, encoding='utf-8')) if os.path.exists(CSC_TABLE) else {}
     if sdk_version in table:
         return table[sdk_version]
@@ -124,7 +122,7 @@ def csc_of(sdk_version, meta):
 
 
 def toolset_ref(tracked, src):
-    """(file, version) of a Microsoft.Net.Compilers.Toolset reference in the project files, else None."""
+    """Find a Microsoft.Net.Compilers.Toolset reference in the project files; return (file, version) or None."""
     for t in tracked:
         if t.endswith(('.props', '.csproj', '.targets')):
             try:
@@ -191,7 +189,7 @@ def main():
         skip('pdb', 'no PDB with a compiler record')
         return finish(out, pkg, ver, None)
 
-    # what the report says
+    # Read the DLL report.
     compiler = re.search(r'^compiler-version: (\S+)', text, re.M).group(1)
     runtime = re.search(r'^runtime-version: (\S+)', text, re.M).group(1)
     docs = re.findall(r'^document: (.+?) (sha256|sha1) ([0-9a-f]+)( embedded \(crlf (\d+), lf (\d+)\))?$', text, re.M)
@@ -229,7 +227,7 @@ def main():
         fact('branch or tag', 'none, the commit detached', 'read: .nuspec has no branch')
 
     # a shallow clone at the commit, for rules 3 and 5 to 7 (no conversion of line endings)
-    src = os.path.join(lab, 'src', commit)   # one checkout per commit: packages from one repository build share it
+    src = os.path.join(lab, 'src', commit)   # Share one checkout per commit across packages from the same repository build.
     if not os.path.isdir(os.path.join(src, '.git')) or subprocess.run(['git', '-C', src, 'rev-parse', '--verify', '-q', commit + '^{commit}'], capture_output=True).returncode:
         shutil.rmtree(src, ignore_errors=True)
         subprocess.run(['git', 'init', '-q', src], check=True)
@@ -248,7 +246,7 @@ def main():
     rt = runtime.split('+')[0].split('-')[0]
     channel = '.'.join(rt.split('.')[:2])
     if rt.startswith('4.'):
-        # the compiler ran on .NET Framework: Visual Studio's MSBuild, not a dotnet SDK
+        # The compiler ran on .NET Framework through Visual Studio's MSBuild, not a dotnet SDK.
         meta = {'releases': []}
         skip('sdk', f'the compiler ran on .NET Framework {rt} (Visual Studio or msbuild.exe); no dotnet SDK bundles it')
     else:
@@ -313,7 +311,7 @@ def main():
             sdk = c
             break
     if sdk and not toolset and sdk != pinned:
-        same = [c for c in cands if c >= sdk]   # later candidates were not read; the rule stops at the first match
+        same = [c for c in cands if c >= sdk]   # Stop at the first match; later candidates remain unread.
         fact('sdk', f'{sdk} (csc {compiler}, runtime {rt}; candidates {", ".join(cands)}; the lowest match is taken, not read: {", ".join(same[1:]) or "none"})',
              'read: PDB compiler record, verified in csc.dll' if len(cands) == 1 else 'inferred: the lowest SDK whose csc.dll has the compiler; the ones not read may bundle it too (an uncertainty, not a match)')
     elif not sdk:
@@ -336,7 +334,7 @@ def main():
     mapped = all(p.startswith('/_/') for p in paths)
     clone_dir = nuget_packages = None
     if not mapped:
-        # the clone's root: a document path minus the tracked file it ends with
+        # Find the clone root by removing the tracked file suffix from a document path.
         roots = {}
         suffixes = {t.replace('/', '\\'): t for t in tracked}
         for p in paths:
@@ -381,7 +379,7 @@ def main():
     elif n_crlf > n_lf:
         eol = 'crlf'; fact('checkout line endings', f'converted to CRLF, core.autocrlf=true ({counts})', 'read: PDB source checksums against the clone')
     elif n_lf > n_crlf:
-        # git converts to CRLF at checkout (autocrlf=true) but never to LF: "input" converts at commit only
+        # git converts to CRLF at checkout (autocrlf=true), but not to LF: "input" converts only at commit.
         eol = 'asis'; fact('checkout line endings', f'the PDB has LF where git stores CRLF; git cannot convert at checkout, so as stored ({counts})', 'default: no checkout conversion to LF')
     else:
         eol = 'asis'; fact('checkout line endings', f'as stored in git ({counts}, nothing decides)', 'default: no checksum decides')

@@ -1,8 +1,8 @@
-"""Tables from the lab's state files: population, per axis, per package category, the unfixed packages.
+"""Summarise the lab's state files by population, axis, package category and unresolved differences.
 
     python3 -I summary.py LAB [OUTDIR]
 
-Writes (to OUTDIR, default LAB) `summary.md` with:
+Write `summary.md` to OUTDIR (default LAB) with:
   1. population: built / did not build, with the first error of each
   2. per axis, default build: how many packages differ at each level
   3. per package, Benedetti's Figure 3 category at each level
@@ -57,7 +57,7 @@ def name_of(state):
 
 
 def error_key(state):
-    """The error code (MSB4019, NETSDK1226, CS0234, ...) or, without one, the text after the last ': error :'."""
+    """Return the error code (MSB4019, NETSDK1226, CS0234, ...), else the text after the last ': error :'."""
     text = state.get('screen_error') or state.get('screen') or ''
     found = re.search(r'error\s+([A-Z]+\d+)', text)
     if found:
@@ -68,7 +68,7 @@ def error_key(state):
 
 
 def axis_row(name, runs):
-    """One table row: how many of these runs differ at each level, and how many failed."""
+    """Count differences at each level and failures for one table row."""
     differs = [sum(run[level] == 'differs' for run in runs) for level in ('b1', 'b2', 'b3')]
     failed = sum(run['b1'] == 'failed' for run in runs)
     return f'| {name} | {len(runs)} | {differs[0]} | {differs[1]} | {differs[2]} | {failed} |'
@@ -79,7 +79,7 @@ def main():
     outdir = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else lab
     states = load_states(lab)
     built = [s for s in states if s.get('screen') == 'built']
-    not_built = [s for s in states if s.get('screen') == 'not built']   # population.py found no source or project
+    not_built = [s for s in states if s.get('screen') == 'not built']   # No source or project was found by population.py.
     failed = [s for s in states if s.get('screen') not in ('built', 'not built', None)]
     lines = [f'# Determinism experiment, summary ({len(states)} packages)', '']
 

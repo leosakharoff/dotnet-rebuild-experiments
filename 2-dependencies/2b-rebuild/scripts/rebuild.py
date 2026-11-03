@@ -1,4 +1,4 @@
-"""Rebuild one NuGet package from its declared commit, twice, and compare.
+"""Build one NuGet package twice from its declared commit and compare the outputs.
 
 Usage: python3 -I rebuild.py RECIPE WORKDIR
 
@@ -17,10 +17,9 @@ the package lands. WORKDIR must not exist. The script
 4. compares A with nuget.org's package and A with A2, for the shipped DLL
    and its PDB, and lists every entry of all three (compare.py).
 
-Logs, the built packages and the comparisons land in WORKDIR/out, and a
-summary goes to stdout. The exit code is 0 when the script ran to the end,
-whatever the verdicts: a build that fails is a result, recorded in the
-summary.
+Write logs, packages and comparisons to WORKDIR/out and a summary to stdout.
+Exit 0 if the script finishes, regardless of verdicts. Record failed builds
+as results in the summary.
 
 The build's environment. On Linux it is empty apart from HOME, PATH (the SDK
 first, then /usr/bin), LANG, NUGET_PACKAGES, DOTNET_CLI_TELEMETRY_OPTOUT,
@@ -30,14 +29,12 @@ environment, so there the build keeps the machine's environment minus a
 GitHub runner's own CI identity and .NET settings (GITHUB_*, RUNNER_*,
 ACTIONS_*, DOTNET_*, NUGET_*, CI), with no other dotnet on PATH.
 
-Every build gets NuGetAudit=false. The audit checks the restored packages
-against today's advisory database, so an advisory published after the
-release can fail a restore that passed at the time. The audit only warns or
-fails; it does not change what is compiled.
+Set NuGetAudit=false for every build. A later advisory can fail a restore
+that passed at release time. The audit warns or fails; it does not change
+what is compiled.
 
-The working repository's rebuild.py (Speciale2026 at f127442) without the
-local git mirrors and the shallow-clone and extra-runtime options of the
-pilot's hand-written recipes.
+Adapted from rebuild.py (Speciale2026 at f127442). Omits local git mirrors
+and the shallow-clone and extra-runtime options used by the pilot's hand-written recipes.
 """
 import datetime, hashlib, os, re, shutil, subprocess, sys, tomllib, urllib.error, urllib.request
 
@@ -52,7 +49,7 @@ def now():
 
 
 def run(log, cmd, env=None, cwd=None):
-    """Run cmd with its output appended to the open log; return the exit code.
+    """Append cmd output to the open log and return its exit code.
 
     The program is looked up on the build's PATH, not ours: on Windows a child
     process is otherwise found through the parent's PATH, which would pick the
@@ -95,10 +92,10 @@ def clone(r, src, env, log):
     for c in r.get('git_config', []):
         must(log, git + ['config'] + c.split('=', 1), env)
     detached = ['-c', 'advice.detachedHead=false', 'checkout', '-q']
-    # a full clone, every branch and tag, and the commit itself in case no branch holds it
+    # Clone every branch and tag; fetch the commit itself in case no branch contains it.
     must(log, git + ['fetch', '-q', '--tags', 'origin', '+refs/heads/*:refs/remotes/origin/*'], env)
     must(log, git + ['fetch', '-q', 'origin', r['commit']], env)
-    if r.get('tag'):       # as actions/checkout for a pushed tag: HEAD detached at it
+    if r.get('tag'):       # Detach HEAD at the pushed tag, as actions/checkout does.
         must(log, git + detached + [f'refs/tags/{r["tag"]}'], env)
     else:
         if r.get('branch'):  # HEAD on the pushed branch
@@ -127,10 +124,10 @@ def build(r, name, src, work, sdk, out):
     os.makedirs(dest)
     with open(os.path.join(dest, 'build.log'), 'w', encoding='utf-8') as log:
         log.write(f'start {now()}\nbuild {name} in {src}\n')
-        for k in ('ImageOS', 'ImageVersion', 'RUNNER_OS', 'RUNNER_ARCH'):   # GitHub's runner image, before it is dropped
+        for k in ('ImageOS', 'ImageVersion', 'RUNNER_OS', 'RUNNER_ARCH'):   # Record the GitHub runner image before clearing its environment variable.
             if k in os.environ:
                 log.write(f'runner {k}={os.environ[k]}\n')
-        if 'ImageOS' not in os.environ:   # not a GitHub runner: the machine's kernel and distribution
+        if 'ImageOS' not in os.environ:   # Outside GitHub, record the machine's kernel and distribution.
             u = os.uname(); log.write(f'kernel {u.sysname} {u.release} {u.machine}\n')
         log.write('--- environment\n')
         for k in sorted(env):
@@ -157,7 +154,7 @@ def build(r, name, src, work, sdk, out):
         code = run(log, shell + [r['build']], env, src)
         run(log, ['dotnet', 'build-server', 'shutdown'], env, src)
         log.write(f'build exit code {code}\nend {now()}\n')
-    if r.get('project'):   # the resolved dependencies, for the record
+    if r.get('project'):   # Record the resolved dependencies.
         assets = os.path.join(src, os.path.dirname(r['project']), 'obj', 'project.assets.json')
         if os.path.exists(assets):
             shutil.copy(assets, os.path.join(dest, 'project.assets.json'))
@@ -220,7 +217,7 @@ def main():
         if len(present) < 2:
             summary.append(f'{kind}: not compared, fewer than two packages')
             continue
-        # every entry of every package, for reading; then one verdict per pair
+        # List all package entries for inspection, then one verdict per pair.
         with open(os.path.join(out, f'compare-{kind}.txt'), 'w', encoding='utf-8') as f:
             subprocess.run([sys.executable, '-I', os.path.join(HERE, 'compare.py'), inner] + [p[n] for n in present], stdout=f)
         for x, y in (('A', 'nuget.org'), ('A', 'A2')):

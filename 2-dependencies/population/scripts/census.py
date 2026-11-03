@@ -1,4 +1,4 @@
-"""Census of a .NET project's NuGet packages: what each one declares for a rebuild.
+"""Read the rebuild information declared by each NuGet package in a .NET project.
 
 The packages tested are what the self-contained publish of the PROGRAMs ships for RID:
 the packages in each program's lock file, plus the runtime and host packs the
@@ -13,11 +13,11 @@ Everything else under REPO (the other src projects' lock files, tests/, the
 lock sections and packs for other RIDs, the other local tools) is listed in
 left-out.md with the reason it is left out.
 
-For each package it records: the repository and commit from the .nuspec,
-whether the shipped files are IL or native, where the PDB is (embedded, in
-the package, only referenced, none), the compiler record in the PDB, the
-Reproducible and PdbChecksum debug entries, Source Link, and signatures.
-Then it puts the package in one category (see CATEGORIES).
+Record each package's repository and commit from the .nuspec, whether its
+shipped files are IL or native, and where its PDB is (embedded, in the
+package, only referenced, none). Also record the PDB's compiler, Reproducible
+and PdbChecksum debug entries, Source Link and signatures. Assign one
+category per package (see CATEGORIES).
 
 Usage: python3 -I census.py REPO NUGET_CACHE OUTDIR RID PROGRAM... [--tool NAME]...
 Writes OUTDIR/census.csv, OUTDIR/census.md, OUTDIR/left-out.md, and
@@ -53,10 +53,10 @@ CATEGORIES = [
     ('R', 'Ready to rebuild', 'Commit and compiler record both declared'),
 ]
 
-# --- PE and PDB reading -----------------------------------------------------
+# Read PE files and PDBs.
 
 def pe_info(data):
-    """Return None if not a PE file, else a dict of what we need."""
+    """Read the required PE fields into a dictionary; return None for other files."""
     if data[:2] != b'MZ': return None
     pe = struct.unpack_from('<I', data, 0x3c)[0]
     if data[pe:pe + 4] != b'PE\0\0': return None
@@ -115,7 +115,7 @@ def pdb_info(pdb):
     return {'format': 'portable', 'compiler': compiler,
             'sourcelink': re.search(rb'"documents"\s*:', pdb) is not None}
 
-# --- The package graph -----------------------------------------------------
+# Find the shipped packages and their dependencies.
 
 def lock_graph(path, sections=None):
     out = {}
@@ -127,7 +127,7 @@ def lock_graph(path, sections=None):
     return out
 
 packages, kind, direct, shipped = {}, {}, set(), collections.defaultdict(set)
-# Direct: named in one of our own .csproj files, the libraries' included.
+# Direct dependencies are named in our .csproj files, including the libraries'.
 declared = {k[0] for lock in glob.glob(os.path.join(repo, 'src', '*', 'packages.lock.json'))
             for k, (_, _, types) in lock_graph(lock).items() if 'Direct' in types}
 for prog in programs:
@@ -165,7 +165,7 @@ for name in tools_in:
 
 direct = {k for k in packages if k[0] in declared and kind[k] == 'lock file'}
 
-# --- One row per package ---------------------------------------------------
+# Collect one row per package.
 
 rows, file_rows = [], []
 for (lid, lver), (name, ver) in sorted(packages.items()):
@@ -227,7 +227,7 @@ for (lid, lver), (name, ver) in sorted(packages.items()):
         'authenticode': share('authenticode'), 'strongname': share('strongname'),
     })
 
-# --- Output -----------------------------------------------------------------
+# Write the census files.
 
 os.makedirs(outdir, exist_ok=True)
 order = {c[0]: i for i, c in enumerate(CATEGORIES)}
@@ -281,7 +281,7 @@ with open(os.path.join(outdir, 'census.md'), 'w') as f:
               f"| {r['managed_files']}/{r['native_files']} | {r['pdb']} | {r['compiler'].split('+')[0]} "
               f"| {r['deterministic']} | {r['pdbchecksum']} | {r['sourcelink']} | {r['authenticode']} | {r['strongname']} |")
 
-# --- Everything left out, with the reason -------------------------------------
+# Record excluded packages and their reasons.
 
 ship_versions = collections.defaultdict(set)
 for (lid, lver), (name, ver) in packages.items(): ship_versions[lid].add(ver)

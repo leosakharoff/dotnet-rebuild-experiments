@@ -1,4 +1,4 @@
-"""Tables from the stored results: the release build, the publisher's build, and the two per package.
+"""Summarise stored release-build and publisher-build results, separately and per package.
 
     python3 -I summary.py [RESULTS] [PUBLISHER_RESULTS] [POPULATION_TSV]
 
@@ -47,7 +47,7 @@ def rows(path):
 
 
 def outcome(x):
-    """The grade, or why there is none."""
+    """Return the grade, or the reason it is missing."""
     if x['publisher_match']:
         return GRADE[x['publisher_match']]
     if x.get('category', '').startswith('skipped'):
@@ -76,7 +76,7 @@ def nopackage_cause(x):
 
 
 def listings(path):
-    """compare.txt split into its sections, by <Package>-<version>."""
+    """Split compare.txt into sections keyed by <Package>-<version>."""
     found, name = {}, None
     for line in open(path, encoding='utf-8'):
         if line.startswith('=== '):
@@ -87,7 +87,8 @@ def listings(path):
 
 
 def scope(lines):
-    """2a's levels for one compare.py listing (column 0 nuget.org, column 1 ours): whole file, content, DLLs."""
+    """Apply 2a's levels to a compare.py listing: whole file, content, DLLs.
+    Column 0 is nuget.org; column 1 is ours."""
     whole = content = dlls = True
     signed = False
     for line in lines:

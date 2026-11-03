@@ -1,4 +1,4 @@
-"""The publisher's build for the Arcade packages, start to finish, with a log and a table.
+"""Run the publisher's build for Arcade packages and record a log and result table.
 
 Usage: python3 -I run-repo-batch.py LAB
 
@@ -19,9 +19,8 @@ derivations in LAB/derive/ for each package's commit, project and file version. 
 
 A second run reuses the recipes and every build whose output exists.
 
-The working repository's run-repo-batch.py and collect-runner.py (Speciale2026 at
-f127442) in one, without what served the lab there: the order files, the disk guard,
-committing and pushing the data, downloading GitHub artifacts, log excerpts.
+Combines run-repo-batch.py and collect-runner.py (Speciale2026 at f127442). Omits
+order files, the disk guard, data commits and pushes, GitHub artifact downloads and log excerpts.
 """
 import importlib.util, os, shutil, signal, subprocess, sys, threading, tomllib
 
@@ -34,7 +33,7 @@ COLUMNS = ['host', 'recipe', 'repository', 'commit', 'inner', 'build_id', 'packa
 
 
 def run_build(args, log, timeout):
-    """Run repo-build.py in its own process group; kill the whole group on timeout, so no MSBuild node outlives it."""
+    """Run repo-build.py in its own process group. On timeout, kill the group, including MSBuild nodes."""
     log('$ ' + ' '.join(args))
     p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, start_new_session=True)
     timer = threading.Timer(timeout, lambda: os.killpg(p.pid, signal.SIGKILL))
@@ -76,7 +75,7 @@ def main():
         shutil.rmtree(work, ignore_errors=True)
         code, stdout = run_build([sys.executable, '-I', os.path.join(HERE, 'repo-build.py'), rpath, work], log, TIMEOUT)
         log(f'{name}: exit {code}; ' + (stdout or '').strip().replace('\n', ' | ')[-600:])
-        for d in ('A',):   # the clone, the repository's .dotnet and artifacts go; out/ stays
+        for d in ('A',):   # Remove the clone, the repository's .dotnet and artifacts; keep out/.
             shutil.rmtree(os.path.join(work, d), ignore_errors=True)
 
     # 4. classify
