@@ -8,13 +8,13 @@ RESULTS (default ../results/) holds:
                        "=== <Package>-<version>" per compared package
 PUBLISHER_RESULTS (default ../publisher-build/results/) holds:
   publisher-build.tsv  the publisher's build, one row per package: host (windows-2022 or linux),
-                       publisher_match, and grade_without_roslyn_rule (the level with the
+                       publisher_match, and match_without_roslyn_rule (the level with the
                        release-branding properties for Roslyn too)
 POPULATION_TSV (default ../population.tsv) gives the owner.
 
 Writes RESULTS/summary.md and RESULTS/categories.tsv (one row per package).
 
-Grades, of the DLL that ships in Phoenix against nuget.org's (level.py):
+Matches, of the DLL that ships in Phoenix against nuget.org's (level.py):
   identical                     the same bytes
   identical without signatures  equal once the Authenticode block, the strong-name signature
                                 and the PE checksum are removed
@@ -27,14 +27,14 @@ or no recipe).
 Per package category, the release build first:
   from the release            the release build reproduces it
   with the publisher's build  only the publisher's build reproduces it
-  not reproduced              built and compared, best grade same code or other code
+  not reproduced              built and compared, best match same code or other code
   no package                  no build produced the package
   no recipe                   the derivation stopped at a rule, and no publisher's build ran
 """
 import collections, csv, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-GRADE = {'1': 'identical', '2': 'identical without signatures', '3': 'same code', '4': 'other code'}
+MATCH = {'1': 'identical', '2': 'identical without signatures', '3': 'same code', '4': 'other code'}
 PACKAGING = ('.psmdcp', '_rels/.rels', '[Content_Types].xml', '.signature.p7s')
 GROUPS = [('reproduced', ['identical', 'identical without signatures']),
           ('built, but differs', ['same code', 'other code']),
@@ -47,9 +47,9 @@ def rows(path):
 
 
 def outcome(x):
-    """Return the grade, or the reason it is missing."""
+    """Return the match, or the reason it is missing."""
     if x['publisher_match']:
-        return GRADE[x['publisher_match']]
+        return MATCH[x['publisher_match']]
     if x.get('category', '').startswith('skipped'):
         return 'no recipe'
     return 'no package'
@@ -108,7 +108,7 @@ def scope(lines):
 
 
 def group_table(title, counts, total):
-    lines = [f'### {title}', '', '| group | grade or outcome | packages |', '|---|---|---|']
+    lines = [f'### {title}', '', '| group | match or outcome | packages |', '|---|---|---|']
     for group, members in GROUPS:
         n = sum(counts.get(m, 0) for m in members)
         if not n:
@@ -133,7 +133,7 @@ def main():
     for x in rows(os.path.join(publisher_results, 'publisher-build.tsv')):
         k, host = (x['package'], x['version']), 'windows' if x['host'] == 'windows-2022' else 'linux'
         publisher[k] = (host, x)
-        without_rule[k] = (host, {**x, 'publisher_match': x['grade_without_roslyn_rule']})
+        without_rule[k] = (host, {**x, 'publisher_match': x['match_without_roslyn_rule']})
 
     lines = [f'# Rebuild against nuget.org, summary ({len(release)} packages)', '']
 
@@ -171,7 +171,7 @@ def main():
               f'Of the {len(compared)} compared: equal {a2.get("yes", 0)}, differ {a2.get("no", 0)}, not compared {len(compared) - a2.get("yes", 0) - a2.get("no", 0)}. '
               'Differ: ' + (', '.join(f'{p} {v}' for p, v in compared if release[(p, v)]['a_eq_a2'] == 'no') or 'none') + '.', '']
 
-    lines += ['### Per package, by grade', '']
+    lines += ['### Per package, by match', '']
     for g in ('identical', 'identical without signatures', 'same code', 'other code'):
         ks = [k for k in release if out[k] == g]
         lines.append(f'- {g} ({len(ks)}): ' + ', '.join(f'{p} {v}' for p, v in ks))
@@ -211,10 +211,10 @@ def main():
     best = collections.Counter()
     for k in release:
         if cats[k] == 'not reproduced':
-            grades = [out[k]] + ([pub[k]] if k in pub else [])
-            best['same code' if 'same code' in grades else 'other code'] += 1
+            matches = [out[k]] + ([pub[k]] if k in pub else [])
+            best['same code' if 'same code' in matches else 'other code'] += 1
     lines += [f'| total | {len(release)} | {len(release)} |', '',
-              f'Not reproduced, by best grade: same code {best["same code"]}, other code {best["other code"]}.', '']
+              f'Not reproduced, by best match: same code {best["same code"]}, other code {best["other code"]}.', '']
 
     os.makedirs(results, exist_ok=True)
     open(os.path.join(results, 'summary.md'), 'w', encoding='utf-8').write('\n'.join(lines))

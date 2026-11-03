@@ -29,7 +29,7 @@ spec = importlib.util.spec_from_file_location('rb', os.path.join(HERE, '..', '..
 rb = importlib.util.module_from_spec(spec); spec.loader.exec_module(rb)
 TIMEOUT = 4 * 3600
 COLUMNS = ['host', 'recipe', 'repository', 'commit', 'inner', 'build_id', 'package', 'version', 'ships', 'publisher_match',
-           'differs', 'a_eq_a2', 'variation', 'build', 'environment', 'note', 'grade_without_roslyn_rule']
+           'differs', 'a_eq_a2', 'variation', 'build', 'environment', 'note', 'match_without_roslyn_rule']
 
 
 def run_build(args, log, timeout):
@@ -97,7 +97,7 @@ def main():
                 row['publisher_match'], row['differs'], row['note'] = rb.level_of(pd, p, log)
             else:
                 row['note'] = 'no output folder'
-            row['grade_without_roslyn_rule'] = row.get('publisher_match', '')
+            row['match_without_roslyn_rule'] = row.get('publisher_match', '')
             rows.append(row)
             log(f'  {p["package"]} {p["version"]} on {host}: level {row.get("publisher_match") or "-"}; {row.get("note", "")}')
     with open(os.path.join(lab, 'publisher-build.tsv'), 'w', encoding='utf-8') as f:

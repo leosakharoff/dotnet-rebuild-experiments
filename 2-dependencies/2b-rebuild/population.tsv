@@ -1,4 +1,4 @@
-package	version	file	owner	census_class
+package	version	file	owner	class
 Ardalis.Specification	8.0.0	lib/net8.0/Ardalis.Specification.dll	third-party	R
 Ardalis.Specification.EntityFrameworkCore	8.0.0	lib/net8.0/Ardalis.Specification.EntityFrameworkCore.dll	third-party	R
 AutoMapper	13.0.1	lib/net6.0/AutoMapper.dll	third-party	C2b

@@ -136,7 +136,7 @@ def toolset_ref(tracked, src):
 
 
 def main():
-    pkg, ver, census, lab, out = sys.argv[1:6]
+    pkg, ver, population, lab, out = sys.argv[1:6]
     os.makedirs(out, exist_ok=True)
     lid, lver = pkg.lower(), ver.lower()
 
@@ -144,11 +144,11 @@ def main():
     nupkg = os.path.join(out, f'{lid}.{lver}.nupkg')
     if not download(f'https://api.nuget.org/v3-flatcontainer/{lid}/{lver}/{lid}.{lver}.nupkg', nupkg):
         sys.exit(f'{pkg} {ver}: not on nuget.org')
-    rows = [l.rstrip('\n').split('\t') for l in open(census, encoding='utf-8')]
+    rows = [l.rstrip('\n').split('\t') for l in open(population, encoding='utf-8')]
     head = rows[0]
     ships = [dict(zip(head, r)) for r in rows[1:] if r[0] == pkg and r[1] == ver]
     if not ships:
-        sys.exit(f'{pkg} {ver}: not in {census}')
+        sys.exit(f'{pkg} {ver}: not in {population}')
     ship = ships[0]['file']
     fact('shipped file', ship, 'read: population.tsv')
     z = zipfile.ZipFile(nupkg)
@@ -401,7 +401,7 @@ def main():
     chosen_by = 'read: .csproj assembly name = the DLL name'
     if len(projects) > 1:
         # version 3 (27/10): a reference-assembly project (ref/, or the source-build reference packages)
-        # ships in ref/, not in lib/ where the census found the DLL; among the rest, the .csproj named
+        # ships in ref/, not in lib/ where the population file found the DLL; among the rest, the .csproj named
         # like the package id (a .nuspec fact) wins
         impl = [t for t in projects if not re.search(r'(^|/)ref/|(^|/)referencePackages/', t)]
         if len(impl) == 1:

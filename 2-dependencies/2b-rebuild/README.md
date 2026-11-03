@@ -15,13 +15,14 @@ source files to it. These records give us a starting point for the comparison.
 ![Pipeline of part 2b](figures/pipeline-2b.drawio.png)
 
 A recipe is derived from the release, built twice as A and A2, and A's DLL is
-compared with nuget.org's and with A2's.
+compared with nuget.org's and with A2's. The match box, drawn with the heavier
+frame, is the result; the A-to-A2 control only checks the build.
 
 ### Population
 
 We start with the 341 packages shipped by Phoenix
-(`../population/results/shipped-packages.txt`), classified by the dependency
-census (`../population/README.md`).
+(`../population/results/shipped-packages.txt`), classified in the population
+(`../population/README.md`).
 
 Part 2b includes packages that ship managed code and whose release identifies
 both a commit and, through the PDB, the compiler. Of the 341 packages, 38 ship
@@ -36,7 +37,7 @@ no managed code. Another 105 of the remaining 303 fail the filter:
 
 This leaves **198 packages**: 59 third-party and 139 Microsoft packages.
 `population.tsv` records the package, version, DLL shipped in Phoenix, owner and
-census class.
+class from the population.
 
 This differs from the 224 packages in part 2a
 (`../2a-determinism/population.tsv`). The populations share 185 packages. Part
@@ -94,17 +95,18 @@ Windows recipes run on GitHub's `windows-2022` runner (image 20261022.344.1).
 Each package is built twice in the same paths, A and A2. All generated state is
 deleted between builds.
 
-### Comparison and grading
+### Comparison and matching
 
 The comparison uses the DLL shipped in Phoenix, extracted both from our rebuilt
-package and from the package on nuget.org. This is the census file for the
-package's target framework. It narrows part 2a's level 3, the assemblies, from
+package and from the package on nuget.org. This is the file `population.tsv`
+names for the package. It narrows part 2a's level 3, the assemblies, from
 all DLLs to the single DLL loaded by Phoenix.
 
 `../tools/dllreport.cs` reads both DLLs and hashes each section, metadata stream
-and resource separately. `scripts/level.py` then grades the pair:
+and resource separately. `scripts/level.py` then decides how well the pair
+matches:
 
-| grade | what differs |
+| match | what differs |
 |---|---|
 | identical | nothing |
 | identical without signatures | only the Authenticode block, the strong-name signature and the PE checksum (`../tools/stripsign.cs` cuts them and hashes the rest) |
@@ -121,7 +123,7 @@ Levels 2 and 3 can still be determined from the stored package listings
 level 2, the package entries without NuGet's packaging files and repository
 signature. Eleven are equal at level 3, the assemblies, every DLL under `lib/`,
 `ref/` and `runtimes/`. Every signed package fails both levels because of the
-signature alone. Part 2b therefore grades the single DLL.
+signature alone. Part 2b therefore matches the single DLL.
 
 We group packages by result:
 
@@ -130,7 +132,7 @@ We group packages by result:
 - *Not built*: no package, or no recipe.
 
 A publisher's signing key is required to reproduce a signature. For a signed
-package, identical without signatures is therefore the highest attainable grade.
+package, identical without signatures is therefore the highest attainable match.
 
 The A-to-A2 comparison is a control. It separates a build that differs from the
 publisher from one that also differs from itself.
@@ -215,7 +217,7 @@ The experiment derived 157 recipes: 137 ran on `windows-2022`, 18 on `arch` and
 
 The release build covers all 198 packages.
 
-| group | grade or outcome | third-party | Microsoft | all |
+| group | match or outcome | third-party | Microsoft | all |
 |---|---|---|---|---|
 | reproduced (22) | identical | 14 | 0 | 14 |
 | | identical without signatures | 3 | 5 | 8 |
@@ -225,9 +227,9 @@ The release build covers all 198 packages.
 | | no recipe | 5 | 36 | 41 |
 | | total | 59 | 139 | 198 |
 
-![Grades of the release build and the publisher's build](figures/grades.png)
+![Matches of the release build and the publisher's build](figures/match.png)
 
-The grades of the release build above, and of the publisher's build below (see
+The matches of the release build above, and of the publisher's build below (see
 Using the publisher's build system).
 
 The release-derived build reproduces 22 of the 198 packages: 17 of 59
@@ -246,7 +248,7 @@ Core provider; ScottPlot; TimeZoneConverter; and UnitsNet.
 
 Cronos, Hangfire.InMemory, NodaTime, Microsoft.Identity.Abstractions,
 Microsoft.Identity.Web.Certificateless, .Diagnostics, .TokenCache and
-Microsoft.OpenApi received the grade *identical without signatures*. These eight
+Microsoft.OpenApi matched as *identical without signatures*. These eight
 cases were assessed from DLL reports. The complete signature-stripped files were
 not hashed.
 
@@ -276,7 +278,7 @@ AutoMapper, MediatR, Quartz 4 and SendGrid. Their IL, metadata and resources are
 equal. Only the build identity differs.
 
 Under deterministic compilation, the build identity is a hash that also covers
-the PDB, which this grade does not compare. These differences were not
+the PDB, which this match does not compare. These differences were not
 investigated further.
 
 ### Packages not built
@@ -327,7 +329,7 @@ The 16 standalone recipes, covering 42 packages, ran on GitHub's `windows-2022`
 runners, matching the publisher's host. The four VMR builds, covering 54
 packages, ran on `arch` because `dotnet/dotnet` does not fit on a free runner.
 
-| group | grade or outcome | windows-2022 | Linux (VMR) | all |
+| group | match or outcome | windows-2022 | Linux (VMR) | all |
 |---|---|---|---|---|
 | reproduced (35) | identical without signatures | 35 | 0 | 35 |
 | built, but differs (58) | same code | 4 | 25 | 29 |
@@ -338,10 +340,10 @@ packages, ran on `arch` because `dotnet/dotnet` does not fit on a free runner.
 Of the 42 packages built on the publisher's host, 35 are reproduced. Every
 compared assembly is byte-for-byte identical after signatures are removed
 (`publisher-build/results/signature-stripped.txt`). The same recipes reached
-only the same-code grade on Linux, and no VMR package is reproduced.
+only the same-code match on Linux, and no VMR package is reproduced.
 
 All 25 packages whose compiler is unavailable in a public SDK built in this
-experiment. Twenty-two are reproduced, and three reach the same-code grade. The
+experiment. Twenty-two are reproduced, and three reach the same-code match. The
 repository's build system supplied the compiler.
 
 For the reproduced assemblies, source access was not enough. The build also
@@ -364,7 +366,7 @@ repository reproduces 27 of 42 packages instead of 35.
 |---|---|---|
 | from the release | 22 | 22 |
 | with the publisher's build | 35 | 27 |
-| not reproduced (best grade same code 38, other code 68) | 106 | 114 |
+| not reproduced (best match same code 38, other code 68) | 106 | 114 |
 | no package | 22 | 22 |
 | no recipe | 13 | 13 |
 
@@ -392,7 +394,7 @@ working repository's "best of all versions" from 28 October.
 - The method injects the version, file version, `OfficialBuildId` and
   `RepositoryUrl` read from the shipped DLL. Matching these attributes alone is
   not evidence. The evidence comes from the IL, metadata and resources.
-- The eight release-build rows graded as identical without signatures were
+- The eight release-build rows matched as identical without signatures were
   assessed from report lines, not from hashes of the complete DLL produced
   with `stripsign.cs`. The 35 corresponding publisher-build rows were hashed as
   complete DLLs.
@@ -420,15 +422,15 @@ working repository's "best of all versions" from 28 October.
   population.tsv              the 198 packages, owner, class and the DLL Phoenix ships from each
   figures/
     pipeline-2b.drawio        the method as a pipeline; pipeline-2b.drawio.png is its export
-    grades.pdf, .png          the grades per group, release and publisher's build, from results/categories.tsv
+    match.pdf, .png           the matches per group, release and publisher's build, from results/categories.tsv
   scripts/
     derive.py                 the eight rules: release facts to recipe.toml and facts.txt
     rebuild.py                one recipe: SDK by hash, fresh clone, build A and A2, pack
     compare.py                two packages entry by entry
-    level.py                  grades one DLL pair from two dllreport.cs reports
+    level.py                  matches one DLL pair from two dllreport.cs reports
     run-batch.py              derive.py and rebuild.py over population.tsv, then results/
     summary.py                prints results/summary.md and categories.tsv
-    figures.py                the grade figure: python3 -I scripts/figures.py [THESIS_IMAGES]
+    figures.py                the match figure: python3 -I scripts/figures.py [THESIS_IMAGES]
     sdk-csc.json              SDK version to compiler version; derive.py reads and extends it
     nupkg-rebuild.yml         the GitHub workflow for the runner recipes; not active here
   results/
@@ -452,7 +454,7 @@ working repository's "best of all versions" from 28 October.
 `../tools/` holds `install-sdk.py`, `dllreport.cs` and `stripsign.cs`, shared
 with 2a and unchanged.
 
-`scripts/figures.py` draws `figures/grades`, as PDF and PNG, from
+`scripts/figures.py` draws `figures/match`, as PDF and PNG, from
 `results/categories.tsv`. Given a folder, it also writes the PDF there for the
 thesis: `python3 -I scripts/figures.py [THESIS_IMAGES]`. It needs matplotlib.
 `figures/pipeline-2b.drawio` is the pipeline in the Method section. Export it
@@ -484,8 +486,9 @@ and `2026-10-27-nupkg-release-only-batch3-microsoft`. `publisher-build.tsv`
 holds the Windows run of 28 October
 (`2026-10-28-nupkg-repository-build-windows`), the eight Roslyn rows from the
 rerun under the Roslyn rule (`…-windows-v5`) and the VMR rows from the Linux run
-(`2026-10-28-nupkg-repository-build-v2`); `grade_without_roslyn_rule` keeps
-Roslyn's grade from the first Windows run.
+(`2026-10-28-nupkg-repository-build-v2`); `match_without_roslyn_rule` keeps
+Roslyn's match from the first Windows run. The run wrote that column as
+`grade_without_roslyn_rule`; only the header was renamed on 3 November.
 
 Checked on 3 November:
 
@@ -493,7 +496,7 @@ Checked on 3 November:
   the stored files.
 - The VMR recipes derived here are byte-for-byte the recipes of the Linux run.
 - `run-batch.py` ran on RBush 4.0.0 and FluentValidation 11.11.0 on `arch`. Both
-  rows match the stored ones in SDK, grade, A equal to A2 and differing lines;
+  rows match the stored ones in SDK, match, A equal to A2 and differing lines;
   `runner` says `local` where the stored row says `arch`, the recipes differ
   only in comment lines, and the listings only in NuGet's `_rels/.rels`, which
   gets a new ID on every pack. Run again in an empty lab, it gave the same two
@@ -503,11 +506,11 @@ Checked on 3 November:
   41599872747](https://github.com/peterjuulm/Speciale2026/actions/runs/41599872747).
   That workflow runs the working repository's `rebuild.py` at `f127442`, which
   runs the same commands as the copy here for this recipe. The row matches the
-  stored one in SDK, grade, A equal to A2 and differing lines, and the shipped
+  stored one in SDK, match, A equal to A2 and differing lines, and the shipped
   `Cronos.dll` is byte-for-byte the DLL of the 27 October run.
 - Not run from here: `repo-build.py`, `run-repo-batch.py`, and `stripsign.cs` on
-  the eight rows graded identical without signatures. The copy of `rebuild.py`
-  here has not run on Windows.
+  the eight rows matched as identical without signatures. The copy of
+  `rebuild.py` here has not run on Windows.
 
 Every recipe, `facts.txt`, build log and DLL report is in the working
 repository, [Speciale2026](https://github.com/peterjuulm/Speciale2026), at

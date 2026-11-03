@@ -173,10 +173,10 @@ NODE_BY_SDK = {8: '18.20.8', 9: '22.23.4'}   # R3d: the Node LTS line each aspne
 
 
 def main():
-    lst, census, facts_dir, lab, out = sys.argv[1:6]
+    lst, population, facts_dir, lab, out = sys.argv[1:6]
     os.makedirs(out, exist_ok=True)
     cen = {}
-    for l in open(census, encoding='utf-8'):
+    for l in open(population, encoding='utf-8'):
         p = l.rstrip('\n').split('\t')
         if len(p) > 2 and p[0] != 'package':
             cen[(p[0], p[1])] = p[2]

@@ -142,7 +142,7 @@ def can_make(path):
 
 
 def level_of(outdir, recipe, log):
-    """Grade A's shipped DLL against nuget.org's from their reports; return differing lines too.
+    """Match A's shipped DLL against nuget.org's from their reports; return differing lines too.
     Return '' when a package is missing."""
     ships = recipe['ships']
     lid, lver = recipe['package'].lower(), recipe['version'].lower()

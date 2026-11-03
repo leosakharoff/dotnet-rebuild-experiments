@@ -1,13 +1,13 @@
-"""Draw the grade figure of part 2b from results/, in the style of Solarin et al. (2026), Fig. 4.
+"""Draw the match figure of part 2b from results/, in the style of Solarin et al. (2026), Fig. 4.
 
     python3 -I scripts/figures.py [THESIS_IMAGES]
 
-Reads `results/categories.tsv` and writes `figures/grades.pdf` and `.png`: one 100 % bar
+Reads `results/categories.tsv` and writes `figures/match.pdf` and `.png`: one 100 % bar
 per group of packages, the release build above (third-party, Microsoft, all 198) and the publisher's build
-below (windows-2022, Linux VMR, all 96). The grades take Solarin's level colours: identical as L1, identical
+below (windows-2022, Linux VMR, all 96). The matches take Solarin's level colours: identical as L1, identical
 without signatures as L2, same code as L3, other code as NV, and the two not-built outcomes as L0, in two greys:
 no package (darker) and no recipe (lighter).
-With THESIS_IMAGES, the PDF is also written there as 2b-grades.pdf.
+With THESIS_IMAGES, the PDF is also written there as 2b-match.pdf.
 
 Needs matplotlib. The publisher's build uses the Roslyn rule (column publisher_build), as the README's table.
 """
@@ -22,7 +22,7 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS = os.path.join(HERE, 'results')
 FIGURES = os.path.join(HERE, 'figures')
 
-GRADES = (
+MATCHES = (
     (('identical',), 'Identical', '#1f3f7a'),
     (('identical without signatures',), 'Identical without signatures', '#3f7fbf'),
     (('same code',), 'Same code', '#9ec5e6'),
@@ -52,7 +52,7 @@ def count_label(ax, x, y, n, colour, ha='center'):
 
 
 def groups(rows):
-    """Return (build, label, grades) per bar, top to bottom."""
+    """Return (build, label, matches) per bar, top to bottom."""
     publisher = [r for r in rows if r['publisher_build']]
     return [
         ('Release build', 'Third-party', [r['release_build'] for r in rows if r['owner'] == 'third-party']),
@@ -64,13 +64,13 @@ def groups(rows):
     ]
 
 
-def grades(thesis):
+def match(thesis):
     bars = groups(read_tsv('categories.tsv'))
     fig, ax = plt.subplots(figsize=(6.0, 2.4))
     ys = [len(bars) - i - (0.6 if i >= 3 else 0) for i in range(len(bars))]
     for y, (_, label, values) in zip(ys, bars):
         left = 0
-        for names, legend, colour in GRADES:
+        for names, legend, colour in MATCHES:
             n = sum(v in names for v in values)
             share = n / len(values)
             ax.barh(y, share, left=left, height=0.7, color=colour, label=legend if y == ys[0] else None)
@@ -90,12 +90,12 @@ def grades(thesis):
         ax.spines[side].set_visible(False)
     ax.legend(loc='upper center', bbox_to_anchor=(0.45, -0.22), ncol=6, handlelength=1, handleheight=1,
               columnspacing=0.9)
-    fig.savefig(os.path.join(FIGURES, 'grades.pdf'), bbox_inches='tight')
-    fig.savefig(os.path.join(FIGURES, 'grades.png'), bbox_inches='tight')
+    fig.savefig(os.path.join(FIGURES, 'match.pdf'), bbox_inches='tight')
+    fig.savefig(os.path.join(FIGURES, 'match.png'), bbox_inches='tight')
     if thesis:
-        fig.savefig(os.path.join(thesis, '2b-grades.pdf'), bbox_inches='tight')
+        fig.savefig(os.path.join(thesis, '2b-match.pdf'), bbox_inches='tight')
     plt.close(fig)
 
 
 if __name__ == '__main__':
-    grades(sys.argv[1] if len(sys.argv) > 1 else None)
+    match(sys.argv[1] if len(sys.argv) > 1 else None)

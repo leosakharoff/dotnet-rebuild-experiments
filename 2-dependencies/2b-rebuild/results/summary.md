@@ -4,7 +4,7 @@
 
 ### All 198
 
-| group | grade or outcome | packages |
+| group | match or outcome | packages |
 |---|---|---|
 | reproduced (22) | identical | 14 |
 |  | identical without signatures | 8 |
@@ -16,7 +16,7 @@
 
 ### Third-party (59)
 
-| group | grade or outcome | packages |
+| group | match or outcome | packages |
 |---|---|---|
 | reproduced (17) | identical | 14 |
 |  | identical without signatures | 3 |
@@ -28,7 +28,7 @@
 
 ### Microsoft (139)
 
-| group | grade or outcome | packages |
+| group | match or outcome | packages |
 |---|---|---|
 | reproduced (5) | identical without signatures | 5 |
 | built, but differs (39) | other code | 39 |
@@ -58,7 +58,7 @@ Of the 86 packages compared, 86 have a package listing. Level 1 (package file): 
 
 Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.IdentityModel.Abstractions 8.23.0, Microsoft.IdentityModel.JsonWebTokens 8.23.0, Microsoft.IdentityModel.Logging 8.23.0, Microsoft.IdentityModel.LoggingExtensions 8.7.0, Microsoft.IdentityModel.Protocols 8.7.0, Microsoft.IdentityModel.Protocols.OpenIdConnect 8.7.0, Microsoft.IdentityModel.Tokens 8.23.0, Microsoft.IdentityModel.Validators 8.7.0, System.IdentityModel.Tokens.Jwt 8.23.0.
 
-### Per package, by grade
+### Per package, by match
 
 - identical (14): CsvHelper 33.1.0, FluentValidation.DependencyInjectionExtensions 11.11.0, Markdig 1.2.0, Npgsql 10.0.3, Npgsql.EntityFrameworkCore.PostgreSQL 10.0.3, ScottPlot 5.1.57, Serilog.Sinks.File 6.0.0, Serilog.Sinks.Seq 9.0.0, TimeZoneConverter 7.0.0, UnitsNet 6.0.0-pre012, RBush 4.0.0, FluentValidation 11.11.0, Serilog 4.2.0, Ardalis.GuardClauses 5.0.0
 - identical without signatures (8): Hangfire.InMemory 1.0.0, NodaTime 3.2.0, Cronos 0.9.0, Microsoft.Identity.Abstractions 9.0.0, Microsoft.Identity.Web.Certificateless 3.8.2, Microsoft.Identity.Web.Diagnostics 3.8.2, Microsoft.Identity.Web.TokenCache 3.8.2, Microsoft.OpenApi 1.6.22
@@ -69,7 +69,7 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 
 ### All 96, Roslyn without the release-branding properties
 
-| group | grade or outcome | packages |
+| group | match or outcome | packages |
 |---|---|---|
 | reproduced (35) | identical without signatures | 35 |
 | built, but differs (58) | same code | 29 |
@@ -79,7 +79,7 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 
 ### On windows-2022 (42)
 
-| group | grade or outcome | packages |
+| group | match or outcome | packages |
 |---|---|---|
 | reproduced (35) | identical without signatures | 35 |
 | built, but differs (4) | same code | 4 |
@@ -88,7 +88,7 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 
 ### On Linux (the VMR builds) (54)
 
-| group | grade or outcome | packages |
+| group | match or outcome | packages |
 |---|---|---|
 | built, but differs (54) | same code | 25 |
 |  | other code | 29 |
@@ -96,7 +96,7 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 
 ### All 96, every repository with the release-branding properties (Roslyn too)
 
-| group | grade or outcome | packages |
+| group | match or outcome | packages |
 |---|---|---|
 | reproduced (27) | identical without signatures | 27 |
 | built, but differs (66) | same code | 29 |
@@ -115,4 +115,4 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 | no recipe | 13 | 13 |
 | total | 198 | 198 |
 
-Not reproduced, by best grade: same code 38, other code 68.
+Not reproduced, by best match: same code 38, other code 68.

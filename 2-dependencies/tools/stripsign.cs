@@ -1,8 +1,8 @@
-// Complete-DLL comparison of two DLLs with the signatures removed (the grade "identical without signatures" checked
+// Complete-DLL comparison of two DLLs with the signatures removed (the match "identical without signatures" checked
 // on the complete DLL, not on report lines): the PE checksum, the Certificate Table entry and the Authenticode block it points at, and the strong-name
 // signature bytes are zeroed or cut, trailing zero padding dropped, and the rest hashed.
 // Run as a console project (net10.0): dotnet run -- SHIPPED.dll OURS.dll
-// Written 28 October 2026, 08:00, after a second opinion noted that this grade rested on report fields.
+// Written 28 October 2026, 08:00, after a second opinion noted that this match rested on report fields.
 
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;

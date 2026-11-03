@@ -24,13 +24,13 @@ itself are out of scope.
 
 ## What each package declares
 
-After one locked restore of the three programs, `scripts/census.py` opens every
-shipped package in the NuGet cache without a network or build. It reads what the
-package says about its origin: the repository and commit in its `.nuspec`;
-whether the shipped files are IL or native; where the PDB is (embedded, in the
-package, only referenced, none); the compiler recorded by the PDB; the
-Reproducible and PdbChecksum debug entries; Source Link; and Authenticode and
-strong-name signatures.
+After one locked restore of the three programs, `scripts/packages.py` opens
+every shipped package in the NuGet cache without a network or build. It reads
+what the package says about its origin: the repository and commit in its
+`.nuspec`; whether the shipped files are IL or native; where the PDB is
+(embedded, in the package, only referenced, none); the compiler recorded by the
+PDB; the Reproducible and PdbChecksum debug entries; Source Link; and
+Authenticode and strong-name signatures.
 
 `results/packages.tsv` contains one row per package and one class:
 
@@ -73,20 +73,20 @@ part measures. Each part's README explains why.
 population/
   README.md
   scripts/
-    census.py                 reads every shipped package: repository, commit, PDB, compiler, signatures
+    packages.py               reads every shipped package: repository, commit, PDB, compiler, signatures
   results/
     shipped-packages.txt      the 341 packages Phoenix ships, one per line; 2a's only input
-    packages.tsv              one row per package: the census facts, its class, and in_2a / in_2b
+    packages.tsv              one row per package: what it declares, its class, and in_2a / in_2b
 ```
 
 - `results/shipped-packages.txt`: the 341, the only input to 2a's
   `population.py`.
-- `results/packages.tsv`: the census row for every package plus `in_2a` and
-  `in_2b`; assembled from the run's `census.csv` and the two parts'
-  `population.tsv`.
-- `scripts/census.py`: the script as run on 13 October, untrimmed. It needs
-  Phoenix's repository and a restore. Its output is here, but the run cannot be
-  repeated from this repository.
+- `results/packages.tsv`: one row per package plus `in_2a` and `in_2b`;
+  assembled from the run's `census.csv` and the two parts' `population.tsv`.
+- `scripts/packages.py`: the script as run on 13 October, then called
+  `census.py`; only its name and its output names changed. It needs Phoenix's
+  repository and a restore. Its output is here, but the run cannot be repeated
+  from this repository.
 - The run is in the working repository
   [Speciale2026](https://github.com/peterjuulm/Speciale2026) at `f127442`,
   `dependencies/data/2026-10-13-dependency-census/mac/`: `census.md`,

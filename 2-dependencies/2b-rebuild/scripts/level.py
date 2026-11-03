@@ -1,4 +1,4 @@
-"""Grade a rebuilt DLL against the published DLL using two dllreport.cs reports.
+"""Match a rebuilt DLL against the published DLL using two dllreport.cs reports.
 
 Usage: python3 -I level.py REPORT_NUGETORG REPORT_OURS
 
