@@ -1,6 +1,6 @@
-# The two figures
+# The figures
 
-Both figures are drawn in draw.io. Edit the `.drawio` file and export the
+The figures are drawn in draw.io. Edit the `.drawio` file and export the
 `.drawio.png` at scale 2 (`draw.io -x -f png -s 2 -b 10`). The step numbers in
 each figure are the numbers in the tables below.
 
@@ -131,3 +131,56 @@ The build must also use that root: `PATH` must find it first, and `DOTNET_ROOT` 
 This variable replaces the rule in every `runtimeconfig.json`. With `Disable`, each tool runs on exactly the version it asks for, 10.0.12, or it does not start. On Peter's Mac, we made a copy of the dotnet root with an extra runtime folder named 10.0.13. A test build without the variable ran the CLI and the compiler server on 10.0.13. With `DOTNET_ROLL_FORWARD=Disable`, both ran on 10.0.12. The build succeeded both times (host trace and `lsof`, 3 November 2026).
 
 We do not use it as the fix. It acts on every .NET program in the shell, not only on the SDK. A program that asks for a version that is not installed exactly does not start. The test app asks for 10.0.0, and it failed with `Disable`. Test hosts and `dotnet` tools can fail in the same way. Microsoft recommends `Disable` only for testing.
+
+## Figure 3: the frontend build (npm)
+
+![The steps of the frontend build: npm ci and npm run build](npm-build.drawio.png)
+
+The frontend in `src/WebAPI/ClientApp/` is built by its own CI job. `npm ci`
+installs the packages (step 2). `npm run build` runs the `prebuild` script
+(step 3) and then `next build` (steps 4 to 7). The CI job hands the export to
+the .NET publish, which copies it into `wwwroot/` (figure 1, step 7).
+
+### The files in figure 3
+
+| Step | File | Who makes it | Who reads it | What it holds, and what that means | What it changes in the build |
+| --- | --- | --- | --- | --- | --- |
+| 1 | `.nvmrc` | The developers | The install-node action in CI; nvm on a developer's machine | One Node version | Which Node runs npm and Next in every later step |
+| 1 | `node.sha256` | The developers, from nodejs.org's checksum list | The install-node action | The SHA-256 of the Node archive for each platform | CI installs that exact archive, or fails |
+| 1 | `PATH` | The shell profile or the CI job | The shell | A list of folders | Which `node` and `npm` run. The action puts its own Node first |
+| 2 | `package.json` | The developers | npm | The direct dependencies with version ranges, and the scripts (`build`, `prebuild`) | What `npm run build` runs. The ranges are used only when the lock file is made |
+| 2 | `package-lock.json` | npm writes it at `npm install`; the developers commit it | `npm ci` | Every package, direct and transitive, with exact version, download URL (`resolved`) and hash (`integrity`) | `npm ci` installs exactly this, or fails if it does not match `package.json`. An entry without `integrity` is pinned by version, not by content |
+| 2 | `.npmrc` | The developers | npm | npm settings for this folder (two lines) | They apply to every npm command in `ClientApp/` |
+| 2 | `~/.npm` | npm | npm | Downloaded package archives, stored by hash | A package already here is not downloaded again. CI keeps the cache under the lock file's hash |
+| 2 | `registry.npmjs.org` | Package authors publish there | npm, for each package not in the cache | The published packages | The source of every package the machine does not have yet |
+| 2, 5 | `node_modules/` | `npm ci`, which deletes the old folder first | Next, SWC, webpack and the check in step 3 | The installed packages | Every tool and library that the build runs or bundles comes from here |
+| 3 | `node_modules/@next/swc-*` | npm, as an optional package for this platform | `check-next-swc.js`, then Next | Next's native compiler for this machine | If it is missing, Next downloads another one without a hash check, or uses a WebAssembly build |
+| 4 | `next.config.js` | The developers | Next | The settings: `output: "export"`, `generateBuildId`, and the webpack hook with the sort plugin | How Next builds and exports the site |
+| 4 | `tsconfig.json` | The developers | Next and SWC | TypeScript settings and the `@` path alias | How imports are found and compiled |
+| 4 | `APP_VERSION`, `NODE_ENV` | The CI job sets `APP_VERSION` (the release tag); Next sets `NODE_ENV=production` | `next.config.js` and Next | The version, and the build mode | The build ID, and production settings in the libraries |
+| 4 | The build ID | Next, from `generateBuildId` | Next, in steps 6 and 7 | One string | It names `_next/static/<id>/` and is written into every page |
+| 5 | `pages/`, `components/`, `styles/` | The developers | SWC and PostCSS | The source code and the styles | The site |
+| 5 | Files outside `ClientApp/` (`mcp/`) | The developers of the MCP servers | SWC, through imports | Shared TypeScript code | The frontend needs files outside its own folder, so the build needs the whole repository |
+| 5 | `postcss.config.js`, `tailwind.config.js` | The developers | PostCSS and Tailwind | The CSS steps, and the files Tailwind scans for class names | Which CSS is generated |
+| 5, 6 | Modules in memory | SWC and PostCSS | webpack | One compiled module for each source file | webpack's input. Nothing is written to disk |
+| 6 | The sort plugin in `next.config.js` | The thesis branch | webpack | Code that sorts the entries, the modules and the links by name before chunks are made | Chunk ids and file contents no longer depend on build timing |
+| 6 | `.next/static/chunks/`, `.next/static/css/` | webpack | Next, in step 7 | The JavaScript and CSS bundles, with a content hash in each name | They are copied to `out/_next/static/` |
+| 6 | `.next/` manifests | Next | Next, in step 7 | Which chunks and CSS files each page needs | Next writes the `<script>` and `<link>` tags in each page from them |
+| 7 | `.next/` | Steps 4 to 6 | Next's export | The whole build | The source of the export |
+| 7 | `public/` | The developers | Next | Static files: images, icons, fonts | Copied into `out/` as they are |
+| 7, 8 | `out/` | Next | The CI job | The static site: HTML, JavaScript, CSS | What the release ships in `wwwroot/` |
+| 8 | The export artifact | The CI job | The publish jobs | `out/` as a CI artifact | The Linux and the Windows release use the same export |
+| 8 | `wwwroot/` | MSBuild, in figure 1 step 7 | The WebAPI, when it runs | The frontend inside the release | What users load in the browser |
+
+### Problems and fixes in figure 3
+
+| Step | What changed the bytes, or could | What fixed it |
+| --- | --- | --- |
+| 1 | CI asked for "20.x", so the newest Node 20 of the day ran. The Dockerfile used another Node (23). `setup-node` checked no hash | `.nvmrc` and `node.sha256`; the install-node action installs that Node from nodejs.org, checked by hash (`63129480`, `456504fa`) |
+| 2 | 391 lock entries had no `resolved` and no `integrity`, so npm asked the registry for them (W41). Install scripts printed banners, set up git hooks, or downloaded a native binary without a hash | The missing fields filled in, twice (`e19ca414`, `bc0c52f6`). `npm ci --ignore-scripts` (`456504fa`) |
+| 3 | Without its native compiler, Next downloads one without a hash, or uses another compiler | `check-next-swc.js` stops the build (`456504fa`) |
+| 4 | Next drew a random build ID for every build (W37) | `generateBuildId` returns `APP_VERSION`, or `dev` (`5031c5af`, W45) |
+| 5 | The frontend imports code from outside `ClientApp/` (W39) | No code change. A rebuild uses the whole commit, not only `ClientApp/` |
+| 6 | Webpack took the order of entries (W47), modules and links (W51) from build timing. Shared CSS files took the order of third-party stylesheets from build timing (W43) | The sort plugin in `next.config.js` (`a16f9a91`, `61870435`, `acbea21c`). All third-party CSS imported in `_app.tsx` (`eed6c240`, `a16eb506`) |
+| 7 | After the fixes, two exports of one commit are the same | — |
+| 8 | The Windows release built an export of its own | The Windows job takes the release's own export (`019c7b49`) |
