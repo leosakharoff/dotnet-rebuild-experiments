@@ -20,6 +20,12 @@ and PdbChecksum debug entries, Source Link and signatures. Assign one
 category per package (see CATEGORIES).
 
 Usage: python3 -I packages.py REPO NUGET_CACHE OUTDIR RID PROGRAM... [--tool NAME]...
+   or: python3 -I packages.py mark PACKAGES_CSV 2A_POPULATION_TSV 2B_POPULATION_TSV OUT_TSV
+
+The first form needs Phoenix's repository and a locked restore; it ran once, on 13 October 2026.
+The second form takes that run's packages.csv (then named census.csv) and the two parts'
+population.tsv, and writes results/packages.tsv: the same rows with in_2a (yes, or the
+status that stopped the package in 2a's population.py) and in_2b (yes or no) added.
 Writes OUTDIR/packages.csv, OUTDIR/packages.md, OUTDIR/left-out.md, and
 OUTDIR/packages.files.csv: one row per shipped managed DLL with its PDB identity
 (CodeView name, GUID, age, portable or not, PdbChecksum), for symbol servers.
@@ -30,6 +36,32 @@ from the assets file (.NET 10), only the lock sections for RID count as
 shipped, and --tool added. 14 October: scope.md renamed left-out.md.
 """
 import collections, csv, glob, json, os, re, struct, sys, zlib
+
+def mark(packages_csv, pop2a, pop2b, out):
+    """Write OUT: one row per package from PACKAGES_CSV, with in_2a and in_2b from the two population files."""
+    status2a = {}
+    for l in open(pop2a, encoding='utf-8').read().splitlines()[1:]:
+        f = l.split('\t')
+        status2a[(f[0], f[1])] = f[6]
+    in2b = {tuple(l.split('\t')[:2]) for l in open(pop2b, encoding='utf-8').read().splitlines()[1:]}
+    cols = ['package', 'version', 'owner', 'direct', 'class', 'repository', 'commit', 'managed_files',
+            'native_files', 'pdb', 'compiler', 'deterministic', 'pdbchecksum', 'sourcelink',
+            'authenticode', 'strongname', 'in_2a', 'in_2b']
+    with open(out, 'w', encoding='utf-8', newline='') as f:
+        f.write('\t'.join(cols) + '\n')
+        for r in csv.DictReader(open(packages_csv, encoding='utf-8', newline='')):
+            key = (r['package'], r['version'])
+            s = status2a.get(key, 'not in 2a/population.tsv')
+            r['class'] = r['category']
+            r['direct'] = 'yes' if r['direct'] == 'yes' else 'no'
+            r['in_2a'] = 'yes' if s == 'ok' else 'no: ' + s.split(': ', 1)[0]
+            r['in_2b'] = 'yes' if key in in2b else 'no'
+            f.write('\t'.join(r[c] for c in cols) + '\n')
+
+
+if sys.argv[1:2] == ['mark']:
+    mark(*sys.argv[2:6])
+    sys.exit()
 
 repo, cache, outdir, rid = sys.argv[1:5]
 rest = sys.argv[5:]

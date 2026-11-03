@@ -67,13 +67,36 @@ part measures. Each part's README explains why.
   C1b), and 83 name no compiler.
 - 185 package versions are in both.
 
+## Running
+
+Step 1 needs Phoenix's repository and a locked restore, so it ran once, on `mac`
+on 13 October 2026; its output is in the working repository (below). Step 2 runs
+here and makes `results/packages.tsv` from that output.
+
+1. Read every shipped package (once, with Phoenix at hand):
+
+```bash
+python3 -I scripts/packages.py PHOENIX_REPO NUGET_CACHE OUT linux-x64 WebAPI BackgroundJobExecutor DbMigrator --tool dotnet-ef
+```
+
+2. Mark which rows each part takes, from the stored run and the two parts'
+   `population.tsv`:
+
+```bash
+python3 -I scripts/packages.py mark $SPECIALE2026/dependencies/data/2026-10-13-dependency-census/mac/census.csv ../2a-determinism/population.tsv ../2b-rebuild/population.tsv results/packages.tsv
+```
+
+`in_2a` is `yes` or the status that stopped the package in 2a's `population.py`;
+`in_2b` is `yes` or `no`. Run on 3 November 2026 against the stored run: the
+same 341 rows as before.
+
 ## Data and scripts
 
 ```
 population/
   README.md
   scripts/
-    packages.py               reads every shipped package: repository, commit, PDB, compiler, signatures
+    packages.py               reads every shipped package (step 1); `mark` writes packages.tsv (step 2)
   results/
     shipped-packages.txt      the 341 packages Phoenix ships, one per line; 2a's only input
     packages.tsv              one row per package: what it declares, its class, and in_2a / in_2b
@@ -81,12 +104,14 @@ population/
 
 - `results/shipped-packages.txt`: the 341, the only input to 2a's
   `population.py`.
-- `results/packages.tsv`: one row per package plus `in_2a` and `in_2b`;
-  assembled from the run's `census.csv` and the two parts' `population.tsv`.
+- `results/packages.tsv`: one row per package plus `in_2a` and `in_2b`; written
+  by `packages.py mark` from the run's `census.csv` and the two parts'
+  `population.tsv`.
 - `scripts/packages.py`: the script as run on 13 October, then called
-  `census.py`; only its name and its output names changed. It needs Phoenix's
-  repository and a restore. Its output is here, but the run cannot be repeated
-  from this repository.
+  `census.py`; its name and its output names changed, and the `mark` command was
+  added on 3 November. Step 1 needs Phoenix's repository and a restore, so it
+  cannot be repeated from this repository; its output is in the working
+  repository.
 - The run is in the working repository
   [Speciale2026](https://github.com/peterjuulm/Speciale2026) at `f127442`,
   `dependencies/data/2026-10-13-dependency-census/mac/`: `census.md`,
