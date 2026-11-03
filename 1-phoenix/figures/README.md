@@ -65,6 +65,26 @@ right.
 | 8 | `zip -r` stored file times, modes from the umask and disk order (W48, W30). `SHA256SUMS` followed the locale (W63). Images recorded the build time and caches (W56, W60). Each signature has its own timestamp (W59). | `scripts/pack-release-zip.sh` (W48). `LC_ALL=C` (W63). `SOURCE_DATE_EPOCH` and `rewrite-timestamp` (W56, W60). A rebuild is compared after the release's signatures are copied onto it (W59). (5ec085ac, 97038d73, fa60ea97, 3c337593, 66bf8458) |
 | 9 | Phoenix does not pack. Experiment 2 found that older SDKs give `.psmdcp` a random name. | No Phoenix change. |
 
+### The options in the release commands
+
+`dotnet publish ./src/WebAPI/WebAPI.csproj -c Release -o <folder> -r linux-x64 --self-contained true --no-restore /p:SkipSpaBuild=true`
+
+`publish` is the command. `-c` is an option, and `Release` is its value. Each
+option sets an MSBuild property, as `-p:Name=Value` does.
+
+| Option | Property | What it changes |
+| --- | --- | --- |
+| `-c Release` | `Configuration=Release` | `Optimize=true`, the define `RELEASE`, output in `bin/Release/`. The default is `Debug` for `build`, `run` and `test`, and `Release` for `publish` |
+| `-o <folder>` | `PublishDir` | Where the output goes. Not the bytes |
+| `-r linux-x64` | `RuntimeIdentifier` | The platform: native files, apphost, runtime pack |
+| `--self-contained true` | `SelfContained=true` | The runtime pack is copied into the output (step 7) |
+| `--no-restore` | — | Skips step 3; uses the restore that ran before |
+| `/p:SkipSpaBuild=true` | Phoenix's own | No `npm ci` and `next build`; the frontend job's export is copied in |
+
+Debug is for working with the debugger: no optimization, so breakpoints and
+variables behave as in the source. Release is what ships, so CI tests it too.
+Debug and Release give different IL, and the PDB records which one was used.
+
 ## Figure 2: the SDK's processes and their runtimes
 
 ![How one dotnet build starts its processes and chooses their runtimes](sdk-processes.drawio.png)
