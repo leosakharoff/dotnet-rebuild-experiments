@@ -11,6 +11,11 @@ NuGet. Both outputs in each comparison are built locally; [part
 
 ## Method
 
+![Pipeline of part 2a](figures/pipeline-2a.drawio.png)
+
+Each package is cloned at its commit and built twice, a control build and a
+build with one variation, and the two packages are compared.
+
 ### Population
 
 We start with the 341 packages shipped with Phoenix
@@ -172,6 +177,12 @@ The Figure 3 categories for the 127 measured packages are:
 | 2 content | 4 | 98 | 25 |
 | 3 DLLs | 4 | 98 | 25 |
 
+![Categories at each comparison level](figures/categories.png)
+
+The categories of the 127 at each level. The 25 unreproducible are 23 whose
+configured build differs and 2 whose configured `time` build fails, the npm
+packages (see Packages not fixed by configuration).
+
 No package is reproducible as is at the whole-file level because NuGet stamps
 every ZIP entry with the build time. `DeterministicTimestamp` removes this
 source of variation.
@@ -196,6 +207,12 @@ builds on each axis:
 | build_path | 127 | 123 | 123 | 0 |
 | time | 125 | 18 | 18 | 2 |
 | environment, locales, exec_path, timezone, umask, fileordering (each) | 127 | 5 | 5 | 0 |
+
+![Content differences per variation](figures/variations.png)
+
+Packages whose content differs per axis, default and configured. The whole-file
+and DLL levels are left out: the first differs for every default pair, the
+second equals the content level.
 
 `build_path` produces the most assembly differences in this population. The
 compiler writes absolute source paths into the PDB and the PDB ID into the DLL.
@@ -319,11 +336,14 @@ Three differences in the study designs limit a direct comparison:
   README.md
   population.tsv              the 341 shipped packages with repository, commit, project and status; 224 are `ok`
   figures/
-    method.drawio             the command sequence as a figure; method.drawio.png is its export
+    pipeline-2a.drawio        the method as a pipeline; pipeline-2a.drawio.png is its export
+    categories.pdf, .png      the categories of the 127 at each level, from results/categories.tsv
+    variations.pdf, .png      content differences per axis, default and configured, from results/runs.tsv
   scripts/
     population.py             derives population.tsv from ../population/results/shipped-packages.txt
     build-and-compare.py      the driver: try-build, build-twice, batch, results, environment
     summary.py                the tables: results/summary.md and categories.tsv from the lab
+    figures.py                the figures from results/: python3 -I scripts/figures.py [THESIS_IMAGES]
   results/
     runs.tsv                  one row per run (package, mode, axis, verdict at three levels)
     categories.tsv            one row per package with its category at each level
@@ -352,9 +372,13 @@ Three differences in the study designs limit a direct comparison:
   with Phoenix and is the experiment's only input.
 - `scripts/population.py` derives `population.tsv`, which contains 341 rows with
   repository, commit, project and status.
-- `figures/method.drawio` shows the method. `figures/method.drawio.png` is its
-  exported preview. Regenerate it from this folder with `drawio -x -f png -e -s
-  2 -b 10 -o figures/method.drawio.png figures/method.drawio`.
+- `figures/pipeline-2a.drawio` is the pipeline in the Method section. Export it
+  with `drawio -x -f png -e -s 2 -b 10 -o figures/pipeline-2a.drawio.png
+  figures/pipeline-2a.drawio`.
+- `scripts/figures.py` draws `figures/categories` and `figures/variations`, as
+  PDF and PNG, from `results/`. Given a folder, it also writes the PDFs there
+  for the thesis: `python3 -I scripts/figures.py [THESIS_IMAGES]`. It needs
+  matplotlib.
 - `results/` contains `runs.tsv` (one row per run), `categories.tsv` (one row
   per package), `summary.md` and `environment.txt`.
 - Every build log, comparison and file list is stored in the working repository,

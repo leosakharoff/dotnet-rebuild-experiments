@@ -12,6 +12,11 @@ source files to it. These records give us a starting point for the comparison.
 
 ## Method
 
+![Pipeline of part 2b](figures/pipeline-2b.drawio.png)
+
+A recipe is derived from the release, built twice as A and A2, and A's DLL is
+compared with nuget.org's and with A2's.
+
 ### Population
 
 We start with the 341 packages shipped by Phoenix
@@ -219,6 +224,11 @@ The release build covers all 198 packages.
 | | no recipe | 5 | 36 | 41 |
 | | total | 59 | 139 | 198 |
 
+![Grades of the release build and the publisher's build](figures/grades.png)
+
+The grades of the release build above, and of the publisher's build below (see
+Using the publisher's build system).
+
 The release-derived build reproduces 22 of the 198 packages: 17 of 59
 third-party packages and 5 of 139 Microsoft packages. More than half do not
 build.
@@ -408,8 +418,8 @@ working repository's "best of all versions" from 28 October.
   README.md
   population.tsv              the 198 packages, owner, class and the DLL Phoenix ships from each
   figures/
-    method.drawio             the command sequence as a figure
-    method.drawio.png         exported from it: drawio -x -f png -e -s 2 -b 10
+    pipeline-2b.drawio        the method as a pipeline; pipeline-2b.drawio.png is its export
+    grades.pdf, .png          the grades per group, release and publisher's build, from results/categories.tsv
   scripts/
     derive.py                 the eight rules: release facts to recipe.toml and facts.txt
     rebuild.py                one recipe: SDK by hash, fresh clone, build A and A2, pack
@@ -417,6 +427,7 @@ working repository's "best of all versions" from 28 October.
     level.py                  grades one DLL pair from two dllreport.cs reports
     run-batch.py              derive.py and rebuild.py over population.tsv, then results/
     summary.py                prints results/summary.md and categories.tsv
+    figures.py                the grade figure: python3 -I scripts/figures.py [THESIS_IMAGES]
     sdk-csc.json              SDK version to compiler version; derive.py reads and extends it
     nupkg-rebuild.yml         the GitHub workflow for the runner recipes; not active here
   results/
@@ -439,6 +450,13 @@ working repository's "best of all versions" from 28 October.
 
 `../tools/` holds `install-sdk.py`, `dllreport.cs` and `stripsign.cs`, shared
 with 2a and unchanged.
+
+`scripts/figures.py` draws `figures/grades`, as PDF and PNG, from
+`results/categories.tsv`. Given a folder, it also writes the PDF there for the
+thesis: `python3 -I scripts/figures.py [THESIS_IMAGES]`. It needs matplotlib.
+`figures/pipeline-2b.drawio` is the pipeline in the Method section. Export it
+with `drawio -x -f png -e -s 2 -b 10 -o figures/pipeline-2b.drawio.png
+figures/pipeline-2b.drawio`.
 
 The scripts are the working repository's with lab paths and unused options
 removed. `run-batch.py` replaces its `run-batch.py` and `derive-batch.py`
