@@ -57,14 +57,33 @@ is drawn hollow.
 
 `dependency-graph.html` is the graph with the same positions. It has a title
 line with two view words, 2a and 2b, a colour key that also filters, a search
-field, the graph, and one line on the sources. A click on a node or a sector
-opens a small box: what the package is, why Phoenix has it or what brings it
-in, its 2a and 2b results with one line of reason each, and its dependents
-and dependencies, direct or transitive. With direct, the graph still draws
-the transitive ones, fainter. Pointing at a name in the box rings its node in
-the graph. Pointing at a ring's number explains the ring, and a click on it
-filters by that ring. A click on the white background clears the selection
-and the filters. It works on a phone.
+field, a menu of views, the graph, and one line on the sources. A click on a
+node or a sector opens a small box: what the package is, why Phoenix has it or
+what brings it in, its 2a and 2b results with one line of reason each, and what
+uses it and what it uses. The lists hold what lies one step away; below each,
+folded, is what lies further up or down. The graph draws one step dark and the
+rest faint, and unfolding a list draws its part dark too. Pointing at a name in
+the box rings its node in the graph. Pointing at a ring's number explains the
+ring, and a click on it filters by that ring. A click on the white background
+clears the selection and the filters; once nothing is left to clear, it leaves
+a view. It works on a phone.
+
+The menu, under the search field, holds six views. Each recolours the graph and
+says in a caption what it shows; the page counts every number in a caption
+from its own data. The address keeps the view, so a link such as
+`dependency-graph.html#view=2a-2b` opens it.
+
+- 2a and 2b together (`2a-2b`): the 185 packages in both parts, by the
+  combination of their results.
+- Verified all the way down (`verified`): the packages reproduced from the
+  release, by whether every dependency that ships files is reproduced too.
+- Third party and Microsoft (`owners`): 2b's result by owner.
+- What the release leaves out (`outside`): the 143 packages outside 2b, by
+  the population class that keeps them out.
+- What everything rests on (`rests`): 2b's colours, with each node sized by
+  the number of package versions that depend on it at any distance.
+- What the publisher's build adds (`publisher`): the publisher's build as a
+  side note beside the release build.
 
 The box's texts come from three places:
 
@@ -86,7 +105,7 @@ The page is published at <https://leosakharoff.github.io/phoenix-dependencies/>,
 from the public repository `leosakharoff/phoenix-dependencies`, which holds
 only this file, as `index.html`. Here GitHub shows the file as source; to use
 this copy, download it (Raw, then save) and open it in a browser. It is one
-file, about 390 KiB, with the two DejaVu Sans fonts inside it. It loads
+file, about 420 KiB, with the two DejaVu Sans fonts inside it. It loads
 nothing from the network.
 
 ## Running
@@ -221,7 +240,7 @@ packages that bring it in.
 ```
 graph/
   README.md
-  dependency-graph.html       the page: one file, about 390 KiB; download and open in a browser
+  dependency-graph.html       the page: one file, about 420 KiB; download and open in a browser
   scripts/
     graph.py                  `edges` reads the lock files (step 1); `join` writes graph.json (step 2)
     layout.py                 the positions: ring, sector, order within both; also the label columns

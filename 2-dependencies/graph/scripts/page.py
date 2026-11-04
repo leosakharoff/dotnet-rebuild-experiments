@@ -15,7 +15,7 @@ RESULTS, TEMPLATE, FONTS, OUT = args
 
 load = lambda name: json.load(open(os.path.join(RESULTS, name)))
 g, lay, desc, reasons = (load(n) for n in ('graph.json', 'layout.json', 'descriptions.json', 'reasons.json'))
-KEEP = ('id', 'name', 'version', 'kind', 'repo', 'via', 's2a', 's2b')  # only the fields the page reads
+KEEP = ('id', 'name', 'version', 'kind', 'owner', 'cls', 'repo', 'via', 's2a', 's2b', 'pub')  # only the fields the page reads
 pos = {n['id']: n for n in lay['nodes']}
 nodes = []
 for n in g['nodes']:

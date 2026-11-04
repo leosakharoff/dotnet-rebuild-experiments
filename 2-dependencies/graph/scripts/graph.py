@@ -87,6 +87,9 @@ def join(edges_tsv, exp, out):
         n['s2a'] = ('not in 2a' if not c else c['cat_assemblies'] if c['screen'] == 'built' else 'did not build')
         # 2b: the category column, from the release build alone (the publisher's build is a diagnostic)
         n['s2b'] = cat2b[i]['category'] if i in cat2b else 'not in 2b'
+        # the publisher's build, where it ran: its match, as a diagnostic beside the category
+        if cat2b.get(i, {}).get('publisher_build'):
+            n['pub'] = cat2b[i]['publisher_build']
         nodes[i] = n
     unknown = {x for e in edge_rows for x in (e['source'], e['target'])} - set(nodes)
     assert not unknown, f'edges to nodes outside the population: {sorted(unknown)[:5]}'
