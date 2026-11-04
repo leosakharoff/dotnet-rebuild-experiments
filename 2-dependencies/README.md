@@ -10,7 +10,7 @@ steps have `figures/`:
 | `population/` | The 341 packages Phoenix ships, and what each declares about its origin | the list both parts start from |
 | `2a-determinism/` | Build determinism: two builds of the same commit under one fixed SDK, one condition varied at a time | 102 of 127 identical with the ecosystem's own configuration; 25 held back by the publishers' build logic |
 | `2b-rebuild/` | Rebuild against nuget.org: can the published bytes be produced from what the release names? | 22 of 198 from the release alone; the publisher's own build, a diagnostic, reproduces 35 more on Windows |
-| `graph/` | The 341 packages as a graph: the edges from Phoenix's lock files, each node coloured by its 2a and 2b result | a figure, and a page where each package opens, with six views |
+| `graph/` | The 341 packages as a graph: the edges from Phoenix's lock files, each node coloured by its 2a and 2b result | a figure, and [a page](https://leosakharoff.github.io/phoenix-dependencies/) where each package opens, with six views |
 | `tools/` | What all three share: one SDK by hash, a DLL and PDB report, signatures stripped | |
 
 How the steps connect:

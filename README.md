@@ -27,17 +27,18 @@ Experiment 2 examines Phoenix's 341 NuGet package versions in two parts:
   versions attempted, 22 were reproduced using information recorded in the
   release. This count includes matches that disregard publisher signatures. A
   second, diagnostic build with Microsoft's own build system reproduced 35 more
-  Microsoft packages on Windows; it shows what the release is missing and is not
-  counted as reproduction. Of the 143
-  packages outside this population, 38 ship no managed code, 22 lack source
-  information, and 83 lack a compiler record.
+  Microsoft packages on Windows; it shows what the release is missing and is
+  not counted as reproduction. Of the 143 packages not attempted, 38 ship no
+  managed code, 22 lack source information, and 83 lack a compiler record.
 
 Both parts start from the same [population](2-dependencies/population/): the 341
 shipped packages and what each declares about its origin (repository, commit,
 compiler, symbols, signatures). Each part states its selection criteria in its
-README. The [dependency graph](2-dependencies/graph/) draws the 341 packages
-with the edges from Phoenix's lock files, each node coloured by its result in
-both parts, as a figure and as a page. [Shared tools](2-dependencies/tools/)
+README. The [dependency graph](https://leosakharoff.github.io/phoenix-dependencies/)
+draws the 341 packages with the edges from Phoenix's lock files, each node
+coloured by its result in both parts: a page with six views, published on
+GitHub Pages, and a figure. Its scripts and data are in
+[`2-dependencies/graph/`](2-dependencies/graph/). [Shared tools](2-dependencies/tools/)
 install specific SDK versions, inspect assemblies and debug symbols, and
 compare assemblies with signatures removed. The experiment READMEs describe
 the methods, commands, results and limitations.

@@ -208,15 +208,23 @@ svg.map text.seclabel { fill: #4a4a4a; }
 <script>
 const DATA = /*DATA*/null;
 
-// The two parts' colourings. Each class: [value of the field, colour, label in the key].
+// The two parts' colourings. Each class: [value of the field, colour, label in the key, what the class means].
 const VIEWS = {
   '2a': { field: 's2a', classes: [
-    ['as is', 'strong', 'Reproducible as is'], ['with configuration', 'repro', 'Reproducible with configuration'], ['unreproducible', 'differs', 'Unreproducible'],
-    ['did not build', 'nobuild', 'Did not build'], ['not in 2a', 'notin', 'Not attempted'] ] },
+    ['as is', 'strong', 'Reproducible as is', "Our two builds' assemblies are identical under all eight variations, with the default build command."],
+    ['with configuration', 'repro', 'Reproducible with configuration', 'Identical under all eight variations once the three deterministic-build properties are set (ContinuousIntegrationBuild, Deterministic, DeterministicTimestamp), but not with the default command.'],
+    ['unreproducible', 'differs', 'Unreproducible', 'Built, but with the three properties set, some variation still changes the assemblies or makes the build fail.'],
+    ['did not build', 'nobuild', 'Did not build', 'In 2a, but the build under the fixed SDK failed, so there were no two builds to compare.'],
+    ['not in 2a', 'notin', 'Not attempted', "Left out before 2a, which needs a repository, a commit and one project with the shipped assembly's name: for these, one of the three is missing or could not be fetched."] ] },
   '2b': { field: 's2b', classes: [
-    ['from the release', 'strong', 'Reproduced from the release'], ['built, but differs', 'differs', 'Built, but differs'],
-    ['no package', 'nobuild', 'No package to compare'], ['no recipe', 'nobuild', null], ['not in 2b', 'notin', 'Not attempted'] ] },
+    ['from the release', 'strong', 'Reproduced from the release', 'Built from what the release records, our DLL is the one nuget.org serves: byte for byte, or apart from the signatures.'],
+    ['built, but differs', 'differs', 'Built, but differs', "Built from what the release records and compared, but the DLL differs from nuget.org's: in the build identity only (same code), or in the code itself (other code)."],
+    ['no package', 'nobuild', 'No package to compare', () => `Attempted, but nothing to compare: the rules derived no recipe from the release (${count(pkgs, n => n.s2b === 'no recipe')}), or the build left no package of the released id and version (${count(pkgs, n => n.s2b === 'no package')}).`],
+    ['no recipe', 'nobuild', null],
+    ['not in 2b', 'notin', 'Not attempted', "Left out before 2b, which needs a commit and the compiler's record in a PDB: the release lacks one of them, or the package ships no managed code."] ] },
 };
+const OWN = "Phoenix's three programs and two class libraries, which the packages hang from. No result of 2a or 2b.";
+const say = k => VIEWS[k.slice(0, 2)].classes.find(c => c[0] === k.slice(3))[3]; // a part's explanation, e.g. say('2b not in 2b')
 let filter = new Set(); // classes of the current colouring to show; empty shows all
 let ringFilter = new Set(); // rings to show; empty shows all
 let view = '2b', lens = null, pinned = null, hover = null, pinnedSec = null, hoverSec = null;
@@ -256,7 +264,7 @@ const repoName = n => (n.repo || 'no repository').replace(/^(https?|git):\/\/(ww
 // The views in the menu. Each recolours the graph and says in a caption what it shows; every number is counted here.
 const REPRODUCED = new Set(['as is', 'with configuration']), PUB_OK = new Set(['identical', 'identical without signatures']);
 const count = (list, f) => list.filter(f).length, LIGHT = '#e4e4e4';
-const key2b = () => VIEWS['2b'].classes.filter(c => c[2]).map(([, k, t]) => [k, t, k === 'notin' ? null : `var(--c-${k})`]);
+const key2b = () => VIEWS['2b'].classes.filter(c => c[2]).map(([, k, t, x]) => [k, t, k === 'notin' ? null : `var(--c-${k})`, x]);
 const LENSES = [
   { id: '2a-2b', title: '2a next to 2b', question: 'Reproducible in 2a, and reproduced from the release in 2b? The same graph twice.', build() {
     const ok2a = n => REPRODUCED.has(n.s2a), ok2b = n => n.s2b === 'from the release';
@@ -264,11 +272,14 @@ const LENSES = [
     const in2b = count(pkgs, n => n.s2b !== 'not in 2b'), both = count(pkgs, n => ok2a(n) && n.s2b !== 'not in 2b'), among = pkgs.every(n => !ok2b(n) || ok2a(n));
     return {
       of: n => n.s2a === 'not in 2a' ? 'notin' : n.s2a === 'as is' ? 'asis' : n.s2a === 'with configuration' ? 'config' : 'tried', ok: ok2a,
-      key: [['asis', 'Reproducible as is', 'var(--c-strong)'], ['config', 'Reproducible with configuration', 'var(--c-repro)'],
-        ['tried', 'Unreproducible or did not build', '#c8c8c8'], ['notin', 'Not attempted', null]],
+      key: [['asis', 'Reproducible as is', 'var(--c-strong)', say('2a as is')], ['config', 'Reproducible with configuration', 'var(--c-repro)', say('2a with configuration')],
+        ['tried', 'Unreproducible or did not build', '#c8c8c8', 'Attempted in 2a, but not reproducible: some variation changes the assemblies even with the three properties set, or the build failed.'],
+        ['notin', 'Not attempted', null, say('2a not in 2a')]],
       heading: `2a: reproducible, ${a} of the ${built} built`,
       right: { of: n => n.s2b === 'not in 2b' ? 'notin' : ok2b(n) ? 'release' : 'tried', ok: ok2b,
-        key: [['release', 'Reproduced from the release', 'var(--c-strong)'], ['tried', 'Built, but differs, or no package to compare', '#c8c8c8'], ['notin', 'Not attempted', null]],
+        key: [['release', 'Reproduced from the release', 'var(--c-strong)', say('2b from the release')],
+          ['tried', 'Built, but differs, or no package to compare', '#c8c8c8', 'Attempted in 2b, but not reproduced: the DLL differs from nuget.org\'s, or there was no package to compare.'],
+          ['notin', 'Not attempted', null, say('2b not in 2b')]],
         heading: `2b: reproduced from the release, ${b} of ${in2b}` },
       caption: `The same graph twice, with the same positions. Left, part 2a: the ${a} of the ${built} packages built that are reproducible; with the three deterministic-build properties set, they build identically under all eight variations. `
         + `Right, part 2b: the ${b} of ${in2b} reproduced from the release.`
@@ -286,9 +297,11 @@ const LENSES = [
       cls.set(n.id, k);
     }
     const c = k => count(pkgs, n => cls.get(n.id) === k), rep = c('verified') + c('depdiff') + c('depnob') + c('outside');
-    return { of: n => cls.get(n.id), key: [['verified', 'Reproduced, and so is everything it pulls in', 'var(--c-strong)'],
-        ['depdiff', 'Reproduced, but a dependency differs', 'var(--c-differs)'], ['depnob', 'Reproduced, but a dependency has no package to compare', '#8c8c8c'],
-        ['outside', 'Reproduced, its dependencies not attempted', '#a9c6e6'], ['rest', 'Not reproduced from the release', LIGHT], ['notin', 'Not attempted', null]],
+    return { of: n => cls.get(n.id), key: [['verified', 'Reproduced, and so is everything it pulls in', 'var(--c-strong)', 'Reproduced from the release, and so is every dependency that ships files, at any distance; or it has no such dependency.'],
+        ['depdiff', 'Reproduced, but a dependency differs', 'var(--c-differs)', 'Reproduced from the release, but at least one dependency was built and differs.'],
+        ['depnob', 'Reproduced, but a dependency has no package to compare', '#8c8c8c', 'Reproduced from the release, but at least one dependency has no package to compare.'],
+        ['outside', 'Reproduced, its dependencies not attempted', '#a9c6e6', 'Reproduced from the release; its dependencies with files were not attempted in 2b.'],
+        ['rest', 'Not reproduced from the release', LIGHT, 'In 2b, but not reproduced from the release: built but differs, or no package to compare.'], ['notin', 'Not attempted', null, say('2b not in 2b')]],
       caption: `${c('verified')} of the ${rep} packages reproduced from the release can be checked together with every dependency that ships files: `
         + `${why.alone} have no such dependency, and ${why.all} have every one reproduced too. For ${c('depdiff')}, a dependency was built and differs; for ${c('depnob')}, a dependency has no package to compare.`
         + (c('outside') ? ` ${c('outside')} have only dependencies that 2b did not attempt.` : '') + ' Dependencies count at any distance, inside each program.' };
@@ -297,8 +310,10 @@ const LENSES = [
     const of = n => n.s2b === 'not in 2b' ? 'notin' : (n.owner === 'Microsoft' ? 'ms' : 'tp') + (n.s2b === 'from the release' ? '-rep' : '-not');
     const c = (o, f) => count(pkgs, n => n.s2b !== 'not in 2b' && (n.owner === 'Microsoft') === (o === 'ms') && f(n));
     const all = () => true, rep = n => n.s2b === 'from the release';
-    return { of, key: [['tp-rep', 'Third party, reproduced from the release', 'var(--c-strong)'], ['tp-not', 'Third party, not reproduced', '#a9c6e6'],
-        ['ms-rep', 'Microsoft, reproduced from the release', '#6a4c93'], ['ms-not', 'Microsoft, not reproduced', '#d3c6e6'], ['notin', 'Not attempted', null]],
+    return { of, key: [['tp-rep', 'Third party, reproduced from the release', 'var(--c-strong)', 'A package from a publisher other than Microsoft, reproduced from the release.'],
+        ['tp-not', 'Third party, not reproduced', '#a9c6e6', 'A package from a publisher other than Microsoft, in 2b but not reproduced from the release.'],
+        ['ms-rep', 'Microsoft, reproduced from the release', '#6a4c93', "A Microsoft package, reproduced from the release."],
+        ['ms-not', 'Microsoft, not reproduced', '#d3c6e6', 'A Microsoft package, in 2b but not reproduced from the release.'], ['notin', 'Not attempted', null, say('2b not in 2b')]],
       caption: `Third-party packages: ${c('tp', rep)} of ${c('tp', all)} reproduced from the release. Microsoft packages: ${c('ms', rep)} of ${c('ms', all)}; `
         + `of the other ${c('ms', all) - c('ms', rep)}, ${c('ms', n => n.s2b === 'no package' || n.s2b === 'no recipe')} left no package to compare `
         + `(${c('ms', n => n.s2b === 'no package')} no package, ${c('ms', n => n.s2b === 'no recipe')} no recipe). What Microsoft's own build system adds is the publisher's-build view.` };
@@ -307,8 +322,10 @@ const LENSES = [
     const of = n => n.s2b !== 'not in 2b' ? 'in' : /^N/.test(n.cls) ? 'nocode' : /^C1/.test(n.cls) ? 'nosource' : /^C2/.test(n.cls) ? 'nocompiler' : 'other';
     const c = k => count(pkgs, n => of(n) === k), cl = k => count(pkgs, n => of(n) !== 'in' && n.cls === k);
     const hz = count(pkgs, n => of(n) === 'nocompiler' && n.name.startsWith('Humanizer.Core.'));
-    return { of, key: [['nocode', 'No managed code (N0, N1)', '#2a9d8f'], ['nosource', 'No repository or commit (C1a, C1b)', '#6a4c93'],
-        ['nocompiler', 'No compiler record (C2a, C2b, C2c)', '#d4a017'], ['other', 'Another reason', '#8c8c8c'], ['in', 'In 2b', LIGHT]],
+    return { of, key: [['nocode', 'No managed code (N0, N1)', '#2a9d8f', 'Nothing to compile: the package ships no files (N0) or native code only (N1).'],
+        ['nosource', 'No repository or commit (C1a, C1b)', '#6a4c93', 'The .nuspec names no repository (C1a), or a repository but no commit (C1b).'],
+        ['nocompiler', 'No compiler record (C2a, C2b, C2c)', '#d4a017', 'No compiler record to derive the SDK from: no PDB (C2a), a PDB in neither the package, the .snupkg nor the symbol server (C2b), or a PDB without the record (C2c).'],
+        ['other', 'Another reason', '#8c8c8c', 'Left out of 2b for another reason.'], ['in', 'In 2b', LIGHT, 'Attempted in 2b.']],
       caption: `${pkgs.length - c('in')} of the ${pkgs.length} package versions were not attempted in 2b, which needs a commit and the compiler's record in a PDB. `
         + `${c('nocode')} ship no managed code, ${c('nosource')} name no repository or commit, and ${c('nocompiler')} have no compiler record: `
         + `${cl('C2a')} have no PDB, ${cl('C2b')} a PDB in neither the package, the .snupkg nor the symbol server, and ${cl('C2c')} a PDB without the record.`
@@ -328,8 +345,10 @@ const LENSES = [
   { id: 'publisher', title: "What the publisher's build adds", question: 'A side note: what the release is missing.', build() {
     const of = n => n.s2b === 'not in 2b' ? 'notin' : n.s2b === 'from the release' ? 'release' : !n.pub ? 'notrun' : PUB_OK.has(n.pub) ? 'pubrep' : 'pubdiff';
     const c = k => count(pkgs, n => of(n) === k), r = s => count(pkgs, n => of(n) === 'pubrep' && n.s2b === s);
-    return { of, key: [['release', 'Reproduced from the release', 'var(--c-strong)'], ['pubrep', "Reproduced only by the publisher's build", '#2a9d8f'],
-        ['pubdiff', "The publisher's build differs or left no package", '#f8cfa9'], ['notrun', "No publisher's build", LIGHT], ['notin', 'Not attempted', null]],
+    return { of, key: [['release', 'Reproduced from the release', 'var(--c-strong)', say('2b from the release')],
+        ['pubrep', "Reproduced only by the publisher's build", '#2a9d8f', "Not reproduced from the release, but the repository's own build system reproduces it. A diagnostic, not a result."],
+        ['pubdiff', "The publisher's build differs or left no package", '#f8cfa9', "The publisher's build ran, but its DLL differs from nuget.org's, or it left no package."],
+        ['notrun', "No publisher's build", LIGHT, "In 2b, but the publisher's build did not run: it covers only packages from Microsoft's Arcade repositories."], ['notin', 'Not attempted', null, say('2b not in 2b')]],
       caption: `A diagnostic, not a result. The publisher's build runs the repository's own build system, which the release does not name, and it ran only for the `
         + `${count(pkgs, n => n.pub)} packages from Microsoft's Arcade repositories. It reproduces ${c('pubrep')} that the release build did not: `
         + `${r('no recipe')} without a recipe from the release (their compiler is in no public SDK), ${r('built, but differs')} that the release build built but differ, `
@@ -338,10 +357,10 @@ const LENSES = [
 ];
 const built = new Map();
 function scheme() {
-  if (!lens) return { of: n => kind(view, n), key: VIEWS[view].classes.filter(c => c[2]).map(([, k, t]) => [k, t]), color: k => `var(--c-${k})` };
+  if (!lens) return { of: n => kind(view, n), key: VIEWS[view].classes.filter(c => c[2]).map(([, k, t, x]) => [k, t, x]), color: k => `var(--c-${k})` };
   if (!built.has(lens)) built.set(lens, LENSES.find(l => l.id === lens).build());
   const wrap = d => { const colours = new Map(d.key.map(([k, , c]) => [k, c]));
-    return { of: n => n.kind !== 'package' ? 'own' : d.of(n), key: d.key.map(([k, t]) => [k, t]), color: k => colours.get(k), size: d.size, caption: d.caption,
+    return { of: n => n.kind !== 'package' ? 'own' : d.of(n), key: d.key.map(([k, t, , x]) => [k, t, x]), color: k => colours.get(k), size: d.size, caption: d.caption,
       heading: d.heading, ok: d.ok && (n => n.kind === 'package' && d.ok(n)) }; };
   const b = built.get(lens), sc = wrap(b);
   if (b.right) sc.right = wrap(b.right);
@@ -419,7 +438,7 @@ function paint() {
   for (const [p, sc] of shown()) {
     p.svg.setAttribute('viewBox', two ? ROUND : WIDE);
     p.title.hidden = !two;
-    p.title.innerHTML = two ? `<span class="h">${esc(sc.heading)}</span>` + sc.key.map(([k, t]) => { const c = count(pkgs, n => sc.of(n) === k); return c ? `<span class="lg">${dotIn(sc, k)}${esc(t)} (${c})</span>` : ''; }).join('') : '';
+    p.title.innerHTML = two ? `<span class="h">${esc(sc.heading)}</span>` + sc.key.map(([k, t]) => { const c = count(pkgs, n => sc.of(n) === k); return c ? `<span class="lg" data-k="${k}">${dotIn(sc, k)}${esc(t)} (${c})</span>` : ''; }).join('') : '';
     for (const n of pkgs) {
       const k = sc.of(n), m = p.marks.get(n.id);
       m.classList.toggle('notin', k === 'notin');
@@ -433,7 +452,7 @@ function paint() {
   const chip = (k, t) => `<li><button type="button" data-k="${k}" aria-pressed="${filter.has(k)}">${sdot(k)}${esc(t)} (${counts[k] || 0})</button></li>`;
   const key = document.getElementById('key');
   key.innerHTML = (two ? '' : S.key.filter(([k]) => counts[k]).map(([k, t]) => chip(k, t)).join('') // two panels: each has its own key
-      + `<li class="fixed">${dot('own')}Phoenix projects (${counts.own})</li>`) // a legend entry, not a filter
+      + `<li class="fixed" data-k="own">${dot('own')}Phoenix projects (${counts.own})</li>`) // a legend entry, not a filter
     + (filter.size || ringFilter.size ? '<li><button type="button" class="all">Show all</button></li>' : '');
   for (const p of panels) for (const [k, s] of p.ringEls) { const on = ringFilter.has(k); s.key.classList.toggle('on', on); s.circle.classList.toggle('on', on); s.key.setAttribute('aria-pressed', String(on)); }
   key.classList.toggle('filtering', filter.size > 0);
@@ -657,6 +676,19 @@ document.getElementById('key').addEventListener('click', ev => {
   paint(); render();
 });
 for (const b of document.querySelectorAll('.views button')) b.addEventListener('click', () => { view = b.dataset.view; if (lens) setLens(null); else { paint(); render(); } });
+
+// A class in the key, or in a panel's key, says what it means when the pointer is on it or the keyboard reaches it.
+function classTip(el, ev) {
+  const sc = panels[1] && el.closest('.panel') === panels[1].fig ? S.right : S, k = el.dataset.k;
+  const x = k === 'own' ? OWN : sc.key.find(([c]) => c === k)?.[2], text = typeof x === 'function' ? x() : x;
+  if (text) showTip(`<div class="name">${esc(el.textContent.trim())}</div><div>${esc(text)}</div>`, ev);
+}
+for (const host of [document.getElementById('key'), document.getElementById('graph')]) {
+  host.addEventListener('pointermove', ev => { const el = ev.pointerType === 'mouse' && ev.target.closest('[data-k]'); if (el && !ev.target.closest('svg')) classTip(el, ev); });
+  host.addEventListener('pointerout', ev => { if (ev.target.closest('[data-k]') && !ev.target.closest('svg') && !ev.relatedTarget?.closest?.('[data-k]')) tip.hidden = true; });
+}
+document.getElementById('key').addEventListener('focusin', ev => { const el = ev.target.closest('[data-k]'); if (el) { const r = el.getBoundingClientRect(); classTip(el, { clientX: r.left, clientY: r.bottom }); } });
+document.getElementById('key').addEventListener('focusout', () => { tip.hidden = true; });
 
 // The menu: a panel from the right with the views.
 const drawer = document.getElementById('drawer'), menu = document.getElementById('menu');

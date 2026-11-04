@@ -63,8 +63,9 @@ what brings it in, its 2a and 2b results with one line of reason each, and what
 uses it and what it uses. The lists hold what lies one step away; below each,
 folded, is what lies further up or down. The graph draws one step dark and the
 rest faint, and unfolding a list draws its part dark too. Pointing at a name in
-the box rings its node in the graph. Pointing at a ring's number explains the
-ring, and a click on it filters by that ring. A click on the white background
+the box rings its node in the graph. Pointing at a class in the key says what it
+means. Pointing at a ring's number explains the ring, and a click on it filters
+by that ring. A click on the white background
 clears the selection and the filters; once nothing is left to clear, it leaves
 a view. It works on a phone.
 
