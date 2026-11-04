@@ -10,7 +10,7 @@ judged.
 The self-contained `linux-x64` publish of Phoenix's three programs (WebAPI,
 BackgroundJobExecutor, DbMigrator) ships 341 package versions:
 
-- 337 from the programs' lock files (85 direct, 252 transitive)
+- 337 from the programs' lock files (83 that a project names, 254 transitive)
 - 3 runtime and host packs downloaded by the SDK for the RID
 - 1 tool whose output ships (dotnet-ef)
 
@@ -106,7 +106,10 @@ population/
   `population.py`.
 - `results/packages.tsv`: one row per package plus `in_2a` and `in_2b`; written
   by `packages.py mark` from the run's `census.csv` and the two parts'
-  `population.tsv`.
+  `population.tsv`. Its `direct` column is by name: `yes` when the package's
+  name is a PackageReference of a project. Three names have two versions in
+  the population, so 85 rows say `yes` where 83 versions are named by a
+  project. The counts above are by version.
 - `scripts/packages.py`: the script as run on 13 October, then called
   `census.py`; its name and its output names changed, and the `mark` command was
   added on 3 November. Step 1 needs Phoenix's repository and a restore, so it
