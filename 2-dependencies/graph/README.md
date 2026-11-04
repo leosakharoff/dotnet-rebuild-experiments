@@ -71,10 +71,11 @@ a view. It works on a phone.
 The menu, under the search field, holds six views. On a wide screen it opens
 beside the page, which moves left to make room, and stays open while views are
 chosen and the graph is used; on a narrow one it opens over the page. Each view
-recolours the graph and says what it shows in a box under the title line,
-always in the same place; the box's button, or Escape, goes back to the graph.
-The page counts every number in a box from its own data. The address keeps the
-view, so a link such as `dependency-graph.html#view=2a-2b` opens it.
+recolours the graph. Its description, with the view's numbers, opens under its
+name in the menu, with a button back to the graph; Escape goes back too. The
+page counts every number from its own data. The address keeps the view, so a
+link such as `dependency-graph.html#view=2a-2b` opens it, with the menu open on
+a wide screen.
 
 - 2a next to 2b (`2a-2b`): the same graph twice, cut to the circle, with the
   same positions. The left panel shows the 102 packages reproducible in 2a,
