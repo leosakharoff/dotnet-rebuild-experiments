@@ -72,8 +72,8 @@ The menu, under the search field, holds six views. On a wide screen it opens
 beside the page, which moves left to make room, and stays open while views are
 chosen and the graph is used; on a narrow one it opens over the page. Each view
 recolours the graph. Its description, with the view's numbers, opens under its
-name in the menu, with a button back to the graph; Escape goes back too. The
-page counts every number from its own data. The address keeps the view, so a
+name in the menu. The menu's first entry, The graph, goes back, and so does
+Escape. The page counts every number from its own data. The address keeps the view, so a
 link such as `dependency-graph.html#view=2a-2b` opens it, with the menu open on
 a wide screen.
 
