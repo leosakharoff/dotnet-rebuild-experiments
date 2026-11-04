@@ -33,7 +33,7 @@ AXES = {'build_path': 'build path', 'exec_path': 'exec path', 'fileordering': 'f
 CLASSES = {
     'N0': 'Ships no files (class N0).', 'N1': 'Native code only (class N1).',
     'C1a': 'No repository in the .nuspec (class C1a).', 'C1b': 'A repository, but no commit in the .nuspec (class C1b).',
-    'C2a': 'No PDB, so no compiler record (class C2a).', 'C2b': 'PDB only referenced, not in the package, so no compiler record (class C2b).',
+    'C2a': 'No PDB, so no compiler record (class C2a).', 'C2b': 'PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b).',
     'C2c': 'PDB in the package, but no compiler record (class C2c).',
 }
 GENERIC = {'file', 'sha256', 'size'}  # these differ whenever anything differs

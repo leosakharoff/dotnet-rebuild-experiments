@@ -449,11 +449,11 @@
 },
 "DocumentFormat.OpenXml/3.1.1": {
 "r2a": "Pack failed: CS8625.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "DocumentFormat.OpenXml.Framework/3.1.1": {
 "r2a": "Pack failed: CS8625.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "dotnet-ef/10.0.12": {
 "r2a": "No managed assembly under lib/.",
@@ -537,7 +537,7 @@
 },
 "Microsoft.DotNet.Scaffolding.Shared/10.0.2": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.EntityFrameworkCore/10.0.12": {
 "r2a": "Identical with configuration. The default build differs under build path.",
@@ -729,11 +729,11 @@
 },
 "Microsoft.FeatureManagement/4.5.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.FeatureManagement.AspNetCore/4.5.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.Identity.Abstractions/9.0.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
@@ -825,75 +825,75 @@
 },
 "Microsoft.VisualStudio.Web.CodeGeneration/10.0.2": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.VisualStudio.Web.CodeGeneration.Core/10.0.2": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.VisualStudio.Web.CodeGeneration.Design/10.0.2": {
 "r2a": "No project (0 .csproj with assembly name dotnet-aspnet-codegenerator-design).",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/10.0.2": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.VisualStudio.Web.CodeGeneration.Templating/10.0.2": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.VisualStudio.Web.CodeGeneration.Utils/10.0.2": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Microsoft.VisualStudio.Web.CodeGenerators.Mvc/10.0.2": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.Common/6.12.5": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.Configuration/6.12.5": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.DependencyResolver.Core/6.12.1": {
 "r2a": "Pack failed: IDE0055.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.Frameworks/6.12.5": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.LibraryModel/6.12.1": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.Packaging/6.12.5": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.ProjectModel/6.12.1": {
 "r2a": "Pack failed: IDE0055.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.Protocol/6.12.1": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "NuGet.Versioning/6.12.5": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Serilog.AspNetCore/8.0.3": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Serilog.Extensions.Hosting/8.0.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "System.ClientModel/1.8.0": {
 "r2a": "Differs under time, also with configuration. First difference: System.ClientModel.1.8.0-alpha.20261101.1.nupkg: …/System.ClientModel.dll.",
@@ -993,7 +993,7 @@
 },
 "ClosedXML.Parser/1.2.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "CsvHelper/33.1.0": {
 "r2a": "Identical in every variation, also with the default build.",
@@ -1005,7 +1005,7 @@
 },
 "Hangfire.PostgreSql/1.20.10": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Markdig/1.2.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
@@ -1025,11 +1025,11 @@
 },
 "MigraDocCore.DocumentObjectModel/1.3.67": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "MigraDocCore.Rendering/1.3.67": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Newtonsoft.Json/13.0.3": {
 "r2a": "Pack failed: API compatibility errors between 'lib/net20/Newtonsoft.Json.dll'…",
@@ -1041,7 +1041,7 @@
 },
 "NextjsStaticHosting.AspNetCore/0.9.3-preview": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Npgsql/10.0.3": {
 "r2a": "Identical with configuration. The default build differs under build path.",
@@ -1053,11 +1053,11 @@
 },
 "PdfSharpCore/1.3.67": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "PdfSharpCore.Charting/1.3.67": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Quartz/3.13.1": {
 "r2a": "Differs under build path, also with configuration. First difference: Quartz.3.13.1.nupkg: …/Quartz.dll.",
@@ -1085,19 +1085,19 @@
 },
 "Serilog.Enrichers.Environment/3.0.1": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Serilog.Enrichers.Process/3.0.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Serilog.Enrichers.Thread/4.0.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Serilog.Expressions/5.0.0": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "Serilog.Settings.Configuration/8.0.4": {
 "r2a": "Identical with configuration. The default build differs under build path.",
@@ -1129,7 +1129,7 @@
 },
 "Unchase.Swashbuckle.AspNetCore.Extensions/2.7.2": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "UnitsNet/6.0.0-pre012": {
 "r2a": "Identical with configuration. The default build differs under build path.",
@@ -1137,7 +1137,7 @@
 },
 "Workstation.UaClient/3.2.3": {
 "r2a": "Identical with configuration. The default build differs under build path.",
-"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+"r2b": "PDB referenced, but in neither the package, the .snupkg nor the symbol server, so no compiler record (class C2b)."
 },
 "YamlDotNet/16.2.1": {
 "r2a": "Identical with configuration. The default build differs under build path.",

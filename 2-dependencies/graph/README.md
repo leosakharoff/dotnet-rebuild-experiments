@@ -60,7 +60,9 @@ line with two view words, 2a and 2b, a colour key that also filters, a search
 field, the graph, and one line on the sources. A click on a node or a sector
 opens a small box: what the package is, why Phoenix has it or what brings it
 in, its 2a and 2b results with one line of reason each, and its dependents
-and dependencies, direct or transitive. It works on a phone.
+and dependencies, direct or transitive. With direct, the graph still draws
+the transitive ones, fainter. Pointing at a name in the box rings its node in
+the graph. It works on a phone.
 
 The box's texts come from three places:
 
@@ -78,9 +80,12 @@ The box's texts come from three places:
   first error of a package that did not build, the rule that stopped a
   recipe, or the parts of the DLL that differ.
 
-GitHub shows the file as source. To use the page, download it (Raw, then
-save) and open it in a browser. It is one file, about 390 KiB, with the two
-DejaVu Sans fonts inside it. It loads nothing from the network.
+The page is published at <https://leosakharoff.github.io/phoenix-dependencies/>,
+from the public repository `leosakharoff/phoenix-dependencies`, which holds
+only this file, as `index.html`. Here GitHub shows the file as source; to use
+this copy, download it (Raw, then save) and open it in a browser. It is one
+file, about 390 KiB, with the two DejaVu Sans fonts inside it. It loads
+nothing from the network.
 
 ## Running
 
@@ -139,6 +144,14 @@ python3 -I scripts/summary.py results/graph.json results/layout.json results/sum
 ```bash
 python3 -I scripts/fonts.py scripts/fonts.css
 python3 -I scripts/page.py results scripts/template.html scripts/fonts.css dependency-graph.html
+```
+
+8. The published page: copy it into a clone of `leosakharoff/phoenix-dependencies`
+   and push. GitHub Pages serves the new version a minute later.
+
+```bash
+cp dependency-graph.html PAGES_REPO/index.html
+git -C PAGES_REPO commit -am "The page, rebuilt" && git -C PAGES_REPO push
 ```
 
 ## What the graph shows
