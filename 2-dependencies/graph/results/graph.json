@@ -1520,7 +1520,7 @@
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "via": "tool",
    "s2a": "not in 2a",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.App.Runtime.linux-x64/10.0.12",
@@ -1547,7 +1547,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.Authentication.JwtBearer/9.0.0",
@@ -1560,7 +1560,7 @@
    "repo": "https://github.com/dotnet/aspnetcore",
    "commit": "af22effae4069a5dfb9b0735859de48820104f5b",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.Authentication.OpenIdConnect/9.0.0",
@@ -1573,7 +1573,7 @@
    "repo": "https://github.com/dotnet/aspnetcore",
    "commit": "af22effae4069a5dfb9b0735859de48820104f5b",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.Cryptography.Internal/10.0.12",
@@ -1586,7 +1586,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.Cryptography.KeyDerivation/10.0.12",
@@ -1599,7 +1599,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.DataProtection/9.0.0",
@@ -1612,7 +1612,7 @@
    "repo": "https://github.com/dotnet/aspnetcore",
    "commit": "af22effae4069a5dfb9b0735859de48820104f5b",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.DataProtection.Abstractions/9.0.0",
@@ -1625,7 +1625,7 @@
    "repo": "https://github.com/dotnet/aspnetcore",
    "commit": "af22effae4069a5dfb9b0735859de48820104f5b",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/10.0.12",
@@ -1638,7 +1638,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.12",
@@ -1651,7 +1651,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.Identity.UI/10.0.12",
@@ -1664,7 +1664,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.AspNetCore.Razor.Language/6.0.24",
@@ -1690,7 +1690,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Bcl.AsyncInterfaces/8.0.0",
@@ -1703,7 +1703,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "5535e31a712343a63f5d7d796cd874e563e5ac14",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "Microsoft.Bcl.Cryptography/10.0.2",
@@ -1716,7 +1716,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "44525024595742ebe09023abe709df51de65009b",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Bcl.TimeProvider/8.0.1",
@@ -1729,7 +1729,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "bf5e279d9239bfef5bb1b8d6212f1b971c434606",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "Microsoft.CodeAnalysis.Razor/6.0.24",
@@ -1885,7 +1885,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Caching.Memory/10.0.12",
@@ -1898,7 +1898,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Configuration/10.0.12",
@@ -1911,7 +1911,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Configuration.Abstractions/10.0.12",
@@ -1924,7 +1924,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Configuration.Binder/10.0.12",
@@ -1937,7 +1937,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Configuration.CommandLine/10.0.12",
@@ -1950,7 +1950,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Configuration.EnvironmentVariables/10.0.12",
@@ -1963,7 +1963,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Configuration.FileExtensions/10.0.12",
@@ -1976,7 +1976,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Configuration.Json/10.0.12",
@@ -1989,7 +1989,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Configuration.UserSecrets/10.0.12",
@@ -2002,7 +2002,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.DependencyInjection/10.0.12",
@@ -2015,7 +2015,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.12",
@@ -2028,7 +2028,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.DependencyModel/10.0.12",
@@ -2041,7 +2041,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.DependencyModel/8.0.2",
@@ -2054,7 +2054,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "81cabf2857a01351e5ab578947c7403a5b128ad1",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "Microsoft.Extensions.Diagnostics/10.0.12",
@@ -2067,7 +2067,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Diagnostics.Abstractions/10.0.12",
@@ -2080,7 +2080,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Diagnostics.HealthChecks/8.0.0",
@@ -2093,7 +2093,7 @@
    "repo": "https://github.com/dotnet/aspnetcore",
    "commit": "3f1acb59718cadf111a0a796681e3d3509bb3381",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/8.0.0",
@@ -2106,7 +2106,7 @@
    "repo": "https://github.com/dotnet/aspnetcore",
    "commit": "3f1acb59718cadf111a0a796681e3d3509bb3381",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "Microsoft.Extensions.FileProviders.Abstractions/10.0.12",
@@ -2119,7 +2119,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.FileProviders.Abstractions/9.0.0",
@@ -2132,7 +2132,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "Microsoft.Extensions.FileProviders.Embedded/10.0.12",
@@ -2145,7 +2145,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.FileProviders.Physical/10.0.12",
@@ -2158,7 +2158,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.FileSystemGlobbing/10.0.12",
@@ -2171,7 +2171,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Hosting/10.0.12",
@@ -2184,7 +2184,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Hosting.Abstractions/10.0.12",
@@ -2197,7 +2197,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Hosting.Abstractions/9.0.0",
@@ -2210,7 +2210,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "Microsoft.Extensions.Hosting.WindowsServices/10.0.12",
@@ -2223,7 +2223,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Http/10.0.12",
@@ -2236,7 +2236,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Identity.Core/10.0.12",
@@ -2249,7 +2249,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Identity.Stores/10.0.12",
@@ -2262,7 +2262,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Logging/10.0.12",
@@ -2275,7 +2275,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Logging.Abstractions/10.0.12",
@@ -2288,7 +2288,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Logging.Configuration/10.0.12",
@@ -2301,7 +2301,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Logging.Console/10.0.12",
@@ -2314,7 +2314,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Logging.Debug/10.0.12",
@@ -2327,7 +2327,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Logging.EventLog/10.0.12",
@@ -2340,7 +2340,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Logging.EventSource/10.0.12",
@@ -2353,7 +2353,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Options/10.0.12",
@@ -2366,7 +2366,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Options.ConfigurationExtensions/10.0.12",
@@ -2379,7 +2379,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.Extensions.Primitives/10.0.12",
@@ -2392,7 +2392,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.FeatureManagement/4.5.0",
@@ -2965,7 +2965,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "4822e3c3aa77eb82b2fb33c9321f923cf11ddde6",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Composition.AttributedModel/9.0.0",
@@ -2978,7 +2978,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Composition.Convention/9.0.0",
@@ -2991,7 +2991,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Composition.Hosting/9.0.0",
@@ -3004,7 +3004,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Composition.Runtime/9.0.0",
@@ -3017,7 +3017,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Composition.TypedParts/9.0.0",
@@ -3030,7 +3030,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Configuration.ConfigurationManager/9.0.11",
@@ -3043,7 +3043,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "fa7cdded37981a97cec9a3e233c4a6af58a91c57",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Diagnostics.EventLog/10.0.12",
@@ -3056,7 +3056,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Diagnostics.EventLog/9.0.11",
@@ -3069,7 +3069,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "fa7cdded37981a97cec9a3e233c4a6af58a91c57",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.IdentityModel.Tokens.Jwt/8.23.0",
@@ -3095,7 +3095,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "4822e3c3aa77eb82b2fb33c9321f923cf11ddde6",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.IO.Hashing/7.0.0",
@@ -3108,7 +3108,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "d099f075e45d2aa6007a22b71b45a08758559f80",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no recipe"
   },
   {
    "id": "System.IO.Packaging/8.0.1",
@@ -3121,7 +3121,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "81cabf2857a01351e5ab578947c7403a5b128ad1",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.IO.Ports/5.0.0",
@@ -3134,7 +3134,7 @@
    "repo": "git://github.com/dotnet/runtime",
    "commit": "cf258a14b70ad9069470a108f13765e0e5988f51",
    "s2a": "not in 2a",
-   "s2b": "not reproduced"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Memory.Data/8.0.1",
@@ -3147,7 +3147,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "81cabf2857a01351e5ab578947c7403a5b128ad1",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Reflection.MetadataLoadContext/8.0.0",
@@ -3160,7 +3160,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "5535e31a712343a63f5d7d796cd874e563e5ac14",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Security.Cryptography.Pkcs/9.0.11",
@@ -3173,7 +3173,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "fa7cdded37981a97cec9a3e233c4a6af58a91c57",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Security.Cryptography.ProtectedData/9.0.11",
@@ -3186,7 +3186,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "fa7cdded37981a97cec9a3e233c4a6af58a91c57",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.Security.Cryptography.Xml/9.0.0",
@@ -3199,7 +3199,7 @@
    "repo": "https://github.com/dotnet/runtime",
    "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "System.ServiceProcess.ServiceController/10.0.12",
@@ -3212,7 +3212,7 @@
    "repo": "https://github.com/dotnet/dotnet",
    "commit": "95017c711e6afc1085133d440e42b4bd78155701",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no recipe"
   },
   {
    "id": "Yarp.ReverseProxy/2.1.0",
@@ -3225,7 +3225,7 @@
    "repo": "https://github.com/microsoft/reverse-proxy",
    "commit": "77f78d4709d1c74c78af81f4b4d0c85f5c2e5b43",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "no recipe"
   },
   {
    "id": "AutoMapper/13.0.1",
@@ -3810,7 +3810,7 @@
    "repo": "https://github.com/dotnet/msbuild",
    "commit": "02bf66295b64ab368d12933041f7281aad186a2d",
    "s2a": "did not build",
-   "s2b": "not reproduced"
+   "s2b": "no recipe"
   },
   {
    "id": "Microsoft.Build.Framework/18.0.2",
@@ -3823,7 +3823,7 @@
    "repo": "https://github.com/dotnet/msbuild",
    "commit": "995a3dce41788caebf2b8ca6602a7431f08bfd06",
    "s2a": "unreproducible",
-   "s2b": "with the publisher's build"
+   "s2b": "not reproduced"
   },
   {
    "id": "Microsoft.CodeAnalysis.Common/5.0.0",
@@ -3836,7 +3836,7 @@
    "repo": "https://github.com/dotnet/roslyn",
    "commit": "6c4a46a31302167b425d5e0a31ea83c9a9aa1d09",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "not reproduced"
   },
   {
    "id": "Microsoft.CodeAnalysis.CSharp/5.0.0",
@@ -3849,7 +3849,7 @@
    "repo": "https://github.com/dotnet/roslyn",
    "commit": "6c4a46a31302167b425d5e0a31ea83c9a9aa1d09",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "not reproduced"
   },
   {
    "id": "Microsoft.CodeAnalysis.CSharp.Features/5.0.0",
@@ -3862,7 +3862,7 @@
    "repo": "https://github.com/dotnet/roslyn",
    "commit": "6c4a46a31302167b425d5e0a31ea83c9a9aa1d09",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "not reproduced"
   },
   {
    "id": "Microsoft.CodeAnalysis.CSharp.Workspaces/5.0.0",
@@ -3875,7 +3875,7 @@
    "repo": "https://github.com/dotnet/roslyn",
    "commit": "6c4a46a31302167b425d5e0a31ea83c9a9aa1d09",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "not reproduced"
   },
   {
    "id": "Microsoft.CodeAnalysis.Features/5.0.0",
@@ -3888,7 +3888,7 @@
    "repo": "https://github.com/dotnet/roslyn",
    "commit": "6c4a46a31302167b425d5e0a31ea83c9a9aa1d09",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "not reproduced"
   },
   {
    "id": "Microsoft.CodeAnalysis.Scripting.Common/5.0.0",
@@ -3901,7 +3901,7 @@
    "repo": "https://github.com/dotnet/roslyn",
    "commit": "6c4a46a31302167b425d5e0a31ea83c9a9aa1d09",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "not reproduced"
   },
   {
    "id": "Microsoft.CodeAnalysis.Workspaces.Common/5.0.0",
@@ -3914,7 +3914,7 @@
    "repo": "https://github.com/dotnet/roslyn",
    "commit": "6c4a46a31302167b425d5e0a31ea83c9a9aa1d09",
    "s2a": "with configuration",
-   "s2b": "with the publisher's build"
+   "s2b": "not reproduced"
   },
   {
    "id": "Microsoft.CodeAnalysis.Workspaces.MSBuild/5.0.0",
@@ -3927,7 +3927,7 @@
    "repo": "https://github.com/dotnet/roslyn",
    "commit": "6c4a46a31302167b425d5e0a31ea83c9a9aa1d09",
    "s2a": "did not build",
-   "s2b": "with the publisher's build"
+   "s2b": "no package"
   },
   {
    "id": "Microsoft.DiaSymReader/2.0.0",

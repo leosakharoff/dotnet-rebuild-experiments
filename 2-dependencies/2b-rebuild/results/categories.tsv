@@ -68,32 +68,32 @@ Azure.Storage.Common	12.19.0	Microsoft	other code	yes				not reproduced
 HarfBuzzSharp	8.3.1.1	Microsoft	no package	not compared				no package
 HarfBuzzSharp	8.3.1.3	Microsoft	no package	not compared				no package
 Microsoft.AspNetCore.App.Runtime.linux-x64	10.0.12	Microsoft	no package	not compared				no package
-Microsoft.AspNetCore.Authentication.JwtBearer	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.AspNetCore.Authentication.JwtBearer	9.0.0	Microsoft	no package	not compared	windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.AspNetCore.Authentication.OpenIdConnect	9.0.0	Microsoft	no package	not compared	windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.AspNetCore.Cryptography.Internal	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.AspNetCore.Cryptography.KeyDerivation	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.AspNetCore.DataProtection	9.0.0	Microsoft	no package	not compared	windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.AspNetCore.DataProtection.Abstractions	9.0.0	Microsoft	no package	not compared	windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.AspNetCore.Identity.EntityFrameworkCore	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.AspNetCore.Identity.UI	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
+Microsoft.AspNetCore.Authentication.JwtBearer	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.AspNetCore.Authentication.JwtBearer	9.0.0	Microsoft	no package	not compared	windows	identical without signatures	identical without signatures	no package
+Microsoft.AspNetCore.Authentication.OpenIdConnect	9.0.0	Microsoft	no package	not compared	windows	identical without signatures	identical without signatures	no package
+Microsoft.AspNetCore.Cryptography.Internal	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.AspNetCore.Cryptography.KeyDerivation	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.AspNetCore.DataProtection	9.0.0	Microsoft	no package	not compared	windows	identical without signatures	identical without signatures	no package
+Microsoft.AspNetCore.DataProtection.Abstractions	9.0.0	Microsoft	no package	not compared	windows	identical without signatures	identical without signatures	no package
+Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.AspNetCore.Identity.EntityFrameworkCore	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.AspNetCore.Identity.UI	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
 Microsoft.AspNetCore.Razor.Language	6.0.24	Microsoft	no package	not compared	windows	no package	no package	no package
-Microsoft.AspNetCore.SpaProxy	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Bcl.AsyncInterfaces	8.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.Bcl.Cryptography	10.0.2	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Bcl.TimeProvider	8.0.1	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.Build	17.11.48	Microsoft	no recipe		windows	same code	same code	not reproduced
-Microsoft.Build.Framework	18.0.2	Microsoft	other code	yes	windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.CodeAnalysis.CSharp	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	with the publisher's build
-Microsoft.CodeAnalysis.CSharp.Features	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	with the publisher's build
-Microsoft.CodeAnalysis.CSharp.Workspaces	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	with the publisher's build
-Microsoft.CodeAnalysis.Common	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	with the publisher's build
-Microsoft.CodeAnalysis.Features	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	with the publisher's build
+Microsoft.AspNetCore.SpaProxy	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Bcl.AsyncInterfaces	8.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+Microsoft.Bcl.Cryptography	10.0.2	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Bcl.TimeProvider	8.0.1	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+Microsoft.Build	17.11.48	Microsoft	no recipe		windows	same code	same code	no recipe
+Microsoft.Build.Framework	18.0.2	Microsoft	other code	yes	windows	identical without signatures	identical without signatures	not reproduced
+Microsoft.CodeAnalysis.CSharp	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	not reproduced
+Microsoft.CodeAnalysis.CSharp.Features	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	not reproduced
+Microsoft.CodeAnalysis.CSharp.Workspaces	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	not reproduced
+Microsoft.CodeAnalysis.Common	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	not reproduced
+Microsoft.CodeAnalysis.Features	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	not reproduced
 Microsoft.CodeAnalysis.Razor	6.0.24	Microsoft	no package	not compared	windows	no package	no package	no package
-Microsoft.CodeAnalysis.Scripting.Common	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	with the publisher's build
-Microsoft.CodeAnalysis.Workspaces.Common	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	with the publisher's build
-Microsoft.CodeAnalysis.Workspaces.MSBuild	5.0.0	Microsoft	no package	not compared	windows	identical without signatures	other code	with the publisher's build
+Microsoft.CodeAnalysis.Scripting.Common	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	not reproduced
+Microsoft.CodeAnalysis.Workspaces.Common	5.0.0	Microsoft	other code	yes	windows	identical without signatures	other code	not reproduced
+Microsoft.CodeAnalysis.Workspaces.MSBuild	5.0.0	Microsoft	no package	not compared	windows	identical without signatures	other code	no package
 Microsoft.Data.SqlClient	6.1.7	Microsoft	no recipe					no recipe
 Microsoft.Data.Sqlite.Core	10.0.12	Microsoft	other code	yes	linux	same code	same code	not reproduced
 Microsoft.DiaSymReader	2.0.0	Microsoft	other code	yes	windows	no package	no package	not reproduced
@@ -104,46 +104,46 @@ Microsoft.EntityFrameworkCore.InMemory	10.0.12	Microsoft	other code	yes	linux	sa
 Microsoft.EntityFrameworkCore.Relational	10.0.12	Microsoft	other code	yes	linux	same code	same code	not reproduced
 Microsoft.EntityFrameworkCore.SqlServer	10.0.12	Microsoft	other code	yes	linux	same code	same code	not reproduced
 Microsoft.EntityFrameworkCore.Sqlite.Core	10.0.12	Microsoft	other code	yes	linux	same code	same code	not reproduced
-Microsoft.Extensions.Caching.Abstractions	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Caching.Memory	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Configuration	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Configuration.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Configuration.Binder	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Configuration.CommandLine	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Configuration.EnvironmentVariables	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Configuration.FileExtensions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Configuration.Json	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Configuration.UserSecrets	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.DependencyInjection	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.DependencyInjection.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.DependencyModel	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.DependencyModel	8.0.2	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.Extensions.Diagnostics	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Diagnostics.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Diagnostics.HealthChecks	8.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions	8.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.Extensions.FileProviders.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.FileProviders.Abstractions	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.Extensions.FileProviders.Embedded	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.FileProviders.Physical	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.FileSystemGlobbing	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Hosting	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Hosting.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Hosting.Abstractions	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-Microsoft.Extensions.Hosting.WindowsServices	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Http	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Identity.Core	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Identity.Stores	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Logging	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Logging.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Logging.Configuration	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Logging.Console	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Logging.Debug	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Logging.EventLog	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Logging.EventSource	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Options	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
-Microsoft.Extensions.Options.ConfigurationExtensions	10.0.12	Microsoft	no package	not compared	linux	same code	same code	not reproduced
-Microsoft.Extensions.Primitives	10.0.12	Microsoft	no package	not compared	linux	other code	other code	not reproduced
+Microsoft.Extensions.Caching.Abstractions	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Caching.Memory	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Configuration	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Configuration.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Configuration.Binder	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Configuration.CommandLine	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Configuration.EnvironmentVariables	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Configuration.FileExtensions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Configuration.Json	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Configuration.UserSecrets	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.DependencyInjection	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.DependencyInjection.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.DependencyModel	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.DependencyModel	8.0.2	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+Microsoft.Extensions.Diagnostics	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Diagnostics.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Diagnostics.HealthChecks	8.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions	8.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+Microsoft.Extensions.FileProviders.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.FileProviders.Abstractions	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+Microsoft.Extensions.FileProviders.Embedded	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.FileProviders.Physical	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.FileSystemGlobbing	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Hosting	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Hosting.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Hosting.Abstractions	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+Microsoft.Extensions.Hosting.WindowsServices	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Http	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Identity.Core	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Identity.Stores	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Logging	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Logging.Abstractions	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Logging.Configuration	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Logging.Console	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Logging.Debug	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Logging.EventLog	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Logging.EventSource	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Options	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
+Microsoft.Extensions.Options.ConfigurationExtensions	10.0.12	Microsoft	no package	not compared	linux	same code	same code	no package
+Microsoft.Extensions.Primitives	10.0.12	Microsoft	no package	not compared	linux	other code	other code	no package
 Microsoft.IO.RecyclableMemoryStream	3.0.0	Microsoft	other code	yes				not reproduced
 Microsoft.Identity.Abstractions	9.0.0	Microsoft	identical without signatures	yes				from the release
 Microsoft.Identity.Client	4.84.2	Microsoft	no recipe					no recipe
@@ -175,25 +175,25 @@ SkiaSharp	3.119.0	Microsoft	no package	not compared				no package
 SkiaSharp	3.119.2	Microsoft	no package	not compared				no package
 SkiaSharp.HarfBuzz	3.119.0	Microsoft	no package	not compared				no package
 System.ClientModel	1.8.0	Microsoft	other code	yes				not reproduced
-System.CodeDom	6.0.0	Microsoft	no recipe		windows	same code	same code	not reproduced
-System.Composition.AttributedModel	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Composition.Convention	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Composition.Hosting	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Composition.Runtime	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Composition.TypedParts	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Configuration.ConfigurationManager	9.0.11	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Diagnostics.EventLog	10.0.12	Microsoft	no recipe		linux	other code	other code	not reproduced
-System.Diagnostics.EventLog	9.0.11	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.IO.Hashing	6.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.IO.Hashing	7.0.0	Microsoft	no recipe		windows	same code	same code	not reproduced
-System.IO.Packaging	8.0.1	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.IO.Ports	5.0.0	Microsoft	no recipe		windows	same code	same code	not reproduced
+System.CodeDom	6.0.0	Microsoft	no recipe		windows	same code	same code	no recipe
+System.Composition.AttributedModel	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Composition.Convention	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Composition.Hosting	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Composition.Runtime	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Composition.TypedParts	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Configuration.ConfigurationManager	9.0.11	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Diagnostics.EventLog	10.0.12	Microsoft	no recipe		linux	other code	other code	no recipe
+System.Diagnostics.EventLog	9.0.11	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.IO.Hashing	6.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.IO.Hashing	7.0.0	Microsoft	no recipe		windows	same code	same code	no recipe
+System.IO.Packaging	8.0.1	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.IO.Ports	5.0.0	Microsoft	no recipe		windows	same code	same code	no recipe
 System.IdentityModel.Tokens.Jwt	8.23.0	Microsoft	other code	no				not reproduced
-System.Memory.Data	8.0.1	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Reflection.MetadataLoadContext	8.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Security.Cryptography.Pkcs	9.0.11	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Security.Cryptography.ProtectedData	9.0.11	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.Security.Cryptography.Xml	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-System.ServiceProcess.ServiceController	10.0.12	Microsoft	no recipe		linux	other code	other code	not reproduced
-Yarp.ReverseProxy	2.1.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	with the publisher's build
-dotnet-ef	10.0.12	Microsoft	no package		linux	same code	same code	not reproduced
+System.Memory.Data	8.0.1	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Reflection.MetadataLoadContext	8.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Security.Cryptography.Pkcs	9.0.11	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Security.Cryptography.ProtectedData	9.0.11	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.Security.Cryptography.Xml	9.0.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+System.ServiceProcess.ServiceController	10.0.12	Microsoft	no recipe		linux	other code	other code	no recipe
+Yarp.ReverseProxy	2.1.0	Microsoft	no recipe		windows	identical without signatures	identical without signatures	no recipe
+dotnet-ef	10.0.12	Microsoft	no package		linux	same code	same code	no package

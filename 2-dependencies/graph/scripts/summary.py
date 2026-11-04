@@ -9,7 +9,7 @@ import collections, json, sys
 
 GRAPH, LAYOUT, OUT = sys.argv[1:4]
 PROGRAMS = ['WebAPI', 'BackgroundJobExecutor', 'DbMigrator']
-OK = {'s2a': {'as is', 'with configuration'}, 's2b': {'from the release', "with the publisher's build"}}
+OK = {'s2a': {'as is', 'with configuration'}, 's2b': {'from the release'}}
 DIFFERS = {'s2a': {'unreproducible'}, 's2b': {'not reproduced'}}
 OUTSIDE = {'s2a': 'not in 2a', 's2b': 'not in 2b'}
 

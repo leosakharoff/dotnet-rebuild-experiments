@@ -25,8 +25,10 @@ Experiment 2 examines Phoenix's 341 NuGet package versions in two parts:
 - [2b: Rebuilding published packages](2-dependencies/2b-rebuild/) compares
   rebuilt assemblies with those distributed on nuget.org. Of 198 package
   versions attempted, 22 were reproduced using information recorded in the
-  release, and another 35 using the publisher's build system on Windows. These
-  counts include matches that disregard publisher signatures. Of the 143
+  release. This count includes matches that disregard publisher signatures. A
+  second, diagnostic build with Microsoft's own build system reproduced 35 more
+  Microsoft packages on Windows; it shows what the release is missing and is not
+  counted as reproduction. Of the 143
   packages outside this population, 38 ship no managed code, 22 lack source
   information, and 83 lack a compiler record.
 

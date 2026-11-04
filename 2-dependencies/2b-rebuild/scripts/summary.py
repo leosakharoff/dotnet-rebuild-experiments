@@ -24,12 +24,13 @@ Matches, of the DLL that ships in Phoenix against nuget.org's (level.py):
 Groups: reproduced (the first two), built but differs (the last two), not built (no package,
 or no recipe).
 
-Per package category, the release build first:
+Per package category, from the release build alone:
   from the release            the release build reproduces it
-  with the publisher's build  only the publisher's build reproduces it
-  not reproduced              built and compared, best match same code or other code
-  no package                  no build produced the package
-  no recipe                   the derivation stopped at a rule, and no publisher's build ran
+  not reproduced              built and compared, same code or other code
+  no package                  the release build produced no package to compare
+  no recipe                   the derivation stopped at a rule
+The publisher's build does not change a category. It is a diagnostic, run only for Arcade
+repositories; section 3 counts, per category, the packages it reproduces.
 """
 import collections, csv, os, re, sys
 
@@ -39,7 +40,8 @@ PACKAGING = ('.psmdcp', '_rels/.rels', '[Content_Types].xml', '.signature.p7s')
 GROUPS = [('reproduced', ['identical', 'identical without signatures']),
           ('built, but differs', ['same code', 'other code']),
           ('not built', ['no package', 'no recipe'])]
-CATEGORIES = ['from the release', "with the publisher's build", 'not reproduced', 'no package', 'no recipe']
+CATEGORIES = ['from the release', 'not reproduced', 'no package', 'no recipe']
+REPRODUCED = ('identical', 'identical without signatures')
 
 
 def rows(path):
@@ -192,29 +194,23 @@ def main():
     if missing:
         lines += ['Not in the release build: ' + ', '.join(f'{p} {v}' for p, v in missing), '']
 
-    # 3. per package, both builds
-    def category(k, pubs):
-        if out[k] in ('identical', 'identical without signatures'):
+    # 3. per package: the release build's category; the publisher's build only as a diagnostic beside it
+    def category(k):
+        if out[k] in REPRODUCED:
             return 'from the release'
-        p = outcome(pubs[k][1]) if k in pubs else None
-        if p in ('identical', 'identical without signatures'):
-            return "with the publisher's build"
-        if out[k] in ('same code', 'other code') or p in ('same code', 'other code'):
-            return 'not reproduced'
-        return 'no package' if out[k] == 'no package' or p == 'no package' else 'no recipe'
-    cats = {k: category(k, publisher) for k in release}
-    cats_plain = {k: category(k, without_rule) for k in release}
-    lines += ['## 3. Per package, both builds', '', '| category | packages | without the Roslyn rule |', '|---|---|---|']
-    c, cp = collections.Counter(cats.values()), collections.Counter(cats_plain.values())
+        return 'not reproduced' if out[k] in ('same code', 'other code') else out[k]
+    cats = {k: category(k) for k in release}
+    ran = collections.Counter(cats[k] for k in pub)
+    rep = collections.Counter(cats[k] for k in pub if pub[k] in REPRODUCED)
+    rep_plain = collections.Counter(cats[k] for k in plain if plain[k] in REPRODUCED)
+    lines += ['## 3. Per package', '',
+              "The category comes from the release build alone. The publisher's build, run for the Arcade packages, is a diagnostic beside it.", '',
+              "| category | packages | publisher's build ran | reproduces | without the Roslyn rule |", '|---|---|---|---|---|']
+    c = collections.Counter(cats.values())
     for name in CATEGORIES:
-        lines.append(f'| {name} | {c.get(name, 0)} | {cp.get(name, 0)} |')
-    best = collections.Counter()
-    for k in release:
-        if cats[k] == 'not reproduced':
-            matches = [out[k]] + ([pub[k]] if k in pub else [])
-            best['same code' if 'same code' in matches else 'other code'] += 1
-    lines += [f'| total | {len(release)} | {len(release)} |', '',
-              f'Not reproduced, by best match: same code {best["same code"]}, other code {best["other code"]}.', '']
+        lines.append(f'| {name} | {c.get(name, 0)} | {ran.get(name, 0)} | {rep.get(name, 0)} | {rep_plain.get(name, 0)} |')
+    lines += [f'| total | {len(release)} | {sum(ran.values())} | {sum(rep.values())} | {sum(rep_plain.values())} |', '',
+              f'Not reproduced, by match: same code {sum(out[k] == "same code" for k in release)}, other code {sum(out[k] == "other code" for k in release)}.', '']
 
     os.makedirs(results, exist_ok=True)
     open(os.path.join(results, 'summary.md'), 'w', encoding='utf-8').write('\n'.join(lines))

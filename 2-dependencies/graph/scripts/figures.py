@@ -5,8 +5,9 @@
 Writes OUT_PREFIX.pdf and OUT_PREFIX.png: two panels, one above the other, with the positions from scripts/layout.py.
 Every second sector has a grey band, and a bracket outside the circle marks where each sector starts and ends.
 One colour scale serves both panels, so that a colour means the same kind of outcome in (a) and (b): dark blue,
-reproduced with the default inputs; mid blue, reproduced with extra inputs; orange, built and compared, but
-different; grey, not built; hollow, outside the part's population.
+reproduced with the default inputs; mid blue, reproduced with extra inputs (2a's configuration); orange, built and
+compared, but different; grey, not built; hollow, outside the part's population. 2b counts the release build alone;
+the publisher's build is a diagnostic and has no colour.
 The style follows the figures of parts 2a and 2b (DejaVu Sans, embedded TrueType, 300 dpi).
 """
 import json, math, sys
@@ -36,7 +37,6 @@ PARTS = (
     )),
     ('b', 'Part 2b: rebuild against nuget.org', 's2b', (
         ('from the release', 'strong', 'Reproduced from the release'),
-        ("with the publisher's build", 'repro', "Reproduced with the publisher's build"),
         ('not reproduced', 'differs', 'Not reproduced'),
         ('no package', 'nobuild', 'No package or no recipe'),
         ('no recipe', 'nobuild', None),

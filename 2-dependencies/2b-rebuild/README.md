@@ -80,6 +80,10 @@ dotnet build PROJECT -c Release <properties> && dotnet pack PROJECT -c Release -
 does not read CI files or build scripts. It uses only information available to a
 consumer from the release.
 
+A second build, the publisher's build, runs the repository's own build system
+for the Arcade packages. It is a diagnostic and does not change a package's
+result (see Using the publisher's build system).
+
 ### Controlled build environment
 
 We install each derived SDK alone from Microsoft's archive after checking its
@@ -311,6 +315,12 @@ Most Microsoft packages fail in the release build for the same reason: the
 project expects the repository's Arcade build system to run first. A second
 build measures the value of knowing that build system.
 
+This build is a diagnostic, not a result. It reads the repository's build
+scripts and pipeline files, which the release build does not, and it applies
+one publisher's build system to that publisher's packages only. The release
+build's rules apply to every package alike. A package's result therefore stays
+that of the release build; this build shows what the release is missing.
+
 This experiment covers the 96 packages from Arcade repositories. It excludes the
 two runtime packs, which require a full product build, and StringTools, which
 has no project.
@@ -346,10 +356,14 @@ All 25 packages whose compiler is unavailable in a public SDK built in this
 experiment. Twenty-two are reproduced, and three reach the same-code match. The
 repository's build system supplied the compiler.
 
-For the reproduced assemblies, source access was not enough. The build also
-required knowledge of the publisher's pipeline. Additional inputs included build
-IDs, versioning rules, the host operating system and build steps outside the
-project. The release metadata did not provide a complete recipe for those steps.
+Every value this build used is public: the repository's scripts and pipeline
+files at the named commit, and the build ID decoded from the shipped file
+version. Two steps that need Microsoft's internal resources were switched off:
+the internal feeds in `NuGet.config` and the optimization data (rules R5 and R5b
+in `publisher-build/scripts/derive-repo.py`). The reproduced assemblies did not
+need them. What the release lacks is the recipe: which entry point to run, and
+with which versioning and branding properties. The release metadata names none
+of them.
 
 The eight Roslyn packages are reproduced only under one rule. Roslyn's official
 pipeline does not pass release-branding properties, so the build keeps the
@@ -362,17 +376,24 @@ repository reproduces 27 of 42 packages instead of 35.
 
 ### Results per package
 
-| category | packages | without the Roslyn rule |
-|---|---|---|
-| from the release | 22 | 22 |
-| with the publisher's build | 35 | 27 |
-| not reproduced (best match same code 38, other code 68) | 106 | 114 |
-| no package | 22 | 22 |
-| no recipe | 13 | 13 |
+A package's category comes from the release build alone. The last three columns
+place the publisher's build beside it, as a diagnostic.
 
-One of the two builds reproduces 57 of the 198 packages. Without the Roslyn
-rule, the count is 49. The 13 packages without a recipe are the .NET Framework
-compilers, the IdentityModel commits, SqlClient and ImageSharp.
+| category | packages | publisher's build ran | reproduces | without the Roslyn rule |
+|---|---|---|---|---|
+| from the release | 22 | 0 | 0 | 0 |
+| not reproduced (same code 9, other code 55) | 64 | 17 | 8 | 1 |
+| no package | 71 | 51 | 5 | 4 |
+| no recipe | 41 | 28 | 22 | 22 |
+| total | 198 | 96 | 35 | 27 |
+
+The release build reproduces 22 of the 198 packages. The publisher's build
+reproduces 35 more, which keep their release-build category. Twenty-two of them
+have no recipe because their compiler is in no public SDK; the repository's
+build supplies it. Eight differ in the release build by Arcade's development
+versioning: Roslyn's seven and Build.Framework. Five have no package from the
+release build: four ASP.NET Core packages that restore from Microsoft's internal
+feed, and Workspaces.MSBuild.
 
 ## Earlier versions of the method
 
@@ -411,7 +432,11 @@ working repository's "best of all versions" from 28 October.
 - The publisher's build covers only Arcade repositories. Each third-party
   repository has its own build process, including scripts, Cake, Nuke or CI
   files. No single rule covers them all. The 25 third-party rows that built but
-  differed were not retried with those repository-specific systems.
+  differed were not retried with those repository-specific systems. This
+  asymmetry is one reason the publisher's build does not count as a result.
+- The four VMR builds of the publisher's build ran on Linux, while the
+  publisher builds on Windows. Their 54 packages had no build on the
+  publisher's host.
 - This is a case study of one product's dependency closure, not a sample.
 
 ## Data and scripts

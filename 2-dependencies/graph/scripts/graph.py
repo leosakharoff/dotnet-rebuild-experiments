@@ -85,7 +85,7 @@ def join(edges_tsv, exp, out):
         # 2a: the assembly level (as is, with configuration, unreproducible), else why the package stopped
         c = cat2a.get(i)
         n['s2a'] = ('not in 2a' if not c else c['cat_assemblies'] if c['screen'] == 'built' else 'did not build')
-        # 2b: the category column, the release build and the publisher's build together
+        # 2b: the category column, from the release build alone (the publisher's build is a diagnostic)
         n['s2b'] = cat2b[i]['category'] if i in cat2b else 'not in 2b'
         nodes[i] = n
     unknown = {x for e in edge_rows for x in (e['source'], e['target'])} - set(nodes)

@@ -104,15 +104,16 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 | not built (3) | no package | 3 |
 | | total | 96 |
 
-## 3. Per package, both builds
+## 3. Per package
 
-| category | packages | without the Roslyn rule |
-|---|---|---|
-| from the release | 22 | 22 |
-| with the publisher's build | 35 | 27 |
-| not reproduced | 106 | 114 |
-| no package | 22 | 22 |
-| no recipe | 13 | 13 |
-| total | 198 | 198 |
+The category comes from the release build alone. The publisher's build, run for the Arcade packages, is a diagnostic beside it.
 
-Not reproduced, by best match: same code 38, other code 68.
+| category | packages | publisher's build ran | reproduces | without the Roslyn rule |
+|---|---|---|---|---|
+| from the release | 22 | 0 | 0 | 0 |
+| not reproduced | 64 | 17 | 8 | 1 |
+| no package | 71 | 51 | 5 | 4 |
+| no recipe | 41 | 28 | 22 | 22 |
+| total | 198 | 96 | 35 | 27 |
+
+Not reproduced, by match: same code 9, other code 55.
