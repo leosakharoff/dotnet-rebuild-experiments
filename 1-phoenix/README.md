@@ -10,6 +10,9 @@ machines. The method and results will be added here.
   processes' runtimes) `npm-build` (the frontend's `npm ci` and
   `npm run build`) and `npm-findings` (only what the frontend findings need). Each as `.drawio` and exported `.drawio.png`;
   [figures/README.md](figures/README.md) explains every file and step.
+- [findings/](findings/): every finding in two views,
+  [by layer](findings/by-layer.md) (before and after the fixes) and
+  [by cause family](findings/by-family.md).
 - [scripts/](scripts/): the scripts needed to redo the experiment, listed
   below.
 
