@@ -68,8 +68,9 @@ ring, and a click on it filters by that ring. A click on the white background
 clears the selection and the filters; once nothing is left to clear, it leaves
 a view. It works on a phone.
 
-The menu, under the search field, holds six views; it stays open while one is
-chosen. Each recolours the graph and says in a caption what it shows; the page
+The menu, under the search field, holds six views. On a wide screen it opens
+beside the page, which moves left to make room, and stays open while views are
+chosen and the graph is used; on a narrow one it opens over the page. Each recolours the graph and says in a caption what it shows; the page
 counts every number in a caption from its own data. The address keeps the
 view, so a link such as `dependency-graph.html#view=2a-2b` opens it.
 
