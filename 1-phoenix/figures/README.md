@@ -219,3 +219,33 @@ the .NET publish, which copies it into `wwwroot/` (figure 1, step 7).
 | 6 | Webpack took the order of entries (W47), modules and links (W51) from build timing. Shared CSS files took the order of third-party stylesheets from build timing (W43) | The sort plugin in `next.config.js` (`a16f9a91`, `61870435`, `acbea21c`). All third-party CSS imported in `_app.tsx` (`eed6c240`, `a16eb506`) |
 | 7 | After the fixes, two exports of one commit are the same | — |
 | 8 | The Windows release built an export of its own | The Windows job takes the release's own export (`019c7b49`) |
+
+## Figure 4: what the frontend findings are about
+
+![The parts of the frontend build that the findings are about](npm-findings.drawio.png)
+
+A short version of figure 3 that keeps only what the findings need. The top
+row is the build, with the input that can vary above each step. The three
+chains below show why a small change is so visible: the build ID, the order of
+the JavaScript chunks and the order of the CSS each end in a name that every
+page contains. So one moved entry changes all 108 pages.
+
+### The frontend findings, by step
+
+| Step | What varied | Finding | Fix | Status |
+| --- | --- | --- | --- | --- |
+| 1 | CI asked for Node `20.x`, so the newest Node 20 of the day ran; the Node of an old release cannot be read back | W40 | `.nvmrc` with one exact version, installed from nodejs.org by hash (`63129480`, `456504fa`) | Fixed |
+| 2 | 391 lock entries had no `resolved` and no `integrity`, so the registry decided where each package came from | W41 | The two fields filled in (`e19ca414`, `bc0c52f6`) | Fixed |
+| 2 | npm 10 drops the `libc` field when it rewrites the lock; npm 11 keeps it. This matters only when the lock is written again, not for `npm ci` | W46 | — | Open |
+| 3 | The build reads 7 files outside `ClientApp/`: 4 in `mcp/` and 3 in `src/WebAPI/utilities/api` | W39 | A rebuild uses the whole commit, not only `ClientApp/` | Fixed |
+| 4 | Next drew a random build ID for every build | W37 | `generateBuildId` returns `APP_VERSION`, the release tag, or `dev` (`5031c5af`, W45) | Fixed |
+| 5 | Webpack gave chunk ids in the order the entries finished reading; one entry in another place gave another runtime file, and all 108 pages changed | W47 | The entries sorted by name before chunks are made (`a16f9a91`) | Fixed |
+| 5 | After that sort, the order of the modules and of their links still came from timing | W51 | The same plugin sorts modules and links too (`61870435`, `acbea21c`) | Fixed |
+| 5 | Third-party stylesheets went into shared CSS files in module order, which followed timing | W43 | All third-party CSS imported once, in `_app.tsx` (`eed6c240`, `a16eb506`) | Fixed |
+| 6 | The minifier's short variable names differed between two commits, not within one; the cause is not known | W44 | — | Open |
+| 7 | Layer 2 was first measured without the export in `wwwroot/` | W42 | Measured again with the export in place | Fixed |
+| 7 | On a self-hosted runner, the Windows job took an export that another job had left there | W64 | The Windows job always downloads the release's own export (`019c7b49`) | Fixed |
+
+Two findings hold for the whole figure. W38 is the baseline: two clean builds
+at the same path were identical except for the build ID. W71: a build on
+macOS arm64 gave the same 994 files of the export as GitHub's Linux runner.

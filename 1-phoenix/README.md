@@ -7,6 +7,6 @@ machines. The method and results will be added here.
   layer by layer.
 - [figures/](figures/): `build-publish-pack` (the steps of `dotnet build`,
   `publish` and `pack`), `sdk-processes` (how one build chooses its
-  processes' runtimes) and `npm-build` (the frontend's `npm ci` and
-  `npm run build`). Each as `.drawio` and exported `.drawio.png`;
+  processes' runtimes) `npm-build` (the frontend's `npm ci` and
+  `npm run build`) and `npm-findings` (only what the frontend findings need). Each as `.drawio` and exported `.drawio.png`;
   [figures/README.md](figures/README.md) explains every file and step.
