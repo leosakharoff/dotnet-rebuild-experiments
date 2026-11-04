@@ -68,13 +68,15 @@ ring, and a click on it filters by that ring. A click on the white background
 clears the selection and the filters; once nothing is left to clear, it leaves
 a view. It works on a phone.
 
-The menu, under the search field, holds six views. Each recolours the graph and
-says in a caption what it shows; the page counts every number in a caption
-from its own data. The address keeps the view, so a link such as
-`dependency-graph.html#view=2a-2b` opens it.
+The menu, under the search field, holds six views; it stays open while one is
+chosen. Each recolours the graph and says in a caption what it shows; the page
+counts every number in a caption from its own data. The address keeps the
+view, so a link such as `dependency-graph.html#view=2a-2b` opens it.
 
-- 2a and 2b together (`2a-2b`): the 185 packages in both parts, by the
-  combination of their results.
+- 2a next to 2b (`2a-2b`): the same graph twice, cut to the circle, with the
+  same positions. The left panel shows the 102 packages reproducible in 2a,
+  the right one the 22 reproduced from the release. A selection shows in
+  both.
 - Verified all the way down (`verified`): the packages reproduced from the
   release, by whether every dependency that ships files is reproduced too.
 - Third party and Microsoft (`owners`): 2b's result by owner.
