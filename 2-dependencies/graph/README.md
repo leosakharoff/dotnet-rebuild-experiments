@@ -70,8 +70,10 @@ a view. It works on a phone.
 
 The menu, under the search field, holds six views. On a wide screen it opens
 beside the page, which moves left to make room, and stays open while views are
-chosen and the graph is used; on a narrow one it opens over the page. Each recolours the graph and says in a caption what it shows; the page
-counts every number in a caption from its own data. The address keeps the
+chosen and the graph is used; on a narrow one it opens over the page. Each view
+recolours the graph and says what it shows in a box under the title line,
+always in the same place; the box's button, or Escape, goes back to the graph.
+The page counts every number in a box from its own data. The address keeps the
 view, so a link such as `dependency-graph.html#view=2a-2b` opens it.
 
 - 2a next to 2b (`2a-2b`): the same graph twice, cut to the circle, with the
