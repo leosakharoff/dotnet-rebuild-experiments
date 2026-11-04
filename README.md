@@ -33,10 +33,12 @@ Experiment 2 examines Phoenix's 341 NuGet package versions in two parts:
 Both parts start from the same [population](2-dependencies/population/): the 341
 shipped packages and what each declares about its origin (repository, commit,
 compiler, symbols, signatures). Each part states its selection criteria in its
-README. [Shared tools](2-dependencies/tools/) install specific SDK versions,
-inspect assemblies and debug symbols, and compare assemblies with signatures
-removed. The experiment READMEs describe the methods, commands, results and
-limitations.
+README. The [dependency graph](2-dependencies/graph/) draws the 341 packages
+with the edges from Phoenix's lock files, each node coloured by its result in
+both parts, as a figure and as a page. [Shared tools](2-dependencies/tools/)
+install specific SDK versions, inspect assemblies and debug symbols, and
+compare assemblies with signatures removed. The experiment READMEs describe
+the methods, commands, results and limitations.
 
 ## Scripts and data
 

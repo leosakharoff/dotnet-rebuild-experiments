@@ -1,0 +1,372 @@
+<title>Phoenix Dependencies</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/*FONTS*/
+/* Layout: the graph is the page. A title line with two view words and a search field, a one-line key, the graph,
+   one line of source. A small box appears only when something is selected. One light theme, as in the print figure. */
+:root {
+  color-scheme: light;
+  --paper: #ffffff; --text: #111111; --muted: #8c8c8c; --soft: #555555; --hair: #d9d9d9; --band: #f2f2f2;
+  --edge: #8c8c8c; --notin: #8f8f8f;
+  --c-strong: #1f3f7a; --c-repro: #3f7fbf; --c-differs: #f4a261; --c-nobuild: #bdbdbd;
+  --sans: "DejaVu Sans", Verdana, sans-serif; /* the font of the thesis figures (matplotlib), embedded */
+}
+html, body { background: var(--paper); color: var(--text); }
+body { font: 14px/1.4 var(--sans); }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 26px; padding-block: 18px 4px; }
+h1 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+.views { display: flex; gap: 18px; }
+.views button { all: unset; font-size: 20px; color: var(--muted); cursor: pointer; }
+.views button[aria-pressed="true"] { color: var(--text); }
+.views button:focus-visible, .find input:focus-visible, .box button:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.find { margin-left: auto; display: flex; gap: 6px; align-items: baseline; font-size: 12px; color: var(--muted); }
+.find input { font: 12px var(--sans); width: 170px; padding: 2px 4px; border: 1px solid #b5b5b5; border-radius: 0; background: var(--paper); color: var(--text); }
+.key { list-style: none; margin: 0; padding: 4px 0 0; display: flex; flex-wrap: wrap; gap: 2px 16px; font-size: 12px; color: var(--soft); }
+.key li { display: flex; }
+.key button { all: unset; display: flex; gap: 5px; align-items: center; cursor: pointer; }
+.key button:hover { color: var(--text); }
+.key button:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.key button[aria-pressed="true"] { color: var(--text); font-weight: 700; }
+.key.filtering button[aria-pressed="false"] { color: #b0b0b0; }
+.key.filtering button[aria-pressed="false"] .dot { opacity: .35; }
+.key .all { color: var(--muted); text-decoration: underline; }
+.nodes .off { opacity: .07; }
+.edges line.off { stroke-opacity: .03; }
+.seclabel.empty { fill: #bbbbbb !important; }
+.key .n { color: var(--muted); }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
+.dot.notin { background: var(--paper); box-shadow: inset 0 0 0 1.2px var(--notin); }
+.dot.own { border-radius: 0; background: #1a1a1a; }
+
+svg.map { display: block; width: 100%; height: auto; max-height: calc(100vh - 96px); margin: 4px auto 0; }
+svg.map text { font-family: var(--sans); fill: #333333; }
+.ring { fill: none; stroke: var(--hair); stroke-width: 1.2; }
+.ringlabel { font-size: 19px; fill: #8c8c8c !important; text-anchor: middle; }
+.band { fill: var(--band); }
+.band.clear { fill: transparent; }
+.band.on { fill: #e4e4e4; }
+.bracket { fill: none; stroke: #6a6a6a; stroke-width: 1.4; }
+.bracket.on { stroke: #111111; stroke-width: 3.4; }
+.brackethit { fill: none; stroke: transparent; stroke-width: 24; pointer-events: stroke; cursor: pointer; }
+.leader { fill: none; stroke: #a0a0a0; stroke-width: 1; }
+.seclabel { font-size: 23px; cursor: pointer; }
+.seclabel.on { font-weight: 700; fill: #111111 !important; }
+.seclabel:focus { outline: none; text-decoration: underline; }
+.edges line { stroke: var(--edge); stroke-opacity: .2; stroke-width: 0.9; }
+.edges line.down { stroke: #111111; stroke-opacity: .85; stroke-width: 1.6; }
+.edges line.up { stroke: #777777; stroke-opacity: .75; stroke-width: 1.3; }
+.nodes circle { stroke: none; }
+.nodes circle.notin { fill: var(--paper); stroke: var(--notin); stroke-width: 1.4; }
+.nodes circle.insec { stroke: #111111; stroke-width: 1.2; }
+.nodes rect { fill: #1a1a1a; }
+.nodes .dim { opacity: .12; }
+.nodes .sel { stroke: #111111; stroke-width: 2.6; }
+.foot { font-size: 11px; color: var(--muted); padding-block: 2px 18px; }
+
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: start; }
+.graph { min-width: 0; }
+.box { position: sticky; top: 12px; width: 300px; max-height: calc(100vh - 24px); overflow: auto; background: var(--paper);
+  border-left: 1px solid #d0d0d0; padding: 6px 0 10px 14px; margin-top: 8px; font-size: 12px; line-height: 1.45; }
+.box .head { display: flex; gap: 8px; align-items: baseline; }
+.box .name { font-weight: 700; font-size: 13px; }
+.box .close { all: unset; margin-left: auto; cursor: pointer; color: var(--muted); font-size: 11px; }
+.box .close:hover { color: var(--text); }
+.box .meta { color: var(--muted); margin-top: 6px; }
+.box .what { margin-top: 4px; font-size: 12.5px; }
+.box .reason { color: var(--soft); font-size: 11.5px; margin: 1px 0 0 13px; overflow-wrap: anywhere; }
+.box .why .label { margin-right: 4px; }
+.tip .what { margin: 2px 0 3px; }
+.box .row { margin-top: 7px; }
+.box .label { color: var(--muted); }
+.box .items { display: flex; flex-wrap: wrap; gap: 1px 10px; margin-top: 2px; }
+.box .it { all: unset; display: inline-flex; gap: 4px; align-items: baseline; cursor: pointer; }
+.box .it .dot { transform: translateY(-1px); }
+.box .it:hover { text-decoration: underline; }
+.box .it:focus-visible { outline: 2px solid var(--text); outline-offset: 1px; }
+.box .mode button { all: unset; cursor: pointer; color: var(--muted); margin-right: 10px; }
+.box .mode button[aria-pressed="true"] { color: var(--text); }
+
+.tip { position: fixed; z-index: 20; pointer-events: none; max-width: 300px; background: var(--paper); color: var(--text);
+  border: 1px solid #c8c8c8; padding: 6px 8px; font-size: 12px; line-height: 1.45; }
+.tip .name { font-weight: 700; overflow-wrap: anywhere; }
+.tip .meta { color: var(--muted); }
+@media (max-width: 1000px) {
+  .stage { grid-template-columns: minmax(0, 1fr); }
+  .box { position: static; width: auto; max-height: none; border-left: 0; border-top: 1px solid #d0d0d0; padding: 10px 0 0; }
+}
+@media (max-width: 700px) {
+  h1 { font-size: 19px; }
+  .views { gap: 14px; }
+  .views button { font-size: 15px; }
+  .find { margin-left: 0; width: 100%; }
+  .find input { flex: 1; }
+  .graph { overflow-x: auto; }
+  svg.map { min-width: 760px; max-height: none; }
+  /* On a phone the box is a panel at the bottom of the screen, so a tap shows its result at once. */
+  .box { position: fixed; left: 0; right: 0; top: auto; bottom: 0; width: auto; max-height: 42vh; margin: 0; z-index: 15;
+    border-left: 0; border-top: 1px solid #c8c8c8; box-shadow: 0 -2px 10px rgb(0 0 0 / .08);
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+  body.sheet .wrap { padding-bottom: 44vh; }
+}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <h1>Phoenix dependencies</h1>
+    <div class="views" role="group" aria-label="Result">
+      <button type="button" id="v2a" data-view="2a" aria-pressed="false">2a build determinism</button>
+      <button type="button" id="v2b" data-view="2b" aria-pressed="true">2b rebuild against nuget.org</button>
+    </div>
+    <label class="find" for="find">Find package <input id="find" list="pkglist" autocomplete="off"></label>
+    <datalist id="pkglist"></datalist>
+  </div>
+  <ul class="key" id="key"></ul>
+  <div class="stage">
+    <div class="graph"><svg class="map" viewBox="-930 -550 1860 1100" role="img" aria-label="Dependency graph of the 341 package versions Phoenix ships"></svg></div>
+    <div class="box" id="box" hidden></div>
+  </div>
+  <p class="foot">The 341 package versions shipped with Phoenix 79cb67a7 (linux-x64), with edges from the lock files. Rings give the distance from Phoenix's projects, sectors the declared source repository. Descriptions come from each package's .nuspec and from Phoenix's dependencies.yml, the reasons from the result files of parts 2a and 2b.</p>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const DATA = /*DATA*/null;
+
+const VIEWS = {
+  '2a': { field: 's2a', classes: [
+    ['as is', 'strong', 'Reproducible as is'], ['with configuration', 'repro', 'Reproducible with configuration'], ['unreproducible', 'differs', 'Unreproducible'],
+    ['did not build', 'nobuild', 'Did not build'], ['not in 2a', 'notin', 'Not in 2a'] ] },
+  '2b': { field: 's2b', classes: [
+    ['from the release', 'strong', 'Reproduced from the release'], ["with the publisher's build", 'repro', "Reproduced with the publisher's build"], ['not reproduced', 'differs', 'Not reproduced'],
+    ['no package', 'nobuild', 'No package or no recipe'], ['no recipe', 'nobuild', null], ['not in 2b', 'notin', 'Not in 2b'] ] },
+};
+let filter = new Set(); // colour classes to show; empty shows all
+let view = '2b', pinned = null, hover = null, pinnedSec = null, hoverSec = null, relMode = 'direct';
+
+const nodes = DATA.nodes, byId = new Map(nodes.map(n => [n.id, n]));
+const pkgs = nodes.filter(n => n.kind === 'package');
+const PROGRAMS = ['WebAPI', 'BackgroundJobExecutor', 'DbMigrator'];
+const outs = new Map(nodes.map(n => [n.id, []])), ins = new Map(nodes.map(n => [n.id, []]));
+const outsBy = Object.fromEntries(PROGRAMS.map(p => [p, new Map(nodes.map(n => [n.id, []]))]));
+for (const e of DATA.edges) {
+  outs.get(e.source).push(e.target); ins.get(e.target).push(e.source);
+  for (const p of e.programs) outsBy[p].get(e.source).push(e.target);
+}
+const reachIn = (id, adj) => { const s = new Set(), st = [id]; while (st.length) for (const b of adj.get(st.pop())) if (!s.has(b)) { s.add(b); st.push(b); } return s; };
+// Dependencies: the union of the closures inside each program, so that no path mixes two programs' lock files.
+const downOf = id => { const s = new Set(); for (const p of PROGRAMS) for (const x of reachIn(id, outsBy[p])) s.add(x); return s; };
+const upOf = id => reachIn(id, ins);
+const SECTORS = new Map(DATA.sectors.map(s => [s.key, s]));
+const passes = n => !filter.size || filter.has(kind(view, n));
+
+const kind = (v, n) => n.kind !== 'package' ? 'own' : (VIEWS[v].classes.find(c => c[0] === n[VIEWS[v].field]) || [0, 'notin'])[1];
+const word = (v, n) => { const k = kind(v, n); return k === 'own' ? 'Phoenix project' : VIEWS[v].classes.find(c => c[1] === k && c[2])[2]; };
+const dot = k => k === 'own' ? '<span class="dot own"></span>' : k === 'notin' ? '<span class="dot notin"></span>' : `<span class="dot" style="background:var(--c-${k})"></span>`;
+const pretty = n => n.kind === 'package' ? `${n.name} ${n.version}` : n.name;
+const brk = name => esc(name).replace(/\./g, '.<wbr>'); // break long package names only after a dot
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const repoName = n => (n.repo || 'no repository').replace(/^(https?|git):\/\/(www\.)?github\.com\//, '').replace(/\.git$/, '');
+
+// Drawing
+const NS = 'http://www.w3.org/2000/svg', svg = document.querySelector('svg.map');
+const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; };
+const R = DATA.rings.at(-1), B = DATA.bracket;
+const P = (r, a) => `${(Math.cos(a) * r).toFixed(1)},${(Math.sin(a) * r).toFixed(1)}`;
+const bg = el('g', {}, svg), secEls = new Map();
+DATA.sectors.forEach((s, j) => {
+  const large = s.end - s.start > Math.PI ? 1 : 0;
+  const band = el('path', { class: j % 2 === 0 ? 'band' : 'band clear', d: `M${P(R + 12, s.start)} A${R + 12},${R + 12} 0 ${large} 1 ${P(R + 12, s.end)} L${P(125, s.end)} A125,125 0 ${large} 0 ${P(125, s.start)} Z` }, bg);
+  const arc = `M${P(B - 6, s.start)} L${P(B, s.start)} A${B},${B} 0 ${large} 1 ${P(B, s.end)} L${P(B - 6, s.end)}`;
+  const bracket = el('path', { class: 'bracket', d: arc }, bg);
+  el('path', { class: 'brackethit', d: arc, 'data-sec': s.key }, bg);
+  el('polyline', { class: 'leader', points: `${s.anchor} ${s.elbow} ${s.text[0] - s.side * 8},${s.text[1]}` }, bg);
+  const label = el('text', { class: 'seclabel', x: s.text[0], y: s.text[1] + 7, 'text-anchor': s.side > 0 ? 'start' : 'end',
+    'data-sec': s.key, tabindex: 0, role: 'button', 'aria-label': `${s.label}, ${s.count} packages` }, bg);
+  label.textContent = `${s.label} (${s.count})`;
+  secEls.set(s.key, { band, bracket, label });
+});
+DATA.rings.slice(1).forEach((r, i) => {
+  el('circle', { class: 'ring', r }, bg);
+  el('text', { class: 'ringlabel', x: 0, y: -r + 18 }, bg).textContent = i + 1 < DATA.rings.length - 1 ? i + 1 : `≥${i + 1}`;
+});
+for (const c of [...bg.querySelectorAll('.band')]) bg.insertBefore(c, bg.firstChild);
+const eg = el('g', { class: 'edges' }, svg);
+const lines = DATA.edges.map(e => { const a = byId.get(e.source), b = byId.get(e.target); return el('line', { x1: a.x, y1: a.y, x2: b.x, y2: b.y }, eg); });
+const ng = el('g', { class: 'nodes' }, svg), marks = new Map();
+for (const n of nodes) marks.set(n.id, n.kind !== 'package' ? el('rect', { x: n.x - 7, y: n.y - 7, width: 14, height: 14 }, ng) : el('circle', { cx: n.x, cy: n.y, r: n.r + 0.3 }, ng));
+
+function paint() {
+  for (const n of pkgs) {
+    const k = kind(view, n), m = marks.get(n.id);
+    m.classList.toggle('notin', k === 'notin');
+    m.style.fill = k === 'notin' ? '' : `var(--c-${k})`;
+  }
+  const counts = {};
+  for (const n of pkgs) counts[kind(view, n)] = (counts[kind(view, n)] || 0) + 1;
+  counts.own = nodes.length - pkgs.length;
+  const chip = (k, t) => `<li><button type="button" data-k="${k}" aria-pressed="${filter.has(k)}">${dot(k)}${t} (${counts[k] || 0})</button></li>`;
+  const key = document.getElementById('key');
+  key.innerHTML = VIEWS[view].classes.filter(c => c[2]).map(([, k, t]) => chip(k, t)).join('') + chip('own', 'Phoenix projects')
+    + (filter.size ? '<li><button type="button" class="all">Show all</button></li>' : '');
+  key.classList.toggle('filtering', filter.size > 0);
+  for (const b of document.querySelectorAll('.views button')) b.setAttribute('aria-pressed', String(b.dataset.view === view));
+}
+
+// A sector's relations: its packages, the nodes outside that use them, the packages outside that they use.
+function sectorRel(key) {
+  const inSec = new Set(pkgs.filter(n => n.sector === key).map(n => n.id)), usedBy = new Set(), uses = new Set();
+  for (const i of inSec) {
+    for (const j of relMode === 'direct' ? ins.get(i) : upOf(i)) if (!inSec.has(j)) usedBy.add(j);
+    for (const j of relMode === 'direct' ? outs.get(i) : downOf(i)) if (!inSec.has(j)) uses.add(j);
+  }
+  return { inSec, usedBy, uses };
+}
+
+// A node's relations, with the same choice: one edge away, or any number of edges away.
+const nodeRel = id => relMode === 'direct' ? { usedBy: new Set(ins.get(id)), uses: new Set(outs.get(id)) } : { usedBy: upOf(id), uses: downOf(id) };
+function render() {
+  const id = hover || pinned, sk = id ? null : (hoverSec || pinnedSec);
+  const nr = id ? nodeRel(id) : null, rel = sk ? sectorRel(sk) : null;
+  for (const [nid, m] of marks) {
+    m.classList.toggle('off', !passes(byId.get(nid)));
+    m.classList.toggle('sel', nid === id);
+    m.classList.toggle('insec', !!rel && rel.inSec.has(nid));
+    m.classList.toggle('dim', id ? !(nid === id || nr.usedBy.has(nid) || nr.uses.has(nid)) : rel ? !(rel.inSec.has(nid) || rel.usedBy.has(nid) || rel.uses.has(nid)) : false);
+  }
+  DATA.edges.forEach((e, i) => {
+    let c = '';
+    if (!passes(byId.get(e.source)) || !passes(byId.get(e.target))) c = 'off';
+    else if (id && relMode === 'direct') c = e.source === id ? 'down' : e.target === id ? 'up' : '';
+    else if (id) c = (e.source === id || nr.uses.has(e.source)) && nr.uses.has(e.target) ? 'down' : (e.target === id || nr.usedBy.has(e.target)) && nr.usedBy.has(e.source) ? 'up' : '';
+    else if (rel) {
+      const { inSec, usedBy, uses } = rel;
+      if (relMode === 'direct') c = inSec.has(e.source) ? 'down' : inSec.has(e.target) ? 'up' : '';
+      else c = (inSec.has(e.source) || uses.has(e.source)) && (inSec.has(e.target) || uses.has(e.target)) ? 'down' : usedBy.has(e.source) && (inSec.has(e.target) || usedBy.has(e.target)) ? 'up' : '';
+    }
+    lines[i].setAttribute('class', c);
+  });
+  for (const [k, s] of secEls) {
+    for (const x of [s.band, s.bracket, s.label]) x.classList.toggle('on', k === sk);
+    s.label.classList.toggle('empty', filter.size > 0 && !pkgs.some(n => n.sector === k && passes(n)));
+    s.label.setAttribute('aria-pressed', String(k === pinnedSec));
+  }
+  renderBox();
+}
+
+// The box: names with a dot for the current view; nothing else.
+const items = list => `<div class="items">${list.map(n => `<button class="it" type="button" data-id="${esc(n.id)}">${dot(kind(view, n))}<span>${brk(n.name)}${n.kind === 'package' && list.filter(x => x.name === n.name).length > 1 ? ' ' + esc(n.version) : ''}</span></button>`).join('')}</div>`;
+const order = ids => [...ids].map(i => byId.get(i)).sort((a, b) => (a.kind === 'package') - (b.kind === 'package') || a.step - b.step || a.id.localeCompare(b.id));
+const listRow = (title, list) => { const shown = list.filter(passes);
+  return `<div class="row"><span class="label">${title} (${filter.size ? `${shown.length} of ${list.length}` : list.length})</span>${items(shown)}</div>`; };
+const directOnes = pkgs.filter(n => n.step === 1);
+const bringers = new Map();
+function comesWith(n) {
+  if (!bringers.has(n.id)) bringers.set(n.id, directOnes.filter(d => d.id !== n.id && downOf(d.id).has(n.id)).sort((a, b) => a.id.localeCompare(b.id)));
+  return bringers.get(n.id);
+}
+function whyLine(n) {
+  if (n.why && n.step === 1) return `<div class="row why"><span class="label">Why</span> ${esc(n.why)}</div>`;
+  if (n.via === 'sdk') return '<div class="row why"><span class="label">Why</span> The SDK downloads it for the self-contained linux-x64 publish.</div>';
+  if (n.via === 'tool') return '<div class="row why"><span class="label">Why</span> The release uses it to write the SQL migration script that ships.</div>';
+  const c = comesWith(n);
+  if (!c.length) return '';
+  const names = c.map(d => brk(d.name)), shown = names.length > 3 ? `${names.slice(0, 3).join(', ')} and ${names.length - 3} more` : names.join(', ');
+  return `<div class="row why"><span class="label">Brought in by</span> ${shown}</div>`;
+}
+const modeRow = () => `<div class="row mode"><button type="button" data-mode="direct" aria-pressed="${relMode === 'direct'}">Direct</button><button type="button" data-mode="transitive" aria-pressed="${relMode === 'transitive'}">Transitive</button></div>`;
+function renderBox() {
+  const box = document.getElementById('box'), n = pinned && byId.get(pinned);
+  if (n) {
+    const { usedBy, uses } = nodeRel(n.id), by = order(usedBy), to = order(uses);
+    box.innerHTML = `<div class="head"><span class="name">${brk(n.name)}${n.kind === 'package' ? ' ' + esc(n.version) : ''}</span><button class="close" type="button">Close</button></div>
+      ${n.kind === 'package' ? `${n.what ? `<div class="what">${esc(n.what)}</div>` : ''}${whyLine(n)}<div class="meta">${esc(repoName(n))}, ring ${n.step}</div>
+      <div class="row">${dot(kind('2a', n))} 2a: ${esc(word('2a', n))}${n.r2a ? `<div class="reason">${esc(n.r2a)}</div>` : ''}</div>
+      <div class="row">${dot(kind('2b', n))} 2b: ${esc(word('2b', n))}${n.r2b ? `<div class="reason">${esc(n.r2b)}</div>` : ''}</div>` : ''}
+      ${modeRow()}
+      ${listRow('Used by', by)}${listRow('Uses', to)}`;
+  } else if (pinnedSec) {
+    const s = SECTORS.get(pinnedSec), { inSec, usedBy, uses } = sectorRel(pinnedSec);
+    box.innerHTML = `<div class="head"><span class="name">${esc(s.label)}</span><button class="close" type="button">Close</button></div>
+      ${modeRow()}
+      ${listRow('In the sector', order(inSec))}${listRow('Used by', order(usedBy))}${listRow('Uses', order(uses))}`;
+  }
+  box.hidden = !n && !pinnedSec;
+  document.body.classList.toggle('sheet', !box.hidden);
+}
+
+// Pointer: a node within 9 screen pixels, else a sector (label, bracket, or its area).
+function target(ev) {
+  const sec = ev.target.closest && ev.target.closest('[data-sec]');
+  if (sec) return { sector: sec.dataset.sec };
+  const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+  const p = pt.matrixTransform(svg.getScreenCTM().inverse()), scale = svg.viewBox.baseVal.width / svg.getBoundingClientRect().width;
+  let best = null, bd = Infinity;
+  for (const n of nodes) { if (!passes(n)) continue; const d = Math.hypot(n.x - p.x, n.y - p.y) - n.r; if (d < bd) { bd = d; best = n; } }
+  if (bd <= (lastPointer === 'touch' ? 18 : 9) * scale) return { node: best };
+  const r = Math.hypot(p.x, p.y);
+  if (r < 115 || r > B + 14) return {};
+  const a = Math.atan2(p.y, p.x);
+  const s = DATA.sectors.find(s => ((a - s.start) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) <= s.end - s.start);
+  return s ? { sector: s.key } : {};
+}
+const tip = document.getElementById('tip');
+function showTip(html, ev) {
+  tip.innerHTML = html; tip.hidden = false;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = ev.clientX + 12, y = ev.clientY + 12;
+  if (x + w > innerWidth - 6) x = ev.clientX - w - 12;
+  if (y + h > innerHeight - 6) y = Math.max(6, ev.clientY - h - 12);
+  tip.style.left = Math.max(6, x) + 'px'; tip.style.top = y + 'px';
+}
+const nodeTip = n => `<div class="name">${esc(pretty(n))}</div>${n.kind === 'package' ? `${n.what ? `<div class="what">${esc(n.what)}</div>` : ''}<div class="meta">${esc(repoName(n))}</div>
+  <div>${dot(kind('2a', n))} 2a: ${esc(word('2a', n))}</div><div>${dot(kind('2b', n))} 2b: ${esc(word('2b', n))}</div>` : '<div class="meta">Phoenix project</div>'}`;
+const secTip = k => { const s = SECTORS.get(k); return `<div class="name">${esc(s.label)}</div><div class="meta">${s.count} package versions</div>`; };
+let lastPointer = 'mouse';
+svg.addEventListener('pointerdown', ev => { lastPointer = ev.pointerType; if (ev.pointerType !== 'mouse') tip.hidden = true; });
+svg.addEventListener('pointermove', ev => {
+  lastPointer = ev.pointerType;
+  if (ev.pointerType !== 'mouse') return; // a finger has no hover: a tap selects
+  const t = target(ev), nid = t.node ? t.node.id : null, sk = t.sector || null;
+  if (nid !== hover || sk !== hoverSec) { hover = nid; hoverSec = sk; render(); }
+  svg.style.cursor = nid || sk ? 'pointer' : 'default';
+  if (t.node) showTip(nodeTip(t.node), ev); else if (sk) showTip(secTip(sk), ev); else tip.hidden = true;
+});
+svg.addEventListener('pointerleave', () => { hover = null; hoverSec = null; tip.hidden = true; render(); });
+function selectSector(k) { pinnedSec = k && k !== pinnedSec ? k : null; pinned = null; render(); }
+svg.addEventListener('click', ev => {
+  const t = target(ev);
+  if (t.node) { pinned = t.node.id !== pinned ? t.node.id : null; render(); }
+  else if (t.sector) selectSector(t.sector);
+  else { pinned = null; pinnedSec = null; render(); }
+});
+svg.addEventListener('keydown', ev => { const s = ev.target.closest && ev.target.closest('.seclabel'); if (s && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); selectSector(s.dataset.sec); } });
+document.getElementById('box').addEventListener('click', ev => {
+  const it = ev.target.closest('.it'), mode = ev.target.closest('[data-mode]');
+  if (ev.target.closest('.close')) { pinned = null; pinnedSec = null; }
+  else if (it) pinned = it.dataset.id;
+  else if (mode) relMode = mode.dataset.mode;
+  else return;
+  render();
+});
+document.getElementById('key').addEventListener('click', ev => {
+  const b = ev.target.closest('button');
+  if (!b) return;
+  if (b.classList.contains('all')) filter.clear();
+  else if (filter.has(b.dataset.k)) filter.delete(b.dataset.k);
+  else filter.add(b.dataset.k);
+  if (pinned && !passes(byId.get(pinned))) pinned = null;
+  paint(); render();
+});
+for (const b of document.querySelectorAll('.views button')) b.addEventListener('click', () => { view = b.dataset.view; paint(); render(); });
+const find = document.getElementById('find');
+document.getElementById('pkglist').innerHTML = [...pkgs].sort((a, b) => a.id.localeCompare(b.id)).map(n => `<option value="${esc(pretty(n))}">`).join('');
+find.addEventListener('input', () => {
+  const q = find.value.trim().toLowerCase(), n = pkgs.find(p => pretty(p).toLowerCase() === q) || (q.length > 2 && pkgs.find(p => p.name.toLowerCase() === q));
+  if (n) { pinned = n.id; pinnedSec = null; render(); }
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { pinned = null; pinnedSec = null; hover = null; hoverSec = null; tip.hidden = true; render(); } });
+paint();
+render();
+{ const g = document.querySelector('.graph'); g.scrollLeft = (g.scrollWidth - g.clientWidth) / 2; }
+</script>

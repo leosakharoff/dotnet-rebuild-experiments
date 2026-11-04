@@ -1,0 +1,1109 @@
+{
+"HarfBuzzSharp.NativeAssets.macOS/8.3.1.1": {
+"what": "HarfBuzzSharp is a cross-platform OpenType text shaping engine for .NET platforms."
+},
+"HarfBuzzSharp.NativeAssets.macOS/8.3.1.3": {
+"what": "HarfBuzzSharp is a cross-platform OpenType text shaping engine for .NET platforms."
+},
+"HarfBuzzSharp.NativeAssets.Win32/8.3.1.1": {
+"what": "HarfBuzzSharp is a cross-platform OpenType text shaping engine for .NET platforms."
+},
+"HarfBuzzSharp.NativeAssets.Win32/8.3.1.3": {
+"what": "HarfBuzzSharp is a cross-platform OpenType text shaping engine for .NET platforms."
+},
+"Microsoft.CodeAnalysis.Analyzers/3.11.0": {
+"what": "Analyzers for consumers of Microsoft.CodeAnalysis NuGet package, i.e."
+},
+"Microsoft.Data.SqlClient.SNI.runtime/6.0.3": {
+"what": "Internal implementation package not meant for direct consumption."
+},
+"Microsoft.EntityFrameworkCore.Analyzers/10.0.12": {
+"what": "CSharp Analyzers for Entity Framework Core."
+},
+"Microsoft.EntityFrameworkCore.Sqlite/10.0.12": {
+"what": "SQLite database provider for Entity Framework Core.",
+"why": "Runs a small file database in some tests and tools."
+},
+"Microsoft.EntityFrameworkCore.Tools/10.0.12": {
+"what": "Entity Framework Core Tools for the NuGet Package Manager Console in Visual Studio.",
+"why": "Provides the commands our migration scripts call."
+},
+"Microsoft.Extensions.ApiDescription.Server/6.0.5": {
+"what": "MSBuild tasks and targets for build-time Swagger and OpenApi document generation"
+},
+"Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
+"what": "Abstractions for dependency injection."
+},
+"Microsoft.NET.ILLink.Tasks/10.0.12": {
+"what": "MSBuild tasks for running the IL Linker"
+},
+"Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.21.0": {
+"what": "Targets files to enable the Visual Studio Tools for Containers.",
+"why": "Adds the build targets for our Docker image."
+},
+"runtime.linux-arm.runtime.native.System.IO.Ports/5.0.0-rtm.20519.4": {
+"what": "Internal implementation package not meant for direct consumption."
+},
+"runtime.linux-arm64.runtime.native.System.IO.Ports/5.0.0-rtm.20519.4": {
+"what": "Internal implementation package not meant for direct consumption."
+},
+"runtime.native.System.IO.Ports/5.0.0": {
+"what": "Internal implementation package not meant for direct consumption."
+},
+"runtime.osx-x64.runtime.native.System.IO.Ports/5.0.0-rtm.20519.4": {
+"what": "Internal implementation package not meant for direct consumption."
+},
+"SkiaSharp.NativeAssets.macOS/3.119.0": {
+"what": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library."
+},
+"SkiaSharp.NativeAssets.macOS/3.119.2": {
+"what": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library."
+},
+"SkiaSharp.NativeAssets.Win32/3.119.0": {
+"what": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library."
+},
+"SkiaSharp.NativeAssets.Win32/3.119.2": {
+"what": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library."
+},
+"System.Composition/9.0.0": {
+"what": "Provides a version of the Managed Extensibility Framework (MEF) that is lightweight and specifically optimized for high throughput scenarios, such as the web."
+},
+"System.Text.Json/10.0.12": {
+"what": "Provides high-performance and low-allocating types that serialize objects to JavaScript Object Notation (JSON) text and deserialize JSON text to objects…",
+"why": "Reads and writes the JSON our API sends and stores."
+},
+"Humanizer/2.14.1": {
+"what": "Humanizer meets all your .NET needs for manipulating and displaying strings, enums, dates, times, timespans, numbers and quantities"
+},
+"libtorch-cpu/2.10.0": {
+"what": "TorchSharp makes PyTorch available for .NET users."
+},
+"libtorch-cpu-osx-arm64/2.10.0": {
+"what": "TorchSharp makes PyTorch available for .NET users."
+},
+"libtorch-cpu-win-x64/2.10.0": {
+"what": "TorchSharp makes PyTorch available for .NET users."
+},
+"Swashbuckle.AspNetCore/7.2.0": {
+"what": "Swagger tools for documenting APIs built on ASP.NET Core",
+"why": "Builds the OpenAPI description we generate the frontend client from."
+},
+"TorchSharp-cpu/0.106.0": {
+"what": "TorchSharp makes PyTorch available for .NET users.",
+"why": "Computes gradients for the model fitting solvers."
+},
+"HarfBuzzSharp.NativeAssets.Linux/8.3.1.1": {
+"what": "HarfBuzzSharp is a cross-platform OpenType text shaping engine for .NET platforms."
+},
+"HarfBuzzSharp.NativeAssets.Linux/8.3.1.3": {
+"what": "HarfBuzzSharp is a cross-platform OpenType text shaping engine for .NET platforms."
+},
+"Microsoft.ML.OnnxRuntime/1.20.1": {
+"what": "This package contains native shared library artifacts for all supported platforms of ONNX Runtime.",
+"why": "Runs trained ONNX emission models to predict values."
+},
+"Microsoft.NETCore.App.Host.linux-x64/10.0.12": {
+"what": "Internal implementation package not meant for direct consumption."
+},
+"runtime.linux-x64.runtime.native.System.IO.Ports/5.0.0-rtm.20519.4": {
+"what": "Internal implementation package not meant for direct consumption."
+},
+"SkiaSharp.NativeAssets.Linux.NoDependencies/3.119.0": {
+"what": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library.",
+"why": "Native Skia for Linux containers without system libraries, so uploaded report images can be decoded and resized."
+},
+"SkiaSharp.NativeAssets.Linux.NoDependencies/3.119.2": {
+"what": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library.",
+"why": "Native Skia for Linux containers without system libraries, so uploaded report images can be decoded and resized."
+},
+"libtorch-cpu-linux-x64/2.10.0": {
+"what": "TorchSharp makes PyTorch available for .NET users."
+},
+"SQLitePCLRaw.lib.e_sqlite3/2.1.12": {
+"what": "SQLitePCLRaw is a Portable Class Library (PCL) for low-level (raw) access to SQLite"
+},
+"Microsoft.CodeAnalysis.Elfie/1.0.0": {
+"what": "An extensible library for fast indexing of code artifacts."
+},
+"System.Data.DataSetExtensions/4.5.0": {
+"what": "Provides extensions to form LINQ expressions and method queries against DataTable objects."
+},
+"csnumerics/1.0.2": {
+"what": "CSNumerics is a .NET Standard class library of various numerical algorithms written in C#.",
+"why": "Supplies the COBYLA and BOBYQA solvers used to fit models."
+},
+"ExcelNumberFormat/1.1.0": {
+"what": ".NET library to parse ECMA-376 number format strings and format values like Excel and other spreadsheet softwares."
+},
+"Humanizer.Core.ko-KR/2.14.1": {
+"what": "Humanizer Locale Korean (South Korea) (ko-KR)"
+},
+"Humanizer.Core.ms-MY/2.14.1": {
+"what": "Humanizer Locale Malay (Malaysia) (ms-MY)"
+},
+"Humanizer.Core.th-TH/2.14.1": {
+"what": "Humanizer Locale Thai (Thailand) (th-TH)"
+},
+"Jace4fc/1.0.2": {
+"what": "Jace4fc is hard-fork of Jace.NET.",
+"why": "Evaluates the formula text that users write in pipeline steps."
+},
+"starkbank-ecdsa/1.3.3": {
+"what": "Pure C# implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA) by Stark Bank"
+},
+"Microsoft.Identity.Client.NativeInterop/0.20.6": {
+"what": "This package contains binaries needed to use brokers in public client desktop applications."
+},
+"Microsoft.SqlServer.Server/1.0.0": {
+"what": "This is a helper library for Microsoft.Data.SqlClient enabling cross framework support of UDT types."
+},
+"MathNet.Numerics/5.0.0": {
+"what": "Math.NET Numerics is the numerical foundation of the Math.NET project, aiming to provide methods and algorithms for numerical computations in science…",
+"why": "Does the statistics and matrix work in emission calculations."
+},
+"NLoptNet/1.4.3": {
+"what": "This is a wrapper around the NLopt library.",
+"why": "Supplies the SLSQP solver used when we calibrate models."
+},
+"PDFsharp/6.2.3": {
+"what": "A .NET library for processing PDF.",
+"why": "PDF engine under the MigraDoc exports and the composed report PDF renderer."
+},
+"PDFsharp-MigraDoc/6.2.3": {
+"what": "Creating Documents on the Fly.",
+"why": "Builds the PDF versions of the emission reports."
+},
+"Serilog.Formatting.Compact/2.0.0": {
+"what": "A simple, compact JSON-based event format for Serilog."
+},
+"Serilog.Sinks.Console/5.0.0": {
+"what": "A Serilog sink that writes log events to the console/terminal."
+},
+"Serilog.Sinks.Debug/2.0.0": {
+"what": "A Serilog sink that writes log events to the debug output window."
+},
+"SQLitePCLRaw.bundle_e_sqlite3/2.1.12": {
+"what": "This 'batteries-included' bundle brings in SQLitePCLRaw.core and the necessary stuff for certain common use cases."
+},
+"SQLitePCLRaw.core/2.1.12": {
+"what": "SQLitePCL.raw is a Portable Class Library (PCL) for low-level (raw) access to SQLite."
+},
+"SQLitePCLRaw.provider.e_sqlite3/2.1.12": {
+"what": "SQLitePCLRaw is a Portable Class Library (PCL) for low-level (raw) access to SQLite."
+},
+"TorchSharp/0.106.0": {
+"what": ".NET Bindings for Torch. Requires reference to one of libtorch-cpu, libtorch-cuda-12.8, libtorch-cuda-12.8-win-x64 or libtorch-cuda-12.8-linux-x64 version…"
+},
+"Humanizer.Core.af/2.14.1": {
+"what": "Humanizer Locale Afrikaans (af)"
+},
+"Humanizer.Core.ar/2.14.1": {
+"what": "Humanizer Locale Arabic (ar)"
+},
+"Humanizer.Core.az/2.14.1": {
+"what": "Humanizer Locale Azerbaijani (az)"
+},
+"Humanizer.Core.bg/2.14.1": {
+"what": "Humanizer Locale Bulgarian (bg)"
+},
+"Humanizer.Core.bn-BD/2.14.1": {
+"what": "Humanizer Locale Bangla (Bangladesh) (bn-BD)"
+},
+"Humanizer.Core.cs/2.14.1": {
+"what": "Humanizer Locale Czech (cs)"
+},
+"Humanizer.Core.da/2.14.1": {
+"what": "Humanizer Locale Danish (da)"
+},
+"Humanizer.Core.de/2.14.1": {
+"what": "Humanizer Locale German (de)"
+},
+"Humanizer.Core.el/2.14.1": {
+"what": "Humanizer Locale Greek (el)"
+},
+"Humanizer.Core.es/2.14.1": {
+"what": "Humanizer Locale Spanish (es)"
+},
+"Humanizer.Core.fa/2.14.1": {
+"what": "Humanizer Locale Persian (fa)"
+},
+"Humanizer.Core.fi-FI/2.14.1": {
+"what": "Humanizer Locale Finnish (Finland) (fi-FI)"
+},
+"Humanizer.Core.fr/2.14.1": {
+"what": "Humanizer Locale French (fr)"
+},
+"Humanizer.Core.fr-BE/2.14.1": {
+"what": "Humanizer Locale French (Belgium) (fr-BE)"
+},
+"Humanizer.Core.he/2.14.1": {
+"what": "Humanizer Locale Hebrew (he)"
+},
+"Humanizer.Core.hr/2.14.1": {
+"what": "Humanizer Locale Croatian (hr)"
+},
+"Humanizer.Core.hu/2.14.1": {
+"what": "Humanizer Locale Hungarian (hu)"
+},
+"Humanizer.Core.hy/2.14.1": {
+"what": "Humanizer Locale Armenian (hy)"
+},
+"Humanizer.Core.id/2.14.1": {
+"what": "Humanizer Locale Indonesian (id)"
+},
+"Humanizer.Core.is/2.14.1": {
+"what": "Humanizer Locale Icelandic (is)"
+},
+"Humanizer.Core.it/2.14.1": {
+"what": "Humanizer Locale Italian (it)"
+},
+"Humanizer.Core.ja/2.14.1": {
+"what": "Humanizer Locale Japanese (ja)"
+},
+"Humanizer.Core.ku/2.14.1": {
+"what": "Humanizer Locale Central Kurdish (ku)"
+},
+"Humanizer.Core.lv/2.14.1": {
+"what": "Humanizer Locale Latvian (lv)"
+},
+"Humanizer.Core.mt/2.14.1": {
+"what": "Humanizer Locale Maltese (mt)"
+},
+"Humanizer.Core.nb/2.14.1": {
+"what": "Humanizer Locale Norwegian Bokmål (nb)"
+},
+"Humanizer.Core.nb-NO/2.14.1": {
+"what": "Humanizer Locale Norwegian Bokmål (Norway) (nb-NO)"
+},
+"Humanizer.Core.nl/2.14.1": {
+"what": "Humanizer Locale Dutch (nl)"
+},
+"Humanizer.Core.pl/2.14.1": {
+"what": "Humanizer Locale Polish (pl)"
+},
+"Humanizer.Core.pt/2.14.1": {
+"what": "Humanizer Locale Portuguese (pt)"
+},
+"Humanizer.Core.ro/2.14.1": {
+"what": "Humanizer Locale Romanian (ro)"
+},
+"Humanizer.Core.ru/2.14.1": {
+"what": "Humanizer Locale Russian (ru)"
+},
+"Humanizer.Core.sk/2.14.1": {
+"what": "Humanizer Locale Slovak (sk)"
+},
+"Humanizer.Core.sl/2.14.1": {
+"what": "Humanizer Locale Slovenian (sl)"
+},
+"Humanizer.Core.sr/2.14.1": {
+"what": "Humanizer Locale Serbian (sr)"
+},
+"Humanizer.Core.sr-Latn/2.14.1": {
+"what": "Humanizer Locale Serbian (sr-Latn)"
+},
+"Humanizer.Core.sv/2.14.1": {
+"what": "Humanizer Locale Swedish (sv)"
+},
+"Humanizer.Core.tr/2.14.1": {
+"what": "Humanizer Locale Turkish (tr)"
+},
+"Humanizer.Core.uk/2.14.1": {
+"what": "Humanizer Locale Ukrainian (uk)"
+},
+"Humanizer.Core.uz-Cyrl-UZ/2.14.1": {
+"what": "Humanizer Locale Uzbek (Cyrillic, Uzbekistan) (uz-Cyrl-UZ)"
+},
+"Humanizer.Core.uz-Latn-UZ/2.14.1": {
+"what": "Humanizer Locale Uzbek (Latin, Uzbekistan) (uz-Latn-UZ)"
+},
+"Humanizer.Core.vi/2.14.1": {
+"what": "Humanizer Locale Vietnamese (vi)"
+},
+"Humanizer.Core.zh-CN/2.14.1": {
+"what": "Humanizer Locale Chinese (China) (zh-CN)"
+},
+"Humanizer.Core.zh-Hans/2.14.1": {
+"what": "Humanizer Locale Chinese (zh-Hans)"
+},
+"Humanizer.Core.zh-Hant/2.14.1": {
+"what": "Humanizer Locale Chinese (zh-Hant)"
+},
+"Azure.Communication.Email/1.0.1": {
+"what": "This client library enables working with the Microsoft Azure Communication Email service.",
+"why": "Azure Communication Services sender, the alternative to SendGrid selected by configuration."
+},
+"Azure.Core/1.50.0": {
+"what": "This is the implementation of the Azure Client Pipeline"
+},
+"Azure.Identity/1.17.1": {
+"what": "Provides APIs for authenticating to Microsoft Entra ID"
+},
+"Azure.Security.KeyVault.Certificates/4.6.0": {
+"what": "This is the Microsoft Azure Key Vault Certificates client library"
+},
+"Azure.Security.KeyVault.Secrets/4.6.0": {
+"what": "This is the Microsoft Azure Key Vault Secrets client library"
+},
+"Azure.Storage.Blobs/12.20.0": {
+"what": "This client library enables working with the Microsoft Azure Storage Blob service for storing binary and text data.",
+"why": "Blob client for the Azure cold storage provider."
+},
+"Azure.Storage.Common/12.19.0": {
+"what": "This client library enables working with the Microsoft Azure Storage services which include the blob and file services for storing binary and text data, and…"
+},
+"DocumentFormat.OpenXml/3.1.1": {
+"what": "The Open XML SDK provides tools for working with Office Word, Excel, and PowerPoint documents."
+},
+"DocumentFormat.OpenXml.Framework/3.1.1": {
+"what": "The Open XML SDK provides tools for working with Office Word, Excel, and PowerPoint documents."
+},
+"dotnet-ef/10.0.12": {
+"what": "Entity Framework Core Tools for the .NET Command-Line Interface."
+},
+"Microsoft.AspNetCore.App.Runtime.linux-x64/10.0.12": {
+"what": "Shared Framework for hosting of Microsoft ASP.NET Core applications."
+},
+"Microsoft.AspNetCore.Authentication.JwtBearer/10.0.12": {
+"what": "ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.",
+"why": "Checks the bearer tokens on every API call."
+},
+"Microsoft.AspNetCore.Authentication.JwtBearer/9.0.0": {
+"what": "ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.",
+"why": "Checks the bearer tokens on every API call."
+},
+"Microsoft.AspNetCore.Authentication.OpenIdConnect/9.0.0": {
+"what": "ASP.NET Core middleware that enables an application to support the OpenID Connect authentication workflow."
+},
+"Microsoft.AspNetCore.Cryptography.Internal/10.0.12": {
+"what": "Infrastructure for ASP.NET Core cryptographic packages."
+},
+"Microsoft.AspNetCore.Cryptography.KeyDerivation/10.0.12": {
+"what": "ASP.NET Core utilities for key derivation."
+},
+"Microsoft.AspNetCore.DataProtection/9.0.0": {
+"what": "ASP.NET Core logic to protect and unprotect data, similar to DPAPI."
+},
+"Microsoft.AspNetCore.DataProtection.Abstractions/9.0.0": {
+"what": "ASP.NET Core data protection abstractions."
+},
+"Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/10.0.12": {
+"what": "ASP.NET Core middleware for Entity Framework Core error pages.",
+"why": "Shows database and migration errors on the developer error page."
+},
+"Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.12": {
+"what": "ASP.NET Core Identity provider that uses Entity Framework Core.",
+"why": "Stores users, roles and claims in our database."
+},
+"Microsoft.AspNetCore.Identity.UI/10.0.12": {
+"what": "ASP.NET Core Identity UI is the default Razor Pages built-in UI for the ASP.NET Core Identity framework.",
+"why": "Supplies the built in login and account pages."
+},
+"Microsoft.AspNetCore.Razor.Language/6.0.24": {
+"what": "Razor is a markup syntax for adding server-side logic to web pages."
+},
+"Microsoft.AspNetCore.SpaProxy/10.0.12": {
+"what": "Helpers for launching the SPA CLI proxy automatically when the application starts in ASP.NET MVC Core.",
+"why": "Starts the Next.js frontend when we run the backend locally."
+},
+"Microsoft.Bcl.AsyncInterfaces/8.0.0": {
+"what": "Provides the IAsyncEnumerable<T> and IAsyncDisposable interfaces and helper types for .NET Standard 2.0."
+},
+"Microsoft.Bcl.Cryptography/10.0.2": {
+"what": "Provides support for some cryptographic primitives for .NET Framework and .NET Standard."
+},
+"Microsoft.Bcl.TimeProvider/8.0.1": {
+"what": "Provides support for system time abstraction primitives for .NET Framework and .NET Standard."
+},
+"Microsoft.CodeAnalysis.Razor/6.0.24": {
+"what": "Razor is a markup syntax for adding server-side logic to web pages."
+},
+"Microsoft.Data.SqlClient/6.1.7": {
+"what": "The current data provider for SQL Server and Azure SQL databases.",
+"why": "Talks to SQL Server databases at customer sites."
+},
+"Microsoft.Data.Sqlite.Core/10.0.12": {
+"what": "Microsoft.Data.Sqlite is a lightweight ADO.NET provider for SQLite."
+},
+"Microsoft.DotNet.Scaffolding.Shared/10.0.2": {
+"what": "Contains interfaces for Project Model and messaging for scaffolding."
+},
+"Microsoft.EntityFrameworkCore/10.0.12": {
+"what": "Entity Framework Core is a modern object-database mapper for .NET.",
+"why": "Maps our entities to database tables and runs queries."
+},
+"Microsoft.EntityFrameworkCore.Abstractions/10.0.12": {
+"what": "Provides abstractions and attributes that are used to configure Entity Framework Core"
+},
+"Microsoft.EntityFrameworkCore.Design/10.0.12": {
+"what": "Shared design-time components for Entity Framework Core tools.",
+"why": "Needed by the tooling that creates migrations."
+},
+"Microsoft.EntityFrameworkCore.InMemory/10.0.12": {
+"what": "In-memory database provider for Entity Framework Core (to be used for testing purposes).",
+"why": "Gives tests a throwaway database with no server."
+},
+"Microsoft.EntityFrameworkCore.Relational/10.0.12": {
+"what": "Shared Entity Framework Core components for relational database providers."
+},
+"Microsoft.EntityFrameworkCore.Sqlite.Core/10.0.12": {
+"what": "SQLite database provider for Entity Framework Core."
+},
+"Microsoft.EntityFrameworkCore.SqlServer/10.0.12": {
+"what": "Microsoft SQL Server database provider for Entity Framework Core.",
+"why": "The Entity Framework provider for SQL Server customers."
+},
+"Microsoft.Extensions.Caching.Abstractions/10.0.12": {
+"what": "Caching abstractions for in-memory cache and distributed cache."
+},
+"Microsoft.Extensions.Caching.Memory/10.0.12": {
+"what": "In-memory cache implementation of Microsoft.Extensions.Caching.Memory.IMemoryCache."
+},
+"Microsoft.Extensions.Configuration/10.0.12": {
+"what": "Implementation of key-value pair based configuration for Microsoft.Extensions.Configuration."
+},
+"Microsoft.Extensions.Configuration.Abstractions/10.0.12": {
+"what": "Provides abstractions of key-value pair based configuration."
+},
+"Microsoft.Extensions.Configuration.Binder/10.0.12": {
+"what": "Provides the functionality to bind an object to data in configuration providers for Microsoft.Extensions.Configuration."
+},
+"Microsoft.Extensions.Configuration.CommandLine/10.0.12": {
+"what": "Command line configuration provider implementation for Microsoft.Extensions.Configuration."
+},
+"Microsoft.Extensions.Configuration.EnvironmentVariables/10.0.12": {
+"what": "Environment variables configuration provider implementation for Microsoft.Extensions.Configuration."
+},
+"Microsoft.Extensions.Configuration.FileExtensions/10.0.12": {
+"what": "Provides a base class for file-based configuration providers used with Microsoft.Extensions.Configuration and extension methods for configuring them."
+},
+"Microsoft.Extensions.Configuration.Json/10.0.12": {
+"what": "JSON configuration provider implementation for Microsoft.Extensions.Configuration."
+},
+"Microsoft.Extensions.Configuration.UserSecrets/10.0.12": {
+"what": "User secrets configuration provider implementation for Microsoft.Extensions.Configuration."
+},
+"Microsoft.Extensions.DependencyInjection/10.0.12": {
+"what": "Default implementation of dependency injection for Microsoft.Extensions.DependencyInjection."
+},
+"Microsoft.Extensions.DependencyInjection.Abstractions/10.0.12": {
+"what": "Abstractions for dependency injection."
+},
+"Microsoft.Extensions.DependencyModel/10.0.12": {
+"what": "Provides abstractions for reading `.deps` files."
+},
+"Microsoft.Extensions.DependencyModel/8.0.2": {
+"what": "Provides abstractions for reading `.deps` files."
+},
+"Microsoft.Extensions.Diagnostics/10.0.12": {
+"what": "This package includes the default implementation of IMeterFactory and additional extension methods to easily register it with the Dependency Injection…"
+},
+"Microsoft.Extensions.Diagnostics.Abstractions/10.0.12": {
+"what": "Diagnostic abstractions for Microsoft.Extensions.Diagnostics."
+},
+"Microsoft.Extensions.Diagnostics.HealthChecks/8.0.0": {
+"what": "Components for performing health checks in .NET applications"
+},
+"Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/8.0.0": {
+"what": "Abstractions for defining health checks in .NET applications Commonly Used Types Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck"
+},
+"Microsoft.Extensions.FileProviders.Abstractions/10.0.12": {
+"what": "Abstractions of files and directories."
+},
+"Microsoft.Extensions.FileProviders.Abstractions/9.0.0": {
+"what": "Abstractions of files and directories."
+},
+"Microsoft.Extensions.FileProviders.Embedded/10.0.12": {
+"what": "File provider for files in embedded resources for Microsoft.Extensions.FileProviders."
+},
+"Microsoft.Extensions.FileProviders.Physical/10.0.12": {
+"what": "File provider for physical files for Microsoft.Extensions.FileProviders."
+},
+"Microsoft.Extensions.FileSystemGlobbing/10.0.12": {
+"what": "File system globbing to find files matching a specified pattern."
+},
+"Microsoft.Extensions.Hosting/10.0.12": {
+"what": "Hosting and startup infrastructures for applications.",
+"why": "Hosts the background job process with configuration and logging."
+},
+"Microsoft.Extensions.Hosting.Abstractions/10.0.12": {
+"what": "Hosting and startup abstractions for applications."
+},
+"Microsoft.Extensions.Hosting.Abstractions/9.0.0": {
+"what": "Hosting and startup abstractions for applications."
+},
+"Microsoft.Extensions.Hosting.WindowsServices/10.0.12": {
+"what": ".NET hosting infrastructure for Windows Services.",
+"why": "Lets the job executor run as a Windows service on site."
+},
+"Microsoft.Extensions.Http/10.0.12": {
+"what": "The HttpClient factory is a pattern for configuring and retrieving named HttpClients in a composable way.",
+"why": "Typed HttpClient registration (AddHttpClient) for the WS.Project tag and dataset clients."
+},
+"Microsoft.Extensions.Identity.Core/10.0.12": {
+"what": "ASP.NET Core Identity is the membership system for building ASP.NET Core web applications, including membership, login, and user data."
+},
+"Microsoft.Extensions.Identity.Stores/10.0.12": {
+"what": "ASP.NET Core Identity is the membership system for building ASP.NET Core web applications, including membership, login, and user data."
+},
+"Microsoft.Extensions.Logging/10.0.12": {
+"what": "Logging infrastructure default implementation for Microsoft.Extensions.Logging."
+},
+"Microsoft.Extensions.Logging.Abstractions/10.0.12": {
+"what": "Logging abstractions for Microsoft.Extensions.Logging."
+},
+"Microsoft.Extensions.Logging.Configuration/10.0.12": {
+"what": "Configuration support for Microsoft.Extensions.Logging."
+},
+"Microsoft.Extensions.Logging.Console/10.0.12": {
+"what": "Console logger provider implementation for Microsoft.Extensions.Logging."
+},
+"Microsoft.Extensions.Logging.Debug/10.0.12": {
+"what": "Debug output logger provider implementation for Microsoft.Extensions.Logging."
+},
+"Microsoft.Extensions.Logging.EventLog/10.0.12": {
+"what": "Windows Event Log logger provider implementation for Microsoft.Extensions.Logging."
+},
+"Microsoft.Extensions.Logging.EventSource/10.0.12": {
+"what": "EventSource/EventListener logger provider implementation for Microsoft.Extensions.Logging."
+},
+"Microsoft.Extensions.Options/10.0.12": {
+"what": "Provides a strongly typed way of specifying and accessing settings using dependency injection."
+},
+"Microsoft.Extensions.Options.ConfigurationExtensions/10.0.12": {
+"what": "Provides additional configuration specific functionality related to Options."
+},
+"Microsoft.Extensions.Primitives/10.0.12": {
+"what": "Primitives shared by framework extensions."
+},
+"Microsoft.FeatureManagement/4.5.0": {
+"what": "Microsoft.FeatureManagement provides a way to develop and expose application functionality based on features.",
+"why": "Feature flag engine behind our database-backed overrides, see specs/feature-flags.md."
+},
+"Microsoft.FeatureManagement.AspNetCore/4.5.0": {
+"what": "Microsoft.FeatureManagement.AspNetCore provides a way to develop and expose application functionality based on features.",
+"why": "The [FeatureGate] attribute that hides controllers behind a feature flag."
+},
+"Microsoft.Identity.Abstractions/9.0.0": {
+"what": "Interface for higher level API for confidential client applications."
+},
+"Microsoft.Identity.Client/4.84.2": {
+"what": "This package contains the binaries of the Microsoft Authentication Library for .NET (MSAL.NET)."
+},
+"Microsoft.Identity.Client.Broker/4.84.2": {
+"what": "This package contains binaries needed to use brokers in public client desktop applications and supersedes Microsoft.Identity.Client.Desktop."
+},
+"Microsoft.Identity.Client.Extensions.Msal/4.78.0": {
+"what": "This package contains the public client (desktop) caching to Microsoft Authentication Library for .NET (MSAL.NET)"
+},
+"Microsoft.Identity.Web/3.8.2": {
+"what": "This package enables ASP.NET Core web apps and web APIs to use the Microsoft identity platform (formerly Azure AD v2.0).",
+"why": "Signs users in against Microsoft identity accounts."
+},
+"Microsoft.Identity.Web.Certificate/3.8.2": {
+"what": "This package brings certificate management for MSAL.NET."
+},
+"Microsoft.Identity.Web.Certificateless/3.8.2": {
+"what": "This package brings certificateless authentication."
+},
+"Microsoft.Identity.Web.Diagnostics/3.8.2": {
+"what": "Package Description"
+},
+"Microsoft.Identity.Web.TokenAcquisition/3.8.2": {
+"what": "Implementation for higher level API for confidential client applications (ASP.NET Core and SDK/.NET)."
+},
+"Microsoft.Identity.Web.TokenCache/3.8.2": {
+"what": "This package bring token cache serializers for MSAL.NET confidential client applications."
+},
+"Microsoft.IdentityModel.Abstractions/8.23.0": {
+"what": "A package containing thin abstractions for Microsoft.IdentityModel."
+},
+"Microsoft.IdentityModel.JsonWebTokens/8.23.0": {
+"what": "Includes types that provide support for creating, serializing and validating JSON Web Tokens."
+},
+"Microsoft.IdentityModel.Logging/8.23.0": {
+"what": "Includes Event Source based logging support."
+},
+"Microsoft.IdentityModel.LoggingExtensions/8.7.0": {
+"what": "A package containing logging extensions to support writing Identity logs to Microsoft.Extensions.Logging.ILogger."
+},
+"Microsoft.IdentityModel.Protocols/8.19.2": {
+"what": "Provides base protocol support for OpenIdConnect and WsFederation."
+},
+"Microsoft.IdentityModel.Protocols/8.7.0": {
+"what": "Provides base protocol support for OpenIdConnect and WsFederation."
+},
+"Microsoft.IdentityModel.Protocols.OpenIdConnect/8.19.2": {
+"what": "Includes types that provide support for OpenIdConnect protocol."
+},
+"Microsoft.IdentityModel.Protocols.OpenIdConnect/8.7.0": {
+"what": "Includes types that provide support for OpenIdConnect protocol."
+},
+"Microsoft.IdentityModel.Tokens/8.23.0": {
+"what": "Includes types that provide support for SecurityTokens, Cryptographic operations: Signing, Verifying Signatures, Encryption."
+},
+"Microsoft.IdentityModel.Validators/8.7.0": {
+"what": "Includes types that provide token validators."
+},
+"Microsoft.NETCore.App.Runtime.linux-x64/10.0.12": {
+"what": "Internal implementation package not meant for direct consumption."
+},
+"Microsoft.VisualStudio.SolutionPersistence/1.0.52": {
+"what": "Package Description"
+},
+"Microsoft.VisualStudio.Web.CodeGeneration/10.0.2": {
+"what": "Contains the CodeGenCommand that finds the appropriate code generator and invokes it from project dependencies."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.Core/10.0.2": {
+"what": "Contains the core infrastructure used by ASP.NET Core Code Generators."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.Design/10.0.2": {
+"what": "Code Generation tool for ASP.NET Core.",
+"why": "Scaffolds controller and page code when a developer asks for it."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/10.0.2": {
+"what": "Contains Entity Framework Core Services used by ASP.NET Core Code Generators."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.Templating/10.0.2": {
+"what": "Contains Razor based templating host used by ASP.NET Core Code Generators."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.Utils/10.0.2": {
+"what": "Contains utilities used by ASP.NET Core Code Generation packages."
+},
+"Microsoft.VisualStudio.Web.CodeGenerators.Mvc/10.0.2": {
+"what": "Code Generators for ASP.NET Core MVC."
+},
+"NuGet.Common/6.12.5": {
+"what": "Common utilities and interfaces for all NuGet libraries."
+},
+"NuGet.Configuration/6.12.5": {
+"what": "NuGet's configuration settings implementation."
+},
+"NuGet.DependencyResolver.Core/6.12.1": {
+"what": "NuGet's PackageReference dependency resolver implementation."
+},
+"NuGet.Frameworks/6.12.5": {
+"what": "NuGet's understanding of target frameworks."
+},
+"NuGet.LibraryModel/6.12.1": {
+"what": "NuGet's types and interfaces for understanding dependencies."
+},
+"NuGet.Packaging/6.12.5": {
+"what": "NuGet's understanding of packages.",
+"why": "Only for the AddRange collection extension in AssetPipelineExecutor; candidate for removal once that helper is replaced."
+},
+"NuGet.ProjectModel/6.12.1": {
+"what": "NuGet's core types and interfaces for PackageReference-based restore, such as lock files, assets file and internal restore models."
+},
+"NuGet.Protocol/6.12.1": {
+"what": "NuGet's implementation for interacting with feeds."
+},
+"NuGet.Versioning/6.12.5": {
+"what": "NuGet's implementation of Semantic Versioning."
+},
+"Serilog.AspNetCore/8.0.3": {
+"what": "Serilog support for ASP.NET Core logging",
+"why": "Writes structured logs for requests and background work."
+},
+"Serilog.Extensions.Hosting/8.0.0": {
+"what": "Serilog support for .NET Core logging in hosted services"
+},
+"System.ClientModel/1.8.0": {
+"what": "Contains building blocks for clients that call cloud services."
+},
+"System.CodeDom/6.0.0": {
+"what": "Provides types that can be used to model the structure of a source code document and to output source code for that model in a supported language."
+},
+"System.Composition.AttributedModel/9.0.0": {
+"what": "Provides the foundational attributes that allow you to declare parts for composition, such as imports, exports, and metadata with the Managed Extensibility…"
+},
+"System.Composition.Convention/9.0.0": {
+"what": "Provides types that support using Managed Extensibility Framework (MEF) with a convention-based configuration model."
+},
+"System.Composition.Hosting/9.0.0": {
+"what": "Provides Managed Extensibility Framework (MEF) types that are useful to developers of extensible applications, or hosts."
+},
+"System.Composition.Runtime/9.0.0": {
+"what": "Contains runtime components of the Managed Extensibility Framework (MEF)."
+},
+"System.Composition.TypedParts/9.0.0": {
+"what": "Provides container configuration and some extension methods for the Managed Extensibility Framework (MEF)."
+},
+"System.Configuration.ConfigurationManager/9.0.11": {
+"what": "Provides types that support using XML configuration files (app.config)."
+},
+"System.Diagnostics.EventLog/10.0.12": {
+"what": "Provides the System.Diagnostics.EventLog class, which allows the applications to use the Windows event log service."
+},
+"System.Diagnostics.EventLog/9.0.11": {
+"what": "Provides the System.Diagnostics.EventLog class, which allows the applications to use the Windows event log service."
+},
+"System.IdentityModel.Tokens.Jwt/8.23.0": {
+"what": "Includes types that provide support for creating, serializing and validating JSON Web Tokens.",
+"why": "Reads and writes the JSON web tokens we issue and accept."
+},
+"System.IO.Hashing/6.0.0": {
+"what": "Provides non-cryptographic hash algorithms, such as CRC-32."
+},
+"System.IO.Hashing/7.0.0": {
+"what": "Provides non-cryptographic hash algorithms, such as CRC-32."
+},
+"System.IO.Packaging/8.0.1": {
+"what": "Provides classes that support storage of multiple data objects in a single container."
+},
+"System.IO.Ports/5.0.0": {
+"what": "Provides classes for controlling serial ports."
+},
+"System.Memory.Data/8.0.1": {
+"what": "A lightweight abstraction for a payload of bytes."
+},
+"System.Reflection.MetadataLoadContext/8.0.0": {
+"what": "Provides read-only reflection on assemblies in an isolated context with support for assemblies that target different processor architectures and runtimes."
+},
+"System.Security.Cryptography.Pkcs/9.0.11": {
+"what": "Provides support for PKCS and CMS algorithms."
+},
+"System.Security.Cryptography.ProtectedData/9.0.11": {
+"what": "Provides access to Windows Data Protection Api."
+},
+"System.Security.Cryptography.Xml/9.0.0": {
+"what": "Provides classes to support the creation and validation of XML digital signatures."
+},
+"System.ServiceProcess.ServiceController/10.0.12": {
+"what": "Provides the System.ServiceProcess.ServiceController class, which allows you to connect to a Windows service, manipulate it, or get information about it."
+},
+"Yarp.ReverseProxy/2.1.0": {
+"what": "Reverse proxy toolkit for building fast proxy servers in .NET using the infrastructure from ASP.NET and .NET"
+},
+"AutoMapper/13.0.1": {
+"what": "A convention-based object-object mapper.",
+"why": "Maps entities to API response objects, pinned below 15 because 15+ needs a paid licence."
+},
+"Bogus/35.6.1": {
+"what": "A simple and sane data generator for populating objects that supports different locales.",
+"why": "Makes fake plants, tags and readings for seed data and tests."
+},
+"ClosedXML.Parser/1.2.0": {
+"what": "A lexer and parser of Excel formulas with focus on performance."
+},
+"CsvHelper/33.1.0": {
+"what": "A library for reading and writing CSV files.",
+"why": "Writes the CSV report exports and the composed report CSV renderer."
+},
+"ExCSS/4.3.1": {
+"what": "ExCSS is a CSS 2.1 and CSS 3 parser for .NET."
+},
+"Hangfire.PostgreSql/1.20.10": {
+"what": "PostgreSql storage implementation for Hangfire (background job system for ASP.NET and aspnet core applications).",
+"why": "Stores the job queue in PostgreSQL."
+},
+"Markdig/1.2.0": {
+"what": "Markdig is a fast, powerful, CommonMark compliant, extensible Markdown processor for .NET.",
+"why": "Renders the markdown text blocks of composed reports to HTML and PDF."
+},
+"MediatR/12.4.1": {
+"what": "Simple, unambitious mediator implementation in .NET",
+"why": "Command and query dispatch, pinned below 13 because 13+ needs a paid licence."
+},
+"MediatR.Contracts/2.0.1": {
+"what": "Contracts package for requests, responses, and notifications",
+"why": "Gives the core project the request interfaces without the full library."
+},
+"MediatR.Extensions.Microsoft.DependencyInjection/11.1.0": {
+"what": "MediatR extensions for ASP.NET Core",
+"why": "Registers all our request handlers at start up."
+},
+"MigraDocCore.DocumentObjectModel/1.3.67": {
+"what": "MigraDocCore.DocumentObjectModel for .NET Core MigraDocCore.DocumentObjectModel was ported from MigraDoc version 1.32",
+"why": "Document model for the MigraDoc PDF report and model report exports."
+},
+"MigraDocCore.Rendering/1.3.67": {
+"what": "MigraDocCore.Rendering for .NET Core MigraDocCore.Rendering was ported from MigraDoc version 1.32",
+"why": "Renders the MigraDoc document model to PDF through PDFsharp."
+},
+"Newtonsoft.Json/13.0.3": {
+"what": "Json.NET is a popular high-performance JSON framework for .NET",
+"why": "Reads and writes the older JSON shapes we still store."
+},
+"Newtonsoft.Json/13.0.4": {
+"what": "Json.NET is a popular high-performance JSON framework for .NET",
+"why": "Reads and writes the older JSON shapes we still store."
+},
+"NextjsStaticHosting.AspNetCore/0.9.3-preview": {
+"what": "Host Next.js applications in production without Node.js.",
+"why": "Serves the exported Next.js pages from the backend in production."
+},
+"Npgsql/10.0.3": {
+"what": "Npgsql is the open source .NET data provider for PostgreSQL."
+},
+"Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3": {
+"what": "PostgreSQL/Npgsql provider for Entity Framework Core.",
+"why": "The Entity Framework provider for our PostgreSQL databases."
+},
+"PdfSharpCore/1.3.67": {
+"what": "PdfSharp for .NET Core PdfSharpCore is a partial port of PdfSharp.Xamarin for .NET Core Additionally MigraDoc has been ported as well (from version 1.32)."
+},
+"PdfSharpCore.Charting/1.3.67": {
+"what": "PdfSharpCore.Charting for .NET Core PdfSharpCore.Charting was ported from PdfSharp"
+},
+"Quartz/3.13.1": {
+"what": "Quartz Scheduling Framework for .NET"
+},
+"Quartz.AspNetCore/3.13.1": {
+"what": "Quartz.NET ASP.NET Core integration; Quartz Scheduling Framework for .NET",
+"why": "Referenced by Infrastructure, but no code uses Quartz; candidate for removal."
+},
+"Quartz.Extensions.DependencyInjection/3.13.1": {
+"what": "Quartz.NET Microsoft.Extensions.DependencyInjection integration; Quartz Scheduling Framework for .NET"
+},
+"Quartz.Extensions.Hosting/3.13.1": {
+"what": "Quartz.NET Generic Host integration; Quartz Scheduling Framework for .NET"
+},
+"ScottPlot/5.1.57": {
+"what": "ScottPlot is a free and open-source plotting library for .NET.",
+"why": "Draws the chart images that go into reports."
+},
+"Serilog/4.2.0": {
+"what": "Simple .NET logging with fully-structured events"
+},
+"Serilog.Enrichers.Environment/3.0.1": {
+"what": "Enrich Serilog log events with properties from System.Environment.",
+"why": "Adds the machine and environment name to each log line."
+},
+"Serilog.Enrichers.Process/3.0.0": {
+"what": "The process enricher for Serilog.",
+"why": "Adds the process id to each log line."
+},
+"Serilog.Enrichers.Thread/4.0.0": {
+"what": "Enrich Serilog events with properties from the current thread.",
+"why": "Adds the thread id so we can follow parallel jobs."
+},
+"Serilog.Expressions/5.0.0": {
+"what": "An embeddable mini-language for filtering, enriching, and formatting Serilog events, ideal for use with JSON or XML configuration.",
+"why": "Filters and shapes log output with small expressions."
+},
+"Serilog.Settings.Configuration/8.0.4": {
+"what": "Microsoft.Extensions.Configuration (appsettings.json) support for Serilog.",
+"why": "Reads the logging setup from our settings files."
+},
+"Serilog.Sinks.File/6.0.0": {
+"what": "Write Serilog events to text files in plain or JSON format.",
+"why": "Writes rolling log files on the server."
+},
+"Serilog.Sinks.Seq/9.0.0": {
+"what": "A Serilog sink that writes events to Seq using newline-delimited JSON and HTTP/HTTPS.",
+"why": "Sends logs to the Seq server for searching."
+},
+"SixLabors.Fonts/1.0.0": {
+"what": "A cross-platform library for loading and laying out fonts for processing and measuring; written in C#"
+},
+"SixLabors.ImageSharp/1.0.4": {
+"what": "A new, fully featured, fully managed, cross-platform, 2D graphics API for .NET"
+},
+"Stateless/5.16.0": {
+"what": "Create state machines and lightweight state machine-based workflows directly in .NET code",
+"why": "Runs the state machine behind calibration workflows."
+},
+"TimeZoneConverter/7.0.0": {
+"what": "Lightweight library to convert quickly between IANA, Windows, and Rails time zone names.",
+"why": "Resolves IANA time zone ids to TimeZoneInfo for report periods and regimes, on Windows and Linux alike."
+},
+"Unchase.Swashbuckle.AspNetCore.Extensions/2.7.2": {
+"what": "Some additional useful extensions for Swashbuckle.AspNetCore.",
+"why": "Adds enum names and descriptions to the OpenAPI output."
+},
+"UnitsNet/6.0.0-pre012": {
+"what": "Get all the common units of measurement and the conversions between them.",
+"why": "Converts between the units used in emission figures."
+},
+"Workstation.UaClient/3.2.3": {
+"what": "A library to browse, read, write and subscribe to the live data published by the OPC UA servers on your network.",
+"why": "Reads live plant tags from OPC UA servers."
+},
+"YamlDotNet/16.2.1": {
+"what": "YamlDotNet is a .NET library for YAML.",
+"why": "Parses the YAML definition of composed reports."
+},
+"Hangfire.Core/1.8.25": {
+"what": "An easy way to perform fire-and-forget, delayed and recurring tasks in .NET applications.",
+"why": "Queues and schedules batch runs, imports and report jobs."
+},
+"Hangfire.SqlServer/1.8.25": {
+"what": "SQL Server 2008+ (including Express), SQL Server LocalDB and SQL Azure storage support for Hangfire, a background job framework for .NET applications.",
+"why": "Stores the job queue in SQL Server for customers on that database."
+},
+"HarfBuzzSharp/8.3.1.1": {
+"what": "HarfBuzzSharp is a cross-platform OpenType text shaping engine for .NET platforms."
+},
+"HarfBuzzSharp/8.3.1.3": {
+"what": "HarfBuzzSharp is a cross-platform OpenType text shaping engine for .NET platforms."
+},
+"Microsoft.Build/17.11.48": {
+"what": "This package contains the Microsoft.Build assembly which is used to create, edit, and evaluate MSBuild projects."
+},
+"Microsoft.Build.Framework/18.0.2": {
+"what": "This package contains the Microsoft.Build.Framework assembly which is a common assembly used by other MSBuild assemblies."
+},
+"Microsoft.CodeAnalysis.Common/5.0.0": {
+"what": "A shared package used by the Microsoft .NET Compiler Platform (\"Roslyn\")."
+},
+"Microsoft.CodeAnalysis.CSharp/5.0.0": {
+"what": ".NET Compiler Platform (\"Roslyn\") support for C#, Microsoft.CodeAnalysis.CSharp.dll."
+},
+"Microsoft.CodeAnalysis.CSharp.Features/5.0.0": {
+"what": ".NET Compiler Platform (\"Roslyn\") support for creating C# editing experiences."
+},
+"Microsoft.CodeAnalysis.CSharp.Workspaces/5.0.0": {
+"what": ".NET Compiler Platform (\"Roslyn\") support for analyzing C# projects and solutions."
+},
+"Microsoft.CodeAnalysis.Features/5.0.0": {
+"what": ".NET Compiler Platform (\"Roslyn\") support for creating editing experiences."
+},
+"Microsoft.CodeAnalysis.Scripting.Common/5.0.0": {
+"what": "Microsoft .NET Compiler Platform (\"Roslyn\") shared scripting package."
+},
+"Microsoft.CodeAnalysis.Workspaces.Common/5.0.0": {
+"what": "A shared package used by the .NET Compiler Platform (\"Roslyn\") including support for analyzing projects and solutions."
+},
+"Microsoft.CodeAnalysis.Workspaces.MSBuild/5.0.0": {
+"what": ".NET Compiler Platform (\"Roslyn\") support for analyzing MSBuild projects and solutions."
+},
+"Microsoft.DiaSymReader/2.0.0": {
+"what": "Microsoft DiaSymReader interop interfaces and utilities."
+},
+"Microsoft.IO.RecyclableMemoryStream/3.0.0": {
+"what": "A pooled MemoryStream allocator to decrease GC load and improve performance on highly scalable systems."
+},
+"Microsoft.ML.OnnxRuntime.Managed/1.20.1": {
+"what": "This package contains ONNX Runtime for .Net platforms"
+},
+"Microsoft.NET.StringTools/17.11.48": {
+"what": "This package contains the Microsoft.NET.StringTools assembly which implements common string-related functionality such as weak interning."
+},
+"Microsoft.OpenApi/1.6.22": {
+"what": ".NET models with JSON and YAML writers for OpenAPI specification"
+},
+"Serilog.Extensions.Logging/8.0.0": {
+"what": "Low-level Serilog provider for Microsoft.Extensions.Logging"
+},
+"SkiaSharp/3.119.0": {
+"what": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library."
+},
+"SkiaSharp/3.119.2": {
+"what": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library."
+},
+"SkiaSharp.HarfBuzz/3.119.0": {
+"what": "This package adds text shaping support to SkiaSharp via HarfBuzz."
+},
+"Ardalis.GuardClauses/5.0.0": {
+"what": "A simple package by @ardalis and @nimblepros with guard clause helper methods.",
+"why": "Checks arguments in domain code with short guard calls."
+},
+"Ardalis.Specification/8.0.0": {
+"what": "A simple package with a base Specification class, for use in creating queries that work with Repository types.",
+"why": "Holds our database query rules as reusable specification classes."
+},
+"Ardalis.Specification.EntityFrameworkCore/8.0.0": {
+"what": "EF Core plugin package to Ardalis.Specification containing EF Core evaluator and abstract repository.",
+"why": "Turns our specification classes into Entity Framework queries."
+},
+"ClosedXML/0.104.2": {
+"what": "See release notes https://github.com/ClosedXML/ClosedXML/releases/tag/0.104.2 ClosedXML is a .NET library for reading, manipulating and writing Excel 2007+…",
+"why": "Writes the Excel emission reports on the server."
+},
+"Cronos/0.9.0": {
+"what": "A fully-featured .NET library for parsing cron expressions and calculating next occurrences that was designed with time zones in mind and correctly handles…",
+"why": "Reads cron text so we can show and check job schedules."
+},
+"Dapper/2.0.123": {
+"what": "A high performance Micro-ORM supporting SQL Server, MySQL, Sqlite, SqlCE, Firebird etc.."
+},
+"FluentModbus/5.3.2": {
+"what": "Lightweight and fast client and server implementation of the Modbus protocol (TCP/RTU, Sync/Async).",
+"why": "Reads plant signals from Modbus devices."
+},
+"FluentValidation/11.11.0": {
+"what": "A validation library for .NET that uses a fluent interface to construct strongly-typed validation rules."
+},
+"FluentValidation.DependencyInjectionExtensions/11.11.0": {
+"what": "Dependency injection extensions for FluentValidation",
+"why": "Validates incoming commands before a handler runs."
+},
+"Google.Protobuf/3.21.9": {
+"what": "C# runtime library for Protocol Buffers - Google's data interchange format."
+},
+"Hangfire.AspNetCore/1.8.25": {
+"what": "ASP.NET Core support for Hangfire, a background job framework for .NET applications.",
+"why": "Runs the job server inside the web application and serves its dashboard."
+},
+"Hangfire.InMemory/1.0.0": {
+"what": "In-memory job storage for Hangfire with an efficient implementation.",
+"why": "Keeps jobs in memory for local runs and tests."
+},
+"Hangfire.NetCore/1.8.25": {
+"what": ".NET Core's Worker Service host support for Hangfire, a background job framework for .NET applications."
+},
+"Humanizer.Core/2.14.1": {
+"what": "Humanizer core package that contains the library and the neutral language (English) resources"
+},
+"Mono.TextTemplating/3.0.0": {
+"what": "Embeddable engine for the T4 templating language, a general-purpose way to generate text or code files using C#"
+},
+"NodaTime/3.2.0": {
+"what": "Noda Time is a date and time API acting as an alternative to the built-in DateTime/DateTimeOffset etc types in .NET.",
+"why": "Referenced by ApplicationCore, but only a bare using directive remains; candidate for removal."
+},
+"Portable.BouncyCastle/1.9.0": {
+"what": "BouncyCastle portable version with support for .NET 4, .NET Standard 2.0"
+},
+"RBush/4.0.0": {
+"what": "Spatial Index data structure; used to make it easier to find data points on a two dimensional plane."
+},
+"SendGrid/9.29.3": {
+"what": "C# client library and examples for using Twilio SendGrid API's to send mail and access Web API v3 endpoints with .NET Standard 1.3 and .NET Core support.",
+"why": "Sends notification and report emails through SendGrid."
+},
+"SharpZipLib/1.4.2": {
+"what": "SharpZipLib (#ziplib, formerly NZipLib) is a compression library for Zip, GZip, BZip2, and Tar written entirely in C# for .NET."
+},
+"ShimSkiaSharp/5.1.1": {
+"what": "SkiaSharp picture recorder object model shim."
+},
+"Svg.Animation/5.1.1": {
+"what": "Shared SVG animation runtime and host playback contracts."
+},
+"Svg.Custom/5.1.1": {
+"what": "Custom build of the SVG rendering library."
+},
+"Svg.Model/5.1.1": {
+"what": "An SVG rendering object model library."
+},
+"Svg.SceneGraph/5.1.1": {
+"what": "Retained SVG scene graph core."
+},
+"Svg.Skia/5.1.1": {
+"what": "An SVG rendering library.",
+"why": "Rasterises SVG uploads for composed report images."
+},
+"Swashbuckle.AspNetCore.Annotations/7.2.0": {
+"what": "Provides custom attributes that can be applied to controllers, actions and models to enrich the generated Swagger",
+"why": "Lets us describe endpoints with attributes in the OpenAPI output."
+},
+"Swashbuckle.AspNetCore.ReDoc/7.2.0": {
+"what": "Middleware to expose an embedded version of Redoc from an ASP.NET Core application",
+"why": "Shows the API reference page in ReDoc style."
+},
+"Swashbuckle.AspNetCore.Swagger/7.2.0": {
+"what": "Middleware to expose Swagger JSON endpoints from APIs built on ASP.NET Core"
+},
+"Swashbuckle.AspNetCore.SwaggerGen/7.2.0": {
+"what": "Swagger Generator for APIs built on ASP.NET Core"
+},
+"Swashbuckle.AspNetCore.SwaggerUI/7.2.0": {
+"what": "Middleware to expose an embedded version of the swagger-ui from an ASP.NET Core application",
+"why": "Gives developers the Swagger page to try endpoints."
+},
+"System.Reactive/5.0.0": {
+"what": "Reactive Extensions (Rx) for .NET"
+}
+}

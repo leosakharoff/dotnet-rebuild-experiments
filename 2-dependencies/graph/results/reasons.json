@@ -1,0 +1,1366 @@
+{
+"HarfBuzzSharp.NativeAssets.macOS/8.3.1.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"HarfBuzzSharp.NativeAssets.macOS/8.3.1.3": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"HarfBuzzSharp.NativeAssets.Win32/8.3.1.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"HarfBuzzSharp.NativeAssets.Win32/8.3.1.3": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.CodeAnalysis.Analyzers/3.11.0": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.Data.SqlClient.SNI.runtime/6.0.3": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.EntityFrameworkCore.Analyzers/10.0.12": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.EntityFrameworkCore.Sqlite/10.0.12": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.EntityFrameworkCore.Tools/10.0.12": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.Extensions.ApiDescription.Server/6.0.5": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
+"r2a": "Restore failed: NU1301.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.NET.ILLink.Tasks/10.0.12": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.21.0": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "Ships no files (class N0)."
+},
+"runtime.linux-arm.runtime.native.System.IO.Ports/5.0.0-rtm.20519.4": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"runtime.linux-arm64.runtime.native.System.IO.Ports/5.0.0-rtm.20519.4": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"runtime.native.System.IO.Ports/5.0.0": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"runtime.osx-x64.runtime.native.System.IO.Ports/5.0.0-rtm.20519.4": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"SkiaSharp.NativeAssets.macOS/3.119.0": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"SkiaSharp.NativeAssets.macOS/3.119.2": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"SkiaSharp.NativeAssets.Win32/3.119.0": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"SkiaSharp.NativeAssets.Win32/3.119.2": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"System.Composition/9.0.0": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"System.Text.Json/10.0.12": {
+"r2a": "Pack failed: SDK version is below the minimum required version of 10. The .NET…",
+"r2b": "Ships no files (class N0)."
+},
+"Humanizer/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Ships no files (class N0)."
+},
+"libtorch-cpu/2.10.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "Ships no files (class N0)."
+},
+"libtorch-cpu-osx-arm64/2.10.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "Ships no files (class N0)."
+},
+"libtorch-cpu-win-x64/2.10.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "Ships no files (class N0)."
+},
+"Swashbuckle.AspNetCore/7.2.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "Ships no files (class N0)."
+},
+"TorchSharp-cpu/0.106.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "Ships no files (class N0)."
+},
+"HarfBuzzSharp.NativeAssets.Linux/8.3.1.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Native code only (class N1)."
+},
+"HarfBuzzSharp.NativeAssets.Linux/8.3.1.3": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Native code only (class N1)."
+},
+"Microsoft.ML.OnnxRuntime/1.20.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Native code only (class N1)."
+},
+"Microsoft.NETCore.App.Host.linux-x64/10.0.12": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Native code only (class N1)."
+},
+"runtime.linux-x64.runtime.native.System.IO.Ports/5.0.0-rtm.20519.4": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Native code only (class N1)."
+},
+"SkiaSharp.NativeAssets.Linux.NoDependencies/3.119.0": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Native code only (class N1)."
+},
+"SkiaSharp.NativeAssets.Linux.NoDependencies/3.119.2": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Native code only (class N1)."
+},
+"libtorch-cpu-linux-x64/2.10.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "Native code only (class N1)."
+},
+"SQLitePCLRaw.lib.e_sqlite3/2.1.12": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "Native code only (class N1)."
+},
+"Microsoft.CodeAnalysis.Elfie/1.0.0": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"System.Data.DataSetExtensions/4.5.0": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"csnumerics/1.0.2": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"ExcelNumberFormat/1.1.0": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"Humanizer.Core.ko-KR/2.14.1": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"Humanizer.Core.ms-MY/2.14.1": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"Humanizer.Core.th-TH/2.14.1": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"Jace4fc/1.0.2": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"starkbank-ecdsa/1.3.3": {
+"r2a": "No repository in the .nuspec.",
+"r2b": "No repository in the .nuspec (class C1a)."
+},
+"Microsoft.Identity.Client.NativeInterop/0.20.6": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"Microsoft.SqlServer.Server/1.0.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"MathNet.Numerics/5.0.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"NLoptNet/1.4.3": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"PDFsharp/6.2.3": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"PDFsharp-MigraDoc/6.2.3": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"Serilog.Formatting.Compact/2.0.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"Serilog.Sinks.Console/5.0.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"Serilog.Sinks.Debug/2.0.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"SQLitePCLRaw.bundle_e_sqlite3/2.1.12": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"SQLitePCLRaw.core/2.1.12": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"SQLitePCLRaw.provider.e_sqlite3/2.1.12": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"TorchSharp/0.106.0": {
+"r2a": "No commit in the .nuspec.",
+"r2b": "A repository, but no commit in the .nuspec (class C1b)."
+},
+"Humanizer.Core.af/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.ar/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.az/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.bg/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.bn-BD/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.cs/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.da/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.de/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.el/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.es/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.fa/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.fi-FI/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.fr/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.fr-BE/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.he/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.hr/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.hu/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.hy/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.id/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.is/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.it/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.ja/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.ku/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.lv/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.mt/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.nb/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.nb-NO/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.nl/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.pl/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.pt/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.ro/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.ru/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.sk/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.sl/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.sr/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.sr-Latn/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.sv/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.tr/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.uk/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.uz-Cyrl-UZ/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.uz-Latn-UZ/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.vi/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.zh-CN/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.zh-Hans/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Humanizer.Core.zh-Hant/2.14.1": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "No PDB, so no compiler record (class C2a)."
+},
+"Azure.Communication.Email/1.0.1": {
+"r2a": "Differs under time, also with configuration. First difference: Azure.Communication.Email.1.0.1-alpha.20261101.1.nupkg: …/Azure.Communication.Email.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Azure.Core/1.50.0": {
+"r2a": "Differs under time, also with configuration. First difference: Azure.Core.1.50.0-alpha.20261101.1.nupkg: …/Azure.Core.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Azure.Identity/1.17.1": {
+"r2a": "Differs under time, also with configuration. First difference: Azure.Identity.1.17.1-alpha.20261101.1.nupkg: …/Azure.Identity.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Azure.Security.KeyVault.Certificates/4.6.0": {
+"r2a": "Differs under time, also with configuration. First difference: Azure.Security.KeyVault.Certificates.4.6.0-alpha.20261101.1.nupkg: …/Azure.Security.KeyVault.Certificates.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Azure.Security.KeyVault.Secrets/4.6.0": {
+"r2a": "Differs under time, also with configuration. First difference: Azure.Security.KeyVault.Secrets.4.6.0-alpha.20261101.1.nupkg: …/Azure.Security.KeyVault.Secrets.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Azure.Storage.Blobs/12.20.0": {
+"r2a": "Differs under time, also with configuration. First difference: Azure.Storage.Blobs.12.20.0-alpha.20261101.1.nupkg: …/Azure.Storage.Blobs.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Azure.Storage.Common/12.19.0": {
+"r2a": "Differs under time, also with configuration. First difference: Azure.Storage.Common.12.19.0-alpha.20261101.1.nupkg: …/Azure.Storage.Common.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"DocumentFormat.OpenXml/3.1.1": {
+"r2a": "Pack failed: CS8625.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"DocumentFormat.OpenXml.Framework/3.1.1": {
+"r2a": "Pack failed: CS8625.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"dotnet-ef/10.0.12": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Release build: no package (built, but no package to compare). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.AspNetCore.App.Runtime.linux-x64/10.0.12": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Release build: no package (did not build)."
+},
+"Microsoft.AspNetCore.Authentication.JwtBearer/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.AspNetCore.Authentication.JwtBearer/9.0.0": {
+"r2a": "Restore failed: NU1301.",
+"r2b": "Release build: no package (did not build). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.AspNetCore.Authentication.OpenIdConnect/9.0.0": {
+"r2a": "Pack failed: MSB4019.",
+"r2b": "Release build: no package (did not build). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.AspNetCore.Cryptography.Internal/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.AspNetCore.Cryptography.KeyDerivation/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.AspNetCore.DataProtection/9.0.0": {
+"r2a": "Pack failed: MSB4019.",
+"r2b": "Release build: no package (did not build). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.AspNetCore.DataProtection.Abstractions/9.0.0": {
+"r2a": "Pack failed: MSB4019.",
+"r2b": "Release build: no package (did not build). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.AspNetCore.Identity.UI/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, il bodies …)."
+},
+"Microsoft.AspNetCore.Razor.Language/6.0.24": {
+"r2a": "Pack failed: MSB4019.",
+"r2b": "Release build: no package (did not build). Publisher's build on windows-2022: no package."
+},
+"Microsoft.AspNetCore.SpaProxy/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Bcl.AsyncInterfaces/8.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.0 has csc 4.8.0-3.23518.7+12b11685a551e0a6a203dcecb584f6…). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.Bcl.Cryptography/10.0.2": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Bcl.TimeProvider/8.0.1": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.0 has csc 4.8.0-7.23566.2+7b75981cf3bd520b86ec4ed00ec156…). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.Razor/6.0.24": {
+"r2a": "Pack failed: MSB4019.",
+"r2b": "Release build: no package (did not build). Publisher's build on windows-2022: no package."
+},
+"Microsoft.Data.SqlClient/6.1.7": {
+"r2a": "No project (5 .csproj with assembly name Microsoft.Data.SqlClient).",
+"r2b": "Release build: no recipe (no PDB with a compiler record)."
+},
+"Microsoft.Data.Sqlite.Core/10.0.12": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.DotNet.Scaffolding.Shared/10.0.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.EntityFrameworkCore/10.0.12": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, il bodies …)."
+},
+"Microsoft.EntityFrameworkCore.Abstractions/10.0.12": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.EntityFrameworkCore.Design/10.0.12": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.EntityFrameworkCore.InMemory/10.0.12": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.EntityFrameworkCore.Relational/10.0.12": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.EntityFrameworkCore.Sqlite.Core/10.0.12": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.EntityFrameworkCore.SqlServer/10.0.12": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Caching.Abstractions/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Caching.Memory/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Configuration/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Configuration.Abstractions/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Configuration.Binder/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Configuration.CommandLine/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Configuration.EnvironmentVariables/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Configuration.FileExtensions/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Configuration.Json/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Configuration.UserSecrets/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.DependencyInjection/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.DependencyInjection.Abstractions/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.DependencyModel/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.DependencyModel/8.0.2": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.8 has csc 4.8.0-7.23566.2+7b75981cf3bd520b86ec4ed00ec156…). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.Extensions.Diagnostics/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Diagnostics.Abstractions/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Diagnostics.HealthChecks/8.0.0": {
+"r2a": "Pack failed: MSB4019.",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.0 has csc 4.8.0-3.23504.4+81d9274600db701a8b08ed8af3fd6b…). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/8.0.0": {
+"r2a": "Pack failed: MSB4019.",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.0 has csc 4.8.0-3.23504.4+81d9274600db701a8b08ed8af3fd6b…). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.Extensions.FileProviders.Abstractions/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.FileProviders.Abstractions/9.0.0": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.0 has csc 4.12.0-3.24516.15+3bff3622487486dec7794dfd0c71…). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.Extensions.FileProviders.Embedded/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.FileProviders.Physical/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.FileSystemGlobbing/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Hosting/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Hosting.Abstractions/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Hosting.Abstractions/9.0.0": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.0 has csc 4.12.0-3.24516.15+3bff3622487486dec7794dfd0c71…). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.Extensions.Hosting.WindowsServices/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Http/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Identity.Core/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Identity.Stores/10.0.12": {
+"r2a": "Restore failed: NETSDK1226.",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Logging/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Logging.Abstractions/10.0.12": {
+"r2a": "Pack failed: SDK version is below the minimum required version of 10. The .NET…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Logging.Configuration/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Logging.Console/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Logging.Debug/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Logging.EventLog/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Logging.EventSource/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Options/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.Extensions.Options.ConfigurationExtensions/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Extensions.Primitives/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no package (did not build). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Microsoft.FeatureManagement/4.5.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.FeatureManagement.AspNetCore/4.5.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.Identity.Abstractions/9.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical without signatures."
+},
+"Microsoft.Identity.Client/4.84.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.9332.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+},
+"Microsoft.Identity.Client.Broker/4.84.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.9332.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+},
+"Microsoft.Identity.Client.Extensions.Msal/4.78.0": {
+"r2a": "Pack failed: CS9336.",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.9315.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+},
+"Microsoft.Identity.Web/3.8.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Identity.Web.Certificate/3.8.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Identity.Web.Certificateless/3.8.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical without signatures."
+},
+"Microsoft.Identity.Web.Diagnostics/3.8.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical without signatures."
+},
+"Microsoft.Identity.Web.TokenAcquisition/3.8.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, il bodies …)."
+},
+"Microsoft.Identity.Web.TokenCache/3.8.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical without signatures."
+},
+"Microsoft.IdentityModel.Abstractions/8.23.0": {
+"r2a": "Differs under build path, environment, exec path, file order, locales, time, timezone, umask, also with configuration. First difference: Microsoft.IdentityModel.Abstractions.8.22.1-preview-71101104314.nupkg: …/Microsoft.IdentityModel.Abstractions.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"Microsoft.IdentityModel.JsonWebTokens/8.23.0": {
+"r2a": "Differs under build path, environment, exec path, file order, locales, time, timezone, umask, also with configuration. First difference: Microsoft.IdentityModel.JsonWebTokens.8.22.1-preview-71101104652.nupkg: …/Microsoft.IdentityModel.JsonWebTokens.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"Microsoft.IdentityModel.Logging/8.23.0": {
+"r2a": "Differs under build path, environment, exec path, file order, locales, time, timezone, umask, also with configuration. First difference: Microsoft.IdentityModel.Logging.8.22.1-preview-71101105030.nupkg: …/Microsoft.IdentityModel.Logging.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"Microsoft.IdentityModel.LoggingExtensions/8.7.0": {
+"r2a": "Pack failed: CS7035.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"Microsoft.IdentityModel.Protocols/8.19.2": {
+"r2a": "Source not fetched.",
+"r2b": "Release build: no recipe (commit 25d90ed3f48854036d444541a049089ccd198707 is not reachable at https://github.com/AzureAD/azure-activedir…)."
+},
+"Microsoft.IdentityModel.Protocols/8.7.0": {
+"r2a": "Pack failed: CS7035.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"Microsoft.IdentityModel.Protocols.OpenIdConnect/8.19.2": {
+"r2a": "Source not fetched.",
+"r2b": "Release build: no recipe (commit 25d90ed3f48854036d444541a049089ccd198707 is not reachable at https://github.com/AzureAD/azure-activedir…)."
+},
+"Microsoft.IdentityModel.Protocols.OpenIdConnect/8.7.0": {
+"r2a": "Pack failed: CS7035.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"Microsoft.IdentityModel.Tokens/8.23.0": {
+"r2a": "Differs under build path, environment, exec path, file order, locales, time, timezone, umask, also with configuration. First difference: Microsoft.IdentityModel.Tokens.8.22.1-preview-71101105427.nupkg: …/Microsoft.IdentityModel.Tokens.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"Microsoft.IdentityModel.Validators/8.7.0": {
+"r2a": "Pack failed: CS7035.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"Microsoft.NETCore.App.Runtime.linux-x64/10.0.12": {
+"r2a": "No managed assembly under lib/.",
+"r2b": "Release build: no package (built, but no package to compare)."
+},
+"Microsoft.VisualStudio.SolutionPersistence/1.0.52": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no package (built, but no package to compare)."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration/10.0.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.Core/10.0.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.Design/10.0.2": {
+"r2a": "No project (0 .csproj with assembly name dotnet-aspnet-codegenerator-design).",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore/10.0.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.Templating/10.0.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.VisualStudio.Web.CodeGeneration.Utils/10.0.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Microsoft.VisualStudio.Web.CodeGenerators.Mvc/10.0.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.Common/6.12.5": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.Configuration/6.12.5": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.DependencyResolver.Core/6.12.1": {
+"r2a": "Pack failed: IDE0055.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.Frameworks/6.12.5": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.LibraryModel/6.12.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.Packaging/6.12.5": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.ProjectModel/6.12.1": {
+"r2a": "Pack failed: IDE0055.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.Protocol/6.12.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"NuGet.Versioning/6.12.5": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Serilog.AspNetCore/8.0.3": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Serilog.Extensions.Hosting/8.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"System.ClientModel/1.8.0": {
+"r2a": "Differs under time, also with configuration. First difference: System.ClientModel.1.8.0-alpha.20261101.1.nupkg: …/System.ClientModel.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"System.CodeDom/6.0.0": {
+"r2a": "Pack failed: CS0246.",
+"r2b": "Release build: no recipe (no public SDK of channel 6.0 with a runtime up to 6.0.0 has csc 4.0.0-4.21427.11+7f1cd24517a65bac2e6e921bf89c9…). Publisher's build on windows-2022: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"System.Composition.AttributedModel/9.0.0": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.0 has csc 4.12.0-3.24516.15+3bff3622487486dec7794dfd0c71…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Composition.Convention/9.0.0": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.0 has csc 4.12.0-3.24516.15+3bff3622487486dec7794dfd0c71…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Composition.Hosting/9.0.0": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.0 has csc 4.12.0-3.24516.15+3bff3622487486dec7794dfd0c71…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Composition.Runtime/9.0.0": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.0 has csc 4.12.0-3.24516.15+3bff3622487486dec7794dfd0c71…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Composition.TypedParts/9.0.0": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.0 has csc 4.12.0-3.24516.15+3bff3622487486dec7794dfd0c71…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Configuration.ConfigurationManager/9.0.11": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.10 has csc 4.12.0-3.25467.18+dcf9af2b54e4469b94697b1b92d…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Diagnostics.EventLog/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (6 .csproj with assembly name System.Diagnostics.EventLog: ['src/runtime/src/libraries/System.Diagnostics.Event…). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"System.Diagnostics.EventLog/9.0.11": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.10 has csc 4.12.0-3.25467.18+dcf9af2b54e4469b94697b1b92d…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.IdentityModel.Tokens.Jwt/8.23.0": {
+"r2a": "Differs under build path, environment, exec path, file order, locales, time, timezone, umask, also with configuration. First difference: System.IdentityModel.Tokens.Jwt.8.22.1-preview-71101113140.nupkg: …/System.IdentityModel.Tokens.Jwt.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, cor flags …)."
+},
+"System.IO.Hashing/6.0.0": {
+"r2a": "Pack failed: CS0234.",
+"r2b": "Release build: no recipe (no public SDK of channel 6.0 with a runtime up to 6.0.0 has csc 4.0.0-4.21427.11+7f1cd24517a65bac2e6e921bf89c9…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.IO.Hashing/7.0.0": {
+"r2a": "Pack failed: MSB4018.",
+"r2b": "Release build: no recipe (no public SDK of channel 7.0 with a runtime up to 7.0.0 has csc 4.4.0-3.22479.16+23ecea2c4bec472f95e18c2a948df…). Publisher's build on windows-2022: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"System.IO.Packaging/8.0.1": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.8 has csc 4.8.0-7.23566.2+7b75981cf3bd520b86ec4ed00ec156…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.IO.Ports/5.0.0": {
+"r2a": "Source not fetched.",
+"r2b": "Release build: no recipe (no public SDK of channel 5.0 with a runtime up to 5.0.0 has csc 3.8.0-4.20503.2+75d31ee941ce4dbbe5752f4ac2d5c0…). Publisher's build on windows-2022: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"System.Memory.Data/8.0.1": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.8 has csc 4.8.0-7.23566.2+7b75981cf3bd520b86ec4ed00ec156…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Reflection.MetadataLoadContext/8.0.0": {
+"r2a": "Pack failed: CS1929.",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.0 has csc 4.8.0-3.23518.7+12b11685a551e0a6a203dcecb584f6…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Security.Cryptography.Pkcs/9.0.11": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.10 has csc 4.12.0-3.25467.18+dcf9af2b54e4469b94697b1b92d…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Security.Cryptography.ProtectedData/9.0.11": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.10 has csc 4.12.0-3.25467.18+dcf9af2b54e4469b94697b1b92d…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.Security.Cryptography.Xml/9.0.0": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (no public SDK of channel 9.0 with a runtime up to 9.0.0 has csc 4.12.0-3.24516.15+3bff3622487486dec7794dfd0c71…). Publisher's build on windows-2022: identical without signatures."
+},
+"System.ServiceProcess.ServiceController/10.0.12": {
+"r2a": "Pack failed: The shared framework must be built before the local targeting pack…",
+"r2b": "Release build: no recipe (3 .csproj with assembly name System.ServiceProcess.ServiceController: ['src/runtime/src/libraries/System.Servi…). Publisher's build on Linux: other code (CodeView, PdbChecksum, authenticode, managed resources …)."
+},
+"Yarp.ReverseProxy/2.1.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no recipe (no public SDK of channel 8.0 with a runtime up to 8.0.0 has csc 4.8.0-3.23504.4+81d9274600db701a8b08ed8af3fd6b…). Publisher's build on windows-2022: identical without signatures."
+},
+"AutoMapper/13.0.1": {
+"r2a": "Pack failed: MSB3073.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"Bogus/35.6.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, cor flags, metadata …)."
+},
+"ClosedXML.Parser/1.2.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"CsvHelper/33.1.0": {
+"r2a": "Identical in every variation, also with the default build.",
+"r2b": "Release build: identical."
+},
+"ExCSS/4.3.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"Hangfire.PostgreSql/1.20.10": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Markdig/1.2.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"MediatR/12.4.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"MediatR.Contracts/2.0.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"MediatR.Extensions.Microsoft.DependencyInjection/11.1.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, attribute, il bodies …)."
+},
+"MigraDocCore.DocumentObjectModel/1.3.67": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"MigraDocCore.Rendering/1.3.67": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Newtonsoft.Json/13.0.3": {
+"r2a": "Pack failed: API compatibility errors between 'lib/net20/Newtonsoft.Json.dll'…",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.9139.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+},
+"Newtonsoft.Json/13.0.4": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.9315.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+},
+"NextjsStaticHosting.AspNetCore/0.9.3-preview": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Npgsql/10.0.3": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"PdfSharpCore/1.3.67": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"PdfSharpCore.Charting/1.3.67": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Quartz/3.13.1": {
+"r2a": "Differs under build path, also with configuration. First difference: Quartz.3.13.1.nupkg: …/Quartz.dll.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"Quartz.AspNetCore/3.13.1": {
+"r2a": "Differs under build path, also with configuration. First difference: Quartz.AspNetCore.3.13.1.nupkg: …/Quartz.AspNetCore.dll.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"Quartz.Extensions.DependencyInjection/3.13.1": {
+"r2a": "Differs under build path, also with configuration. First difference: Quartz.Extensions.DependencyInjection.3.13.1.nupkg: …/Quartz.Extensions.DependencyInjection.dll.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"Quartz.Extensions.Hosting/3.13.1": {
+"r2a": "Differs under build path, also with configuration. First difference: Quartz.Extensions.Hosting.3.13.1.nupkg: …/Quartz.Extensions.Hosting.dll.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"ScottPlot/5.1.57": {
+"r2a": "Identical in every variation, also with the default build.",
+"r2b": "Release build: identical."
+},
+"Serilog/4.2.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"Serilog.Enrichers.Environment/3.0.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Serilog.Enrichers.Process/3.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Serilog.Enrichers.Thread/4.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Serilog.Expressions/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"Serilog.Settings.Configuration/8.0.4": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"Serilog.Sinks.File/6.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"Serilog.Sinks.Seq/9.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"SixLabors.Fonts/1.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no package (did not build)."
+},
+"SixLabors.ImageSharp/1.0.4": {
+"r2a": "Clone failed: git -C /private/tmp/nupkg-determinism/src/sixlabors.imagesharp-1.0.4…",
+"r2b": "Release build: no recipe (derive.py failed: subprocess.CalledProcessError: Command '['git', '-C', '/private/tmp/nupkg-batch2v3/src/5321c…)."
+},
+"Stateless/5.16.0": {
+"r2a": "Differs under time, also with configuration. First difference: Stateless.5.16.0.nupkg: …/Stateless.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"TimeZoneConverter/7.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"Unchase.Swashbuckle.AspNetCore.Extensions/2.7.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"UnitsNet/6.0.0-pre012": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"Workstation.UaClient/3.2.3": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB only referenced, not in the package, so no compiler record (class C2b)."
+},
+"YamlDotNet/16.2.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, il bodies, metadata …)."
+},
+"Hangfire.Core/1.8.25": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB in the package, but no compiler record (class C2c)."
+},
+"Hangfire.SqlServer/1.8.25": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "PDB in the package, but no compiler record (class C2c)."
+},
+"HarfBuzzSharp/8.3.1.1": {
+"r2a": "Source not fetched.",
+"r2b": "Release build: no package (did not build)."
+},
+"HarfBuzzSharp/8.3.1.3": {
+"r2a": "Source not fetched.",
+"r2b": "Release build: no package (did not build)."
+},
+"Microsoft.Build/17.11.48": {
+"r2a": "Pack failed: IDE0370.",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.9315.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it). Publisher's build on windows-2022: same code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Microsoft.Build.Framework/18.0.2": {
+"r2a": "Differs under time, also with configuration. First difference: Microsoft.Build.Framework.18.0.2.nupkg: …/Microsoft.Build.Framework.dll.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.Common/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.CSharp/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.CSharp.Features/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.CSharp.Workspaces/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.Features/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.Scripting.Common/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.Workspaces.Common/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.CodeAnalysis.Workspaces.MSBuild/5.0.0": {
+"r2a": "Pack failed: NETSDK1085.",
+"r2b": "Release build: no package (built, but no package to compare). Publisher's build on windows-2022: identical without signatures."
+},
+"Microsoft.DiaSymReader/2.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …). Publisher's build on windows-2022: no package."
+},
+"Microsoft.IO.RecyclableMemoryStream/3.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, authenticode …)."
+},
+"Microsoft.ML.OnnxRuntime.Managed/1.20.1": {
+"r2a": "Restore failed: NETSDK1147.",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.4770.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+},
+"Microsoft.NET.StringTools/17.11.48": {
+"r2a": "No project (0 .csproj with assembly name Microsoft.NET.StringTools).",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.9315.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+},
+"Microsoft.OpenApi/1.6.22": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical without signatures."
+},
+"Serilog.Extensions.Logging/8.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, metadata …)."
+},
+"SkiaSharp/3.119.0": {
+"r2a": "Source not fetched.",
+"r2b": "Release build: no package (did not build)."
+},
+"SkiaSharp/3.119.2": {
+"r2a": "Source not fetched.",
+"r2b": "Release build: no package (did not build)."
+},
+"SkiaSharp.HarfBuzz/3.119.0": {
+"r2a": "Source not fetched.",
+"r2b": "Release build: no package (did not build)."
+},
+"Ardalis.GuardClauses/5.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"Ardalis.Specification/8.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"Ardalis.Specification.EntityFrameworkCore/8.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"ClosedXML/0.104.2": {
+"r2a": "Differs under build path, also with configuration.",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.4110.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+},
+"Cronos/0.9.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical without signatures."
+},
+"Dapper/2.0.123": {
+"r2a": "Pack failed: MSB4018.",
+"r2b": "Release build: no package (built, but no package to compare)."
+},
+"FluentModbus/5.3.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, il bodies …)."
+},
+"FluentValidation/11.11.0": {
+"r2a": "Identical in every variation, also with the default build.",
+"r2b": "Release build: identical."
+},
+"FluentValidation.DependencyInjectionExtensions/11.11.0": {
+"r2a": "Identical in every variation, also with the default build.",
+"r2b": "Release build: identical."
+},
+"Google.Protobuf/3.21.9": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, authenticode, metadata …)."
+},
+"Hangfire.AspNetCore/1.8.25": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no package (did not build)."
+},
+"Hangfire.InMemory/1.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical without signatures."
+},
+"Hangfire.NetCore/1.8.25": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no package (did not build)."
+},
+"Humanizer.Core/2.14.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no package (built, but no package to compare)."
+},
+"Mono.TextTemplating/3.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no package (built, but no package to compare)."
+},
+"NodaTime/3.2.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical without signatures."
+},
+"Portable.BouncyCastle/1.9.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: no package (built, but no package to compare)."
+},
+"RBush/4.0.0": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: identical."
+},
+"SendGrid/9.29.3": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: same code (CodeView, PdbChecksum, metadata, metadata stream #GUID …)."
+},
+"SharpZipLib/1.4.2": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, attribute, il bodies …)."
+},
+"ShimSkiaSharp/5.1.1": {
+"r2a": "Identical with configuration. The default build differs under build path.",
+"r2b": "Release build: other code (CodeView, EmbeddedPortablePdb, PdbChecksum, metadata …)."
+},
+"Svg.Animation/5.1.1": {
+"r2a": "Pack failed: CS0234.",
+"r2b": "Release build: no package (did not build)."
+},
+"Svg.Custom/5.1.1": {
+"r2a": "Pack failed: CS0234.",
+"r2b": "Release build: no package (did not build)."
+},
+"Svg.Model/5.1.1": {
+"r2a": "Pack failed: CS0234.",
+"r2b": "Release build: no package (did not build)."
+},
+"Svg.SceneGraph/5.1.1": {
+"r2a": "Pack failed: CS0234.",
+"r2b": "Release build: no package (did not build)."
+},
+"Svg.Skia/5.1.1": {
+"r2a": "Pack failed: CS0234.",
+"r2b": "Release build: no package (did not build)."
+},
+"Swashbuckle.AspNetCore.Annotations/7.2.0": {
+"r2a": "Differs under time, also with configuration. First difference: Swashbuckle.AspNetCore.Annotations.7.2.0.nupkg: …/Swashbuckle.AspNetCore.Annotations.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"Swashbuckle.AspNetCore.ReDoc/7.2.0": {
+"r2a": "Differs under a variation, also with configuration.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"Swashbuckle.AspNetCore.Swagger/7.2.0": {
+"r2a": "Differs under time, also with configuration. First difference: Swashbuckle.AspNetCore.Swagger.7.2.0.nupkg: …/Swashbuckle.AspNetCore.Swagger.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"Swashbuckle.AspNetCore.SwaggerGen/7.2.0": {
+"r2a": "Differs under time, also with configuration. First difference: Swashbuckle.AspNetCore.SwaggerGen.7.2.0.nupkg: …/Swashbuckle.AspNetCore.SwaggerGen.dll.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"Swashbuckle.AspNetCore.SwaggerUI/7.2.0": {
+"r2a": "Differs under a variation, also with configuration.",
+"r2b": "Release build: other code (CodeView, PdbChecksum, metadata, metadata stream #Blob …)."
+},
+"System.Reactive/5.0.0": {
+"r2a": "Restore failed: NETSDK1100.",
+"r2b": "Release build: no recipe (the compiler ran on .NET Framework 4.8.3928.0 (Visual Studio or msbuild.exe); no dotnet SDK bundles it)."
+}
+}
