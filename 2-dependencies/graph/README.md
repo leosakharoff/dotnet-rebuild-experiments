@@ -62,7 +62,8 @@ opens a small box: what the package is, why Phoenix has it or what brings it
 in, its 2a and 2b results with one line of reason each, and its dependents
 and dependencies, direct or transitive. With direct, the graph still draws
 the transitive ones, fainter. Pointing at a name in the box rings its node in
-the graph. It works on a phone.
+the graph. A click on the white background clears the selection and the
+filter. It works on a phone.
 
 The box's texts come from three places:
 
