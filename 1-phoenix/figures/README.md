@@ -85,6 +85,41 @@ Debug is for working with the debugger: no optimization, so breakpoints and
 variables behave as in the source. Release is what ships, so CI tests it too.
 Debug and Release give different IL, and the PDB records which one was used.
 
+### `.git`, Source Link and deterministic source paths (step 4)
+
+- **`.git`** is the folder where git keeps the repository: every commit, the
+  current commit (`HEAD`) and the remote URL. In the build it is only an
+  input; it is not compiled and does not ship.
+- **Source Link** is a set of MSBuild tasks in the SDK
+  (`Microsoft.SourceLink.*`, `Microsoft.Build.Tasks.Git`). It reads `.git`
+  without the `git` program, and finds the repository root, the commit and
+  the URL. It writes a map from each source file to its URL at that commit
+  into the PDB, adds the commit to `InformationalVersion`
+  (`v1.0.54+<commit>`), and puts the URL and commit into a package's
+  `.nuspec`.
+
+```
+.git ──► Source Link ──► SourceRoot: the repository root (and commit, URL)
+                                   │
+ContinuousIntegrationBuild=true ───┤  sets DeterministicSourcePaths=true
+                                   ▼
+                     each SourceRoot is mapped to /_/, /_1/, …  ──►  csc /pathmap (step 5)
+```
+
+Source Link does not set `ContinuousIntegrationBuild`. The developers set it,
+usually only on the CI server, so that a local build keeps its real paths for
+the debugger. The property turns on `DeterministicSourcePaths`, which maps
+every known source root to `/_/`. The SDK learns the roots from Source Link
+(the repository, through `.git`) and from NuGet (the package cache).
+
+Without `.git`, as in our lab's `git archive` export, Source Link finds no
+repository root, so only the NuGet cache was mapped and the build path stayed
+in the PDBs and DLLs (W6). The thesis branch therefore also sets
+`PathMap=$(MSBuildThisFileDirectory)=/_/` in `Directory.Build.props`, anchored
+to the repository root, which works with or without `.git`. Inside a git
+repository, Source Link adds `HEAD` to `InformationalVersion`, so every commit
+changes the hash; that is why the lab never builds inside one.
+
 ## Figure 2: the SDK's processes and their runtimes
 
 ![How one dotnet build starts its processes and chooses their runtimes](sdk-processes.drawio.png)
