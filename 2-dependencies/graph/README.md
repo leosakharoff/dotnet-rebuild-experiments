@@ -11,8 +11,8 @@ thesis and a page where each node can be opened.
 (a) the categories of part 2a at the assembly level, (b) the categories of
 part 2b. One colour means the same kind of result in both: dark blue, reproduced
 with the default inputs; mid blue, reproduced with extra inputs, which only 2a's
-configuration has; orange, built and compared, but different; grey, not built;
-hollow, outside the part's population. The five black squares are Phoenix's programs and projects.
+configuration has; orange, built and compared, but different; grey, did not
+build or left no package to compare; hollow, not attempted in that part. The five black squares are Phoenix's programs and projects.
 
 ## The graph
 
@@ -84,8 +84,8 @@ a wide screen.
 - Verified all the way down (`verified`): the packages reproduced from the
   release, by whether every dependency that ships files is reproduced too.
 - Third party and Microsoft (`owners`): 2b's result by owner.
-- What the release leaves out (`outside`): the 143 packages outside 2b, by
-  the population class that keeps them out.
+- What the release leaves out (`outside`): the 143 packages that 2b did not
+  attempt, by the population class that keeps them out.
 - What everything rests on (`rests`): 2b's colours, with each node sized by
   the number of package versions that depend on it at any distance.
 - What the publisher's build adds (`publisher`): the publisher's build as a
@@ -185,8 +185,9 @@ git -C PAGES_REPO commit -am "The page, rebuilt" && git -C PAGES_REPO push
 
 The status counts are those of the two parts' READMEs. In 2a, of the 341: 4
 reproducible as is, 98 with configuration, 25 unreproducible, 97 did not
-build, 117 outside the part. In 2b: 22 reproduced from the release, 64 not
-reproduced, 71 with no package, 41 with no recipe, 143 outside the part. 2b's
+build, 117 not attempted. In 2b: 22 reproduced from the release, 64 built, but
+differ, 112 with no package to compare (71 no package, 41 no recipe), 143 not
+attempted. 2b's
 categories come from the release build alone. The publisher's build, a
 diagnostic, reproduces 35 more Microsoft packages; it has no colour, and the
 box on the page gives its result.
@@ -200,12 +201,12 @@ Read along the edges, the 22 packages that 2b reproduced fall into two
 groups. Thirteen have no dependency that ships files. Of the other 9, 2 have
 every such dependency reproduced too. The remaining 7 have at least one
 dependency that was not reproduced: for 3 of them a dependency was built and
-differs, for 4 a dependency was not built. In 2a, 34 of the 102 reproducible
+differs, for 4 a dependency has no package to compare. In 2a, 34 of the 102 reproducible
 packages have no dependency with files, and 11 of the other 68 have every
 dependency reproducible. `summary.py` prints these counts as a table.
 
 The edges also show where the packages outside a part come from. Of the 143
-outside 2b, 83 lack a compiler record, 38 ship no managed code and 22 name no
+that 2b did not attempt, 83 lack a compiler record, 38 ship no managed code and 22 name no
 source. For each of them beyond ring 1, the box on the page names the ring 1
 packages that bring it in.
 
@@ -226,7 +227,7 @@ packages that bring it in.
   them are Humanizer culture packages. WebAPI sets
   `SatelliteResourceLanguages=en`, so they are probably not copied to the
   publish output. One more ships no files. The other 22 ship assemblies, and
-  13 of these are outside 2b; whether they are copied was not checked. The
+  13 of these were not attempted in 2b; whether they are copied was not checked. The
   population counts a package as shipped when a lock file names it. The list
   was not compared with the publish output.
 - `packages.tsv` marks `direct` by name. Three names have two versions here,

@@ -6,7 +6,7 @@ Writes OUT_PREFIX.pdf and OUT_PREFIX.png: two panels, one above the other, with 
 Every second sector has a grey band, and a bracket outside the circle marks where each sector starts and ends.
 One colour scale serves both panels, so that a colour means the same kind of outcome in (a) and (b): dark blue,
 reproduced with the default inputs; mid blue, reproduced with extra inputs (2a's configuration); orange, built and
-compared, but different; grey, not built; hollow, outside the part's population. 2b counts the release build alone;
+compared, but different; grey, did not build or no package to compare; hollow, not attempted. 2b counts the release build alone;
 the publisher's build is a diagnostic and has no colour.
 The style follows the figures of parts 2a and 2b (DejaVu Sans, embedded TrueType, 300 dpi).
 """
@@ -33,14 +33,14 @@ PARTS = (
         ('with configuration', 'repro', 'Reproducible with configuration'),
         ('unreproducible', 'differs', 'Unreproducible'),
         ('did not build', 'nobuild', 'Did not build'),
-        ('not in 2a', 'notin', 'Not in 2a'),
+        ('not in 2a', 'notin', 'Not attempted'),
     )),
     ('b', 'Part 2b: rebuild against nuget.org', 's2b', (
         ('from the release', 'strong', 'Reproduced from the release'),
-        ('not reproduced', 'differs', 'Not reproduced'),
-        ('no package', 'nobuild', 'No package or no recipe'),
+        ('built, but differs', 'differs', 'Built, but differs'),
+        ('no package', 'nobuild', 'No package to compare'),
         ('no recipe', 'nobuild', None),
-        ('not in 2b', 'notin', 'Not in 2b'),
+        ('not in 2b', 'notin', 'Not attempted'),
     )),
 )
 

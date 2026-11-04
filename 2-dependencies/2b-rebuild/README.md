@@ -133,7 +133,7 @@ We group packages by result:
 
 - *Reproduced*: identical, or identical without signatures.
 - *Built, but differs*: same code, or other code.
-- *Not built*: no package, or no recipe.
+- *No package to compare*: no package, or no recipe.
 
 A publisher's signing key is required to reproduce a signature. For a signed
 package, identical without signatures is therefore the highest attainable match.
@@ -227,7 +227,7 @@ The release build covers all 198 packages.
 | | identical without signatures | 3 | 5 | 8 |
 | built, but differs (64) | same code | 9 | 0 | 9 |
 | | other code | 16 | 39 | 55 |
-| not built (112) | no package | 12 | 59 | 71 |
+| no package to compare (112) | no package | 12 | 59 | 71 |
 | | no recipe | 5 | 36 | 41 |
 | | total | 59 | 139 | 198 |
 
@@ -237,8 +237,8 @@ The matches of the release build above, and of the publisher's build below (see
 Using the publisher's build system).
 
 The release-derived build reproduces 22 of the 198 packages: 17 of 59
-third-party packages and 5 of 139 Microsoft packages. More than half do not
-build.
+third-party packages and 5 of 139 Microsoft packages. More than half leave no
+package to compare.
 
 A equals A2 for 76 of the 86 compared packages. Nine packages differ from
 themselves: the IdentityModel packages, whose version includes the clock. One
@@ -285,9 +285,9 @@ Under deterministic compilation, the build identity is a hash that also covers
 the PDB, which this match does not compare. These differences were not
 investigated further.
 
-### Packages not built
+### No package to compare
 
-A total of 112 packages were not built.
+A total of 112 packages left no package to compare.
 
 | outcome | cause | packages |
 |---|---|---|
@@ -344,7 +344,7 @@ packages, ran on `arch` because `dotnet/dotnet` does not fit on a free runner.
 | reproduced (35) | identical without signatures | 35 | 0 | 35 |
 | built, but differs (58) | same code | 4 | 25 | 29 |
 | | other code | 0 | 29 | 29 |
-| not built (3) | no package | 3 | 0 | 3 |
+| no package to compare (3) | no package | 3 | 0 | 3 |
 | | total | 42 | 54 | 96 |
 
 Of the 42 packages built on the publisher's host, 35 are reproduced. Every
@@ -382,7 +382,7 @@ place the publisher's build beside it, as a diagnostic.
 | category | packages | publisher's build ran | reproduces | without the Roslyn rule |
 |---|---|---|---|---|
 | from the release | 22 | 0 | 0 | 0 |
-| not reproduced (same code 9, other code 55) | 64 | 17 | 8 | 1 |
+| built, but differs (same code 9, other code 55) | 64 | 17 | 8 | 1 |
 | no package | 71 | 51 | 5 | 4 |
 | no recipe | 41 | 28 | 22 | 22 |
 | total | 198 | 96 | 35 | 27 |

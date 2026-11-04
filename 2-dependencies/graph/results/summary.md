@@ -11,11 +11,11 @@
 ## Status counts
 
 - 2a: not in 2a 117, with configuration 98, did not build 97, unreproducible 25, as is 4
-- 2b: not in 2b 143, no package 71, not reproduced 64, no recipe 41, from the release 22
+- 2b: not in 2b 143, no package 71, built, but differs 64, no recipe 41, from the release 22
 
 ## Reproduced packages and their dependencies
 
-| part | reproduced | no dependency with files | all dependencies reproduced | a dependency differs | a dependency not built | dependencies outside the part only |
+| part | reproduced | no dependency with files | all dependencies reproduced | a dependency differs | a dependency did not build or has no package to compare | only dependencies not attempted |
 |---|---|---|---|---|---|---|
 | 2a | 102 | 34 | 11 | 16 | 39 | 2 |
 | 2b | 22 | 13 | 2 | 3 | 4 | 0 |
@@ -27,7 +27,7 @@
 - Microsoft.Extensions.Logging/10.0.12: 22 dependents; 2a did not build; 2b no package
 - Microsoft.Extensions.DependencyInjection.Abstractions/10.0.12: 21 dependents; 2a did not build; 2b no package
 - Microsoft.Extensions.Configuration.Abstractions/10.0.12: 18 dependents; 2a did not build; 2b no package
-- Microsoft.CodeAnalysis.Common/5.0.0: 15 dependents; 2a with configuration; 2b not reproduced
+- Microsoft.CodeAnalysis.Common/5.0.0: 15 dependents; 2a with configuration; 2b built, but differs
 - Microsoft.Extensions.Options/10.0.12: 15 dependents; 2a did not build; 2b no package
 - Newtonsoft.Json/13.0.4: 14 dependents; 2a with configuration; 2b no recipe
 - Serilog/4.2.0: 13 dependents; 2a with configuration; 2b from the release
@@ -37,4 +37,4 @@
 
 ## Reached through one direct dependency only
 
-- Microsoft.VisualStudio.Web.CodeGeneration.Design/10.0.2: 71 package versions reached only through it; 48 Humanizer culture packages, 1 with no files (N0), 22 that ship assemblies, 13 of these outside 2b
+- Microsoft.VisualStudio.Web.CodeGeneration.Design/10.0.2: 71 package versions reached only through it; 48 Humanizer culture packages, 1 with no files (N0), 22 that ship assemblies, 13 of these not attempted in 2b

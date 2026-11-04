@@ -10,7 +10,7 @@
 |  | identical without signatures | 8 |
 | built, but differs (64) | same code | 9 |
 |  | other code | 55 |
-| not built (112) | no package | 71 |
+| no package to compare (112) | no package | 71 |
 |  | no recipe | 41 |
 | | total | 198 |
 
@@ -22,7 +22,7 @@
 |  | identical without signatures | 3 |
 | built, but differs (25) | same code | 9 |
 |  | other code | 16 |
-| not built (17) | no package | 12 |
+| no package to compare (17) | no package | 12 |
 |  | no recipe | 5 |
 | | total | 59 |
 
@@ -32,11 +32,11 @@
 |---|---|---|
 | reproduced (5) | identical without signatures | 5 |
 | built, but differs (39) | other code | 39 |
-| not built (95) | no package | 59 |
+| no package to compare (95) | no package | 59 |
 |  | no recipe | 36 |
 | | total | 139 |
 
-### Not built, by cause
+### No package to compare, by cause
 
 | outcome | cause | packages |
 |---|---|---|
@@ -74,7 +74,7 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 | reproduced (35) | identical without signatures | 35 |
 | built, but differs (58) | same code | 29 |
 |  | other code | 29 |
-| not built (3) | no package | 3 |
+| no package to compare (3) | no package | 3 |
 | | total | 96 |
 
 ### On windows-2022 (42)
@@ -83,7 +83,7 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 |---|---|---|
 | reproduced (35) | identical without signatures | 35 |
 | built, but differs (4) | same code | 4 |
-| not built (3) | no package | 3 |
+| no package to compare (3) | no package | 3 |
 | | total | 42 |
 
 ### On Linux (the VMR builds) (54)
@@ -101,7 +101,7 @@ Of the 86 compared: equal 76, differ 9, not compared 1. Differ: Microsoft.Identi
 | reproduced (27) | identical without signatures | 27 |
 | built, but differs (66) | same code | 29 |
 |  | other code | 37 |
-| not built (3) | no package | 3 |
+| no package to compare (3) | no package | 3 |
 | | total | 96 |
 
 ## 3. Per package
@@ -111,9 +111,9 @@ The category comes from the release build alone. The publisher's build, run for 
 | category | packages | publisher's build ran | reproduces | without the Roslyn rule |
 |---|---|---|---|---|
 | from the release | 22 | 0 | 0 | 0 |
-| not reproduced | 64 | 17 | 8 | 1 |
+| built, but differs | 64 | 17 | 8 | 1 |
 | no package | 71 | 51 | 5 | 4 |
 | no recipe | 41 | 28 | 22 | 22 |
 | total | 198 | 96 | 35 | 27 |
 
-Not reproduced, by match: same code 9, other code 55.
+Built, but differs, by match: same code 9, other code 55.

@@ -10,7 +10,7 @@ import collections, json, sys
 GRAPH, LAYOUT, OUT = sys.argv[1:4]
 PROGRAMS = ['WebAPI', 'BackgroundJobExecutor', 'DbMigrator']
 OK = {'s2a': {'as is', 'with configuration'}, 's2b': {'from the release'}}
-DIFFERS = {'s2a': {'unreproducible'}, 's2b': {'not reproduced'}}
+DIFFERS = {'s2a': {'unreproducible'}, 's2b': {'built, but differs'}}
 OUTSIDE = {'s2a': 'not in 2a', 's2b': 'not in 2b'}
 
 g, lay = json.load(open(GRAPH)), json.load(open(LAYOUT))
@@ -77,7 +77,7 @@ add('')
 # Reproduced packages and their dependencies
 add('## Reproduced packages and their dependencies')
 add('')
-add('| part | reproduced | no dependency with files | all dependencies reproduced | a dependency differs | a dependency not built | dependencies outside the part only |')
+add('| part | reproduced | no dependency with files | all dependencies reproduced | a dependency differs | a dependency did not build or has no package to compare | only dependencies not attempted |')
 add('|---|---|---|---|---|---|---|')
 for f, part in (('s2a', '2a'), ('s2b', '2b')):
     rep = [n for n in pkgs if n[f] in OK[f]]
@@ -130,7 +130,7 @@ sat = [x for x in only if x['name'].startswith('Humanizer.Core.')]
 files = [x for x in only if x not in sat and x['cls'] != 'N0']
 add(f'- {n["id"]}: {len(only)} package versions reached only through it; {len(sat)} Humanizer culture packages, '
     f'{len(only) - len(sat) - len(files)} with no files (N0), {len(files)} that ship assemblies, '
-    f'{sum(1 for x in files if x["s2b"] == "not in 2b")} of these outside 2b')
+    f'{sum(1 for x in files if x["s2b"] == "not in 2b")} of these not attempted in 2b')
 add('')
 
 open(OUT, 'w').write('\n'.join(lines))

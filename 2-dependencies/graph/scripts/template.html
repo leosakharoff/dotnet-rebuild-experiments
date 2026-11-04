@@ -212,10 +212,10 @@ const DATA = /*DATA*/null;
 const VIEWS = {
   '2a': { field: 's2a', classes: [
     ['as is', 'strong', 'Reproducible as is'], ['with configuration', 'repro', 'Reproducible with configuration'], ['unreproducible', 'differs', 'Unreproducible'],
-    ['did not build', 'nobuild', 'Did not build'], ['not in 2a', 'notin', 'Not in 2a'] ] },
+    ['did not build', 'nobuild', 'Did not build'], ['not in 2a', 'notin', 'Not attempted'] ] },
   '2b': { field: 's2b', classes: [
-    ['from the release', 'strong', 'Reproduced from the release'], ['not reproduced', 'differs', 'Not reproduced'],
-    ['no package', 'nobuild', 'No package or no recipe'], ['no recipe', 'nobuild', null], ['not in 2b', 'notin', 'Not in 2b'] ] },
+    ['from the release', 'strong', 'Reproduced from the release'], ['built, but differs', 'differs', 'Built, but differs'],
+    ['no package', 'nobuild', 'No package to compare'], ['no recipe', 'nobuild', null], ['not in 2b', 'notin', 'Not attempted'] ] },
 };
 let filter = new Set(); // classes of the current colouring to show; empty shows all
 let ringFilter = new Set(); // rings to show; empty shows all
@@ -265,10 +265,10 @@ const LENSES = [
     return {
       of: n => n.s2a === 'not in 2a' ? 'notin' : n.s2a === 'as is' ? 'asis' : n.s2a === 'with configuration' ? 'config' : 'tried', ok: ok2a,
       key: [['asis', 'Reproducible as is', 'var(--c-strong)'], ['config', 'Reproducible with configuration', 'var(--c-repro)'],
-        ['tried', 'Unreproducible or did not build', '#c8c8c8'], ['notin', 'Not in 2a', null]],
+        ['tried', 'Unreproducible or did not build', '#c8c8c8'], ['notin', 'Not attempted', null]],
       heading: `2a: reproducible, ${a} of the ${built} built`,
       right: { of: n => n.s2b === 'not in 2b' ? 'notin' : ok2b(n) ? 'release' : 'tried', ok: ok2b,
-        key: [['release', 'Reproduced from the release', 'var(--c-strong)'], ['tried', 'Not reproduced, no package or no recipe', '#c8c8c8'], ['notin', 'Not in 2b', null]],
+        key: [['release', 'Reproduced from the release', 'var(--c-strong)'], ['tried', 'Built, but differs, or no package to compare', '#c8c8c8'], ['notin', 'Not attempted', null]],
         heading: `2b: reproduced from the release, ${b} of ${in2b}` },
       caption: `The same graph twice, with the same positions. Left, part 2a: the ${a} of the ${built} packages built that are reproducible; with the three deterministic-build properties set, they build identically under all eight variations. `
         + `Right, part 2b: the ${b} of ${in2b} reproduced from the release.`
@@ -280,27 +280,27 @@ const LENSES = [
       if (n.s2b !== 'from the release') { cls.set(n.id, n.s2b === 'not in 2b' ? 'notin' : 'rest'); continue; }
       const deps = [...downOf(n.id)].map(i => byId.get(i)).filter(d => d.kind === 'package' && d.cls !== 'N0'); // N0 ships no files
       const k = !deps.length || deps.every(d => d.s2b === 'from the release') ? 'verified'
-        : deps.some(d => d.s2b === 'not reproduced') ? 'depdiff'
+        : deps.some(d => d.s2b === 'built, but differs') ? 'depdiff'
         : deps.some(d => d.s2b !== 'from the release' && d.s2b !== 'not in 2b') ? 'depnob' : 'outside';
       if (k === 'verified') why[deps.length ? 'all' : 'alone']++;
       cls.set(n.id, k);
     }
     const c = k => count(pkgs, n => cls.get(n.id) === k), rep = c('verified') + c('depdiff') + c('depnob') + c('outside');
     return { of: n => cls.get(n.id), key: [['verified', 'Reproduced, and so is everything it pulls in', 'var(--c-strong)'],
-        ['depdiff', 'Reproduced, but a dependency differs', 'var(--c-differs)'], ['depnob', 'Reproduced, but a dependency did not build', '#8c8c8c'],
-        ['outside', 'Reproduced, its dependencies outside 2b', '#a9c6e6'], ['rest', 'Not reproduced from the release', LIGHT], ['notin', 'Not in 2b', null]],
+        ['depdiff', 'Reproduced, but a dependency differs', 'var(--c-differs)'], ['depnob', 'Reproduced, but a dependency has no package to compare', '#8c8c8c'],
+        ['outside', 'Reproduced, its dependencies not attempted', '#a9c6e6'], ['rest', 'Not reproduced from the release', LIGHT], ['notin', 'Not attempted', null]],
       caption: `${c('verified')} of the ${rep} packages reproduced from the release can be checked together with every dependency that ships files: `
-        + `${why.alone} have no such dependency, and ${why.all} have every one reproduced too. For ${c('depdiff')}, a dependency was built and differs; for ${c('depnob')}, a dependency did not build.`
-        + (c('outside') ? ` ${c('outside')} have only dependencies outside 2b.` : '') + ' Dependencies count at any distance, inside each program.' };
+        + `${why.alone} have no such dependency, and ${why.all} have every one reproduced too. For ${c('depdiff')}, a dependency was built and differs; for ${c('depnob')}, a dependency has no package to compare.`
+        + (c('outside') ? ` ${c('outside')} have only dependencies that 2b did not attempt.` : '') + ' Dependencies count at any distance, inside each program.' };
   } },
   { id: 'owners', title: 'Third party and Microsoft', question: 'Whose packages does the release reproduce?', build() {
     const of = n => n.s2b === 'not in 2b' ? 'notin' : (n.owner === 'Microsoft' ? 'ms' : 'tp') + (n.s2b === 'from the release' ? '-rep' : '-not');
     const c = (o, f) => count(pkgs, n => n.s2b !== 'not in 2b' && (n.owner === 'Microsoft') === (o === 'ms') && f(n));
     const all = () => true, rep = n => n.s2b === 'from the release';
     return { of, key: [['tp-rep', 'Third party, reproduced from the release', 'var(--c-strong)'], ['tp-not', 'Third party, not reproduced', '#a9c6e6'],
-        ['ms-rep', 'Microsoft, reproduced from the release', '#6a4c93'], ['ms-not', 'Microsoft, not reproduced', '#d3c6e6'], ['notin', 'Not in 2b', null]],
+        ['ms-rep', 'Microsoft, reproduced from the release', '#6a4c93'], ['ms-not', 'Microsoft, not reproduced', '#d3c6e6'], ['notin', 'Not attempted', null]],
       caption: `Third-party packages: ${c('tp', rep)} of ${c('tp', all)} reproduced from the release. Microsoft packages: ${c('ms', rep)} of ${c('ms', all)}; `
-        + `of the other ${c('ms', all) - c('ms', rep)}, ${c('ms', n => n.s2b === 'no package' || n.s2b === 'no recipe')} did not build from the release `
+        + `of the other ${c('ms', all) - c('ms', rep)}, ${c('ms', n => n.s2b === 'no package' || n.s2b === 'no recipe')} left no package to compare `
         + `(${c('ms', n => n.s2b === 'no package')} no package, ${c('ms', n => n.s2b === 'no recipe')} no recipe). What Microsoft's own build system adds is the publisher's-build view.` };
   } },
   { id: 'outside', title: 'What the release leaves out', question: 'Why could some packages not be tried at all?', build() {
@@ -309,7 +309,7 @@ const LENSES = [
     const hz = count(pkgs, n => of(n) === 'nocompiler' && n.name.startsWith('Humanizer.Core.'));
     return { of, key: [['nocode', 'No managed code (N0, N1)', '#2a9d8f'], ['nosource', 'No repository or commit (C1a, C1b)', '#6a4c93'],
         ['nocompiler', 'No compiler record (C2a, C2b, C2c)', '#d4a017'], ['other', 'Another reason', '#8c8c8c'], ['in', 'In 2b', LIGHT]],
-      caption: `${pkgs.length - c('in')} of the ${pkgs.length} package versions stay outside 2b, which needs a commit and the compiler's record in a PDB. `
+      caption: `${pkgs.length - c('in')} of the ${pkgs.length} package versions were not attempted in 2b, which needs a commit and the compiler's record in a PDB. `
         + `${c('nocode')} ship no managed code, ${c('nosource')} name no repository or commit, and ${c('nocompiler')} have no compiler record: `
         + `${cl('C2a')} have no PDB, ${cl('C2b')} a PDB in neither the package, the .snupkg nor the symbol server, and ${cl('C2c')} a PDB without the record.`
         + (hz ? ` ${hz} of the ${c('nocompiler')} are Humanizer's culture packages, one per language.` : '') };
@@ -329,10 +329,10 @@ const LENSES = [
     const of = n => n.s2b === 'not in 2b' ? 'notin' : n.s2b === 'from the release' ? 'release' : !n.pub ? 'notrun' : PUB_OK.has(n.pub) ? 'pubrep' : 'pubdiff';
     const c = k => count(pkgs, n => of(n) === k), r = s => count(pkgs, n => of(n) === 'pubrep' && n.s2b === s);
     return { of, key: [['release', 'Reproduced from the release', 'var(--c-strong)'], ['pubrep', "Reproduced only by the publisher's build", '#2a9d8f'],
-        ['pubdiff', "The publisher's build differs or did not build", '#f8cfa9'], ['notrun', "No publisher's build", LIGHT], ['notin', 'Not in 2b', null]],
+        ['pubdiff', "The publisher's build differs or left no package", '#f8cfa9'], ['notrun', "No publisher's build", LIGHT], ['notin', 'Not attempted', null]],
       caption: `A diagnostic, not a result. The publisher's build runs the repository's own build system, which the release does not name, and it ran only for the `
         + `${count(pkgs, n => n.pub)} packages from Microsoft's Arcade repositories. It reproduces ${c('pubrep')} that the release build did not: `
-        + `${r('no recipe')} without a recipe from the release (their compiler is in no public SDK), ${r('not reproduced')} that the release build built but differ, `
+        + `${r('no recipe')} without a recipe from the release (their compiler is in no public SDK), ${r('built, but differs')} that the release build built but differ, `
         + `and ${r('no package')} with no package from the release build.` };
   } },
 ];

@@ -21,12 +21,12 @@ Matches, of the DLL that ships in Phoenix against nuget.org's (level.py):
   same code                     IL, metadata streams and resources equal; the build identity
                                 (MVID, PE timestamp, PDB id and checksum) differs
   other code                    anything else
-Groups: reproduced (the first two), built but differs (the last two), not built (no package,
+Groups: reproduced (the first two), built but differs (the last two), no package to compare (no package,
 or no recipe).
 
 Per package category, from the release build alone:
   from the release            the release build reproduces it
-  not reproduced              built and compared, same code or other code
+  built, but differs          built and compared, same code or other code
   no package                  the release build produced no package to compare
   no recipe                   the derivation stopped at a rule
 The publisher's build does not change a category. It is a diagnostic, run only for Arcade
@@ -39,8 +39,8 @@ MATCH = {'1': 'identical', '2': 'identical without signatures', '3': 'same code'
 PACKAGING = ('.psmdcp', '_rels/.rels', '[Content_Types].xml', '.signature.p7s')
 GROUPS = [('reproduced', ['identical', 'identical without signatures']),
           ('built, but differs', ['same code', 'other code']),
-          ('not built', ['no package', 'no recipe'])]
-CATEGORIES = ['from the release', 'not reproduced', 'no package', 'no recipe']
+          ('no package to compare', ['no package', 'no recipe'])]
+CATEGORIES = ['from the release', 'built, but differs', 'no package', 'no recipe']
 REPRODUCED = ('identical', 'identical without signatures')
 
 
@@ -147,7 +147,7 @@ def main():
         ks = [k for k in release if owner.get(k) == who]
         lines += group_table(f'{who.capitalize() if who == "third-party" else who} ({len(ks)})', collections.Counter(out[k] for k in ks), len(ks))
 
-    lines += ['### Not built, by cause', '', '| outcome | cause | packages |', '|---|---|---|']
+    lines += ['### No package to compare, by cause', '', '| outcome | cause | packages |', '|---|---|---|']
     causes = collections.Counter(('no recipe', skip_cause(x['category'])) for k, x in release.items() if out[k] == 'no recipe')
     causes.update(('no package', nopackage_cause(x)) for k, x in release.items() if out[k] == 'no package')
     for (o, cause), n in sorted(causes.items(), key=lambda kv: (kv[0][0], -kv[1])):
@@ -198,7 +198,7 @@ def main():
     def category(k):
         if out[k] in REPRODUCED:
             return 'from the release'
-        return 'not reproduced' if out[k] in ('same code', 'other code') else out[k]
+        return 'built, but differs' if out[k] in ('same code', 'other code') else out[k]
     cats = {k: category(k) for k in release}
     ran = collections.Counter(cats[k] for k in pub)
     rep = collections.Counter(cats[k] for k in pub if pub[k] in REPRODUCED)
@@ -210,7 +210,7 @@ def main():
     for name in CATEGORIES:
         lines.append(f'| {name} | {c.get(name, 0)} | {ran.get(name, 0)} | {rep.get(name, 0)} | {rep_plain.get(name, 0)} |')
     lines += [f'| total | {len(release)} | {sum(ran.values())} | {sum(rep.values())} | {sum(rep_plain.values())} |', '',
-              f'Not reproduced, by match: same code {sum(out[k] == "same code" for k in release)}, other code {sum(out[k] == "other code" for k in release)}.', '']
+              f'Built, but differs, by match: same code {sum(out[k] == "same code" for k in release)}, other code {sum(out[k] == "other code" for k in release)}.', '']
 
     os.makedirs(results, exist_ok=True)
     open(os.path.join(results, 'summary.md'), 'w', encoding='utf-8').write('\n'.join(lines))
