@@ -3,9 +3,10 @@
 #
 #   OUT=<private folder> PACK=<pack-release-zip.sh> signing-probe.sh A B EPOCH TAG
 #
-# A and B are two unsigned builds' release folders as run.sh's layer W keeps
-# them in a store (store-*/control/source-root/release: the two Windows zips
-# and win/ws-pems-db-migrator-win-x64-TAG.exe). A stands in for the release,
+# A and B are two unsigned builds' release folders as rt.sh 6-other keeps
+# them in a store (LABEL/store/control/source-root/release: the two Windows
+# zips and win/ws-pems-db-migrator-win-x64-TAG.exe). Up to 9 November 2026
+# they came from run.sh's layer W, as store-*/control/source-root/release. A stands in for the release,
 # B for a rebuild. EPOCH is the commit's time, for the packing. The signing
 # image is ws-signing:rb-test (docker build deployment/signing), run as the
 # release job runs it, with its local path: SIGN_WITH_KEYSTORE and a test

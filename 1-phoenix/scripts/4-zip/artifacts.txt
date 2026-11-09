@@ -1,0 +1,5 @@
+# What reprotest keeps from each build and compares. hashes.sha256 is the
+# verdict; the zips are kept so diffoscope can explain a difference entry
+# by entry.
+hashes.sha256
+release/*.zip

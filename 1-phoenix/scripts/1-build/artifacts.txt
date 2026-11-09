@@ -1,0 +1,7 @@
+# What reprotest keeps from each build and compares. hashes.sha256 is the
+# verdict; the rest are kept so diffoscope can explain a difference.
+hashes.sha256
+src/WebAPI/bin/Release/net9.0/*.dll
+src/WebAPI/bin/Release/net9.0/*.pdb
+src/WebAPI/bin/Release/net9.0/*.json
+src/BackgroundJobExecutor/bin/Release/net9.0/BackgroundJobExecutor.*

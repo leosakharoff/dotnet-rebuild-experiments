@@ -1,0 +1,5 @@
+# What reprotest keeps from each build and compares. hashes.sha256 is the
+# verdict; the static export is kept so diffoscope can explain a
+# difference.
+hashes.sha256
+src/WebAPI/ClientApp/out
