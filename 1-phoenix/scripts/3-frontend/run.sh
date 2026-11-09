@@ -3,7 +3,7 @@
 # `npm ci` from the filled cache without network and `next build`, then a
 # hash list and a mode list of the static export out/.
 #
-# The protocol follows experiments/phoenix-rt/run.sh, without the .NET parts:
+# The protocol follows ../shared/run.sh, without the .NET parts:
 # - reprotest starts under env -i with HOME, USER, LOGNAME, SHELL and PATH
 #   only (reprotest-probe R4);
 # - the build sets only what pilot.sh sets beyond that: Node first on PATH,
@@ -20,7 +20,7 @@
 #          exec_path, timezone, environment, home, kernel, aslr, num_cpus,
 #          user_group. Or "none": two builds, nothing varied. Or "all": every
 #          variation that runs unprivileged here, at once. user_group runs
-#          the experiment build as rb1b (setup-user-group.sh in phoenix-rt);
+#          the experiment build as rb1b (setup-user-group.sh, in Speciale2026);
 #          both builds then use a copy of the npm cache that rb1b can write
 #          its logs next to, and a second sampler runs as rb1b.
 #   LABEL  names the output files; default L3-<AXIS>
@@ -40,7 +40,7 @@ LABEL=${2:-L3-$AXIS}
 OUT=${OUT:?set OUT to a private data folder}
 MIN_CPUS=${MIN_CPUS:-2} FIXENV=${FIXENV:-} LAB=${LAB:-/private/tmp/rb1-fe}
 APP_VERSION=${APP_VERSION:-v0.0.0-thesis}
-EXP=$(cd "$(dirname "$0")/.." && pwd)
+EXP=$(cd "$(dirname "$0")/../shared" && pwd)
 
 NODE=/opt/rb1-node/bin/node CACHE=/private/tmp/rb1-npm
 MODES=$OUT/modes SHARED=/private/tmp/rb1-shared

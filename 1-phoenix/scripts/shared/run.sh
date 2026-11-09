@@ -19,7 +19,7 @@
 #          2  the release job's sequence: locked restore, both publishes,
 #             a hash list of release/
 #          R  the whole release in one build: the frontend as in
-#             phoenix-fe/run.sh, then node_modules and .next removed, as
+#             3-frontend/run.sh, then node_modules and .next removed, as
 #             CI's publish job gets only out/, then layer 2's sequence,
 #             which copies out/ into wwwroot/. user_group is not set up
 #             for it
@@ -76,7 +76,7 @@ LAYER=${1:?LAYER} AXIS=${2:?AXIS}
 LABEL=${3:-L$LAYER-$AXIS}
 OUT=${OUT:?set OUT to a private data folder}
 MIN_CPUS=${MIN_CPUS:-2} FIXENV=${FIXENV:-} LAB=${LAB:-/private/tmp/rb1-phoenix}
-EXP=$(cd "$(dirname "$0")/.." && pwd)
+EXP=$(cd "$(dirname "$0")" && pwd)
 
 DN=${DOTNET_DIR:-/home/leos/.dotnet} MODES=$OUT/modes SHARED=/private/tmp/rb1-shared
 case $AXIS in

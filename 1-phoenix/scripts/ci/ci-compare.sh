@@ -129,7 +129,7 @@ fi
 for n in ws-pems ws-pems-job-worker wspems-mcp-server wspems-chat-server wspems-mcp-auth-broker; do
   # A pushed image has no artifact; ghcr-manifests.py compares it with the rebuild.
   [ -f "$C/image-$n/$n.oci.tar" ] || { skip "image $n as an OCI artifact"; continue; }
-  python3 "$here/oci-diff.py" "$C/image-$n/$n.oci.tar" "$L/images/$n.oci.tar" > "$R/$n-image-diff.txt" 2>&1
+  python3 "$here/../5-images/oci-diff.py" "$C/image-$n/$n.oci.tar" "$L/images/$n.oci.tar" > "$R/$n-image-diff.txt" 2>&1
   first=$(head -1 "$R/$n-image-diff.txt")
   echo "image $n: $first"
   case $first in "manifest same:"*) ;; *) bad=$((bad + 1)) ;; esac

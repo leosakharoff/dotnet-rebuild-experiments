@@ -51,7 +51,7 @@ The sections below give only what is particular to each layer.
 
 ### Layer 1: build
 
-The whole solution. All files under `bin/Release` hashed.
+The first same-path test built the whole solution and hashed all 1610 files under `bin/Release`, tests included. The reprotest runs build only the two programs, `WebAPI` and `BackgroundJobExecutor`, with the projects they reference. They hash our DLLs, PDBs and `.json` files.
 
 ### Layer 2: publish
 

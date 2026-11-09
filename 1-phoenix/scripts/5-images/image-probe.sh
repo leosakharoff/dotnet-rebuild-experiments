@@ -32,7 +32,7 @@ case " $IMAGES " in *" webapi "*) need_export=1 ;; *) need_export=0 ;; esac
 if [ "$(cat /private/tmp/rb1-img/commit 2>/dev/null)" != "$commit" ] || { [ $need_export = 1 ] && [ ! -d "$lab/src/WebAPI/ClientApp/out" ]; }; then
   rm -rf /private/tmp/rb1-img && mkdir -p "$lab"
   git -C "$repo" archive "$commit" -- . ':(exclude).claude' | tar -x -C "$lab"
-  python3 "$here/../labcheck.py" "$repo" "$commit" "$lab" | tail -1 | tee "$O/labcheck.txt"
+  python3 "$here/../shared/labcheck.py" "$repo" "$commit" "$lab" | tail -1 | tee "$O/labcheck.txt"
   if [ $need_export = 1 ]; then
     ( cd "$lab/src/WebAPI/ClientApp" && env -i HOME=/private/tmp/rb1-img PATH="$NODE/bin:/usr/bin" CI=true \
         npm_config_cache=/private/tmp/rb1-npm npm_config_update_notifier=false NEXT_TELEMETRY_DISABLED=1 \

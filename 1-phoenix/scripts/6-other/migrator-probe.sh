@@ -27,7 +27,7 @@ for n in 1 2; do
   top=${tops[$((n-1))]} lab=${labs[$((n-1))]}
   rm -rf "$top" && mkdir -p "$lab"
   git -C "$repo" archive "$commit" -- . ':(exclude).claude' | tar -x -C "$lab"
-  python3 "$here/../labcheck.py" "$repo" "$commit" "$lab" | tail -1 | tee "$OUT/labcheck-$n.txt"
+  python3 "$here/../shared/labcheck.py" "$repo" "$commit" "$lab" | tail -1 | tee "$OUT/labcheck-$n.txt"
   ( cd "$lab" && "${ENV[@]}" bash -c '
       dotnet restore ./WS.Phoenix.sln &&
       dotnet publish ./src/DbMigrator/DbMigrator.csproj -c Release -o ./publish/migrator -r linux-x64 --self-contained true --no-restore &&

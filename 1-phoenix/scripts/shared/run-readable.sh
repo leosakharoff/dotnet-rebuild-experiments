@@ -4,7 +4,7 @@
 #
 #   run.sh LAYER AXIS [LABEL]
 #
-# This is a readable copy of ../phoenix-rt/run.sh as of e9e84397
+# This is a readable copy of run.sh (this folder) as of e9e84397
 # (14 October 2026). It gives reprotest the same command.
 #
 # LAYER is what each build does:
@@ -100,7 +100,7 @@ MIN_CPUS=${MIN_CPUS:-2}
 FIXENV=${FIXENV:-}
 LAB=${LAB:-/private/tmp/rb1-phoenix}
 
-experiments=$(cd "$(dirname "$0")/.." && pwd)
+experiments=$(cd "$(dirname "$0")" && pwd)
 reprotest=/home/leos/.local/bin/reprotest
 store=$OUT/store-$label
 shared=/private/tmp/rb1-shared
