@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Layer 1: dotnet build of the two programs, then a hash of every file
+# Stage 1: dotnet build of the two programs, then a hash of every file
 # under src/*/bin. reprotest runs this inside its copy of the lab, once
 # for the control build and once for the experiment.
 #
@@ -29,7 +29,7 @@ export MSBUILDDISABLENODEREUSE=1
 dotnet build-server shutdown > /dev/null
 trap 'dotnet build-server shutdown > /dev/null' EXIT
 
-# The frontend is layer 3. Without SkipSpaBuild, WebAPI.csproj runs
+# The frontend is stage 3. Without SkipSpaBuild, WebAPI.csproj runs
 # npm ci and npm run build itself.
 dotnet build src/WebAPI/WebAPI.csproj -c Release -p:SkipSpaBuild=true
 dotnet build src/BackgroundJobExecutor/BackgroundJobExecutor.csproj -c Release

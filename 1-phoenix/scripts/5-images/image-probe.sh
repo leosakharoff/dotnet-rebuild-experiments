@@ -7,7 +7,7 @@
 # CI, without cache and without provenance, into OCI tarballs, and compares
 # them with oci-diff.py. With EPOCH=<seconds> the builds also get
 # SOURCE_DATE_EPOCH and the exporter's rewrite-timestamp=true, the fix the
-# layer plan names for layer 5.
+# stage plan names for stage 5.
 #
 #   OUT=<private folder> [EPOCH=<s>] image-probe.sh COMMIT LABEL
 #

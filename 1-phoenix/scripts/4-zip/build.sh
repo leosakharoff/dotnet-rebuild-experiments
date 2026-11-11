@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Layer 4: the Linux release zips. The frontend (layer 3's build.sh), then
+# Stage 4: the Linux release zips. The frontend (stage 3's build.sh), then
 # the release job's locked restore and two self-contained linux-x64
 # publishes with the export in wwwroot/, then both folders packed with
 # the commit's own scripts/pack-release-zip.sh. Then a hash of every file
@@ -30,7 +30,7 @@ set -eu
 : "${COMMIT_TIME:?no commit time; make the lab again with make-lab.sh}"
 lab=$PWD
 
-# Layer 3 first. The publish job gets only out/ from the frontend job, so
+# Stage 3 first. The publish job gets only out/ from the frontend job, so
 # node_modules/ and .next/ go.
 bash "$(dirname "$0")/../3-frontend/build.sh"
 rm -rf src/WebAPI/ClientApp/node_modules src/WebAPI/ClientApp/.next

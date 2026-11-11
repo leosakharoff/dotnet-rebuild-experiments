@@ -1,10 +1,10 @@
-# Experiment 1 findings, by cause family
+# Experiment 1 findings, by cause category
 
-**View:** [by layer](by-layer.md) · by cause family
+**View:** [by stage](by-stage.md) · by cause category
 
 **93** findings: **47** causes of difference, **21** checks with no difference, **25** about the method. **5** are still open.
 
-Ids are the rows of `notes/findings-table.md` in Speciale2026. Layer 6 groups the release's other outputs, which the findings table files under layers 2 and 4. Hashes made before the move to SDK 10 (12 October 2026) do not compare with later ones.
+Ids are the rows of `notes/findings-table.md` in Speciale2026. Stage 6 groups the release's other outputs, which the findings table files under stages 2 and 4. Hashes made before the move to SDK 10 (12 October 2026) do not compare with later ones.
 
 | Fix type | Meaning |
 | --- | --- |
@@ -15,7 +15,7 @@ Ids are the rows of `notes/findings-table.md` in Speciale2026. Layer 6 groups th
 | open | Not resolved |
 | rejected | The result was withdrawn |
 
-**Families:** [Build path](#build-path) (12) · [Locale](#locale) (3) · [Clock time](#clock-time) (7) · [Chance and timing](#chance-and-timing) (5) · [Toolchain identity](#toolchain-identity) (8) · [Inputs and pinning](#inputs-and-pinning) (9) · [File and archive metadata](#file-and-archive-metadata) (3) · [Build and release configuration](#build-and-release-configuration) (9) · [Measured stable](#measured-stable) (12) · [Method](#method) (25)
+**Categories:** [Build path](#build-path) (12) · [Locale](#locale) (3) · [Clock time](#clock-time) (7) · [Chance and timing](#chance-and-timing) (5) · [Toolchain identity](#toolchain-identity) (8) · [Inputs and pinning](#inputs-and-pinning) (9) · [File and archive metadata](#file-and-archive-metadata) (3) · [Build and release configuration](#build-and-release-configuration) (9) · [Measured stable](#measured-stable) (12) · [Method](#method) (25)
 
 <a name="build-path"></a>
 
@@ -25,7 +25,7 @@ The folder the build runs in gets into the output: in PDBs, in generated code, i
 
 Fix types: fix build 8, none needed 2, open 3
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="e6"></a>**E6** | 1 | Another build path changed the DLL and the PDB: both hold absolute paths. | csc | fix build | 🟢 closed |
 | <a name="w3"></a>**W3** | 1 | All four PDBs held absolute source paths. | csc | fix build | 🟢 closed |
@@ -48,7 +48,7 @@ The language setting decides a sort order, so the same build under another local
 
 Fix types: fix build 3, upstream 1
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="w26"></a>**W26** | 2 | Under Estonian the compiler orders the types it generates for collection expressions differently: 10 of 1237 files. A Roslyn defect, gone on SDK 10. | csc | fix build, upstream | 🟢 closed |
 | <a name="w33"></a>**W33** | 2 | With eleven axes varied at once, the release equals the Estonian-only build: no other axis changes a byte. `LC_ALL=C.UTF-8` fixes it. | csc (W26) | fix build | 🟢 closed |
@@ -62,7 +62,7 @@ The time of the build gets into the output: file dates, image times, signature t
 
 Fix types: fix build 3, fix rebuild 2, upstream 1, none needed 2
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="e5"></a>**E5** | 1 | The PE `TimeDateStamp` is part of a content hash, not a time. It changes only when the content changes. | csc | none needed | 🟢 closed |
 | <a name="w31"></a>**W31** | 2 | 311 `Last-Modified` dates come from a NuGet package's zip, not from the build clock. Stable. | SDK, NuGet | none needed | 🟢 closed |
@@ -80,7 +80,7 @@ Two builds in the same environment still differ: a random id, or an order that f
 
 Fix types: fix build 4, upstream 3, open 1
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="w37"></a>**W37** | 3 | Next.js draws a random build ID in every build and writes it into paths and pages: 110 of 998 files. Set to the release version. | Next.js | fix build | 🟢 closed |
 | <a name="w43"></a>**W43** | 3 | Shared CSS files took their order from build timing: 4 of 998 files in 1 of 4 builds. All third-party CSS now imported in one place. | Next.js CSS chunking | fix build, upstream | 🟢 closed |
@@ -96,7 +96,7 @@ Which binary of a tool did the work. The same version number can hide another co
 
 Fix types: fix build 3, fix rebuild 1, upstream 1, none needed 2, open 1
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="e2"></a>**E2** | 1 | Two machines gave different DLLs from the same source. Both compilers were called 9.0.120, but one was Arch's build of csc and one was Microsoft's. | SDK vendor | fix rebuild | 🟢 closed |
 | <a name="e3"></a>**E3** | 1 | The two compilers have the same Roslyn code and emit the same IL, yet 70 of 4096 bytes differ: the PDB records the compiler's commit, and the DLL a hash of the PDB. | csc | upstream | 🟢 closed |
@@ -115,7 +115,7 @@ What goes into the build: dependencies pinned by version instead of content, fil
 
 Fix types: fix build 6, fix rebuild 1, upstream 1, none needed 1
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="w15"></a>**W15** | 1 | A cold restore on another machine resolved the same versions and hashes for all packages. | NuGet | none needed | 🟢 closed |
 | <a name="w21"></a>**W21** | 2 | 323 of WebAPI's 746 files are copies from Microsoft's runtime packs, which no lock file records. The branch checks them by hash. | Microsoft | upstream | 🟢 closed |
@@ -135,9 +135,9 @@ The contents are equal, but the metadata around them is not: file modes, zip ent
 
 Fix types: fix build 2, open 1
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
-| <a name="w30"></a>**W30** | 2 | File modes in the release follow the umask: 142 files change under umask 0002. Left to layer 4, whose zip packing sets the modes. | csc, MSBuild, SDK, NuGet | open | 🔴 open |
+| <a name="w30"></a>**W30** | 2 | File modes in the release follow the umask: 142 files change under umask 0002. Left to stage 4, whose zip packing sets the modes. | csc, MSBuild, SDK, NuGet | open | 🔴 open |
 | <a name="w48"></a>**W48** | 4 | The zips differ in every build though every entry's bytes are equal: times, order, modes, owner. Fixed by normalised packing. | Info-ZIP zip | fix build | 🟢 closed |
 | <a name="w66"></a>**W66** | 6 | `SHA256SUMS` named three files by a folder that the GitHub Release does not have, so a download could not be checked. | release workflow | fix build | 🟢 closed |
 
@@ -149,7 +149,7 @@ Errors in how the project or workflow was set up. Some made wrong output, some c
 
 Fix types: fix build 7, none needed 2
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="w18"></a>**W18** | 2 | An empty `package-lock.json`, committed by mistake, shipped in the release. | Web SDK content glob | fix build | 🟢 closed |
 | <a name="w19"></a>**W19** | 2 | The release's version flags reach every assembly. A verifier must know the version string. | SDK | none needed | 🟢 closed |
@@ -169,7 +169,7 @@ Baselines and axes that we varied and that changed no byte. They show where no f
 
 Fix types: none needed 12
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="e1"></a>**E1** | 1 | Two clean builds of the empty class at the same path, machine and SDK: identical DLL and PDB. | csc | none needed | 🟢 closed |
 | <a name="e7"></a>**E7** | 1 | Time, locale, umask, exec path and file order changed no byte of the empty class. | – | none needed | 🟢 closed |
@@ -179,7 +179,7 @@ Fix types: none needed 12
 | <a name="w16"></a>**W16** | 2 | Two clean publishes with the release's own commands: 1238 identical files. | SDK, csc | none needed | 🟢 closed |
 | <a name="w29"></a>**W29** | 2 | Clock +398 days, umask (contents) and exec path, now with the variation inside the compiler: no difference. | – | none needed | 🟢 closed |
 | <a name="w32"></a>**W32** | 2 | Time zone, environment, home, CPUs and another user: no difference. | – | none needed | 🟢 closed |
-| <a name="w34"></a>**W34** | 1 | Layer 1 with the compiler inside the variation, nine axes: no difference. | – | none needed | 🟢 closed |
+| <a name="w34"></a>**W34** | 1 | Stage 1 with the compiler inside the variation, nine axes: no difference. | – | none needed | 🟢 closed |
 | <a name="w38"></a>**W38** | 3 | Two frontend builds at the same path, with the build ID fixed: identical. | Next.js, webpack, SWC | none needed | 🟢 closed |
 | <a name="w55"></a>**W55** | 6 | The Windows release, built on Linux as its job builds it: 2132 files identical under no variation, all axes and Estonian. | – | none needed | 🟢 closed |
 | <a name="w61"></a>**W61** | 6 | The SQL script from two exports, at two paths and under another locale and time zone: identical. | EF Core | none needed | 🟢 closed |
@@ -194,20 +194,20 @@ Findings about how to measure, not about Phoenix: what reprotest really varies, 
 
 Fix types: fix rebuild 12, none needed 9, open 3, rejected 1
 
-| Id | Layer | What we found | Bytes written by | Fix | Status |
+| Id | Stage | What we found | Bytes written by | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
 | <a name="e8"></a>**E8** | M | A command-line `PathMap` must use the shell's `$PWD`. `$(MSBuildProjectDirectory)` is ignored there without a warning. | MSBuild | fix rebuild | 🟢 closed |
 | <a name="e9"></a>**E9** | M | Sorting one file list under two locales gave two different hash lists. | the OS | fix rebuild | 🟢 closed |
 | <a name="e10"></a>**E10** | M | Deleting only `bin/` does not rebuild: MSBuild copies the old files from `obj/` again. | MSBuild | fix rebuild | 🟢 closed |
 | <a name="w2"></a>**W2** | M | Deleting `obj/` between builds also deletes the restore's output, so both builds fail. | NuGet | fix rebuild | 🟢 closed |
-| <a name="w10"></a>**W10** | 1 | A green result for time, locale, umask and exec path on layer 1. Withdrawn: the compiler server kept the control build's environment (W27). | – | rejected | 🔴 open |
+| <a name="w10"></a>**W10** | 1 | A green result for time, locale, umask and exec path on stage 1. Withdrawn: the compiler server kept the control build's environment (W27). | – | rejected | 🔴 open |
 | <a name="w11"></a>**W11** | M | Our clean step missed the test project, which then built in only one of the two builds. | our script | fix rebuild | 🟢 closed |
 | <a name="w14"></a>**W14** | M | The shared droplet (1 CPU, 1 GB) could not compile Phoenix in 3 hours. A verifier needs several GB of RAM. | – | open | 🔴 open |
 | <a name="w27"></a>**W27** | M | reprotest's second build reuses the compiler server that the first build started, so the varied environment never reaches the compiler. Fix: shut the build servers down before each build. | .NET build servers | fix rebuild | 🟢 closed |
 | <a name="w28"></a>**W28** | M | reprotest also fixes settings it does not vary: one CPU, `TZ=GMT+12`, `LANG=C.UTF-8`, `HOME` in the build folder. | reprotest | none needed | 🟢 closed |
 | <a name="w35"></a>**W35** | M | With MSBuild's node reuse off, no compiler server or worker node survived any of 32 runs. | MSBuild | fix rebuild | 🟢 closed |
 | <a name="w36"></a>**W36** | M | The working directory does not show which build a process belongs to; `HOME` does. | – | fix rebuild | 🟢 closed |
-| <a name="w42"></a>**W42** | M | Layer 2 was first measured without the frontend export that CI copies into `wwwroot/`. | MSBuild | fix rebuild | 🟢 closed |
+| <a name="w42"></a>**W42** | M | Stage 2 was first measured without the frontend export that CI copies into `wwwroot/`. | MSBuild | fix rebuild | 🟢 closed |
 | <a name="w57"></a>**W57** | M | BuildKit reuses a cached `WORKDIR` step despite `--no-cache`, so one builder can hide a time difference. | BuildKit | none needed | 🟢 closed |
 | <a name="r1"></a>**R1** | M | The `aslr` axis alone changes nothing: both builds run with ASLR on. Only `kernel` turns it off. | reprotest | open | 🔴 open |
 | <a name="r2"></a>**R2** | M | The `kernel` axis varies two things: the reported kernel version and ASLR. | reprotest | none needed | 🟢 closed |

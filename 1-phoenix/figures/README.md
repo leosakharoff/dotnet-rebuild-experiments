@@ -243,7 +243,7 @@ page contains. So one moved entry changes all 108 pages.
 | 5 | After that sort, the order of the modules and of their links still came from timing | W51 | The same plugin sorts modules and links too (`61870435`, `acbea21c`) | Fixed |
 | 5 | Third-party stylesheets went into shared CSS files in module order, which followed timing | W43 | All third-party CSS imported once, in `_app.tsx` (`eed6c240`, `a16eb506`) | Fixed |
 | 6 | The minifier's short variable names differed between two commits, not within one; the cause is not known | W44 | — | Open |
-| 7 | Layer 2 was first measured without the export in `wwwroot/` | W42 | Measured again with the export in place | Fixed |
+| 7 | Stage 2 was first measured without the export in `wwwroot/` | W42 | Measured again with the export in place | Fixed |
 | 7 | On a self-hosted runner, the Windows job took an export that another job had left there | W64 | The Windows job always downloads the release's own export (`019c7b49`) | Fixed |
 
 Two findings hold for the whole figure. W38 is the baseline: two clean builds

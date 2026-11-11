@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Layer 2: what the release job publishes for Linux. A locked restore,
+# Stage 2: what the release job publishes for Linux. A locked restore,
 # then WebAPI and BackgroundJobExecutor published self-contained for
 # linux-x64 into release/, then a hash of every file under release/.
 # reprotest runs this inside its copy of the lab, once for the control

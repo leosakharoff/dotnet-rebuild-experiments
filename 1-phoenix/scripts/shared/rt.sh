@@ -1,22 +1,22 @@
 #!/bin/bash
 #
-# rt.sh: run reprotest once on the Phoenix lab, one layer and one axis.
+# rt.sh: run reprotest once on the Phoenix lab, one stage and one axis.
 # "rt" is short for reprotest.
 #
-#   rt.sh LAYER AXIS [LABEL]
+#   rt.sh STAGE AXIS [LABEL]
 #
-# LAYER is a layer's folder next to shared/: 1-build, 2-publish,
+# STAGE is a stage's folder next to shared/: 1-build, 2-publish,
 # 3-frontend, 4-zip or 6-other. It holds
 #
 #   build.sh       what each build does. It must write hashes.sha256, a
-#                  hash of every file the layer produces.
+#                  hash of every file the stage produces.
 #   artifacts.txt  what reprotest keeps from each build and compares, one
 #                  pattern per line.
 #
 # AXIS is a reprotest variation (build_path, time, locales, umask,
 # exec_path, timezone, environment, home, kernel, aslr, num_cpus), "none"
 # to vary nothing, or "all" for every variation that runs here without
-# extra setup. LABEL names the run; the default is LAYER-AXIS-COMMIT, for
+# extra setup. LABEL names the run; the default is STAGE-AXIS-COMMIT, for
 # example 1-build-none-6b7a3254d.
 #
 # Make the lab with make-lab.sh first; it records the commit and its time
@@ -63,14 +63,14 @@
 # Speciale2026.
 #
 # Written 9 November 2026 to replace run.sh, run-readable.sh and
-# 3-frontend/run.sh with one driver and one build.sh per layer.
+# 3-frontend/run.sh with one driver and one build.sh per stage.
 
 # No set -e: when a build fails or reprotest finds a difference, the run
 # must still be written down in summary.tsv.
 set -u
 
 usage() {
-    echo "usage: rt.sh LAYER AXIS [LABEL]" >&2
+    echo "usage: rt.sh STAGE AXIS [LABEL]" >&2
     exit 1
 }
 
@@ -89,7 +89,7 @@ short_hash() {
 }
 
 [ $# -ge 2 ] || usage
-layer=$(basename "$1")
+stage=$(basename "$1")
 axis=$2
 
 if [ -z "${OUT:-}" ]; then
@@ -110,17 +110,17 @@ MIN_CPUS=${MIN_CPUS:-2}
 [ -f "$LAB.commit" ] || die "no $LAB.commit; make the lab with make-lab.sh"
 read -r commit commit_time < "$LAB.commit"
 [ -n "${commit_time:-}" ] || die "$LAB.commit has no commit time; make the lab again with make-lab.sh"
-label=${3:-$layer-$axis-${commit:0:9}}
+label=${3:-$stage-$axis-${commit:0:9}}
 run=$OUT/$label
 store=$run/store
 
 # The scripts/ folder, one level up from this file.
 scripts=$(realpath "$(dirname "$0")/..")
-build=$scripts/$layer/build.sh
+build=$scripts/$stage/build.sh
 [ -f "$build" ] || die "no $build"
-[ -f "$scripts/$layer/artifacts.txt" ] || die "no $scripts/$layer/artifacts.txt"
+[ -f "$scripts/$stage/artifacts.txt" ] || die "no $scripts/$stage/artifacts.txt"
 # The patterns from artifacts.txt on one line, without the comments.
-artifacts=$(grep -v '^#' "$scripts/$layer/artifacts.txt" | tr '\n' ' ')
+artifacts=$(grep -v '^#' "$scripts/$stage/artifacts.txt" | tr '\n' ' ')
 reprotest=$(command -v reprotest) || die "reprotest is not on PATH"
 
 case $axis in

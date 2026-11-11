@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# Layer 6: the Windows release, built on Linux as the release's Windows
-# job builds it, without signing. The frontend (layer 3's build.sh), then
+# Stage 6: the Windows release, built on Linux as the release's Windows
+# job builds it, without signing. The frontend (stage 3's build.sh), then
 # the locked restore, three self-contained win-x64 publishes, the
 # migrator's copy, and both folders packed with the commit's own
 # scripts/pack-release-zip.sh. Then a hash of every file under release/.
@@ -29,7 +29,7 @@ set -eu
 : "${COMMIT_TIME:?no commit time; make the lab again with make-lab.sh}"
 lab=$PWD
 
-# Layer 3 first. The Windows job gets only out/ from the frontend job, so
+# Stage 3 first. The Windows job gets only out/ from the frontend job, so
 # node_modules/ and .next/ go.
 bash "$(dirname "$0")/../3-frontend/build.sh"
 rm -rf src/WebAPI/ClientApp/node_modules src/WebAPI/ClientApp/.next

@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Layer 3: the frontend's static export. npm ci from our npm cache without
+# Stage 3: the frontend's static export. npm ci from our npm cache without
 # network, then next build, then a hash of every file under out/.
 # reprotest runs this inside its copy of the lab, once for the control
-# build and once for the experiment. Layers 4 and 6 run it first too.
+# build and once for the experiment. Stages 4 and 6 run it first too.
 #
 # The commands are the release's frontend job
 # (.github/workflows/00-reusable-frontend-build.yml) as of 2cd85fd01
