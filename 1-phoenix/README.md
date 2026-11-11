@@ -320,7 +320,6 @@ On SDK 10 the locale defect was gone.
       build.sh, artifacts.txt   the locked restore and two self-contained linux-x64 publishes; keeps release/ whole
     3-frontend/
       build.sh, artifacts.txt   npm ci --offline and next build; keeps the static export. Stages 4 and 6 run it first
-      compare-chunks.py         compares two webpack chunk logs (W51)
     4-zip/
       build.sh, artifacts.txt   stage 3, the publishes with the export, the zips; keeps the two zips
     5-images/
@@ -368,7 +367,7 @@ paths, and the originals are still there.
 | `sample-dotnet.py`, `labcheck.py` | `shared/` |
 | `pdbdump/` | `1-build/pdbdump/` |
 | `pe-diff-regions.py`, `md-strings.py` | Removed on 11 November 2026; `2-dependencies/tools/dllreport.cs` shows which parts of two DLLs differ |
-| `phoenix-fe/compare-chunks.py` | `3-frontend/` |
+| `phoenix-fe/compare-chunks.py` | Removed on 11 November 2026; it reads the chunk logs of a webpack plugin that is in no Phoenix commit (W51) |
 | `phoenix-rt/image-probe.sh`, `oci-*.py`, `attest-*.py`, `ghcr-manifests.py`, `faketime-tests.sh` | `5-images/` |
 | `phoenix-rt/migrator-probe.sh`, `signing-*.sh` | `6-other/` |
 | `phoenix-rt/ci-*.sh` | `ci/` |
