@@ -130,7 +130,7 @@ for c in $listed; do
     "$c"*) match=$c ;;
     esac
 done
-[ -n "$match" ] || die "the lab holds ${commit:0:9}, but commits.txt lists $(echo ${listed:-no commit}) for $stage; run make-lab.sh $stage, or add the commit to commits.txt"
+[ -n "$match" ] || die "the lab holds ${commit:0:9}, but commits.txt lists $(echo ${listed:-no commit}) for $stage; make the lab with make-lab.sh and one of them, or add the commit to commits.txt"
 # The patterns from artifacts.txt on one line, without the comments.
 artifacts=$(grep -v '^#' "$scripts/$stage/artifacts.txt" | tr '\n' ' ')
 reprotest=$(command -v reprotest) || die "reprotest is not on PATH"

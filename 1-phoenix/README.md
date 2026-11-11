@@ -76,7 +76,10 @@ projects they reference. They hash our DLLs, PDBs and `.json` files.
 Stage 2, publish. The release job's own commands: a locked restore and two
 self-contained `linux-x64` publishes, with the release's version flags. NuGet
 lock files pin every package by content hash. Measured first without, then
-with the frontend export in `wwwroot/`, as CI ships it.
+with the frontend export in `wwwroot/`, as CI ships it. With `rt.sh`, stage
+2 runs on SDK 9 at `4e5237a33`, because its `build.sh` fits the release job
+only up to before `5031c5af`. The publish on SDK 10 is measured inside stage
+4, which hashes the unpacked release folders as well as the zips.
 
 Stage 3, frontend. Built from an export of the whole commit, because the
 frontend imports code from outside its own folder. Node pinned to one
@@ -132,18 +135,19 @@ brackets; see the first lines of `make-lab.sh` and `rt.sh`.
 
 ### One run
 
-One run is two commands, from `scripts/`. Here stage 3 with no variation:
+One run is two commands, from `scripts/`. Look up the stage's commit in
+[commits.txt](scripts/commits.txt) first. Here stage 3, at `2cd85fd01`, with
+no variation:
 
 ```bash
-shared/make-lab.sh 3-frontend
+shared/make-lab.sh 2cd85fd01
 env OUT=$HOME/Dev/speciale-2026/data/$(date +%F)-stage3 shared/rt.sh 3-frontend none
 ```
 
 `$(date +%F)` is today's date, as in `2026-11-11`, in bash and in fish.
 
-`make-lab.sh` exports the stage's commit from `commits.txt` into an empty
-lab, `/private/tmp/rb1-phoenix`. `make-lab.sh 1-build before` gives stage 1's
-commit before the fixes. A commit hash works too.
+`make-lab.sh COMMIT` exports the commit into an empty lab,
+`/private/tmp/rb1-phoenix`.
 
 `rt.sh STAGE AXIS` checks that the lab holds a commit that `commits.txt`
 lists for the stage, and no build output. It finds the SDK and Node that the
@@ -165,6 +169,25 @@ commit asks for, runs reprotest, and writes the run's folder and one row in
 
 Stage 5 runs outside reprotest:
 `OUT=<folder> [EPOCH=<seconds>] 5-images/image-probe.sh COMMIT LABEL`.
+
+### Comparing two builds of a DLL
+
+When a run is red, the run's `store/` holds the kept files of both builds,
+under `control/source-root/` and `experiment-1/source-root/`.
+[dllreport.cs](../2-dependencies/tools/dllreport.cs) writes one report per
+DLL: a hash for each part, the debug entries and the PDB's paths. A diff of
+two reports shows which parts differ, and often why. From inside `store/`:
+
+```bash
+dotnet run ~/Dev/dotnet-rebuild-experiments/2-dependencies/tools/dllreport.cs -- control/source-root/PATH/X.dll > /private/tmp/report-control.txt
+dotnet run ~/Dev/dotnet-rebuild-experiments/2-dependencies/tools/dllreport.cs -- experiment-1/source-root/PATH/X.dll > /private/tmp/report-experiment.txt
+diff /private/tmp/report-control.txt /private/tmp/report-experiment.txt
+```
+
+It needs a .NET 10 SDK, so run it outside a lab whose `global.json` asks
+for 9.0.120. The report reads the PDB next to the DLL. When the two files'
+`sha256` differ but every part in the reports is equal, the difference lies
+outside the parts that `dllreport.cs` reads, such as the entry point.
 
 ### Runs with rt.sh
 
@@ -294,8 +317,6 @@ On SDK 10 the locale defect was gone.
       pdbdump/                  prints a PDB's document table and embedded sources; found the Razor paths PathMap misses (W7)
     2-publish/
       build.sh, artifacts.txt   the locked restore and two self-contained linux-x64 publishes; keeps our assemblies and launchers
-      pe-diff-regions.py        which part of a DLL holds the differing bytes; found the locale's type order (W26)
-      md-strings.py             the names at given offsets in a DLL's string heap
     3-frontend/
       build.sh, artifacts.txt   npm ci --offline and next build; keeps the static export. Stages 4 and 6 run it first
       compare-chunks.py         compares two webpack chunk logs (W51)
@@ -345,7 +366,7 @@ paths, and the originals are still there.
 | `phoenix-fe/run.sh` | `shared/rt.sh 3-frontend` |
 | `sample-dotnet.py`, `labcheck.py` | `shared/` |
 | `pdbdump/` | `1-build/pdbdump/` |
-| `pe-diff-regions.py`, `md-strings.py` | `2-publish/` |
+| `pe-diff-regions.py`, `md-strings.py` | Removed on 11 November 2026; `2-dependencies/tools/dllreport.cs` shows which parts of two DLLs differ |
 | `phoenix-fe/compare-chunks.py` | `3-frontend/` |
 | `phoenix-rt/image-probe.sh`, `oci-*.py`, `attest-*.py`, `ghcr-manifests.py`, `faketime-tests.sh` | `5-images/` |
 | `phoenix-rt/migrator-probe.sh`, `signing-*.sh` | `6-other/` |

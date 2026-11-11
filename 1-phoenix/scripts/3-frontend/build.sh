@@ -29,6 +29,12 @@ set -eu
 app=src/WebAPI/ClientApp
 
 export PATH=$NODE_DIR/bin:$PATH
+# .nvmrc came in 631294806. Without it the lab holds an older commit,
+# which this build.sh does not fit.
+if [ ! -f $app/.nvmrc ]; then
+    echo "build.sh: no $app/.nvmrc, so the lab's commit is older than 631294806; make the lab again with the stage's commit from commits.txt" >&2
+    exit 1
+fi
 if [ "$(node --version)" != "v$(cat $app/.nvmrc)" ]; then
     echo "build.sh: $NODE_DIR has Node $(node --version); .nvmrc asks for $(cat $app/.nvmrc)" >&2
     exit 1

@@ -1,9 +1,11 @@
-# The Phoenix commit each stage runs on, and why.
+# The Phoenix commit each stage runs on, and why. Look the stage up and
+# give its commit to make-lab.sh:
 #
-# make-lab.sh STAGE [WHICH] exports the stage's commit; WHICH is "after"
-# unless you give "before". rt.sh stops when the lab holds a commit that
-# is not listed here for the stage. To measure another commit, add a line
-# first, so every measured commit is written down.
+#   shared/make-lab.sh 2cd85fd01
+#
+# rt.sh stops when the lab holds a commit that is not listed here for the
+# stage. To measure another commit, add a line first, so every measured
+# commit is written down.
 #
 # Each build.sh copies the release workflow's commands at one commit, and
 # the workflow changed over time, so a build.sh fits only some commits.
