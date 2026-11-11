@@ -27,13 +27,12 @@ on, the stages 3 to 6 are mixed. A stage's before only has to lack that
 stage's own fixes: a fix to the zips or the images does not change the
 frontend's input.
 
-Each build.sh copies the release workflow's commands at one commit, and
-the workflow changed over time, so a build.sh fits only some commits. The
-first lines of each build.sh say which. Two of them name a range:
-2-publish fits `84d73a2f6` to before `5031c5afa`, 4-zip fits `5ec085acb`
-on. The build.sh of stages 3, 4 and 6 copies the commands at `2cd85fd01`,
-so it does not build their befores yet: stage 3's stops without an
-`.nvmrc`, and stages 4 and 6 need `scripts/pack-release-zip.sh`.
+Each build.sh is the release job's commands at the stage's after commit,
+with every fix. The workflow changed over time, so a build.sh does not
+fit every commit, and the befores of stages 2 to 6 do not run with it:
+2-publish always pins the locale, 3-frontend needs the `.nvmrc`, and
+stages 4 and 6 need `scripts/pack-release-zip.sh`. The befores were
+measured with the commands of their time.
 
 Stage 2's before is not stage 1's after: 2-publish/build.sh stops on
 `e6e924230` with NETSDK1047. `2570034bd` is the last commit before the

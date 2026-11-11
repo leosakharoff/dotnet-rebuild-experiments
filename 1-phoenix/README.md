@@ -78,12 +78,10 @@ Stage 2, publish. The release job's own commands: a locked restore and two
 self-contained `linux-x64` publishes, with the release's version flags. NuGet
 lock files pin every package by content hash. Measured first without, then
 with the frontend export in `wwwroot/`, as CI ships it. With `rt.sh`, stage
-2 runs on SDK 9: before the locale fix at `2570034bd` and after it at
-`4e5237a33`. Its `build.sh` fits the release job only from `84d73a2f6` to
-before `5031c5af`, so stage 1's after commit does not build with it. Like
-the release job, `build.sh` pins the locale only from `4e5237a33` on. The
-publish on SDK 10 is measured inside stage
-4, which hashes the unpacked release folders as well as the zips.
+2 runs on SDK 9, at `4e5237a33`. Its `build.sh` is the release job at that
+commit, with the locale pinned, and fits from `84d73a2f6` to before
+`5031c5af`. The publish on SDK 10 is measured inside stage 4, which hashes
+the unpacked release folders as well as the zips.
 
 Stage 3, frontend. Built from an export of the whole commit, because the
 frontend imports code from outside its own folder. Node pinned to one
