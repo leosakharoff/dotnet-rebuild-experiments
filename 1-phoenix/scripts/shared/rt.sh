@@ -20,8 +20,7 @@
 # example 1-build-none-6b7a3254d.
 #
 # Make the lab with make-lab.sh first; it records the commit and its time
-# beside the lab. The lab's commit must be listed for STAGE in
-# ../commits.txt. OUT must point to a folder for the results. You can also
+# beside the lab. OUT must point to a folder for the results. You can also
 # set:
 #
 #   LAB         the lab (default /private/tmp/rb1-phoenix). It must hold no
@@ -120,17 +119,6 @@ scripts=$(realpath "$(dirname "$0")/..")
 build=$scripts/$stage/build.sh
 [ -f "$build" ] || die "no $build"
 [ -f "$scripts/$stage/artifacts.txt" ] || die "no $scripts/$stage/artifacts.txt"
-
-# commits.txt lists the commits each stage's build.sh fits. On any other
-# commit the build would run commands the release never ran there.
-listed=$(awk -v s="$stage" '$1 == s { print $3 }' "$scripts/commits.txt")
-match=
-for c in $listed; do
-    case $commit in
-    "$c"*) match=$c ;;
-    esac
-done
-[ -n "$match" ] || die "the lab holds ${commit:0:9}, but commits.txt lists $(echo ${listed:-no commit}) for $stage; make the lab with make-lab.sh and one of them, or add the commit to commits.txt"
 # The patterns from artifacts.txt on one line, without the comments.
 artifacts=$(grep -v '^#' "$scripts/$stage/artifacts.txt" | tr '\n' ' ')
 reprotest=$(command -v reprotest) || die "reprotest is not on PATH"

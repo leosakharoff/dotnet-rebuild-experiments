@@ -149,8 +149,7 @@ env OUT=$HOME/Dev/speciale-2026/data/$(date +%F)-stage3 shared/rt.sh 3-frontend 
 `make-lab.sh COMMIT` exports the commit into an empty lab,
 `/private/tmp/rb1-phoenix`.
 
-`rt.sh STAGE AXIS` checks that the lab holds a commit that `commits.txt`
-lists for the stage, and no build output. It finds the SDK and Node that the
+`rt.sh STAGE AXIS` checks that the lab holds no build output. It finds the SDK and Node that the
 commit asks for, runs reprotest, and writes the run's folder and one row in
 `OUT/summary.tsv`. AXIS is `none`, one reprotest variation such as
 `build_path`, or `all`. A run takes about 5 minutes for stages 1 and 2.
