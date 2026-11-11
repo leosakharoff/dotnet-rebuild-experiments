@@ -38,7 +38,7 @@ export MSBUILDDISABLENODEREUSE=1
 # in SDK 9 sorts some generated types by the culture (W26). Like the job,
 # this pins it only when the commit's workflow does, and then overrides
 # reprotest's locales variation. On earlier commits the variation reaches
-# the compiler, so the before commit in commits.txt shows W26.
+# the compiler, so the before commit in commits.md shows W26.
 if grep -q 'LC_ALL: C.UTF-8' .github/workflows/03-release.yml; then
     export LC_ALL=C.UTF-8
 fi

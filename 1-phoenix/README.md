@@ -29,9 +29,10 @@ sources of difference, so each is measured on its own before the next.
 | 6 Other release outputs | Database migrator, SQL script, checksum file, Windows release, signing | Each file the release ships |
 
 Stages 1-3 are loose files. Stages 4 and 5 are archives, which also store
-file times, modes and order. The commit each stage runs on, and why, is in
-[scripts/commits.txt](scripts/commits.txt). All commits are on the WS.Phoenix
-branch `thesis/reproducible-builds`, where the fixes were made.
+file times, modes and order. The fixes were made on the WS.Phoenix branch
+`thesis/reproducible-builds`. [scripts/commits.md](scripts/commits.md)
+lists its commits, oldest first, and marks the before and after commit of
+each stage.
 
 ### Set-up
 
@@ -139,7 +140,7 @@ brackets; see the first lines of `make-lab.sh` and `rt.sh`.
 ### One run
 
 One run is two commands, from `scripts/`. Look up the stage's commit in
-[commits.txt](scripts/commits.txt) first. Here stage 3, at `2cd85fd01`, with
+[commits.md](scripts/commits.md) first. Here stage 3, at `2cd85fd01`, with
 no variation:
 
 ```bash
@@ -308,7 +309,7 @@ On SDK 10 the locale defect was gone.
     by-stage.md                 every finding, stage by stage, before and after the fixes
     by-category.md              the same findings by cause category
   scripts/
-    commits.txt                 the commit each stage runs on, and why
+    commits.md                  every commit on the branch; marks each stage's before and after
     shared/
       make-lab.sh               exports a stage's commit into an empty lab
       rt.sh                     runs reprotest once: one stage, one axis

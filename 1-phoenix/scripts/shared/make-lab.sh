@@ -4,7 +4,8 @@
 #
 #   make-lab.sh COMMIT
 #
-# ../commits.txt lists the commit each stage runs on, and why.
+# ../commits.md lists the branch's commits and marks the ones each stage
+# runs on.
 #
 # Deletes the lab, makes it again as an empty folder, and unpacks the
 # commit into it with git archive, without .claude/. Writes the commit's
