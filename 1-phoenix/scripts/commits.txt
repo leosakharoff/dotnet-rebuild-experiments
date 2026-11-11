@@ -15,6 +15,7 @@
 # stage      which   commit     why
 1-build      before  6b7a3254d  the SDK pinned to 9.0.120, no fixes yet
 1-build      after   e6e924230  the last stage 1 fix: unused Razor pages removed
+2-publish    before  2570034bd  the last commit before the locale pin; stage 1's after, e6e924230, does not build with this build.sh (NETSDK1047)
 2-publish    after   4e5237a33  the locale pinned in the Linux release jobs; build.sh fits 84d73a2f6 to before 5031c5af
 3-frontend   after   2cd85fd01  the tip of the branch, 21 October 2026, with every fix
 4-zip        after   2cd85fd01  the tip of the branch; build.sh fits 5ec085acb on

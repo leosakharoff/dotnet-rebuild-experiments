@@ -36,8 +36,12 @@ export MSBUILDDISABLENODEREUSE=1
 
 # The release job pins the locale from 4e5237a33 on, because the compiler
 # in SDK 9 sorts some generated types by the culture (W26). Like the job,
-# this overrides reprotest's locales variation.
-export LC_ALL=C.UTF-8
+# this pins it only when the commit's workflow does, and then overrides
+# reprotest's locales variation. On earlier commits the variation reaches
+# the compiler, so the before commit in commits.txt shows W26.
+if grep -q 'LC_ALL: C.UTF-8' .github/workflows/03-release.yml; then
+    export LC_ALL=C.UTF-8
+fi
 
 # No compiler server may live on from one build into the next. The trap
 # also runs when a build fails.
