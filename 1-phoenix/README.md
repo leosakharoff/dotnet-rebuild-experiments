@@ -316,10 +316,10 @@ On SDK 10 the locale defect was gone.
       sample-dotnet.py          records the dotnet and node processes once a second during a run
       labcheck.py               checks that a lab is an exact copy of a commit; image-probe.sh and migrator-probe.sh use it
     1-build/
-      build.sh, artifacts.txt   dotnet build of the two programs; keeps our DLLs, PDBs and .json files
+      build.sh, artifacts.txt   dotnet build of the two programs; keeps the bin folders whole
       pdbdump/                  prints a PDB's document table and embedded sources; found the Razor paths PathMap misses (W7)
     2-publish/
-      build.sh, artifacts.txt   the locked restore and two self-contained linux-x64 publishes; keeps our assemblies and launchers
+      build.sh, artifacts.txt   the locked restore and two self-contained linux-x64 publishes; keeps release/ whole
     3-frontend/
       build.sh, artifacts.txt   npm ci --offline and next build; keeps the static export. Stages 4 and 6 run it first
       compare-chunks.py         compares two webpack chunk logs (W51)

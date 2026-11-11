@@ -1,11 +1,5 @@
 # What reprotest keeps from each build and compares. hashes.sha256 is the
-# verdict; the rest are kept so diffoscope can explain a difference: every
-# file named after one of our four assemblies, and the two programs' Linux
-# launchers (WebAPI, BackgroundJobExecutor without an extension).
+# verdict; the release folder it hashes is kept whole so diffoscope can
+# explain a difference.
 hashes.sha256
-release/*/ApplicationCore.*
-release/*/Infrastructure.*
-release/*/WebAPI.*
-release/*/BackgroundJobExecutor.*
-release/*/WebAPI
-release/*/BackgroundJobExecutor
+release
