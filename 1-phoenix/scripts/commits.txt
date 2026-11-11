@@ -1,0 +1,20 @@
+# The Phoenix commit each stage runs on, and why.
+#
+# make-lab.sh STAGE [WHICH] exports the stage's commit; WHICH is "after"
+# unless you give "before". rt.sh stops when the lab holds a commit that
+# is not listed here for the stage. To measure another commit, add a line
+# first, so every measured commit is written down.
+#
+# Each build.sh copies the release workflow's commands at one commit, and
+# the workflow changed over time, so a build.sh fits only some commits.
+# The first lines of each build.sh say which.
+#
+# Commits are on the branch thesis/reproducible-builds of WS.Phoenix.
+#
+# stage      which   commit     why
+1-build      before  6b7a3254d  the SDK pinned to 9.0.120, no fixes yet
+1-build      after   e6e924230  the last stage 1 fix: unused Razor pages removed
+2-publish    after   4e5237a33  the locale pinned in the Linux release jobs; build.sh fits 84d73a2f6 to before 5031c5af
+3-frontend   after   2cd85fd01  the tip of the branch, 21 October 2026, with every fix
+4-zip        after   2cd85fd01  the tip of the branch; build.sh fits 5ec085acb on
+6-other      after   2cd85fd01  the tip of the branch

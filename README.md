@@ -10,8 +10,8 @@ byte for byte, and how much of that information the release provides.
 
 [Experiment 1: Phoenix](1-phoenix/) tests the application's own build. After
 pinning its build inputs, we obtained matching output across three machines:
-1002 files and five container images. We are still adding the documentation for
-this experiment.
+1002 files and five container images. Its README gives the stage plan, how to
+run each stage, and the results stage by stage.
 
 Experiment 2 examines Phoenix's 341 NuGet package versions in two parts:
 
