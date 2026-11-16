@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Pulls one file out of an OCI image tarball, to look at it on its own.
+"""Pulls one file out of an OCI image tarball, to look at it on its own:
+when oci-diff.py names a file that differs, take it out of both images and
+compare the two with diffoscope.
 
     oci-file.py IMAGE.oci.tar PATH OUT
 
@@ -20,7 +22,7 @@ import sys
 import tarfile
 
 spec = importlib.util.spec_from_file_location(
-    "oci_diff", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "oci-diff.py"))
+    "oci_diff", os.path.join(os.path.dirname(os.path.abspath(__file__)), "oci-diff.py"))
 oci_diff = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(oci_diff)
 

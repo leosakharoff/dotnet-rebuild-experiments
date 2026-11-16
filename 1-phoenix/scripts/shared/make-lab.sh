@@ -15,7 +15,7 @@
 # which pack the zips with it as the release jobs do (stages 4 and 5).
 #
 # The folder is new and empty, so the lab holds exactly the commit's files
-# and nothing else. labcheck.py is not needed after this.
+# and nothing else.
 #
 # You can set:
 #

@@ -347,7 +347,6 @@ On SDK 10 the locale defect was gone.
       make-lab.sh               exports a stage's commit into an empty lab
       run-stage.sh              runs reprotest once: one stage, one axis
       sample-dotnet.py          records the dotnet and node processes once a second during a run
-      labcheck.py               checks that a lab is an exact copy of a commit; build-twice.sh uses it
     1-build/
       build.sh, artifacts.txt   dotnet build of the two programs; keeps the bin folders whole
       pdbdump/                  prints a PDB's document table and embedded sources; found the Razor paths PathMap misses (W7)
@@ -367,11 +366,7 @@ On SDK 10 the locale defect was gone.
     6-images/
       build-twice.sh            builds each of the release's images twice as its job does and compares them
       oci-diff.py               compares two OCI images: manifest, config, each layer's files
-      tools/                    one question each, asked once; each file's first lines say which and what came out
-        oci-file.py             pulls one file out of an OCI image
-        attest-compare.py       do two builds with attestations give the same image but another index? (W65)
-        attest-layers.py        which provenance fields differ, and does it name the image's own layers? (W65)
-        faketime-tests.sh       would a rebuild a year from now still pass the MCP images' build tests?
+      oci-file.py               pulls one file out of an OCI image, to diff it when two images differ
 ```
 
 Each stage that reprotest runs is a folder with `build.sh`, what each build
@@ -399,12 +394,14 @@ paths, and the originals are still there.
 | --- | --- |
 | `phoenix-rt/run.sh`, `phoenix-rt-human/run.sh` | `shared/run-stage.sh` and each stage's `build.sh`. Mode `1` is `1-build`, `2` is `2-publish`, `R` and `Z` are `4-zip`, `W` is `5-release` |
 | `phoenix-fe/run.sh` | `shared/run-stage.sh 3-frontend` |
-| `sample-dotnet.py`, `labcheck.py` | `shared/` |
+| `sample-dotnet.py` | `shared/` |
+| `labcheck.py` | Removed on 16 November 2026: a lab made new and empty by `git archive` is the commit's files and nothing else. It stays in Speciale2026's `experiments/` |
 | `pdbdump/` | `1-build/pdbdump/` |
 | `pe-diff-regions.py`, `md-strings.py` | Removed on 11 November 2026; `2-dependencies/tools/dllreport.cs` shows which parts of two DLLs differ |
 | `phoenix-fe/compare-chunks.py` | Removed on 11 November 2026; it reads the chunk logs of a webpack plugin that is in no Phoenix commit (W51) |
 | `phoenix-rt/image-probe.sh`, `oci-diff.py` | `6-images/build-twice.sh`, renamed on 16 November 2026; `6-images/oci-diff.py` |
-| `phoenix-rt/oci-file.py`, `attest-*.py`, `faketime-tests.sh` | `6-images/tools/` |
+| `phoenix-rt/oci-file.py` | `6-images/oci-file.py` |
+| `phoenix-rt/attest-*.py`, `faketime-tests.sh` | Not here: one-off checks, done. They stay in Speciale2026 beside the notes of 14 and 21 October that used them |
 | `phoenix-rt/ghcr-manifests.py` | `5-release/local-vs-github-comparison/ghcr-manifests.py` |
 | `phoenix-rt/signing-probe.sh`, `signing-paste.sh` | `5-release/windows-signature-test.sh`; merged and renamed on 16 November 2026 |
 | `phoenix-rt/migrator-probe.sh` | Removed on 16 November 2026; `5-release/build.sh` builds both migrators |
