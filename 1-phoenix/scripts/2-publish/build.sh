@@ -19,9 +19,9 @@
 #   env DOTNET_DIR=$HOME/.dotnet bash ~/Dev/dotnet-rebuild-experiments/1-phoenix/scripts/2-publish/build.sh
 #
 # That leaves bin/, obj/ and release/ in the lab, so make it again before
-# rt.sh.
+# run-stage.sh.
 #
-# DOTNET_DIR is the SDK folder; shared/rt.sh passes it in. The lab's
+# DOTNET_DIR is the SDK folder; shared/run-stage.sh passes it in. The lab's
 # global.json chooses the version inside it.
 
 # Stop at the first command that fails (-e) and at any variable that is

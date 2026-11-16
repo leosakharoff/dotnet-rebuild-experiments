@@ -1,8 +1,13 @@
 #!/bin/bash
-# The release workflow's jobs rebuilt here, to compare with a CI run
-# (written 13 October 2026).
+# Does our rebuild give the same bytes as GitHub's build of a tag? Step 1
+# of 2: rebuild the release workflow's jobs here from the tag. compare.sh
+# then compares the outputs with what GitHub built. On 14 October 2026
+# every output of v0.0.0-thesis.6 was the same, the images too
+# (data/phoenix-reference-release/arch-2026-10-14).
 #
-#   OUT=<private folder> [REPO=<repository>] ci-local.sh TAG [JOBS]
+# Written 13 October 2026 as ci-local.sh; renamed on 16 November 2026.
+#
+#   OUT=<private folder> [REPO=<repository>] rebuild.sh TAG [JOBS]
 #
 # TAG is a tag in REPO (default: the WS worktree); each job gets its own
 # shallow clone of it

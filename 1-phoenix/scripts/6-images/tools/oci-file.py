@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-"""One file out of an OCI image tarball (buildx --output type=oci), 14 October 2026.
+"""Pulls one file out of an OCI image tarball, to look at it on its own.
 
     oci-file.py IMAGE.oci.tar PATH OUT
+
+Written on 14 October 2026 to see which .NET runtime the compiler in the
+WebAPI image recorded: ApplicationCore.pdb from the CI image and from a
+local one was the same file (Speciale2026 note
+2026-10-13-phoenix-ci-dry-run).
 
 Writes the file PATH (as named in the layers, e.g. app/ApplicationCore.pdb)
 to OUT, from the topmost layer that holds it, and prints that layer's
@@ -15,7 +20,7 @@ import sys
 import tarfile
 
 spec = importlib.util.spec_from_file_location(
-    "oci_diff", os.path.join(os.path.dirname(os.path.abspath(__file__)), "oci-diff.py"))
+    "oci_diff", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "oci-diff.py"))
 oci_diff = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(oci_diff)
 

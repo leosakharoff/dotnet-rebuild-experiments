@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
-# The tests the MCP server and chat server images run in their builds, run
-# as there but under libfaketime, SHIFT ahead (default a year): would a
-# rebuild then still pass them? Each Dockerfile is copied with one step
-# added to its build stage, faketime from the image's Debian snapshot, and
-# its test command prefixed; the build stops after that stage and exports
-# nothing.
+# Would a rebuild a year from now still pass the MCP images' build tests?
+#
 #   C=<clean clone> OUT=<folder> [SHIFT=+365d] faketime-tests.sh
+#
+# The MCP server and the chat server run their tests inside the image
+# build, so a test that reads the date can fail a later rebuild. Written on
+# 21 October 2026 (Speciale2026 note 2026-10-21-phoenix-pins, item 9): a
+# year ahead, both images' tests passed.
+#
+# Each Dockerfile is copied with one step added to its build stage:
+# faketime from the image's Debian snapshot, and the test command run
+# under libfaketime, SHIFT ahead. The build stops after that stage and
+# exports nothing.
 set -uo pipefail
 C=${C:?a clean clone} OUT=${OUT:?a folder} SHIFT=${SHIFT:-+365d}
 mkdir -p "$OUT"

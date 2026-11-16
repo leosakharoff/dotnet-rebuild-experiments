@@ -1,0 +1,9 @@
+# What reprotest keeps from each build and compares. hashes.sha256 is the
+# verdict; the nine release files are kept so diffoscope can explain a
+# difference. windows-signature-test.sh takes this assets/ folder from
+# two stores.
+hashes.sha256
+assets/*.zip
+assets/upgrade.sh
+assets/SHA256SUMS
+assets/db/*

@@ -4,7 +4,7 @@
 
 **93** findings: **47** causes of difference, **21** checks with no difference, **25** about the method. **5** are still open.
 
-Ids are the rows of `notes/findings-table.md` in Speciale2026. Stage 6 groups the release's other outputs, which the findings table files under stages 2 and 4. Hashes made before the move to SDK 10 (12 October 2026) do not compare with later ones.
+Ids are the rows of `notes/findings-table.md` in Speciale2026. Stage 5 groups the release's other outputs, which the findings table files under stages 2 and 4. Stage 6 holds the images, which the findings table numbers 5. Hashes made before the move to SDK 10 (12 October 2026) do not compare with later ones.
 
 | Fix type | Meaning |
 | --- | --- |
@@ -38,7 +38,7 @@ Fix types: fix build 8, none needed 2, open 3
 | <a name="w17"></a>**W17** | 2 | The two json files of W8 and W9 do not ship. The shipped endpoints file has no paths. | SpaProxy, SDK | none needed | 🟢 closed |
 | <a name="w25"></a>**W25** | 2 | Another build path on the final tree: no difference. | – | none needed | 🟢 closed |
 | <a name="w49"></a>**W49** | 1 | The explicit `PathMap` also rewrote `[CallerFilePath]`, which broke the tests' search for the solution folder. | csc, Testcontainers | fix build | 🟢 closed |
-| <a name="w52"></a>**W52** | 6 | The `ef bundle` migrator is built in a random `/tmp` folder: 93 of 827,679,078 bytes differ. Now a project in the repository, where `PathMap` applies. | dotnet ef | fix build | 🟢 closed |
+| <a name="w52"></a>**W52** | 5 | The `ef bundle` migrator is built in a random `/tmp` folder: 93 of 827,679,078 bytes differ. Now a project in the repository, where `PathMap` applies. | dotnet ef | fix build | 🟢 closed |
 
 <a name="locale"></a>
 
@@ -52,7 +52,7 @@ Fix types: fix build 3, upstream 1
 | --- | --- | --- | --- | --- | --- |
 | <a name="w26"></a>**W26** | 2 | Under Estonian the compiler orders the types it generates for collection expressions differently: 10 of 1237 files. A Roslyn defect, gone on SDK 10. | csc | fix build, upstream | 🟢 closed |
 | <a name="w33"></a>**W33** | 2 | With eleven axes varied at once, the release equals the Estonian-only build: no other axis changes a byte. `LC_ALL=C.UTF-8` fixes it. | csc (W26) | fix build | 🟢 closed |
-| <a name="w63"></a>**W63** | 6 | `SHA256SUMS` lists the files in the locale's sort order. Fixed with `LC_ALL=C`. | bash, glibc | fix build | 🟢 closed |
+| <a name="w63"></a>**W63** | 5 | `SHA256SUMS` lists the files in the locale's sort order. Fixed with `LC_ALL=C`. | bash, glibc | fix build | 🟢 closed |
 
 <a name="clock-time"></a>
 
@@ -67,10 +67,10 @@ Fix types: fix build 3, fix rebuild 2, upstream 1, none needed 2
 | <a name="e5"></a>**E5** | 1 | The PE `TimeDateStamp` is part of a content hash, not a time. It changes only when the content changes. | csc | none needed | 🟢 closed |
 | <a name="w31"></a>**W31** | 2 | 311 `Last-Modified` dates come from a NuGet package's zip, not from the build clock. Stable. | SDK, NuGet | none needed | 🟢 closed |
 | <a name="w50"></a>**W50** | 2 | SDK 10 dates the compressed copies of static files with the time it wrote them. Fixed by turning compression off. | SDK static web assets | fix build, upstream | 🟢 closed |
-| <a name="w56"></a>**W56** | 5 | The WebAPI and job worker images differ in times only. Fixed with `SOURCE_DATE_EPOCH` and BuildKit's `rewrite-timestamp`. | BuildKit | fix build | 🟢 closed |
-| <a name="w59"></a>**W59** | 6 | Signing gives each of 177 files a timestamped signature, so two signed builds always differ. Check a rebuild by pasting the release's signatures onto it. | jsign, timestamp server | fix rebuild | 🟢 closed |
-| <a name="w62"></a>**W62** | 5 | The migrations image, from the manual image script, had the same time difference as W56. Fixed the same way. | BuildKit | fix build | 🟢 closed |
-| <a name="w65"></a>**W65** | 5 | Image tags point at attestations that hold the build's clock and a random id, so tags differ in every build. Compare the image manifest instead. | BuildKit, syft | fix rebuild | 🟢 closed |
+| <a name="w56"></a>**W56** | 6 | The WebAPI and job worker images differ in times only. Fixed with `SOURCE_DATE_EPOCH` and BuildKit's `rewrite-timestamp`. | BuildKit | fix build | 🟢 closed |
+| <a name="w59"></a>**W59** | 5 | Signing gives each of 177 files a timestamped signature, so two signed builds always differ. Check a rebuild by pasting the release's signatures onto it. | jsign, timestamp server | fix rebuild | 🟢 closed |
+| <a name="w62"></a>**W62** | 6 | The migrations image, from the manual image script, had the same time difference as W56. Fixed the same way. | BuildKit | fix build | 🟢 closed |
+| <a name="w65"></a>**W65** | 6 | Image tags point at attestations that hold the build's clock and a random id, so tags differ in every build. Compare the image manifest instead. | BuildKit, syft | fix rebuild | 🟢 closed |
 
 <a name="chance-and-timing"></a>
 
@@ -104,7 +104,7 @@ Fix types: fix build 3, fix rebuild 1, upstream 1, none needed 2, open 1
 | <a name="w40"></a>**W40** | 3 | The release asked for Node `20.x`, a major version only. Now pinned in `.nvmrc` and read by every workflow. | setup-node, Node | fix build | 🟢 closed |
 | <a name="w46"></a>**W46** | 3 | The release's npm drops the `libc` field from the lock file. It changes which packages install, not the export of one commit. | npm | open | 🔴 open |
 | <a name="w58"></a>**W58** | 2 | GitHub's runner and our machine: our assemblies differ by the runtime patch the compiler ran on, 10.0.13 against 10.0.12. Fixed by installing the `global.json` SDK alone. | setup-dotnet, .NET host | fix build | 🟢 closed |
-| <a name="w69"></a>**W69** | 6 | `dotnet tool restore` can run a tool from another job's folder on a shared runner. The migration job now has its own CLI home. | .NET CLI | fix build | 🟢 closed |
+| <a name="w69"></a>**W69** | 5 | `dotnet tool restore` can run a tool from another job's folder on a shared runner. The migration job now has its own CLI home. | .NET CLI | fix build | 🟢 closed |
 | <a name="w71"></a>**W71** | 2, 3, 4 | macOS on arm64 against GitHub's Linux x86-64 runner: nothing differs, frontend and zips included. | Roslyn, SWC, zip | none needed | 🟢 closed |
 
 <a name="inputs-and-pinning"></a>
@@ -122,10 +122,10 @@ Fix types: fix build 6, fix rebuild 1, upstream 1, none needed 1
 | <a name="w22"></a>**W22** | 2 | NuGet lock files pin every package by content hash. A locked restore gives the same release. | NuGet | fix build | 🟢 closed |
 | <a name="w39"></a>**W39** | 3 | The frontend imports 7 files from outside `ClientApp`. Build it from an export of the whole commit. | webpack | fix rebuild | 🟢 closed |
 | <a name="w41"></a>**W41** | 3 | 391 of 1509 lock entries had no content hash, so npm trusted the registry for them. Filled in. | npm | fix build | 🟢 closed |
-| <a name="w60"></a>**W60** | 5 | The MCP images kept files that build steps write as a side effect: font caches, Node's compile cache, test durations. Removed in each step. | fontconfig, npm, vitest | fix build | 🟢 closed |
-| <a name="w64"></a>**W64** | 6 | On a self-hosted runner the Windows job took a frontend export that another job had left on the machine. It now always downloads the release's own. | release workflow | fix build | 🟢 closed |
-| <a name="w67"></a>**W67** | 5 | The MCP images install Debian packages from the live archive. Now installed from a dated snapshot. | apt, Debian | fix build | 🟢 closed |
-| <a name="w68"></a>**W68** | 5 | canvas downloads a prebuilt binary from GitHub without a checksum. Now added by its SHA-256. | prebuild-install | fix build | 🟢 closed |
+| <a name="w60"></a>**W60** | 6 | The MCP images kept files that build steps write as a side effect: font caches, Node's compile cache, test durations. Removed in each step. | fontconfig, npm, vitest | fix build | 🟢 closed |
+| <a name="w64"></a>**W64** | 5 | On a self-hosted runner the Windows job took a frontend export that another job had left on the machine. It now always downloads the release's own. | release workflow | fix build | 🟢 closed |
+| <a name="w67"></a>**W67** | 6 | The MCP images install Debian packages from the live archive. Now installed from a dated snapshot. | apt, Debian | fix build | 🟢 closed |
+| <a name="w68"></a>**W68** | 6 | canvas downloads a prebuilt binary from GitHub without a checksum. Now added by its SHA-256. | prebuild-install | fix build | 🟢 closed |
 
 <a name="file-and-archive-metadata"></a>
 
@@ -139,7 +139,7 @@ Fix types: fix build 2, open 1
 | --- | --- | --- | --- | --- | --- |
 | <a name="w30"></a>**W30** | 2 | File modes in the release follow the umask: 142 files change under umask 0002. Left to stage 4, whose zip packing sets the modes. | csc, MSBuild, SDK, NuGet | open | 🔴 open |
 | <a name="w48"></a>**W48** | 4 | The zips differ in every build though every entry's bytes are equal: times, order, modes, owner. Fixed by normalised packing. | Info-ZIP zip | fix build | 🟢 closed |
-| <a name="w66"></a>**W66** | 6 | `SHA256SUMS` named three files by a folder that the GitHub Release does not have, so a download could not be checked. | release workflow | fix build | 🟢 closed |
+| <a name="w66"></a>**W66** | 5 | `SHA256SUMS` named three files by a folder that the GitHub Release does not have, so a download could not be checked. | release workflow | fix build | 🟢 closed |
 
 <a name="build-and-release-configuration"></a>
 
@@ -157,8 +157,8 @@ Fix types: fix build 7, none needed 2
 | <a name="w23"></a>**W23** | 2 | `RuntimeIdentifiers` on every project made the libraries platform-specific and shipped Windows DLLs in the Linux release. | SDK | fix build | 🟢 closed |
 | <a name="w24"></a>**W24** | 2 | A restore without the version flags made `deps.json` list our libraries as 1.0.0. | NuGet, SDK | fix build | 🟢 closed |
 | <a name="w45"></a>**W45** | 2 | The release's builds got the version by different routes. Now one `APP_VERSION` for every build. | MSBuild, workflow | fix build | 🟢 closed |
-| <a name="w53"></a>**W53** | 6 | On .NET 10 the migration jobs failed before building: `dotnet ef` needs a restore first. | dotnet-ef 10 | fix build | 🟢 closed |
-| <a name="w54"></a>**W54** | 6 | On macOS the migrator's locked restore failed: the SDK added the Mac's platform, which the lock does not hold. | SDK | fix build | 🟢 closed |
+| <a name="w53"></a>**W53** | 5 | On .NET 10 the migration jobs failed before building: `dotnet ef` needs a restore first. | dotnet-ef 10 | fix build | 🟢 closed |
+| <a name="w54"></a>**W54** | 5 | On macOS the migrator's locked restore failed: the SDK added the Mac's platform, which the lock does not hold. | SDK | fix build | 🟢 closed |
 | <a name="w70"></a>**W70** | 1 | The branch's SDK installer refused every archive on older Python versions. Fixed in the installer. | our installer | fix build | 🟢 closed |
 
 <a name="measured-stable"></a>
@@ -181,8 +181,8 @@ Fix types: none needed 12
 | <a name="w32"></a>**W32** | 2 | Time zone, environment, home, CPUs and another user: no difference. | – | none needed | 🟢 closed |
 | <a name="w34"></a>**W34** | 1 | Stage 1 with the compiler inside the variation, nine axes: no difference. | – | none needed | 🟢 closed |
 | <a name="w38"></a>**W38** | 3 | Two frontend builds at the same path, with the build ID fixed: identical. | Next.js, webpack, SWC | none needed | 🟢 closed |
-| <a name="w55"></a>**W55** | 6 | The Windows release, built on Linux as its job builds it: 2132 files identical under no variation, all axes and Estonian. | – | none needed | 🟢 closed |
-| <a name="w61"></a>**W61** | 6 | The SQL script from two exports, at two paths and under another locale and time zone: identical. | EF Core | none needed | 🟢 closed |
+| <a name="w55"></a>**W55** | 5 | The Windows release, built on Linux as its job builds it: 2132 files identical under no variation, all axes and Estonian. | – | none needed | 🟢 closed |
+| <a name="w61"></a>**W61** | 5 | The SQL script from two exports, at two paths and under another locale and time zone: identical. | EF Core | none needed | 🟢 closed |
 
 ---
 

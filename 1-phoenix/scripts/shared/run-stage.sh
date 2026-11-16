@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# rt.sh: run reprotest once on the Phoenix lab, one stage and one axis.
-# "rt" is short for reprotest.
+# run-stage.sh: run reprotest once on the Phoenix lab, one stage and one
+# axis. Named rt.sh until 16 November 2026.
 #
-#   rt.sh STAGE AXIS [LABEL]
+#   run-stage.sh STAGE AXIS [LABEL]
 #
 # STAGE is a stage's folder next to shared/: 1-build, 2-publish,
-# 3-frontend, 4-zip or 6-other. It holds
+# 3-frontend, 4-zip or 5-release. It holds
 #
 #   build.sh       what each build does. It must write hashes.sha256, a
 #                  hash of every file the stage produces.
@@ -70,12 +70,12 @@
 set -u
 
 usage() {
-    echo "usage: rt.sh STAGE AXIS [LABEL]" >&2
+    echo "usage: run-stage.sh STAGE AXIS [LABEL]" >&2
     exit 1
 }
 
 die() {
-    echo "rt.sh: $*" >&2
+    echo "run-stage.sh: $*" >&2
     exit 2
 }
 
@@ -93,7 +93,7 @@ stage=$(basename "$1")
 axis=$2
 
 if [ -z "${OUT:-}" ]; then
-    echo "rt.sh: set OUT to a private data folder" >&2
+    echo "run-stage.sh: set OUT to a private data folder" >&2
     exit 1
 fi
 # fish keeps the ~ in "env OUT=~/..." as it is, and the results would
@@ -132,7 +132,7 @@ all)
     vary=--vary=+all,-user_group,-fileordering,-domain_host
     ;;
 user_group)
-    die "user_group needs a second user and is not run here; see the top of rt.sh"
+    die "user_group needs a second user and is not run here; see the top of run-stage.sh"
     ;;
 *)
     vary=--vary=-all,+$axis
@@ -141,6 +141,7 @@ esac
 
 app=$LAB/src/WebAPI/ClientApp
 for dir in "$LAB"/bin "$LAB"/obj "$LAB"/release "$LAB"/publish "$LAB"/hashes.sha256 \
+           "$LAB"/bundles "$LAB"/assets "$LAB"/dotnet-cli-home \
            "$LAB"/src/*/bin "$LAB"/src/*/obj "$LAB"/tests/bin "$LAB"/tests/obj \
            "$app"/node_modules "$app"/.next "$app"/out; do
     if [ -e "$dir" ]; then

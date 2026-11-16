@@ -10,9 +10,9 @@
 # Deletes the lab, makes it again as an empty folder, and unpacks the
 # commit into it with git archive, without .claude/. Writes the commit's
 # full id and its time (seconds since 1970) to LAB.commit, beside the lab
-# and not in it, so it never reaches a build. rt.sh reads that file: it
+# and not in it, so it never reaches a build. run-stage.sh reads that file: it
 # records the commit with every run, and passes the time to the builds,
-# which pack the zips with it as the release jobs do (stages 4 and 6).
+# which pack the zips with it as the release jobs do (stages 4 and 5).
 #
 # The folder is new and empty, so the lab holds exactly the commit's files
 # and nothing else. labcheck.py is not needed after this.

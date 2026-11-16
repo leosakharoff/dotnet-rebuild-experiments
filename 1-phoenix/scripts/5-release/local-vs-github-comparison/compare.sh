@@ -1,10 +1,13 @@
 #!/bin/bash
-# A CI run's artifacts against ci-local.sh's rebuild (written 13 October 2026).
+# Does our rebuild give the same bytes as GitHub's build of a tag? Step 2
+# of 2: a CI run's artifacts against rebuild.sh's outputs.
 #
-#   ci-compare.sh P TAG
+# Written 13 October 2026 as ci-compare.sh; renamed on 16 November 2026.
+#
+#   compare.sh P TAG
 #
 # P holds ci/, the run's artifacts as `gh run download` writes them (one
-# folder per artifact), and local/, ci-local.sh's outputs. One line per
+# folder per artifact), and local/, rebuild.sh's outputs. One line per
 # output: "same" or "DIFF". For a zip that differs, the entries are
 # compared too: their names, contents (from the unpacked trees) and
 # metadata (zipinfo -v, one listing per side). Images are compared with
@@ -37,6 +40,14 @@
 # named every line by its asset name (WS branch 28371c9e), flat names
 # after. An image is the same only when oci-diff.py's first line says
 # "manifest same".
+#
+# The dry runs are its negative control: it said DIFF where outputs
+# differed. v0.0.0-thesis.2 (13 October) differed in all four zips and
+# both migrators, v0.0.0-thesis.3 (14 October) in the Windows zips and
+# migrator; v0.0.0-thesis.6 was the same in everything after the fixes
+# (data/phoenix-ci-dry-run, data/phoenix-reference-release).
+# ci-compare-tests.sh, which tested the verdicts on a fake run, was
+# removed on 16 November 2026.
 set -u
 P=${1:?P} TAG=${2:?TAG}
 CLONE=${CLONE:-/private/tmp/rb1-ci/windows} SIGNING_IMAGE=${SIGNING_IMAGE:-ws-signing:rb-dry}
@@ -129,7 +140,7 @@ fi
 for n in ws-pems ws-pems-job-worker wspems-mcp-server wspems-chat-server wspems-mcp-auth-broker; do
   # A pushed image has no artifact; ghcr-manifests.py compares it with the rebuild.
   [ -f "$C/image-$n/$n.oci.tar" ] || { skip "image $n as an OCI artifact"; continue; }
-  python3 "$here/../5-images/oci-diff.py" "$C/image-$n/$n.oci.tar" "$L/images/$n.oci.tar" > "$R/$n-image-diff.txt" 2>&1
+  python3 "$here/../../6-images/oci-diff.py" "$C/image-$n/$n.oci.tar" "$L/images/$n.oci.tar" > "$R/$n-image-diff.txt" 2>&1
   first=$(head -1 "$R/$n-image-diff.txt")
   echo "image $n: $first"
   case $first in "manifest same:"*) ;; *) bad=$((bad + 1)) ;; esac

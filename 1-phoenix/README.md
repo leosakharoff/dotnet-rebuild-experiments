@@ -25,12 +25,15 @@ sources of difference, so each is measured on its own before the next.
 | 2 Publish | `dotnet publish`, the release's own commands | The publish folder: our assemblies, dependencies, the .NET runtime |
 | 3 Frontend | `npm ci` + `next build` | The static export: HTML, JavaScript, CSS |
 | 4 Zip | The release zips | The archive's bytes |
-| 5 Container | The OCI images | Image manifest and layers |
-| 6 Other release outputs | Database migrator, SQL script, checksum file, Windows release, signing | Each file the release ships |
+| 5 Release | The whole release as CI builds it, unsigned: stage 4's zips, the Windows zips, both database migrators, the SQL script, `upgrade.sh`, `SHA256SUMS` | The nine files on the release page. Signing is tested apart, with a test certificate |
+| 6 Container, an extra | The OCI images | Image manifest and layers |
 
-Stages 1-3 are loose files. Stages 4 and 5 are archives, which also store
-file times, modes and order. The fixes were made on the WS.Phoenix branch
-`thesis/reproducible-builds`. [scripts/commits.md](scripts/commits.md)
+Stages 1-3 are loose files. Stages 4-6 are archives, which also store
+file times, modes and order. Stages 1-5 follow the release step by step,
+up to the nine files on its page: stage 4 runs stage 3 first, and stage 5
+runs stage 4. Stage 6 is an extra: the same frontend export shipped as
+images, built with BuildKit outside reprotest. The fixes were made on the
+WS.Phoenix branch `thesis/reproducible-builds`. [scripts/commits.md](scripts/commits.md)
 lists its commits, oldest first, and marks the before and after commit of
 each stage.
 
@@ -77,7 +80,7 @@ projects they reference. They hash our DLLs, PDBs and `.json` files.
 Stage 2, publish. The release job's own commands: a locked restore and two
 self-contained `linux-x64` publishes, with the release's version flags. NuGet
 lock files pin every package by content hash. Measured first without, then
-with the frontend export in `wwwroot/`, as CI ships it. With `rt.sh`, stage
+with the frontend export in `wwwroot/`, as CI ships it. With `run-stage.sh`, stage
 2 runs on SDK 9, at `4e5237a33`. Its `build.sh` is the release job at that
 commit, with the locale pinned, and fits from `84d73a2f6` to before
 `5031c5af`. The publish on SDK 10 is measured inside stage 4, which hashes
@@ -94,18 +97,24 @@ normalised packing: fixed times, sorted names, fixed modes, no extra fields.
 Compared entry by entry: name, content, time, mode, owner, order. Only with
 no variation and with all axes at once.
 
-Stage 5, container. Built as the release job builds them, with BuildKit and
-no cache, as two plain builds outside reprotest. Compared by manifest,
-config, and layer by layer. Repeated with the commit's time as
-`SOURCE_DATE_EPOCH` and BuildKit's `rewrite-timestamp`.
-
-Stage 6, other release outputs. The release job's own commands for each
-output. The database migrator built from two exports at two paths. The SQL
-script from two exports, the second under another locale and time zone. The
+Stage 5, the release. Since 16 November 2026 `5-release/build.sh` builds
+the whole release as the workflow's jobs do, one after the other. The
+runs below came before that, one output at a time, with the release job's
+own commands for each. The database migrator built from two exports at two
+paths. The SQL script from two exports, the second under another locale
+and time zone. The
 Windows release built on Linux as its CI job builds it, under no variation,
 all axes and the Estonian locale. The Windows binaries signed twice with a
 test certificate, and the signatures then copied onto an unsigned rebuild,
 since a signature carries its own timestamp.
+
+Stage 6, container, an extra. The release's five images, built as the
+release job builds them, with BuildKit and no cache, as two plain builds
+outside reprotest. The WebAPI image takes the frontend export of stage 3.
+Compared by manifest, config, and layer by layer. Where the release dates
+its images by the commit, from `fa60ea974` on, the builds get the
+commit's time as `SOURCE_DATE_EPOCH` and BuildKit's `rewrite-timestamp`,
+as the job does.
 
 ### Unit of measurement
 
@@ -119,7 +128,7 @@ of all files.
 ### What the machine needs
 
 The defaults point at Leo's laptop. Each can be changed with the variable in
-brackets; see the first lines of `make-lab.sh` and `rt.sh`.
+brackets; see the first lines of `make-lab.sh` and `run-stage.sh`.
 
 - The WS.Phoenix repository with the branch `thesis/reproducible-builds`, in
   `~/Dev/Weel-Sandvig/WS.Phoenix-repro` (`REPO`).
@@ -128,12 +137,13 @@ brackets; see the first lines of `make-lab.sh` and `rt.sh`.
 - Node 20.20.2 in `/opt/rb1-node` and Node 22.23.3 in
   `/private/tmp/rb1-node22` (`NODE_DIR`). The frontend's `.nvmrc` chooses
   one.
-- For stages 3, 4 and 6: the npm cache `/private/tmp/rb1-npm`, filled once
+- For stages 3-6: the npm cache `/private/tmp/rb1-npm`, filled once
   by `npm ci` with network in an export of the frontend.
-- For stages 4 and 6: Info-ZIP 3.0 as `/private/tmp/rb1-tools/zip`, which
+- For stages 4 and 5: Info-ZIP 3.0 as `/private/tmp/rb1-tools/zip`, which
   `pack-release-zip.sh` gets first on its `PATH`.
 - reprotest 0.7.32 and diffoscope 329 on `PATH`, from pipx.
-- For stage 5: Docker with a buildx builder named `rb1`.
+- For stage 6: Docker with a buildx builder named `rb1`. For stage 5's
+  signature test: the signing image `ws-signing:rb-test`.
 
 ### One run
 
@@ -143,7 +153,7 @@ no variation:
 
 ```bash
 shared/make-lab.sh 2cd85fd01
-env OUT=$HOME/Dev/speciale-2026/data/$(date +%F)-stage3 shared/rt.sh 3-frontend none
+env OUT=$HOME/Dev/speciale-2026/data/$(date +%F)-stage3 shared/run-stage.sh 3-frontend none
 ```
 
 `$(date +%F)` is today's date, as in `2026-11-11`, in bash and in fish.
@@ -151,25 +161,25 @@ env OUT=$HOME/Dev/speciale-2026/data/$(date +%F)-stage3 shared/rt.sh 3-frontend 
 `make-lab.sh COMMIT` exports the commit into an empty lab,
 `/private/tmp/rb1-phoenix`.
 
-`rt.sh STAGE AXIS` checks that the lab holds no build output. It finds the SDK and Node that the
+`run-stage.sh STAGE AXIS` checks that the lab holds no build output. It finds the SDK and Node that the
 commit asks for, runs reprotest, and writes the run's folder and one row in
 `OUT/summary.tsv`. AXIS is `none`, one reprotest variation such as
 `build_path`, or `all`. A run takes about 5 minutes for stages 1 and 2.
 
 - Make the lab again when you change commit, and after running a `build.sh`
-  by hand in it. A run with `rt.sh` leaves the lab clean, because reprotest
+  by hand in it. A run with `run-stage.sh` leaves the lab clean, because reprotest
   builds in its own copies.
 - Run one stage at a time: none first, then single axes, then all. When all
   is red, single axes find the cause.
 - Run one heavy build at a time. Two at once ran the laptop out of memory on
   13 October.
 - In fish, write `$HOME` and not `~` after `OUT=`; fish does not expand it
-  there. `rt.sh` stops if you do.
+  there. `run-stage.sh` stops if you do.
 - Each `build.sh` also runs by hand, without reprotest, from inside a lab.
   Its first lines show how. That is the quickest way to see a build fail.
 
-Stage 5 runs outside reprotest:
-`OUT=<folder> [EPOCH=<seconds>] 5-images/image-probe.sh COMMIT LABEL`.
+Stage 6 runs outside reprotest:
+`OUT=<folder> 6-images/build-twice.sh COMMIT LABEL`.
 
 ### Comparing two builds of a DLL
 
@@ -190,14 +200,37 @@ for 9.0.120. The report reads the PDB next to the DLL. When the two files'
 `sha256` differ but every part in the reports is equal, the difference lies
 outside the parts that `dllreport.cs` reads, such as the entry point.
 
-### Runs with rt.sh
+### Runs with run-stage.sh
 
-`rt.sh` replaced the old drivers on 9 November 2026, so the results below
-came from them. Since then, stage 1 has been run with `rt.sh` before and
+`run-stage.sh` (then `rt.sh`) replaced the old drivers on 9 November 2026, so the results below
+came from them. Since then, stage 1 has been run with `run-stage.sh` before and
 after the fixes: identical under none, and under `build_path` different
 after the fixes only in the two development files. Stage 2 gave identical
 with none on 9 November and with all on 11 November, with the same hashes
-both days. Stages 3, 4 and 6 have not been run with `rt.sh` yet.
+both days. Stages 3 and 4 gave identical with none and all on
+11 November.
+
+Stage 5, the whole release on `2cd85fd01`, gave identical with none and
+all on 16 November. All nine files of the release page had the same
+hashes in both runs. Earlier that day the Windows job and the linux-x64
+migrator alone had given identical too. The first try at the whole
+release stopped when `/tmp` filled up: reprotest builds there, in memory,
+and both builds kept every job's output. Now `build.sh` deletes the job
+outputs once the release files are hashed, as CI throws each job's runner
+away.
+
+The signature test then ran on the two runs' builds. All 177 signatures
+copied onto the rebuild verified, and the two zips and the migrator came
+out the same as the signed release. All three negative controls failed,
+as they must. The first try used the test certificate of 14 October,
+which had expired on 17 October, so no signature verified. The script now
+makes a fresh certificate for each run.
+
+Stage 6 gave the same manifest, config and layers for all five images on
+16 November, dated by the commit as the release dates them. The probe then
+built the frontend export its own way, as CI did before `456504fa2`. Now
+`build-twice.sh` takes stage 3's export, the same 995 files byte for byte,
+and the WebAPI image built from it gave the same manifest as before.
 
 ## Results
 
@@ -206,7 +239,7 @@ development files in stage 1 still differ with the build path; they are not
 part of the release.
 
 Stages 1 and 2 were deterministic from the start and differed only when the
-environment changed: the build path and the locale. Stages 3, 4 and 5
+environment changed: the build path and the locale. Stages 3, 4 and 6
 differed even between two builds in the same environment: a random build
 ID, orders that followed build timing, and timestamps in archives and
 images. Most causes belong to the tools, not to Phoenix: the compiler's
@@ -261,15 +294,7 @@ On SDK 10 the locale defect was gone.
 | As CI packs, all axes | Different | Also modes and owner | The same packing |
 | Normalised packing | Identical in 4 builds |  |  |
 
-### Stage 5: container
-
-| Test | Result | Cause | Fix |
-| --- | --- | --- | --- |
-| WebAPI and job worker images | Different | Times only: config and 123 of 1408 file entries | `SOURCE_DATE_EPOCH` set to the commit's time; BuildKit sets later file times to it (`rewrite-timestamp`) |
-| Three MCP images | Different | Caches written during the build | Each cache deleted in the step that writes it |
-| Image tags | Different every build | Attestations hold the build's clock time and a random id | None; compare the image manifest, not the tag |
-
-### Stage 6: other release outputs
+### Stage 5: the release
 
 | Test | Result | Cause | Fix |
 | --- | --- | --- | --- |
@@ -278,6 +303,16 @@ On SDK 10 the locale defect was gone.
 | Windows release, built on Linux | 2132 files identical under no variation, all axes and the Estonian locale |  | None needed |
 | Checksum file | Line order follows the locale | The shell lists the files in the locale's sort order | `LC_ALL=C` before the file list |
 | Windows signing, twice | 177 files and both zips differ | Each signature carries its own timestamp | Copy the release's signatures onto the rebuild: identical |
+| The whole release, after the fixes | Identical under no variation and all axes: the nine files of the release page |  |  |
+
+### Stage 6: container, an extra
+
+| Test | Result | Cause | Fix |
+| --- | --- | --- | --- |
+| WebAPI and job worker images | Different | Times only: config and 123 of 1408 file entries | `SOURCE_DATE_EPOCH` set to the commit's time; BuildKit sets later file times to it (`rewrite-timestamp`) |
+| Three MCP images | Different | Caches written during the build | Each cache deleted in the step that writes it |
+| Image tags | Different every build | Attestations hold the build's clock time and a random id | None; compare the image manifest, not the tag |
+| All five images, after the fixes | Same manifest, config and layers |  |  |
 
 ## Caveats
 
@@ -285,14 +320,14 @@ On SDK 10 the locale defect was gone.
   runner, the laptop and a Mac) are in
   [findings/by-stage.md](findings/by-stage.md), under "Across machines".
 - Not every axis was run: file order needs `disorderfs`, which this machine
-  does not have. ASLR alone cannot be varied with reprotest. Stages 4 and 5
+  does not have. ASLR alone cannot be varied with reprotest. Stages 4 and 6
   were tested with fewer axes than stages 1-3.
 - Few repetitions: many results rest on two builds. Rare races were found
   only by repetition, about once in 50 builds.
 - Hashes before and after the SDK change (12 October 2026) do not compare.
 - The Windows release was built on Linux, as its CI job builds it, not on
   Windows.
-- `rt.sh` compares file contents only. The 142 file modes that follow the
+- `run-stage.sh` compares file contents only. The 142 file modes that follow the
   umask in stage 2 (W30) are not seen by it.
 - Not reported to the tools' maintainers yet: the compiler's locale order,
   the SDK 10 timestamps, and webpack's orders in Next.js.
@@ -310,35 +345,33 @@ On SDK 10 the locale defect was gone.
     commits.md                  every commit on the branch; marks each stage's before and after
     shared/
       make-lab.sh               exports a stage's commit into an empty lab
-      rt.sh                     runs reprotest once: one stage, one axis
+      run-stage.sh              runs reprotest once: one stage, one axis
       sample-dotnet.py          records the dotnet and node processes once a second during a run
-      labcheck.py               checks that a lab is an exact copy of a commit; image-probe.sh and migrator-probe.sh use it
+      labcheck.py               checks that a lab is an exact copy of a commit; build-twice.sh uses it
     1-build/
       build.sh, artifacts.txt   dotnet build of the two programs; keeps the bin folders whole
       pdbdump/                  prints a PDB's document table and embedded sources; found the Razor paths PathMap misses (W7)
     2-publish/
       build.sh, artifacts.txt   the locked restore and two self-contained linux-x64 publishes; keeps release/ whole
     3-frontend/
-      build.sh, artifacts.txt   npm ci --offline and next build; keeps the static export. Stages 4 and 6 run it first
+      build.sh, artifacts.txt   npm ci --offline and next build; keeps the static export. Stage 4 runs it first
     4-zip/
-      build.sh, artifacts.txt   stage 3, the publishes with the export, the zips; keeps the two zips
-    5-images/
-      image-probe.sh            builds each .NET image twice as the release job does and compares them
+      build.sh, artifacts.txt   stage 3, the publishes with the export, the zips; keeps the two zips. Stage 5 runs it first
+    5-release/
+      build.sh, artifacts.txt   the whole release, unsigned: stage 4, then the Windows, migration and checksums jobs; keeps the nine files on the release page
+      windows-signature-test.sh the only place anything is signed: a test certificate, the signatures copied onto a rebuild, three negative controls
+      local-vs-github-comparison/  does our rebuild give the same bytes as GitHub's build of a tag? Yes for v0.0.0-thesis.6
+        rebuild.sh              rebuilds each job of the release workflow locally from the tag
+        compare.sh              compares every output of the tag's CI run with the rebuild; exits 1 on any difference
+        ghcr-manifests.py       compares a pushed image tag with a local image by its image manifest
+    6-images/
+      build-twice.sh            builds each of the release's images twice as its job does and compares them
       oci-diff.py               compares two OCI images: manifest, config, each layer's files
-      oci-file.py               extracts one file from an OCI image
-      attest-compare.py         which fields of the provenance and SBOM differ between two images
-      attest-layers.py          whether the layers named in the provenance are the image's layers
-      ghcr-manifests.py         compares a pushed image tag with a local image by manifest
-      faketime-tests.sh         checks that the images' build-time tests still pass one year later
-    6-other/
-      build.sh, artifacts.txt   the Windows release built on Linux, unsigned; keeps the two zips and the migrator
-      migrator-probe.sh         builds the migrator twice at two paths, for linux-x64 and win-x64
-      signing-probe.sh          signs two Windows builds with a test certificate and pastes the signatures across
-      signing-paste.sh          repeats the paste step with two more negative controls
-    ci/
-      ci-local.sh               rebuilds each job of the release workflow locally from a tag
-      ci-compare.sh             compares every CI output with the rebuild; exits 1 on any difference
-      ci-compare-tests.sh       checks that ci-compare.sh reports a difference when there is one
+      tools/                    one question each, asked once; each file's first lines say which and what came out
+        oci-file.py             pulls one file out of an OCI image
+        attest-compare.py       do two builds with attestations give the same image but another index? (W65)
+        attest-layers.py        which provenance fields differ, and does it name the image's own layers? (W65)
+        faketime-tests.sh       would a rebuild a year from now still pass the MCP images' build tests?
 ```
 
 Each stage that reprotest runs is a folder with `build.sh`, what each build
@@ -349,25 +382,31 @@ Phoenix's own scripts from the measured commit, such as
 `pack-release-zip.sh`. Those are not copied here.
 
 The runs' data are in `~/Dev/speciale-2026/data/`, which is private: they
-hold Weel-Sandvig's build output. The finding ids (E, W, R, T) are the rows
+hold Weel-Sandvig's build output. Older runs are archived on Leo's
+Nextcloud; `data/<run>.ARCHIVED.txt` holds the line that restores one.
+The finding ids (E, W, R, T) are the rows
 of `notes/findings-table.md` in
 [Speciale2026](https://github.com/peterjuulm/Speciale2026).
 
 ### Old and new paths
 
 The scripts were copied on 4 November 2026 from `experiments/` in
-Speciale2026. On 9 November 2026 `rt.sh` and the `build.sh` files replaced
+Speciale2026. On 9 November 2026 `rt.sh`, now `run-stage.sh`, and the `build.sh` files replaced
 the three old reprotest drivers. The notes in Speciale2026 use the old
 paths, and the originals are still there.
 
 | Speciale2026 `experiments/` | Here, `scripts/` |
 | --- | --- |
-| `phoenix-rt/run.sh`, `phoenix-rt-human/run.sh` | `shared/rt.sh` and each stage's `build.sh`. Mode `1` is `1-build`, `2` is `2-publish`, `R` and `Z` are `4-zip`, `W` is `6-other` |
-| `phoenix-fe/run.sh` | `shared/rt.sh 3-frontend` |
+| `phoenix-rt/run.sh`, `phoenix-rt-human/run.sh` | `shared/run-stage.sh` and each stage's `build.sh`. Mode `1` is `1-build`, `2` is `2-publish`, `R` and `Z` are `4-zip`, `W` is `5-release` |
+| `phoenix-fe/run.sh` | `shared/run-stage.sh 3-frontend` |
 | `sample-dotnet.py`, `labcheck.py` | `shared/` |
 | `pdbdump/` | `1-build/pdbdump/` |
 | `pe-diff-regions.py`, `md-strings.py` | Removed on 11 November 2026; `2-dependencies/tools/dllreport.cs` shows which parts of two DLLs differ |
 | `phoenix-fe/compare-chunks.py` | Removed on 11 November 2026; it reads the chunk logs of a webpack plugin that is in no Phoenix commit (W51) |
-| `phoenix-rt/image-probe.sh`, `oci-*.py`, `attest-*.py`, `ghcr-manifests.py`, `faketime-tests.sh` | `5-images/` |
-| `phoenix-rt/migrator-probe.sh`, `signing-*.sh` | `6-other/` |
-| `phoenix-rt/ci-*.sh` | `ci/` |
+| `phoenix-rt/image-probe.sh`, `oci-diff.py` | `6-images/build-twice.sh`, renamed on 16 November 2026; `6-images/oci-diff.py` |
+| `phoenix-rt/oci-file.py`, `attest-*.py`, `faketime-tests.sh` | `6-images/tools/` |
+| `phoenix-rt/ghcr-manifests.py` | `5-release/local-vs-github-comparison/ghcr-manifests.py` |
+| `phoenix-rt/signing-probe.sh`, `signing-paste.sh` | `5-release/windows-signature-test.sh`; merged and renamed on 16 November 2026 |
+| `phoenix-rt/migrator-probe.sh` | Removed on 16 November 2026; `5-release/build.sh` builds both migrators |
+| `phoenix-rt/ci-local.sh`, `ci-compare.sh` | `5-release/local-vs-github-comparison/rebuild.sh`, `compare.sh`; renamed and moved on 16 November 2026 |
+| `phoenix-rt/ci-compare-tests.sh` | Removed on 16 November 2026; the dry runs' DIFFs before the fixes show that `compare.sh` finds differences |

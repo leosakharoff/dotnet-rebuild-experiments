@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Which provenance fields differ between two OCI image files, grouped,
-and whether the layers the provenance names are the image's.
-
-BuildKit's SLSA provenance records the layers each build step made. This
-prints how many of the layer digests it names are in the image manifest,
-and how many of those that differ between the two builds are. Field paths
-and counts only, no values.
+"""Which provenance fields differ between two builds, and does the
+provenance name the image's own layers?
 
     attest-layers.py A.oci.tar B.oci.tar
+
+BuildKit's SLSA provenance records the layers each build step made.
+Written on 14 October 2026 for W65, beside attest-compare.py. Prints the
+fields that differ, grouped by their shape, then how many of the layer digests it names are in the image manifest,
+and how many of those that differ between the two builds are. Field paths
+and counts only, no values.
 """
 import collections
 import json

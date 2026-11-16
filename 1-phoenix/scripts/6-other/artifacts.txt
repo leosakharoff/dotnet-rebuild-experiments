@@ -1,6 +1,0 @@
-# What reprotest keeps from each build and compares. hashes.sha256 is the
-# verdict; the zips and the migrator are kept so diffoscope can explain a
-# difference. signing-probe.sh takes this release/ folder from two stores.
-hashes.sha256
-release/*.zip
-release/win/ws-pems-db-migrator-win-x64-*.exe

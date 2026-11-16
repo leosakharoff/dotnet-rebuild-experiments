@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
-"""Compare two OCI image files built with attestations (buildx --provenance
---sbom, or build-push-action's provenance: true and sbom: true).
+"""Do two builds with attestations give the same image but another index?
+
+    attest-compare.py A.oci.tar B.oci.tar
+
+The release pushes each image with provenance and an SBOM (buildx
+--provenance --sbom), and its tag points at the index that holds the image
+and the attestations. Written on 14 October 2026 for W65 (Speciale2026
+note 2026-10-14-phoenix-image-attestations): the image was the same, the
+index and the attestations were not.
 
 Prints whether the image manifest, the index around it and the attestation
 manifest are the same, and for each attestation (provenance, SBOM) the paths
 of the JSON fields that differ. Field paths only, no values, so the output
 can go in a public log.
-
-    attest-compare.py A.oci.tar B.oci.tar
 """
 import json
 import sys

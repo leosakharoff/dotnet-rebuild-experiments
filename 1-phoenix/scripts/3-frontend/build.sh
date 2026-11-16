@@ -3,13 +3,14 @@
 # Stage 3: the frontend's static export. npm ci from our npm cache without
 # network, then next build, then a hash of every file under out/.
 # reprotest runs this inside its copy of the lab, once for the control
-# build and once for the experiment. Stages 4 and 6 run it first too.
+# build and once for the experiment. Stage 4 runs it first, and stage 5
+# runs stage 4. 6-images/build-twice.sh runs it for the WebAPI image.
 #
 # The commands are the release's frontend job
 # (.github/workflows/00-reusable-frontend-build.yml) as of 2cd85fd01
-# (21 October 2026), as ci/ci-local.sh runs it, without lint. Before
-# 456504fa2 the job ran npm ci without --ignore-scripts and without Next's
-# two switches below.
+# (21 October 2026), as 5-release/local-vs-github-comparison/rebuild.sh
+# runs it, without lint. Before 456504fa2 the job ran npm ci without
+# --ignore-scripts and without Next's two switches below.
 #
 # To run it by hand, without reprotest, from inside a lab:
 #
@@ -17,9 +18,9 @@
 #   env NODE_DIR=/private/tmp/rb1-node22 bash ~/Dev/dotnet-rebuild-experiments/1-phoenix/scripts/3-frontend/build.sh
 #
 # That leaves node_modules/, .next/ and out/ in the lab, so make it again
-# before rt.sh.
+# before run-stage.sh.
 #
-# NODE_DIR is the Node folder; shared/rt.sh passes it in, chosen by the
+# NODE_DIR is the Node folder; shared/run-stage.sh passes it in, chosen by the
 # version in the frontend's .nvmrc.
 
 # Stop at the first command that fails (-e) and at any variable that is

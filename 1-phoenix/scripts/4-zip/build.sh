@@ -4,11 +4,13 @@
 # the release job's locked restore and two self-contained linux-x64
 # publishes with the export in wwwroot/, then both folders packed with
 # the commit's own scripts/pack-release-zip.sh. Then a hash of every file
-# under release/: the zips and the folders they hold.
+# under release/: the zips and the folders they hold. Stage 5 runs it
+# first.
 #
 # The commands are the publish-linux job in .github/workflows/03-release.yml
-# as of 2cd85fd01 (21 October 2026), as ci/ci-local.sh runs it. They fit
-# the commits from 5ec085acb on, where every zip is packed by that script.
+# as of 2cd85fd01 (21 October 2026), as
+# 5-release/local-vs-github-comparison/rebuild.sh runs it. They fit the
+# commits from 5ec085acb on, where every zip is packed by that script.
 #
 # To run it by hand, without reprotest, from inside a lab:
 #
@@ -18,10 +20,10 @@
 #
 # COMMIT_TIME is the commit's time, which make-lab.sh writes beside the
 # lab. That leaves the build output in the lab, so make it again before
-# rt.sh.
+# run-stage.sh.
 #
-# shared/rt.sh passes all three in. The job packs with the commit's time,
-# so two builds of one commit give the same zip times.
+# shared/run-stage.sh passes all three in. The job packs with the
+# commit's time, so two builds of one commit give the same zip times.
 
 # Stop at the first command that fails (-e) and at any variable that is
 # not set (-u).
@@ -61,7 +63,7 @@ dotnet publish ./src/BackgroundJobExecutor/BackgroundJobExecutor.csproj -c Relea
     -r linux-x64 --self-contained true --no-restore
 
 # The job's packing step. Our zip is the one in /private/tmp/rb1-tools, the
-# same that ci/ci-local.sh uses.
+# same that 5-release/local-vs-github-comparison/rebuild.sh uses.
 cd release
 for d in ws-pems-linux-x64 ws-pems-job-worker-linux-x64; do
     PATH=/private/tmp/rb1-tools:$PATH SOURCE_DATE_EPOCH=$COMMIT_TIME \

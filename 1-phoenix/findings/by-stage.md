@@ -4,7 +4,7 @@
 
 **93** findings: **47** causes of difference, **21** checks with no difference, **25** about the method. **5** are still open.
 
-Ids are the rows of `notes/findings-table.md` in Speciale2026. Stage 6 groups the release's other outputs, which the findings table files under stages 2 and 4. Hashes made before the move to SDK 10 (12 October 2026) do not compare with later ones.
+Ids are the rows of `notes/findings-table.md` in Speciale2026. Stage 5 groups the release's other outputs, which the findings table files under stages 2 and 4. Stage 6 holds the images, which the findings table numbers 5. Hashes made before the move to SDK 10 (12 October 2026) do not compare with later ones.
 
 Each id links to the finding in the category view. 🔴 marks a finding that is still open.
 
@@ -48,17 +48,7 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 
 **Findings:** [W48](by-category.md#w48) · [W30](by-category.md#w30) 🔴
 
-## Stage 5: Container
-
-*The OCI images*
-
-| Before the fixes | After the fixes |
-| --- | --- |
-| • WebAPI and job worker: times only, 123 of 1408 file entries<br>• MCP images: caches written during the build<br>• Image tags: different in every build | • The same image manifest in two builds<br>• Compare the manifest, not the tag |
-
-**Findings:** [W56](by-category.md#w56) · [W60](by-category.md#w60) · [W62](by-category.md#w62) · [W65](by-category.md#w65) · [W67](by-category.md#w67) · [W68](by-category.md#w68)
-
-## Stage 6: Other outputs
+## Stage 5: The release
 
 *Migrator, SQL script, checksum file, Windows release, signing*
 
@@ -67,6 +57,16 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 | • Migrator: 93 of 827,679,078 bytes<br>• Checksum file: line order follows the locale<br>• Signing: 177 files and both zips differ | • Migrator, SQL script and Windows release (2132 files) identical<br>• Checksum file fixed with LC_ALL=C<br>• Signed files identical after pasting the release's signatures |
 
 **Findings:** [W52](by-category.md#w52) · [W53](by-category.md#w53) · [W54](by-category.md#w54) · [W61](by-category.md#w61) · [W55](by-category.md#w55) · [W63](by-category.md#w63) · [W66](by-category.md#w66) · [W59](by-category.md#w59) · [W64](by-category.md#w64) · [W69](by-category.md#w69)
+
+## Stage 6: Container
+
+*The OCI images, an extra*
+
+| Before the fixes | After the fixes |
+| --- | --- |
+| • WebAPI and job worker: times only, 123 of 1408 file entries<br>• MCP images: caches written during the build<br>• Image tags: different in every build | • The same image manifest in two builds<br>• Compare the manifest, not the tag |
+
+**Findings:** [W56](by-category.md#w56) · [W60](by-category.md#w60) · [W62](by-category.md#w62) · [W65](by-category.md#w65) · [W67](by-category.md#w67) · [W68](by-category.md#w68)
 
 ## Across machines
 
