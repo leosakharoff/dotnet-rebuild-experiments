@@ -3,8 +3,8 @@
     python3 -I scripts/graph.py edges LOCKS_DIR results/edges.tsv
     python3 -I scripts/graph.py join results/edges.tsv EXPERIMENT_2_DIR results/graph.json
 
-edges (step 1, needs Phoenix): reads the three programs' packages.lock.json from LOCKS_DIR (WebAPI.json,
-BackgroundJobExecutor.json, DbMigrator.json, from Phoenix 79cb67a7) and writes one row per edge: source,
+edges (step 1, needs WS.PEMS): reads the three programs' packages.lock.json from LOCKS_DIR (WebAPI.json,
+BackgroundJobExecutor.json, DbMigrator.json, from WS.PEMS 79cb67a7) and writes one row per edge: source,
 target and the programs whose lock file gives it. The sections net10.0 and net10.0/linux-x64 are read
 together; a dependency resolves to the version locked in the same program; names are matched without regard
 to case (FluentValidation names 'Microsoft.Extensions.Dependencyinjection.Abstractions'). A node is a package

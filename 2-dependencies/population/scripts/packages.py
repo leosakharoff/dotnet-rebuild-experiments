@@ -22,7 +22,7 @@ category per package (see CATEGORIES).
 Usage: python3 -I packages.py REPO NUGET_CACHE OUTDIR RID PROGRAM... [--tool NAME]...
    or: python3 -I packages.py mark PACKAGES_CSV 2A_POPULATION_TSV 2B_POPULATION_TSV OUT_TSV
 
-The first form needs Phoenix's repository and a locked restore; it ran once, on 13 October 2026.
+The first form needs WS.PEMS's repository and a locked restore; it ran once, on 13 October 2026.
 The second form takes that run's packages.csv (then named census.csv) and the two parts'
 population.tsv, and writes results/packages.tsv: the same rows with in_2a (yes, or the
 status that stopped the package in 2a's population.py) and in_2b (yes or no) added.

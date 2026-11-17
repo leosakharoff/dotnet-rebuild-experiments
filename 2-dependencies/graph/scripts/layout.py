@@ -1,4 +1,4 @@
-"""Place the nodes of the dependency graph: ring = steps from Phoenix's projects, sector = source repository.
+"""Place the nodes of the dependency graph: ring = steps from WS.PEMS's projects, sector = source repository.
 
     python3 -I scripts/layout.py results/graph.json results/layout.json
 
@@ -40,7 +40,7 @@ for e in g['edges']:
     out[e['source']].add(e['target'])
     inn[e['target']].add(e['source'])
 
-# Steps from Phoenix's projects
+# Steps from WS.PEMS's projects
 step = {i: 0 for i in own}
 queue = collections.deque(sorted(own))
 while queue:

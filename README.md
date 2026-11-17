@@ -2,18 +2,20 @@
 
 These are the experiments for our MSc thesis at the IT University of Copenhagen:
 Leo Sakharoff and Peter Juul Møller, 2026. We study reproducible builds using
-Weel-Sandvig's PEMS platform, Phoenix, and the NuGet packages it ships. We want
+Weel-Sandvig's PEMS platform, WS.PEMS, and the NuGet packages it ships.
+The product is WS.PEMS; its repository is still called WS.Phoenix, so paths
+and directory names here keep the old name. We want
 to know what someone outside the development team needs to rebuild a release
 byte for byte, and how much of that information the release provides.
 
 ## Experiments
 
-[Experiment 1: Phoenix](1-phoenix/) tests the application's own build. After
+[Experiment 1: WS.PEMS](1-phoenix/) tests the application's own build. After
 pinning its build inputs, we obtained matching output across three machines:
 1002 files and five container images. Its README gives the stage plan, how to
 run each stage, and the results stage by stage.
 
-Experiment 2 examines Phoenix's 341 NuGet package versions in two parts:
+Experiment 2 examines WS.PEMS's 341 NuGet package versions in two parts:
 
 - [2a: Build determinism](2-dependencies/2a-determinism/) compares two local
   builds of the same source commit under a fixed toolchain, varying one
@@ -35,7 +37,7 @@ Both parts start from the same [population](2-dependencies/population/): the 341
 shipped packages and what each declares about its origin (repository, commit,
 compiler, symbols, signatures). Each part states its selection criteria in its
 README. The [dependency graph](https://leosakharoff.github.io/phoenix-dependencies/)
-draws the 341 packages with the edges from Phoenix's lock files, each node
+draws the 341 packages with the edges from WS.PEMS's lock files, each node
 coloured by its result in both parts: a page with six views, published on
 GitHub Pages, and a figure. Its scripts and data are in
 [`2-dependencies/graph/`](2-dependencies/graph/). [Shared tools](2-dependencies/tools/)
@@ -52,4 +54,4 @@ sources and which scripts were checked against the recorded results. Some
 adapted scripts still need to be rerun. Each README states their status.
 
 Weel-Sandvig's source code and build output are not included here. The changes
-to Phoenix remain in its own repository.
+to WS.PEMS remain in its own repository.

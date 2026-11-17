@@ -4,7 +4,7 @@ Usage: python3 -I repo-build.py RECIPE WORKDIR
 
 RECIPE is a recipe.toml made by derive-repo.py: repository, commit, inner repository (for
 dotnet/dotnet), the build command for Linux and for Windows, and its [[products]], each a
-package with its version and the DLL that ships in Phoenix. WORKDIR must not exist.
+package with its version and the DLL that ships in WS.PEMS. WORKDIR must not exist.
 
 The script clones as the release build's rebuild.py does (a full clone, the commit checked out detached, the
 recipe's git config) with the submodules, removes the internal feeds from the checked-in

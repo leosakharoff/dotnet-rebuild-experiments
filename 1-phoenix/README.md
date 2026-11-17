@@ -1,4 +1,4 @@
-# Experiment 1: Rebuilding Phoenix
+# Experiment 1: Rebuilding WS.PEMS
 
 A build is reproducible when the same source always gives the same bytes.
 Then anyone can check that a binary was made from the source it names. This
@@ -9,7 +9,7 @@ and can each cause be removed?
 
 WS.Phoenix is Weel-Sandvig's product: four .NET assemblies, about 300 NuGet
 dependencies, a Next.js frontend, release zips and container images. Before
-Phoenix, we built one empty C# class to test the set-up and the method:
+WS.PEMS, we built one empty C# class to test the set-up and the method:
 build twice, hash every file, compare, find the cause, fix, and build again.
 
 ## Method
@@ -242,7 +242,7 @@ Stages 1 and 2 were deterministic from the start and differed only when the
 environment changed: the build path and the locale. Stages 3, 4 and 6
 differed even between two builds in the same environment: a random build
 ID, orders that followed build timing, and timestamps in archives and
-images. Most causes belong to the tools, not to Phoenix: the compiler's
+images. Most causes belong to the tools, not to WS.PEMS: the compiler's
 culture-dependent order, the SDK 10 timestamps, and webpack's
 timing-dependent order. Signed files can never be rebuilt byte for byte,
 because each signature carries its own timestamp; a rebuild is checked by
@@ -373,7 +373,7 @@ Each stage that reprotest runs is a folder with `build.sh`, what each build
 does, and `artifacts.txt`, what reprotest keeps so diffoscope can explain a
 difference. The verdict is `hashes.sha256`, which `build.sh` writes: one
 hash for every file the stage produces. Scripts that build a release call
-Phoenix's own scripts from the measured commit, such as
+WS.PEMS's own scripts from the measured commit, such as
 `pack-release-zip.sh`. Those are not copied here.
 
 The runs' data are in `~/Dev/speciale-2026/data/`, which is private: they
@@ -398,7 +398,7 @@ paths, and the originals are still there.
 | `labcheck.py` | Removed on 16 November 2026: a lab made new and empty by `git archive` is the commit's files and nothing else. It stays in Speciale2026's `experiments/` |
 | `pdbdump/` | `1-build/pdbdump/` |
 | `pe-diff-regions.py`, `md-strings.py` | Removed on 11 November 2026; `2-dependencies/tools/dllreport.cs` shows which parts of two DLLs differ |
-| `phoenix-fe/compare-chunks.py` | Removed on 11 November 2026; it reads the chunk logs of a webpack plugin that is in no Phoenix commit (W51) |
+| `phoenix-fe/compare-chunks.py` | Removed on 11 November 2026; it reads the chunk logs of a webpack plugin that is in no WS.PEMS commit (W51) |
 | `phoenix-rt/image-probe.sh`, `oci-diff.py` | `6-images/build-twice.sh`, renamed on 16 November 2026; `6-images/oci-diff.py` |
 | `phoenix-rt/oci-file.py` | `6-images/oci-file.py` |
 | `phoenix-rt/attest-*.py`, `faketime-tests.sh` | Not here: one-off checks, done. They stay in Speciale2026 beside the notes of 14 and 21 October that used them |

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# run-stage.sh: run reprotest once on the Phoenix lab, one stage and one
+# run-stage.sh: run reprotest once on the WS.PEMS lab, one stage and one
 # axis. Named rt.sh until 16 November 2026.
 #
 #   run-stage.sh STAGE AXIS [LABEL]

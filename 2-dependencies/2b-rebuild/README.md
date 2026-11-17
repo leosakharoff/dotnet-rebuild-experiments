@@ -20,7 +20,7 @@ frame, is the result; the A-to-A2 control only checks the build.
 
 ### Population
 
-We start with the 341 packages shipped by Phoenix
+We start with the 341 packages shipped by WS.PEMS
 (`../population/results/shipped-packages.txt`), classified in the population
 (`../population/README.md`).
 
@@ -36,7 +36,7 @@ no managed code. Another 105 of the remaining 303 fail the filter:
 - 2 have a PDB without a compiler record.
 
 This leaves **198 packages**: 59 third-party and 139 Microsoft packages.
-`population.tsv` records the package, version, DLL shipped in Phoenix, owner and
+`population.tsv` records the package, version, DLL shipped in WS.PEMS, owner and
 class from the population.
 
 This differs from the 224 packages in part 2a
@@ -101,10 +101,10 @@ deleted between builds.
 
 ### Comparison and matching
 
-The comparison uses the DLL shipped in Phoenix, extracted both from our rebuilt
+The comparison uses the DLL shipped in WS.PEMS, extracted both from our rebuilt
 package and from the package on nuget.org. This is the file `population.tsv`
 names for the package. It narrows part 2a's level 3, the assemblies, from all
-DLLs to the single DLL loaded by Phoenix.
+DLLs to the single DLL loaded by WS.PEMS.
 
 `../tools/dllreport.cs` reads both DLLs and hashes each section, metadata stream
 and resource separately. `scripts/level.py` then decides how well the pair
@@ -444,7 +444,7 @@ working repository's "best of all versions" from 28 October.
 ```
 2b-rebuild/
   README.md
-  population.tsv              the 198 packages, owner, class and the DLL Phoenix ships from each
+  population.tsv              the 198 packages, owner, class and the DLL WS.PEMS ships from each
   figures/
     pipeline-2b.drawio        the method as a pipeline; pipeline-2b.drawio.png is its export
     match.pdf, .png           the matches per group, release and publisher's build, from results/categories.tsv

@@ -1,4 +1,4 @@
-# Population: the packages Phoenix ships, and what each declares
+# Population: the packages WS.PEMS ships, and what each declares
 
 Both parts of experiment 2 measure packages from this list. This folder holds
 the list, one row of facts per package, and the script that read them. Every
@@ -7,7 +7,7 @@ judged.
 
 ## The 341 packages
 
-The self-contained `linux-x64` publish of Phoenix's three programs (WebAPI,
+The self-contained `linux-x64` publish of WS.PEMS's three programs (WebAPI,
 BackgroundJobExecutor, DbMigrator) ships 341 package versions:
 
 - 337 from the programs' lock files (83 that a project names, 254 transitive)
@@ -45,7 +45,7 @@ Authenticode and strong-name signatures.
 | C2c | PDB in the package, no compiler record | 2 |
 | R | commit and compiler record both declared | 53 |
 
-Read on `mac`, 13 October 2026, from Phoenix at `79cb67a7` with SDK 10.0.401;
+Read on `mac`, 13 October 2026, from WS.PEMS at `79cb67a7` with SDK 10.0.401;
 its `csc.dll` hash is in the run's `environment.txt`.
 
 ## What each part takes
@@ -69,11 +69,11 @@ part measures. Each part's README explains why.
 
 ## Running
 
-Step 1 needs Phoenix's repository and a locked restore, so it ran once, on `mac`
+Step 1 needs WS.PEMS's repository and a locked restore, so it ran once, on `mac`
 on 13 October 2026; its output is in the working repository (below). Step 2 runs
 here and makes `results/packages.tsv` from that output.
 
-1. Read every shipped package (once, with Phoenix at hand):
+1. Read every shipped package (once, with WS.PEMS at hand):
 
 ```bash
 python3 -I scripts/packages.py PHOENIX_REPO NUGET_CACHE OUT linux-x64 WebAPI BackgroundJobExecutor DbMigrator --tool dotnet-ef
@@ -98,7 +98,7 @@ population/
   scripts/
     packages.py               reads every shipped package (step 1); `mark` writes packages.tsv (step 2)
   results/
-    shipped-packages.txt      the 341 packages Phoenix ships, one per line; 2a's only input
+    shipped-packages.txt      the 341 packages WS.PEMS ships, one per line; 2a's only input
     packages.tsv              one row per package: what it declares, its class, and in_2a / in_2b
 ```
 
@@ -112,7 +112,7 @@ population/
   project. The counts above are by version.
 - `scripts/packages.py`: the script as run on 13 October, then called
   `census.py`; its name and its output names changed, and the `mark` command was
-  added on 3 November. Step 1 needs Phoenix's repository and a restore, so it
+  added on 3 November. Step 1 needs WS.PEMS's repository and a restore, so it
   cannot be repeated from this repository; its output is in the working
   repository.
 - The run is in the working repository

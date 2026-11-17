@@ -8,7 +8,7 @@ Ids are the rows of `notes/findings-table.md` in Speciale2026. Stage 5 groups th
 
 | Fix type | Meaning |
 | --- | --- |
-| fix build | Phoenix's build was changed |
+| fix build | WS.PEMS's build was changed |
 | fix rebuild | The rebuild or the measurement must do something |
 | upstream | Only the tool's maintainers can fix it; we pin or work around it |
 | none needed | Measured, and it did not differ or does not ship |
@@ -32,7 +32,7 @@ Fix types: fix build 8, none needed 2, open 3
 | <a name="w4"></a>**W4** | 1 | The DLL holds the PDB's path. A path 2 characters longer moves every address after it. | csc | fix build | 🟢 closed |
 | <a name="w5"></a>**W5** | 1 | Four generated regex types are named by a hash of the source file's path. | csc, regex generator | fix build | 🟢 closed |
 | <a name="w6"></a>**W6** | 1 | `ContinuousIntegrationBuild` maps the source root only when Source Link finds `.git`. In an export it mapped only the NuGet cache. Fixed with an explicit `PathMap`. | SDK Source Link targets | fix build | 🟢 closed |
-| <a name="w7"></a>**W7** | 1 | The Razor generator writes the absolute `.cshtml` path into generated C#, and `PathMap` does not reach that text. Fixed in Phoenix by deleting two unused pages; open for other projects. | Razor source generator | fix build, open | 🟢 closed |
+| <a name="w7"></a>**W7** | 1 | The Razor generator writes the absolute `.cshtml` path into generated C#, and `PathMap` does not reach that text. Fixed in WS.PEMS by deleting two unused pages; open for other projects. | Razor source generator | fix build, open | 🟢 closed |
 | <a name="w8"></a>**W8** | 1 | `spa.proxy.json` holds the path to `ClientApp/`. Development only, not shipped. | SpaProxy targets | open | 🔴 open |
 | <a name="w9"></a>**W9** | 1 | `staticwebassets.runtime.json` holds paths to `obj/` and the NuGet cache. Development only, not shipped. | SDK | open | 🔴 open |
 | <a name="w17"></a>**W17** | 2 | The two json files of W8 and W9 do not ship. The shipped endpoints file has no paths. | SpaProxy, SDK | none needed | 🟢 closed |
@@ -190,7 +190,7 @@ Fix types: none needed 12
 
 ## Method
 
-Findings about how to measure, not about Phoenix: what reprotest really varies, and what can make a green result wrong.
+Findings about how to measure, not about WS.PEMS: what reprotest really varies, and what can make a green result wrong.
 
 Fix types: fix rebuild 12, none needed 9, open 3, rejected 1
 
@@ -202,7 +202,7 @@ Fix types: fix rebuild 12, none needed 9, open 3, rejected 1
 | <a name="w2"></a>**W2** | M | Deleting `obj/` between builds also deletes the restore's output, so both builds fail. | NuGet | fix rebuild | 🟢 closed |
 | <a name="w10"></a>**W10** | 1 | A green result for time, locale, umask and exec path on stage 1. Withdrawn: the compiler server kept the control build's environment (W27). | – | rejected | 🔴 open |
 | <a name="w11"></a>**W11** | M | Our clean step missed the test project, which then built in only one of the two builds. | our script | fix rebuild | 🟢 closed |
-| <a name="w14"></a>**W14** | M | The shared droplet (1 CPU, 1 GB) could not compile Phoenix in 3 hours. A verifier needs several GB of RAM. | – | open | 🔴 open |
+| <a name="w14"></a>**W14** | M | The shared droplet (1 CPU, 1 GB) could not compile WS.PEMS in 3 hours. A verifier needs several GB of RAM. | – | open | 🔴 open |
 | <a name="w27"></a>**W27** | M | reprotest's second build reuses the compiler server that the first build started, so the varied environment never reaches the compiler. Fix: shut the build servers down before each build. | .NET build servers | fix rebuild | 🟢 closed |
 | <a name="w28"></a>**W28** | M | reprotest also fixes settings it does not vary: one CPU, `TZ=GMT+12`, `LANG=C.UTF-8`, `HOME` in the build folder. | reprotest | none needed | 🟢 closed |
 | <a name="w35"></a>**W35** | M | With MSBuild's node reuse off, no compiler server or worker node survived any of 32 runs. | MSBuild | fix rebuild | 🟢 closed |

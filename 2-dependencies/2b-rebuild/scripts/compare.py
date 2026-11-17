@@ -2,7 +2,7 @@
 
 Usage: python3 -I compare.py SHIPPED REFERENCE.nupkg OTHER.nupkg...
 
-SHIPPED is the path to Phoenix's DLL inside the package, for example
+SHIPPED is the path to WS.PEMS's DLL inside the package, for example
 lib/net9.0/Serilog.dll. List each entry's SHA-256 for each package; mark it
 "same" when the bytes match across all packages. Packaging files that
 are random or added by nuget.org (the .psmdcp core-properties file, its

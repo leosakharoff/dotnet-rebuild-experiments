@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Make the lab: an exact export of one Phoenix commit, outside git.
+# Make the lab: an exact export of one WS.PEMS commit, outside git.
 #
 #   make-lab.sh COMMIT
 #
@@ -19,7 +19,7 @@
 #
 # You can set:
 #
-#   REPO  the Phoenix repository (default ~/Dev/Weel-Sandvig/WS.Phoenix-repro)
+#   REPO  the WS.PEMS repository (default ~/Dev/Weel-Sandvig/WS.Phoenix-repro)
 #   LAB   the lab (default /private/tmp/rb1-phoenix)
 
 # Stop at the first command that fails, also inside a pipe (pipefail), and

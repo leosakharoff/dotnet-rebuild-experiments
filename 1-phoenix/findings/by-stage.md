@@ -74,6 +74,6 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 
 | Measured | Result |
 | --- | --- |
-| • Two compilers both called 9.0.120 gave different DLLs<br>• GitHub against our laptop: our assemblies differ by the runtime patch the compiler ran on | • Identical with the global.json SDK installed alone<br>• macOS on arm64 against GitHub's Linux: nothing differs<br>• The shared droplet was too small to compile Phoenix |
+| • Two compilers both called 9.0.120 gave different DLLs<br>• GitHub against our laptop: our assemblies differ by the runtime patch the compiler ran on | • Identical with the global.json SDK installed alone<br>• macOS on arm64 against GitHub's Linux: nothing differs<br>• The shared droplet was too small to compile WS.PEMS |
 
 **Findings:** [E2](by-category.md#e2) · [E3](by-category.md#e3) · [W58](by-category.md#w58) · [W71](by-category.md#w71) · [W14](by-category.md#w14) 🔴

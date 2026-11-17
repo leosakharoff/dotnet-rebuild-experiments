@@ -1,4 +1,4 @@
-"""Draw the dependency graph of Phoenix's shipped packages, coloured by the outcome of part 2a and part 2b.
+"""Draw the dependency graph of WS.PEMS's shipped packages, coloured by the outcome of part 2a and part 2b.
 
     python3 -I scripts/figures.py results/graph.json results/layout.json figures/dependency-graph
 

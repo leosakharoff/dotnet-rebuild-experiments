@@ -1,8 +1,8 @@
-# The dependency graph of Phoenix's packages
+# The dependency graph of WS.PEMS's packages
 
 The three steps of experiment 2 treat the 341 packages as a list. This folder
 draws them as a graph: which package brings in which, how far each one is from
-Phoenix's own projects, and where each one comes from. Each node is coloured
+WS.PEMS's own projects, and where each one comes from. Each node is coloured
 by its result in part 2a and in part 2b. The graph is a static figure for the
 thesis and a page where each node can be opened.
 
@@ -12,16 +12,16 @@ thesis and a page where each node can be opened.
 part 2b. One colour means the same kind of result in both: dark blue, reproduced
 with the default inputs; mid blue, reproduced with extra inputs, which only 2a's
 configuration has; orange, built and compared, but different; grey, did not
-build or left no package to compare; hollow, not attempted in that part. The five black squares are Phoenix's programs and projects.
+build or left no package to compare; hollow, not attempted in that part. The five black squares are WS.PEMS's programs and projects.
 
 ## The graph
 
 The nodes are the 341 package versions of `../population/` and the five
-Phoenix projects they hang from: the three programs WebAPI,
+WS.PEMS projects they hang from: the three programs WebAPI,
 BackgroundJobExecutor and DbMigrator, and the two class libraries
 ApplicationCore and Infrastructure that the programs reference.
 
-The edges come from the three programs' `packages.lock.json` at Phoenix
+The edges come from the three programs' `packages.lock.json` at WS.PEMS
 `79cb67a7`, sections `net10.0` and `net10.0/linux-x64`. An edge runs from a
 project to each package it names, and from a package to each dependency the
 lock file resolved for it. Names are matched without regard to case. Each
@@ -33,7 +33,7 @@ tool whose SQL script ships.
 
 Each package sits on a ring and in a sector:
 
-- The ring is the number of steps from the nearest Phoenix project. Ring 1
+- The ring is the number of steps from the nearest WS.PEMS project. Ring 1
   holds 87 package versions: 83 that a project names, the 3 packs and
   dotnet-ef. Ring 2 holds 118, ring 3 holds 111, and the outer ring holds the
   25 at four or more steps.
@@ -58,7 +58,7 @@ is drawn hollow.
 `dependency-graph.html` is the graph with the same positions. It has a title
 line with two view words, 2a and 2b, a colour key that also filters, a search
 field, a menu of views, the graph, and one line on the sources. A click on a
-node or a sector opens a small box: what the package is, why Phoenix has it or
+node or a sector opens a small box: what the package is, why WS.PEMS has it or
 what brings it in, its 2a and 2b results with one line of reason each, and what
 uses it and what it uses. The lists hold what lies one step away; below each,
 folded, is what lies further up or down. The graph draws one step dark and the
@@ -96,7 +96,7 @@ The box's texts come from three places:
 
 - "what" is the first sentence of the package's own `.nuspec` summary or
   description, read from nuget.org on 4 November 2026 (`descriptions.json`).
-- "why" is the sentence from Phoenix's `dependencies.yml` at `79cb67a7`, the
+- "why" is the sentence from WS.PEMS's `dependencies.yml` at `79cb67a7`, the
   file in which the developers record why each direct package is there. It
   exists for 84 packages and is shown on ring 1, because the file names
   packages without a version. For a package further out, the box names the
@@ -118,13 +118,13 @@ nothing from the network.
 ## Running
 
 Run from `2-dependencies/graph/` with Python 3.11 or later. Step 1 needs
-Phoenix's repository, so it ran once; its output, `results/edges.tsv`, is
+WS.PEMS's repository, so it ran once; its output, `results/edges.tsv`, is
 here. Step 4 needs network access to nuget.org, and PyYAML for the optional
 `dependencies.yml`. Steps 6 and 7 need matplotlib; step 7 also needs
 fontTools (`pyftsubset`).
 
 1. The edges, from the three programs' lock files at `79cb67a7` (once, with
-   Phoenix at hand):
+   WS.PEMS at hand):
 
 ```bash
 for p in WebAPI BackgroundJobExecutor DbMigrator; do git -C PHOENIX_REPO show 79cb67a7:src/$p/packages.lock.json > LOCKS/$p.json; done
@@ -213,7 +213,7 @@ packages that bring it in.
 
 ## Caveats
 
-- The edges are what NuGet resolved for Phoenix, not what each package
+- The edges are what NuGet resolved for WS.PEMS, not what each package
   declares. An edge points to the version that the program locks, which can
   be higher than the version the package asks for. A dependency that the
   restore pruned has no edge. WebAPI's restore pruned the Microsoft.Extensions
@@ -261,7 +261,7 @@ graph/
     template.html             the page without data
     fonts.css                 written by fonts.py
   results/
-    edges.tsv                 source, target, programs; the only file that needs Phoenix
+    edges.tsv                 source, target, programs; the only file that needs WS.PEMS
     graph.json                nodes with their facts and results, edges with their programs
     layout.json               x, y, ring and sector per node; the sectors with their label positions
     descriptions.json         what and why per package
@@ -272,7 +272,7 @@ graph/
 ```
 
 - `results/edges.tsv` was written on 4 November 2026 from the lock files at
-  Phoenix `79cb67a7`, read with `git show`. The lock files are Weel-Sandvig's
+  WS.PEMS `79cb67a7`, read with `git show`. The lock files are Weel-Sandvig's
   and are not included here. The edges are the union of the three programs'
   lock files; the `programs` column names the programs whose lock file gives
   each edge.
@@ -284,7 +284,7 @@ graph/
   no creation date.
 - `results/descriptions.json` was written on 4 November 2026 from 341
   `.nuspec` files downloaded from
-  `https://api.nuget.org/v3-flatcontainer/` that day, and from Phoenix's
+  `https://api.nuget.org/v3-flatcontainer/` that day, and from WS.PEMS's
   `dependencies.yml` at `79cb67a7`. The `.nuspec` files and the yml are not
   included. nuget.org serves a published version's `.nuspec` unchanged, so
   `describe.py fetch` gives the same files. A second download on 4 November

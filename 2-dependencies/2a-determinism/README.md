@@ -18,7 +18,7 @@ build with one variation, and the two packages are compared.
 
 ### Population
 
-We start with the 341 packages shipped with Phoenix
+We start with the 341 packages shipped with WS.PEMS
 (`../population/results/shipped-packages.txt`, from its lock files). For each
 package, `scripts/population.py` reads the repository URL and commit from the
 package's `.nuspec` on nuget.org. It identifies the assembly under `lib/`,
@@ -356,7 +356,7 @@ Three differences in the study designs limit a direct comparison:
   completed. Only `failed` verdicts were repeated. Logs from the removed runs
   remain in the working repository as `*.nospace.log`, `*.nospace2.log` and
   `*.nospace3.log`.
-- The 127 measured packages are the subset of Phoenix's dependencies that have a
+- The 127 measured packages are the subset of WS.PEMS's dependencies that have a
   project-level build under one Linux SDK. They are not a sample of NuGet.
 - The proposed causes and fixes are diagnoses, not tested interventions. The
   diagnosis for ClosedXML is the least certain.
@@ -404,7 +404,7 @@ Three differences in the study designs limit a direct comparison:
 - `scripts/summary.py` generates the tables and reproduces `results/summary.md`
   and `results/categories.tsv` from the lab (checked 3 November).
 - `../population/results/shipped-packages.txt` contains the 341 packages shipped
-  with Phoenix and is the experiment's only input.
+  with WS.PEMS and is the experiment's only input.
 - `scripts/population.py` derives `population.tsv`, which contains 341 rows with
   repository, commit, project and status.
 - `figures/pipeline-2a.drawio` is the pipeline in the Method section. Export it

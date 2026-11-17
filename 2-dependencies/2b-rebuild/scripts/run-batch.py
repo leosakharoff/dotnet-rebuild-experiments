@@ -3,7 +3,7 @@
 Usage: python3 -I run-batch.py POPULATION_TSV LAB
 
 POPULATION_TSV has one row per package and version (columns package,
-version, file: the DLL that ships in Phoenix). LAB is a folder outside any
+version, file: the DLL that ships in WS.PEMS). LAB is a folder outside any
 repository. Every package is keyed by name and version together (folders
 <Package>-<version>), so two versions of one package stay apart. The steps:
 

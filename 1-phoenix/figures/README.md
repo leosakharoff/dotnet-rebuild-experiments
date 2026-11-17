@@ -26,7 +26,7 @@ right.
 | 2 | The SDK's `.props` and `.targets` | Microsoft, inside `sdk//` | MSBuild | The build rules: default values for every property, and the targets that do steps 3 to 9 | What each step does. Another SDK version can do a step in another way |
 | 2 | Environment variables and `-p:` flags | The shell, the CI job, or the person who types the command | MSBuild | Each environment variable becomes a property with the same name. A `-p:` flag sets a property and wins over the project files | A variable whose name is a build property changes the build, and no file in the repository shows it |
 | 3 | `packages.lock.json` | NuGet writes it at restore; the developers commit it | NuGet | For one project: every package, direct and transitive, with its exact version and a content hash | In locked mode, restore fails if the graph or a hash is different. Without the file, a version such as `13.0.1` means "13.0.1 or higher", and the graph can change |
-| 3 | `NuGet.config` | The machine's user or administrator; a repository can have one too | NuGet | The package sources (feeds), their credentials and the cache folder | Which server the packages come from. Phoenix has no `NuGet.config`, so each machine's own file decides |
+| 3 | `NuGet.config` | The machine's user or administrator; a repository can have one too | NuGet | The package sources (feeds), their credentials and the cache folder | Which server the packages come from. WS.PEMS has no `NuGet.config`, so each machine's own file decides |
 | 3, 6 | `~/.nuget/packages` | NuGet, when it downloads and unpacks a package | NuGet in step 3; MSBuild in steps 5 to 7 | One folder for each package version, with the package's hash in `.nupkg.metadata` | A package that is already here is not downloaded again. Its files are the ones that the build references and copies |
 | 3 | `nuget.org` | Package authors upload; nuget.org adds its signature | NuGet, for each package that is not in the cache | The published `.nupkg` files | The source of every package that the machine does not have yet |
 | 3, 4 | `obj/project.assets.json` | NuGet, at the end of step 3 | MSBuild, in steps 4 to 7 | The resolved graph: for each package its version, its hash, and its files for each framework and platform | MSBuild takes the reference DLLs and the files to copy from it. The versions in `deps.json` also come from here |
@@ -63,7 +63,7 @@ right.
 | 6 | Two development files hold the absolute path (W8, W9). | No fix is necessary: they are not in the release. |
 | 7 | An empty `package-lock.json` was shipped (W18). The Linux release got Windows DLLs (W23). SDK 10 dated compressed assets with the build time (W50). The frontend export had a random build ID and orders from build timing (W37, W43, W47, W51). | The file deleted (W18). `RuntimeIdentifiers` only on the programs (W23). `CompressionEnabled=false` (W50). Frontend: the build ID from `APP_VERSION`, CSS in `_app.tsx`, sorted webpack entries and modules. (b0a21823, d0a817c9, e6ce3549, 5031c5af, eed6c240, a16f9a91, 61870435) |
 | 8 | `zip -r` stored file times, modes from the umask and disk order (W48, W30). `SHA256SUMS` followed the locale (W63). Images recorded the build time and caches (W56, W60). Each signature has its own timestamp (W59). | `scripts/pack-release-zip.sh` (W48). `LC_ALL=C` (W63). `SOURCE_DATE_EPOCH` and `rewrite-timestamp` (W56, W60). A rebuild is compared after the release's signatures are copied onto it (W59). (5ec085ac, 97038d73, fa60ea97, 3c337593, 66bf8458) |
-| 9 | Phoenix does not pack. Experiment 2 found that older SDKs give `.psmdcp` a random name. | No Phoenix change. |
+| 9 | WS.PEMS does not pack. Experiment 2 found that older SDKs give `.psmdcp` a random name. | No WS.PEMS change. |
 
 ### The options in the release commands
 
@@ -79,7 +79,7 @@ option sets an MSBuild property, as `-p:Name=Value` does.
 | `-r linux-x64` | `RuntimeIdentifier` | The platform: native files, apphost, runtime pack |
 | `--self-contained true` | `SelfContained=true` | The runtime pack is copied into the output (step 7) |
 | `--no-restore` | — | Skips step 3; uses the restore that ran before |
-| `/p:SkipSpaBuild=true` | Phoenix's own | No `npm ci` and `next build`; the frontend job's export is copied in |
+| `/p:SkipSpaBuild=true` | WS.PEMS's own | No `npm ci` and `next build`; the frontend job's export is copied in |
 
 Debug is for working with the debugger: no optimization, so breakpoints and
 variables behave as in the source. Release is what ships, so CI tests it too.

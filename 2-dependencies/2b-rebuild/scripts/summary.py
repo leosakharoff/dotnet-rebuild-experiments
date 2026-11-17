@@ -14,7 +14,7 @@ POPULATION_TSV (default ../population.tsv) gives the owner.
 
 Writes RESULTS/summary.md and RESULTS/categories.tsv (one row per package).
 
-Matches, of the DLL that ships in Phoenix against nuget.org's (level.py):
+Matches, of the DLL that ships in WS.PEMS against nuget.org's (level.py):
   identical                     the same bytes
   identical without signatures  equal once the Authenticode block, the strong-name signature
                                 and the PE checksum are removed

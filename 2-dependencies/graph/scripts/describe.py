@@ -1,4 +1,4 @@
-"""Short texts for the page: what a package is (its own .nuspec) and why Phoenix has it (dependencies.yml).
+"""Short texts for the page: what a package is (its own .nuspec) and why WS.PEMS has it (dependencies.yml).
 
     python3 -I scripts/describe.py fetch results/graph.json NUSPEC_DIR
     python3 -I scripts/describe.py results/graph.json NUSPEC_DIR results/descriptions.json [DEPENDENCIES_YML]
@@ -6,7 +6,7 @@
 fetch: downloads the .nuspec of every package from nuget.org's flat container,
 https://api.nuget.org/v3-flatcontainer/<id>/<version>/<id>.nuspec (lower case), into NUSPEC_DIR.
 Then: what = the first sentence of the <summary>, else of the <description>, at most about 160 characters;
-why = the sentence in Phoenix's dependencies.yml (WS.Phoenix 79cb67a7) for a package a project names. The
+why = the sentence in WS.PEMS's dependencies.yml (WS.Phoenix 79cb67a7) for a package a project names. The
 page shows "why" on ring 1 only, because dependencies.yml names packages without a version. Without the yml,
 there is no "why". The "why" sentences are Weel-Sandvig's text.
 """
