@@ -1,4 +1,4 @@
-<title>Phoenix Dependencies</title>
+<title>WS.PEMS Dependencies</title>
 <meta name="robots" content="noindex">
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
@@ -180,7 +180,7 @@ svg.map text.seclabel { fill: #4a4a4a; }
 
 <div class="wrap">
   <div class="top">
-    <h1>Phoenix dependencies</h1>
+    <h1>WS.PEMS dependencies</h1>
     <div class="views" role="group" aria-label="Result">
       <button type="button" id="v2a" data-view="2a" aria-pressed="false">2a build determinism</button>
       <button type="button" id="v2b" data-view="2b" aria-pressed="true">2b rebuild against nuget.org</button>
@@ -193,10 +193,10 @@ svg.map text.seclabel { fill: #4a4a4a; }
   </div>
   <ul class="key" id="key"></ul>
   <div class="stage">
-    <div class="graph" id="graph"><figure class="panel"><figcaption class="ptitle" hidden></figcaption><svg class="map" viewBox="-930 -550 1860 1100" role="img" aria-label="Dependency graph of the 341 package versions Phoenix ships"></svg></figure></div>
+    <div class="graph" id="graph"><figure class="panel"><figcaption class="ptitle" hidden></figcaption><svg class="map" viewBox="-930 -550 1860 1100" role="img" aria-label="Dependency graph of the 341 package versions WS.PEMS ships"></svg></figure></div>
     <div class="box" id="box" hidden></div>
   </div>
-  <p class="foot">The 341 package versions shipped with Phoenix 79cb67a7 (linux-x64), with edges from the lock files. Rings give the distance from Phoenix's projects, sectors the declared source repository. Descriptions come from each package's .nuspec and from Phoenix's dependencies.yml, the reasons from the result files of parts 2a and 2b.</p>
+  <p class="foot">The 341 package versions shipped with WS.PEMS 79cb67a7 (linux-x64), with edges from the lock files. Rings give the distance from WS.PEMS's projects, sectors the declared source repository. Descriptions come from each package's .nuspec and from WS.PEMS's dependencies.yml, the reasons from the result files of parts 2a and 2b.</p>
 </div>
 <div class="tip" id="tip" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Views" inert>
@@ -223,7 +223,7 @@ const VIEWS = {
     ['no recipe', 'nobuild', null],
     ['not in 2b', 'notin', 'Not attempted', "Left out before 2b, which needs a commit and the compiler's record in a PDB: the release lacks one of them, or the package ships no managed code."] ] },
 };
-const OWN = "Phoenix's three programs and two class libraries, which the packages hang from. No result of 2a or 2b.";
+const OWN = "WS.PEMS's three programs and two class libraries, which the packages hang from. No result of 2a or 2b.";
 const say = k => VIEWS[k.slice(0, 2)].classes.find(c => c[0] === k.slice(3))[3]; // a part's explanation, e.g. say('2b not in 2b')
 let filter = new Set(); // classes of the current colouring to show; empty shows all
 let ringFilter = new Set(); // rings to show; empty shows all
@@ -244,15 +244,15 @@ const reachIn = (id, adj) => { const s = new Set(), st = [id]; while (st.length)
 const downOf = id => { const s = new Set(); for (const p of PROGRAMS) for (const x of reachIn(id, outsBy[p])) s.add(x); return s; };
 const upOf = id => reachIn(id, ins);
 const SECTORS = new Map(DATA.sectors.map(s => [s.key, s]));
-// The outermost ring holds everything from its step out. Phoenix's projects pass every ring filter.
+// The outermost ring holds everything from its step out. WS.PEMS's projects pass every ring filter.
 const LAST = DATA.rings.length - 1, ringOf = n => Math.min(n.step, LAST);
 let S; // the current colouring: of(n) gives a node's class, key the classes in order, color a class's colour; size and caption for some views
-// Phoenix's projects are no result: every filter keeps them, so the packages always show what they hang from.
+// WS.PEMS's projects are no result: every filter keeps them, so the packages always show what they hang from.
 const passes = n => n.kind !== 'package' || ((!filter.size || filter.has(S.of(n))) && (!ringFilter.size || ringFilter.has(ringOf(n))));
 const radius = n => S.size && n.kind === 'package' ? S.size(n) : n.r;
 
 const kind = (v, n) => n.kind !== 'package' ? 'own' : (VIEWS[v].classes.find(c => c[0] === n[VIEWS[v].field]) || [0, 'notin'])[1];
-const word = (v, n) => { const k = kind(v, n); return k === 'own' ? 'Phoenix project' : VIEWS[v].classes.find(c => c[1] === k && c[2])[2]; };
+const word = (v, n) => { const k = kind(v, n); return k === 'own' ? 'WS.PEMS project' : VIEWS[v].classes.find(c => c[1] === k && c[2])[2]; };
 const dot = k => k === 'own' ? '<span class="dot own"></span>' : k === 'notin' ? '<span class="dot notin"></span>' : `<span class="dot" style="background:var(--c-${k})"></span>`;
 const dotIn = (sc, k) => k === 'own' || k === 'notin' ? dot(k) : `<span class="dot" style="background:${sc.color(k)}"></span>`;
 const sdot = k => dotIn(S, k); // in the current colouring
@@ -452,7 +452,7 @@ function paint() {
   const chip = (k, t) => `<li><button type="button" data-k="${k}" aria-pressed="${filter.has(k)}">${sdot(k)}${esc(t)} (${counts[k] || 0})</button></li>`;
   const key = document.getElementById('key');
   key.innerHTML = (two ? '' : S.key.filter(([k]) => counts[k]).map(([k, t]) => chip(k, t)).join('') // two panels: each has its own key
-      + `<li class="fixed" data-k="own">${dot('own')}Phoenix projects (${counts.own})</li>`) // a legend entry, not a filter
+      + `<li class="fixed" data-k="own">${dot('own')}WS.PEMS projects (${counts.own})</li>`) // a legend entry, not a filter
     + (filter.size || ringFilter.size ? '<li><button type="button" class="all">Show all</button></li>' : '');
   for (const p of panels) for (const [k, s] of p.ringEls) { const on = ringFilter.has(k); s.key.classList.toggle('on', on); s.circle.classList.toggle('on', on); s.key.setAttribute('aria-pressed', String(on)); }
   key.classList.toggle('filtering', filter.size > 0);
@@ -549,7 +549,7 @@ function whyLine(n) {
   const names = c.map(d => brk(d.name)), shown = names.length > 3 ? `${names.slice(0, 3).join(', ')} and ${names.length - 3} more` : names.join(', ');
   return `<div class="row why"><span class="label">Brought in by</span> ${shown}</div>`;
 }
-const ringLine = n => n.step === 1 ? 'ring 1: a direct dependency of Phoenix' : `ring ${n.step < LAST ? n.step : `≥${LAST}`}: a transitive dependency of Phoenix, ${n.step} steps out`;
+const ringLine = n => n.step === 1 ? 'ring 1: a direct dependency of WS.PEMS' : `ring ${n.step < LAST ? n.step : `≥${LAST}`}: a transitive dependency of WS.PEMS, ${n.step} steps out`;
 function renderBox() {
   const box = document.getElementById('box'), n = pinned && byId.get(pinned);
   if (n) {
@@ -600,12 +600,12 @@ function showTip(html, ev) {
   tip.style.left = Math.max(6, x) + 'px'; tip.style.top = y + 'px';
 }
 const nodeTip = n => `<div class="name">${esc(pretty(n))}</div>${n.kind === 'package' ? `${n.what ? `<div class="what">${esc(n.what)}</div>` : ''}<div class="meta">${esc(repoName(n))}</div>
-  <div>${dot(kind('2a', n))} 2a: ${esc(word('2a', n))}</div><div>${dot(kind('2b', n))} 2b: ${esc(word('2b', n))}</div>` : '<div class="meta">Phoenix project</div>'}`;
+  <div>${dot(kind('2a', n))} 2a: ${esc(word('2a', n))}</div><div>${dot(kind('2b', n))} 2b: ${esc(word('2b', n))}</div>` : '<div class="meta">WS.PEMS project</div>'}`;
 const ringTip = k => {
   const n = pkgs.filter(p => ringOf(p) === k).length, last = k === LAST;
-  const what = k === 1 ? "one step from Phoenix's projects: the packages a project names, and the SDK's runtime packs and dotnet-ef"
-    : `${last ? `${k} or more steps` : `${k} steps`} from Phoenix's projects, brought in by the packages further in`;
-  return `<div class="name">Ring ${last ? '≥' : ''}${k}: Phoenix's ${k === 1 ? 'direct' : 'transitive'} dependencies</div><div>${n} package versions ${what}.</div>
+  const what = k === 1 ? "one step from WS.PEMS's projects: the packages a project names, and the SDK's runtime packs and dotnet-ef"
+    : `${last ? `${k} or more steps` : `${k} steps`} from WS.PEMS's projects, brought in by the packages further in`;
+  return `<div class="name">Ring ${last ? '≥' : ''}${k}: WS.PEMS's ${k === 1 ? 'direct' : 'transitive'} dependencies</div><div>${n} package versions ${what}.</div>
     <div class="meta">${ringFilter.has(k) ? 'Click to take this ring out of the filter.' : 'Click to filter by this ring.'}</div>`;
 };
 const secTip = k => { const s = SECTORS.get(k); return `<div class="name">${esc(s.label)}</div><div class="meta">${s.count} package versions</div>`; };

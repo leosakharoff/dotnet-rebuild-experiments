@@ -52,7 +52,7 @@
 
 ### Against part 2a's levels
 
-Of the 86 packages compared, 86 have a package listing. Level 1 (package file): 0; nuget.org's package carries its repository signature (`.signature.p7s`) in 86 of them, which no rebuild can produce. Level 2 (package entries without NuGet's packaging files and that signature): 9. Level 3 (assemblies: every DLL under lib/, ref/, runtimes/): 11. The DLL that ships in Phoenix, identical: 14.
+Of the 86 packages compared, 86 have a package listing. Level 1 (package file): 0; nuget.org's package carries its repository signature (`.signature.p7s`) in 86 of them, which no rebuild can produce. Level 2 (package entries without NuGet's packaging files and that signature): 9. Level 3 (assemblies: every DLL under lib/, ref/, runtimes/): 11. The DLL that ships in WS.PEMS, identical: 14.
 
 ### A against A2 (our own repeat)
 

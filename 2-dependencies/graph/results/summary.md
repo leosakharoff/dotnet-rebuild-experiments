@@ -2,7 +2,7 @@
 
 ## The graph
 
-- 341 package versions and 5 Phoenix projects; 896 edges, the union over the three programs; 9 of them join the runtime and host packs to the programs; 1 package without edges (dotnet-ef)
+- 341 package versions and 5 WS.PEMS projects; 896 edges, the union over the three programs; 9 of them join the runtime and host packs to the programs; 1 package without edges (dotnet-ef)
 - ring 1: 87 (83 named by a project, 3 packs, 1 tool); ring 2: 118; ring 3: 111; 4 or more: 25
 - 21 sectors; Other repositories: 68; no repository: 11
 - 20 nodes have edges to two versions of one package (the programs lock some packages at different versions)

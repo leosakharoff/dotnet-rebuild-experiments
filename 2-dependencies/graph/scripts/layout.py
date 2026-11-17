@@ -180,7 +180,7 @@ for side in (1, -1):
 
 result = {
     'nodes': [{'id': i, 'x': round(pos[i][0], 1), 'y': round(pos[i][1], 1), 'r': OWN_R if i in own else NODE_R,
-               'step': step[i], 'sector': 'Phoenix' if i in own else sector[i], 'repo': repo.get(i, 'Phoenix')} for i in nodes],
+               'step': step[i], 'sector': 'WS.PEMS' if i in own else sector[i], 'repo': repo.get(i, 'WS.PEMS')} for i in nodes],
     'sectors': [{**s, 'start': round(s['start'], 4), 'end': round(s['end'], 4), 'mid': round(s['mid'], 4)} for s in sectors],
     'rings': RING, 'bracket': BRACKET,
 }

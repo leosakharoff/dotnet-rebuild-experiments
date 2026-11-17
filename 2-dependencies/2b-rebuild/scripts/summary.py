@@ -166,7 +166,7 @@ def main():
               f'{levels["whole"]}; nuget.org\'s package carries its repository signature (`.signature.p7s`) in '
               f'{levels["signed"]} of them, which no rebuild can produce. Level 2 (package entries without NuGet\'s packaging files '
               f'and that signature): {levels["content"]}. Level 3 (assemblies: every DLL under lib/, ref/, runtimes/): {levels["dlls"]}. '
-              f'The DLL that ships in Phoenix, identical: {sum(out[k] == "identical" for k in compared)}.', '']
+              f'The DLL that ships in WS.PEMS, identical: {sum(out[k] == "identical" for k in compared)}.', '']
 
     a2 = collections.Counter(release[k]['a_eq_a2'] for k in compared)
     lines += ['### A against A2 (our own repeat)', '',

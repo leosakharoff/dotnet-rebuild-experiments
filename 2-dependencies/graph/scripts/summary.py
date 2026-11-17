@@ -48,7 +48,7 @@ add = lines.append
 pack_edges = sum(1 for e in g['edges'] if N[e['target']].get('via') == 'sdk')
 add('## The graph')
 add('')
-add(f'- {len(pkgs)} package versions and {len(N) - len(pkgs)} Phoenix projects; {len(g["edges"])} edges, the union over the three programs; '
+add(f'- {len(pkgs)} package versions and {len(N) - len(pkgs)} WS.PEMS projects; {len(g["edges"])} edges, the union over the three programs; '
     f'{pack_edges} of them join the runtime and host packs to the programs; '
     f'{sum(1 for n in pkgs if n.get("via") == "tool" and not inn[n["id"]] and not out_all[n["id"]])} package without edges (dotnet-ef)')
 rc = collections.Counter(min(ring[n['id']], 4) for n in pkgs)

@@ -2,12 +2,12 @@
 
 A build is reproducible when the same source always gives the same bytes.
 Then anyone can check that a binary was made from the source it names. This
-experiment asks whether the WS.Phoenix release can be built so that two
+experiment asks whether the WS.PEMS release can be built so that two
 builds give bit-identical output, also when the build environment changes.
 Which properties of the build environment change the bytes of each stage,
 and can each cause be removed?
 
-WS.Phoenix is Weel-Sandvig's product: four .NET assemblies, about 300 NuGet
+WS.PEMS is Weel-Sandvig's product: four .NET assemblies, about 300 NuGet
 dependencies, a Next.js frontend, release zips and container images. Before
 WS.PEMS, we built one empty C# class to test the set-up and the method:
 build twice, hash every file, compare, find the cause, fix, and build again.

@@ -1,4 +1,4 @@
-# The NuGet packages Phoenix ships: every package-version in its lock files, plus the runtime and host packs
+# The NuGet packages WS.PEMS ships: every package-version in its lock files, plus the runtime and host packs
 # the SDK downloads for linux-x64 and the dotnet tools whose output ships. Read 13 October 2026.
 Ardalis.GuardClauses 5.0.0
 Ardalis.Specification 8.0.0
