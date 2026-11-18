@@ -99,13 +99,13 @@ E2a-04		2a	npm under the time variation	Swashbuckle ReDoc, SwaggerUI	2	Measureme
 E2a-05		2a	Arcade's date-based build number	Build.Framework	1	Cause	Build timestamp	Not a rebuild	
 E2a-06		2a	Hash of the project path in the PDB	Quartz	4	Cause	Build path	Not a rebuild	
 E2a-07		2a	PDB path not mapped	ClosedXML	1	Cause	Build path	Not a rebuild	
-E2b-01		2b	Arcade's development versioning	Roslyn, EF Core, Sqlite	17	Cause	Build timestamp	Build process	OfficialBuildId missing
+E2b-01		2b	Arcade's development versioning	Roslyn 7, EF Core 7, Sqlite, DiaSymReader, Build.Framework	17	Cause	CI/CD modification	Build process	the official pipeline sets OfficialBuildId; without it Arcade writes 42.42.42.42424 (Build.Framework falls back to the date)
 E2b-02		2b	Clock in the version	IdentityModel	9	Cause	Build timestamp	Build process	check: is the version enough?
-E2b-03		2b	Date suffix on unofficial builds	Azure SDK, System.ClientModel	8	Cause	Build timestamp	Build process	official-build flag missing
+E2b-03		2b	Date suffix on unofficial builds	Azure SDK, System.ClientModel	8	Cause	CI/CD modification	Build process	the official pipeline drops the date suffix; our build adds it from the clock
 E2b-04		2b	Copyright year from the build clock	Swashbuckle, Stateless	6	Cause	Build timestamp	Build process	build date not recorded
-E2b-05		2b	Attributes written by the CI script	Bogus, YamlDotNet	3	Cause	CI/CD modification	Build process	
+E2b-05		2b	Attributes written by the CI script	Bogus, YamlDotNet, FluentModbus	3	Cause	CI/CD modification	Build process	
 E2b-06		2b	Version computed from git	MediatR.Contracts, ExCSS	2	Cause	CI/CD modification	Source state	
-E2b-07		2b	Targeting pack	SharpZipLib	2	Cause	Build tool version	Environment	
+E2b-07		2b	Targeting pack	SharpZipLib, MediatR.Extensions.Microsoft.DependencyInjection	2	Cause	Build tool version	Environment	
 E2b-08		2b	RepositoryUrl form	two Serilog packages	2	Cause	CI/CD modification	Source state	URL taken from the checkout
 E2b-09		2b	Signing key	RecyclableMemoryStream	1	Cause	CI/CD modification	Build process	
-E2b-10		2b	Not inspected	Google.Protobuf, ShimSkiaSharp	5	Cause	Unknown	Unknown	not inspected
+E2b-10		2b	Not inspected	Google.Protobuf, ShimSkiaSharp, Identity.Web (3)	5	Cause	Unknown	Unknown	not read

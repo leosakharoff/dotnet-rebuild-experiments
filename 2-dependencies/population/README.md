@@ -65,6 +65,14 @@ part measures. Each part's README explains why.
   named by the release instead of using a fixed SDK. This selects 198 of the 303
   that ship managed code. The remaining 105 stop because 22 name no source (C1a,
   C1b), and 83 name no compiler.
+- The two parts count packages without managed code differently because they
+  apply their filters in another order. 2b removes the 38 without managed code
+  first. 2a checks the repository and commit first and the assembly under
+  `lib/` after: of the same 38 it stops 27 at the missing assembly, 7 at the
+  missing commit and 2 at the missing repository. The last 2,
+  Microsoft.Extensions.DependencyInjection.Abstractions 2.1.0 and System.Text.Json
+  10.0.12, are 2a candidates that did not build, so neither is among the 127
+  measured.
 - 185 package versions are in both.
 
 ## Running

@@ -1,18 +1,22 @@
-# Experiment 2b: findings
+# Experiment 2b findings
 
-The causes behind the **55** release builds whose code differs from the published package, grouped into **10** cause types. Evidence: [Builds with other code](../README.md#builds-with-other-code). Results per package: [summary.md](summary.md) and [categories.tsv](categories.tsv).
+We derived a build recipe from the release’s recorded commit and the compiler identified in its debug symbols. We built twice from a fresh clone and compared the rebuilt assembly with the one published on nuget.org.
 
-**Id.** `E2b-04` is cause type 4 in part 2b. **Cause.** The category from the [codebook](../../../categories/codebook.md). Measurement marks a row that is about how we measured, not a cause. Experiment 2 counts cause types and packages; experiment 1 counts findings. The two are never added together.
+Of 198 attempts, 22 reproduced the published assembly, 14 byte for byte and eight when signatures were excluded. Another 112 yielded no package to compare, 71 because the build produced none and 41 because there was no recipe.
 
-| Id | Cause type | Packages | n | Cause | What a rebuilder lacked | Note |
-| --- | --- | --- | --- | --- | --- | --- |
-| <a name="e2b-01"></a>**E2b-01** | Arcade's development versioning | Roslyn, EF Core, Sqlite | 17 | Build timestamp | Build process | OfficialBuildId missing |
-| <a name="e2b-02"></a>**E2b-02** | Clock in the version | IdentityModel | 9 | Build timestamp | Build process | check: is the version enough? |
-| <a name="e2b-03"></a>**E2b-03** | Date suffix on unofficial builds | Azure SDK, System.ClientModel | 8 | Build timestamp | Build process | official-build flag missing |
-| <a name="e2b-04"></a>**E2b-04** | Copyright year from the build clock | Swashbuckle, Stateless | 6 | Build timestamp | Build process | build date not recorded |
-| <a name="e2b-05"></a>**E2b-05** | Attributes written by the CI script | Bogus, YamlDotNet | 3 | CI/CD modification | Build process |  |
-| <a name="e2b-06"></a>**E2b-06** | Version computed from git | MediatR.Contracts, ExCSS | 2 | CI/CD modification | Source state |  |
-| <a name="e2b-07"></a>**E2b-07** | Targeting pack | SharpZipLib | 2 | Build tool version | Environment |  |
-| <a name="e2b-08"></a>**E2b-08** | RepositoryUrl form | two Serilog packages | 2 | CI/CD modification | Source state | URL taken from the checkout |
-| <a name="e2b-09"></a>**E2b-09** | Signing key | RecyclableMemoryStream | 1 | CI/CD modification | Build process |  |
-| <a name="e2b-10"></a>**E2b-10** | Not inspected | Google.Protobuf, ShimSkiaSharp | 5 | Unknown | Unknown | not inspected |
+Of the 64 assemblies that differed, nine had the same code and 55 had different code. The table covers those 55. For most, the publisher’s build writes a value that the release records and the project has no input for.
+
+A separate check with the publisher’s build system reproduced 35 more Microsoft packages outside the primary count. See **Builds with other code** in the [experiment README](../README.md) and the per-package [results](summary.md) and [categories](categories.tsv).
+
+| Finding ID | Cause | Packages | Count | Where the difference is | Category | What a rebuilder lacked |
+| --- | --- | --- | ---: | --- | --- | --- |
+| <a name="e2b-01"></a> **E2b-01** | The official workflow sets `OfficialBuildId`. With that input missing, Arcade uses its development version. Build.Framework falls back to the date. | Roslyn 7, EF Core 7, Sqlite, DiaSymReader, Build.Framework | 17 | The development version writes `42.42.42.42424` to `FileVersion` in place of the shipped value and drops `+<commit>` from the informational version. | CI/CD modification | Build process |
+| <a name="e2b-02"></a> **E2b-02** | The preview version includes the build time. | IdentityModel | 9 | Builds A and A2 produced different `8.23.0-preview-<clock>` versions for all nine packages. Whether the version accounts for the full difference is unclear. | Build timestamp | Build process |
+| <a name="e2b-03"></a> **E2b-03** | The publisher’s workflow drops the date suffix. The rebuild adds it from the clock. | Azure SDK, System.ClientModel | 8 | The rebuild used `1.50.0-alpha.<date>.1` and the release used `1.50.0`. | CI/CD modification | Build process |
+| <a name="e2b-04"></a> **E2b-04** | The build uses the current year for the copyright notice. The release records no build date. | Swashbuckle 5, Stateless | 6 | The copyright year differs between 2024 and 2026. | Build timestamp | Build process |
+| <a name="e2b-05"></a> **E2b-05** | The publisher’s workflow runs a script to write assembly attributes. | Bogus, YamlDotNet, FluentModbus | 3 | `GenerateAssemblyInfo=false` disables generation by the project. The rebuild skips the script that supplies the values. | CI/CD modification | Build process |
+| <a name="e2b-06"></a> **E2b-06** | MinVer and GitVersion compute versions from the Git checkout. | MediatR.Contracts by MinVer, ExCSS by GitVersion | 2 | MinVer’s tag height differs for MediatR.Contracts. ExCSS records the branch name in its informational version. | CI/CD modification | Source state |
+| <a name="e2b-07"></a> **E2b-07** | The rebuild used a different targeting pack. | SharpZipLib, MediatR.Extensions.Microsoft.DependencyInjection | 2 | The display name in `TargetFrameworkAttribute` differs, and so do the assembly’s intermediate instructions. | Build tool version | Environment |
+| <a name="e2b-08"></a> **E2b-08** | The build takes the repository URL from the checkout. | Serilog.Settings.Configuration, Serilog.Extensions.Logging | 2 | `RepositoryUrl` differs by the `.git` suffix. | CI/CD modification | Source state |
+| <a name="e2b-09"></a> **E2b-09** | Signing uses a key stored outside the repository. | RecyclableMemoryStream | 1 | The strong name and the key in `InternalsVisibleTo` differ. | CI/CD modification | Build process |
+| <a name="e2b-10"></a> **E2b-10** | Cause not examined. | Google.Protobuf, ShimSkiaSharp, Identity.Web 3 | 5 | Difference not examined. | Unknown | Unknown |

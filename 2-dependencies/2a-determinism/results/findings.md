@@ -1,15 +1,19 @@
-# Experiment 2a: findings
+# Experiment 2a findings
 
-The causes behind the **25** packages that stayed unreproducible with the deterministic-build configuration, grouped into **7** cause types. Evidence: [Packages not fixed by configuration](../README.md#packages-not-fixed-by-configuration). Results per package: [summary.md](summary.md) and [categories.tsv](categories.tsv).
+We built the same commit twice with a fixed .NET development kit. We varied one environmental condition at a time across eight conditions, with and without .NET’s deterministic build configuration.
 
-**Id.** `E2a-04` is cause type 4 in part 2a. **Cause.** The category from the [codebook](../../../categories/codebook.md). Measurement marks a row that is about how we measured, not a cause. Experiment 2 counts cause types and packages; experiment 1 counts findings. The two are never added together.
+Of 341 published packages, 224 were candidates. We built and measured 127 packages from 68 repositories. The other 97 candidates did not build.
 
-| Id | Cause type | Packages | n | Cause | Why the configuration did not fix it |
-| --- | --- | --- | --- | --- | --- |
-| <a name="e2a-01"></a>**E2a-01** | Date in the package version | Azure SDK, System.ClientModel | 8 | Build timestamp | the value is set before the compiler runs |
-| <a name="e2a-02"></a>**E2a-02** | Clock in the package version | IdentityModel 8.23.0 | 5 | Build timestamp | the value is set before the compiler runs |
-| <a name="e2a-03"></a>**E2a-03** | Copyright year from the clock | Swashbuckle, Stateless | 4 | Build timestamp | the value is set before the compiler runs |
-| <a name="e2a-04"></a>**E2a-04** | npm under the time variation | Swashbuckle ReDoc, SwaggerUI | 2 | Measurement | not a cause: libfaketime breaks npm |
-| <a name="e2a-05"></a>**E2a-05** | Arcade's date-based build number | Build.Framework | 1 | Build timestamp | the value is set before the compiler runs |
-| <a name="e2a-06"></a>**E2a-06** | Hash of the project path in the PDB | Quartz | 4 | Build path | `PathMap` maps only the path prefix |
-| <a name="e2a-07"></a>**E2a-07** | PDB path not mapped | ClosedXML | 1 | Build path | `PathMap` maps only the path prefix |
+No package files matched as built. With the configuration, 102 matched. The table covers the remaining 25 packages from seven repositories, including two whose builds failed when we varied the clock. Four packages already had identical contents before configuration.
+
+See the section **Packages not fixed by configuration** in the [experiment README](../README.md) and the per-package [results](summary.md) and [categories](categories.tsv).
+
+| Finding ID | Cause or measurement issue | Packages | Count | Where the difference is | Category | Why configuration did not help |
+| --- | --- | --- | ---: | --- | --- | --- |
+| <a name="e2a-01"></a> **E2a-01** | The build adds the current date to the package version. | Azure.Core, Azure.Identity, Azure.Storage.Blobs, Azure.Storage.Common, Azure.Security.KeyVault.Certificates, Azure.Security.KeyVault.Secrets, Azure.Communication.Email, System.ClientModel | 8 | `X.Y.Z-alpha.<yyyymmdd>.1` appears in the package manifest, file name and assembly attributes. | Build timestamp | The project computes the dated version before the compiler and packer use it. |
+| <a name="e2a-02"></a> **E2a-02** | The build puts the current time in the preview version. | Microsoft.IdentityModel.Abstractions, JsonWebTokens, Logging, Tokens, System.IdentityModel.Tokens.Jwt 8.23.0 | 5 | `8.22.1-preview-<yMMddHHmmss>` changed between builds a minute apart. This showed up on every test axis. | Build timestamp | The project computes the version before the compiler and packer use it. |
+| <a name="e2a-03"></a> **E2a-03** | The build takes the copyright year from the system clock. | Swashbuckle.AspNetCore.Swagger, SwaggerGen, Annotations 7.2.0; Stateless 5.16.0 | 4 | `$([System.DateTime]::Now.ToString(yyyy))` feeds `AssemblyCopyright` from `Directory.Build.props` (line 10) and `Stateless.csproj` (line 9). | Build timestamp | The project supplies the year before compilation. |
+| <a name="e2a-04"></a> **E2a-04** | The projects run `npm`, and Node fails to run under `libfaketime`. | Swashbuckle.AspNetCore.ReDoc, SwaggerUI 7.2.0 | 2 | The build fails when the clock is varied, leaving no package to compare for that test. | Measurement | The configuration acts on the compiler and packer. The test fails when it runs Node. |
+| <a name="e2a-05"></a> **E2a-05** | When `OfficialBuildId` is empty, Arcade takes the build number from `DateTime.Now`. | Microsoft.Build.Framework 18.0.2 | 1 | `AssemblyFileVersion` was `18.0.2.55101` in one build and `18.0.2.60401` in the other. | Build timestamp | Arcade sets the file version before compilation. |
+| <a name="e2a-06"></a> **E2a-06** | The development kit hashes the project path when it places LibLog’s `.cs.pp` source files under `obj/.../NuGet/`. | Quartz, Quartz.AspNetCore, Quartz.Extensions.DependencyInjection, Quartz.Extensions.Hosting 3.13.1 | 4 | The hashed folder appears in a debug symbol document path. The assembly changes too because it records the debug symbol identifier. | Build path | `PathMap` rewrites the path prefix. The hash in the folder name remains. |
+| <a name="e2a-07"></a> **E2a-07** | The path to the debug symbols stays absolute after the build. | ClosedXML 0.104.2 | 1 | The assembly’s debug directory records `/tmp/reprotest.*/.../ClosedXML/obj/Release/netstandard2.1/ClosedXML.pdb`. A repaired package records a path under `/_/`. | Build path | Which step defeats `PathMap` is unresolved. The build rewrites the assembly through Fody 6.3.0 and Mono.Cecil, pins Microsoft.SourceLink.GitHub 1.1.1, and defines `SourceRoot` as a property. |

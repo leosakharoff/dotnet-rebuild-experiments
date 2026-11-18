@@ -40,7 +40,7 @@ Keep these findings because they record what was corrected, tested, or learned a
 
 1. Trace the differing value back to the step that set it. If a ZIP entry stores a date taken from the compiler’s clock, assign **Build timestamp**. The ZIP preserves the value the compiler supplied.
 2. Assign **Build timestamp** to a timestamp difference wherever it appears, including in an archive or a signature.
-3. If two codes describe the same chain of events, assign the one that captures the earliest cause and note the other. Arcade’s versioning gets A = **Build timestamp** because it falls back to the date, and B = **Build process** because `OfficialBuildId` was missing.
+3. The category describes why the two compared outputs differ, so one package can get different categories in different comparisons. Azure's date suffix is **Build timestamp** in 2a, where two of our own builds differ because the build reads the clock, and **CI/CD modification** in 2b, where our build differs from the published one because the official pipeline drops the suffix. If two categories fit within one comparison, choose the earliest cause and note the other.
 4. Assign B = **Not a rebuild** whenever the comparison is between two builds of our own.
 5. If no code fits, enter **Unknown** and add a note explaining why.
 

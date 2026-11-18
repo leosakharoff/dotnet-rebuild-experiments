@@ -169,9 +169,9 @@ The causes, coded as in experiment 1: [results/findings.md](results/findings.md)
 
 The experiment ran on `arch` from 2 November at 17:43 to 3 November at 08:49,
 2026. The 1008 verdicts from the 1 to 2 November run were carried over
-      unchanged. The remaining packages were built during the night of 2
-      November. Runs that failed with the full `/tmp` were repeated on the
-      morning of 3 November, as described under Caveats.
+unchanged. The remaining packages were built during the night of 2
+November. Runs that failed with the full `/tmp` were repeated on the
+morning of 3 November, as described under Caveats.
 
 Of the 224 eligible rows, 127 packages from 68 repositories built and were
 measured. The remaining 97 did not build with the default command.

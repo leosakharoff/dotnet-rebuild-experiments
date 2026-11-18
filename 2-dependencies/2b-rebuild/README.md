@@ -277,6 +277,10 @@ this value, but the project does not accept it as an input.
 | signing key | 1 (RecyclableMemoryStream) | strong name and `InternalsVisibleTo` with a key outside the repository |
 | not read | 5 (Google.Protobuf, ShimSkiaSharp, Identity.Web 3) | |
 
+Roslyn has eight packages. Seven are in the first row; the eighth,
+Workspaces.MSBuild, gave no package from the release build. The publisher's
+build reproduced all eight.
+
 ### Builds with the same code
 
 Nine third-party packages produce the same code: Ardalis.Specification 2,
