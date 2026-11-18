@@ -1,111 +1,111 @@
-id	old_id	experiment	finding	old_category	packages	type	cause_A	missing_B	note
-E1-S1-01	E1	1	Two clean builds of the empty class at the same path, machine and SDK: identical DLL and PDB.	Measured stable		STABLE			
-E1-S1-02	E2	1	Two machines gave different DLLs from the same source. Both compilers were called 9.0.120, but one was Arch's build of csc and one was Microsoft's.	Toolchain identity		CAUSE	TOOL	ENV	
-E1-S1-03	E3	1	The two compilers have the same Roslyn code and emit the same IL, yet 70 of 4096 bytes differ: the PDB records the compiler's commit, and the DLL a hash of the PDB.	Toolchain identity		CAUSE	TOOL	ENV	
-E1-S1-04	E4	1	Microsoft's csc is a different binary on macOS and Linux, but both gave the same bytes. The output follows the compiler's Roslyn commit, not its file hash.	Toolchain identity		STABLE			
-E1-S1-05	E5	1	The PE `TimeDateStamp` is part of a content hash, not a time. It changes only when the content changes.	Clock time		STABLE			TimeDateStamp is a content hash
-E1-S1-06	E6	1	Another build path changed the DLL and the PDB: both hold absolute paths.	Build path		CAUSE	PATH	NA	
-E1-S1-07	E7	1	Time, locale, umask, exec path and file order changed no byte of the empty class.	Measured stable		STABLE			
-E1-S1-08	W1	1	Two clean builds of the whole solution at the same path: 0 of 1610 files differ.	Measured stable		STABLE			
-E1-S1-09	W3	1	All four PDBs held absolute source paths.	Build path		CAUSE	PATH	NA	
-E1-S1-10	W4	1	The DLL holds the PDB's path. A path 2 characters longer moves every address after it.	Build path		CAUSE	PATH	NA	
-E1-S1-11	W5	1	Four generated regex types are named by a hash of the source file's path.	Build path		CAUSE	PATH	NA	
-E1-S1-12	W6	1	`ContinuousIntegrationBuild` maps the source root only when Source Link finds `.git`. In an export it mapped only the NuGet cache. Fixed with an explicit `PathMap`.	Build path		CAUSE	PATH	NA	
-E1-S1-13	W7	1	The Razor generator writes the absolute `.cshtml` path into generated C#, and `PathMap` does not reach that text. Fixed in WS.PEMS by deleting two unused pages; open for other projects.	Build path		CAUSE	PATH	NA	
-E1-S1-14	W8	1	`spa.proxy.json` holds the path to `ClientApp/`. Development only, not shipped.	Build path		CAUSE	PATH	NA	file does not ship
-E1-S1-15	W9	1	`staticwebassets.runtime.json` holds paths to `obj/` and the NuGet cache. Development only, not shipped.	Build path		CAUSE	PATH	NA	file does not ship
-E1-S1-16	W10	1	A green result for time, locale, umask and exec path on stage 1. Withdrawn: the compiler server kept the control build's environment (W27).	Method		METHOD			
-E1-S1-17	W12	1	MSBuild sorts the source files before the compiler sees them, so the directory's file order does not matter.	Measured stable		STABLE			
-E1-S1-18	W13	1	Building with and without the compiler server gave the same 639 files.	Measured stable		STABLE			
-E1-S1-19	W15	1	A cold restore on another machine resolved the same versions and hashes for all packages.	Inputs and pinning		STABLE			
-E1-S1-20	W34	1	Stage 1 with the compiler inside the variation, nine axes: no difference.	Measured stable		STABLE			
-E1-S1-21	W49	1	The explicit `PathMap` also rewrote `[CallerFilePath]`, which broke the tests' search for the solution folder.	Build path		CONFIG			side effect of the PATH fix
-E1-S1-22	W70	1	The branch's SDK installer refused every archive on older Python versions. Fixed in the installer.	Build and release configuration		CONFIG			
-E1-S2-01	W16	1	Two clean publishes with the release's own commands: 1238 identical files.	Measured stable		STABLE			
-E1-S2-02	W17	1	The two json files of W8 and W9 do not ship. The shipped endpoints file has no paths.	Build path		STABLE			
-E1-S2-03	W18	1	An empty `package-lock.json`, committed by mistake, shipped in the release.	Build and release configuration		CONFIG			
-E1-S2-04	W19	1	The release's version flags reach every assembly. A verifier must know the version string.	Build and release configuration		CAUSE	CI	PROCESS	verifier must know the version string
-E1-S2-05	W20	1	A publish with `-r linux-x64` puts the platform in the PDB path and the PE header. Compare a DLL only with the same publish command.	Build and release configuration		CAUSE	CI	PROCESS	verifier must know the publish command
-E1-S2-06	W21	1	323 of WebAPI's 746 files are copies from Microsoft's runtime packs, which no lock file records. The branch checks them by hash.	Inputs and pinning		CAUSE	INPUT	ENV	runtime packs not in any lock file
-E1-S2-07	W22	1	NuGet lock files pin every package by content hash. A locked restore gives the same release.	Inputs and pinning		CAUSE	INPUT	NA	
-E1-S2-08	W23	1	`RuntimeIdentifiers` on every project made the libraries platform-specific and shipped Windows DLLs in the Linux release.	Build and release configuration		CONFIG			
-E1-S2-09	W24	1	A restore without the version flags made `deps.json` list our libraries as 1.0.0.	Build and release configuration		CONFIG			
-E1-S2-10	W25	1	Another build path on the final tree: no difference.	Build path		STABLE			
-E1-S2-11	W26	1	Under Estonian the compiler orders the types it generates for collection expressions differently: 10 of 1237 files. A Roslyn defect, gone on SDK 10.	Locale		CAUSE	LOCALE	NA	compiler defect, gone on SDK 10
-E1-S2-12	W29	1	Clock +398 days, umask (contents) and exec path, now with the variation inside the compiler: no difference.	Measured stable		STABLE			
-E1-S2-13	W30	1	File modes in the release follow the umask: 142 files change under umask 0002. Left to stage 4, whose zip packing sets the modes.	File and archive metadata		CAUSE	META	NA	
-E1-S2-14	W31	1	311 `Last-Modified` dates come from a NuGet package's zip, not from the build clock. Stable.	Clock time		STABLE			dates come from a package, not the clock
-E1-S2-15	W32	1	Time zone, environment, home, CPUs and another user: no difference.	Measured stable		STABLE			
-E1-S2-16	W33	1	With eleven axes varied at once, the release equals the Estonian-only build: no other axis changes a byte. `LC_ALL=C.UTF-8` fixes it.	Locale		CAUSE	LOCALE	NA	only axis of eleven that changed bytes
-E1-S2-17	W45	1	The release's builds got the version by different routes. Now one `APP_VERSION` for every build.	Build and release configuration		CONFIG			
-E1-S2-18	W50	1	SDK 10 dates the compressed copies of static files with the time it wrote them. Fixed by turning compression off.	Clock time		CAUSE	TIME	NA	
-E1-S2-19	W58	1	GitHub's runner and our machine: our assemblies differ by the runtime patch the compiler ran on, 10.0.13 against 10.0.12. Fixed by installing the `global.json` SDK alone.	Toolchain identity		CAUSE	TOOL	ENV	
-E1-S2-20	W71	1	macOS on arm64 against GitHub's Linux x86-64 runner: nothing differs, frontend and zips included.	Toolchain identity		STABLE			
-E1-S3-01	W37	1	Next.js draws a random build ID in every build and writes it into paths and pages: 110 of 998 files. Set to the release version.	Chance and timing		CAUSE	RANDOM	NA	
-E1-S3-02	W38	1	Two frontend builds at the same path, with the build ID fixed: identical.	Measured stable		STABLE			
-E1-S3-03	W39	1	The frontend imports 7 files from outside `ClientApp`. Build it from an export of the whole commit.	Inputs and pinning		CAUSE	INPUT	SOURCE	needs the whole commit
-E1-S3-04	W40	1	The release asked for Node `20.x`, a major version only. Now pinned in `.nvmrc` and read by every workflow.	Toolchain identity		CAUSE	TOOL	ENV	Node pinned by major version only
-E1-S3-05	W41	1	391 of 1509 lock entries had no content hash, so npm trusted the registry for them. Filled in.	Inputs and pinning		CAUSE	INPUT	NA	
-E1-S3-06	W43	1	Shared CSS files took their order from build timing: 4 of 998 files in 1 of 4 builds. All third-party CSS now imported in one place.	Chance and timing		CAUSE	RANDOM	NA	
-E1-S3-07	W44	1	Between two commits, the minifier gave other short names in the runtime chunk. Never within one commit, so it does not break reproducibility.	Chance and timing		STABLE			differs between commits, never within one
-E1-S3-08	W46	1	The release's npm drops the `libc` field from the lock file. It changes which packages install, not the export of one commit.	Toolchain identity		CAUSE	TOOL	ENV	borderline: npm version changes what installs (INPUT?)
-E1-S3-09	W47	1	Webpack ordered the pages by build timing: two outputs over 26 builds, 109 of 990 files. A plugin sorts them by name.	Chance and timing		CAUSE	RANDOM	NA	
-E1-S3-10	W51	1	About 1 in 50 builds, two identical chunks swapped ids: webpack's module order followed timing. The plugin also sorts modules.	Chance and timing		CAUSE	RANDOM	NA	
-E1-S4-01	W48	1	The zips differ in every build though every entry's bytes are equal: times, order, modes, owner. Fixed by normalised packing.	File and archive metadata		CAUSE	META	NA	borderline: zip times are TIME by rule 2, order FSORDER
-E1-S5-01	W52	1	The `ef bundle` migrator is built in a random `/tmp` folder: 93 of 827,679,078 bytes differ. Now a project in the repository, where `PathMap` applies.	Build path		CAUSE	PATH	NA	
-E1-S5-02	W53	1	On .NET 10 the migration jobs failed before building: `dotnet ef` needs a restore first.	Build and release configuration		CONFIG			
-E1-S5-03	W54	1	On macOS the migrator's locked restore failed: the SDK added the Mac's platform, which the lock does not hold.	Build and release configuration		CONFIG			
-E1-S5-04	W55	1	The Windows release, built on Linux as its job builds it: 2132 files identical under no variation, all axes and Estonian.	Measured stable		STABLE			
-E1-S5-05	W59	1	Signing gives each of 177 files a timestamped signature, so two signed builds always differ. Check a rebuild by pasting the release's signatures onto it.	Clock time		CAUSE	TIME	PROCESS	signature timestamps; rebuilder lacks the key
-E1-S5-06	W61	1	The SQL script from two exports, at two paths and under another locale and time zone: identical.	Measured stable		STABLE			
-E1-S5-07	W63	1	`SHA256SUMS` lists the files in the locale's sort order. Fixed with `LC_ALL=C`.	Locale		CAUSE	LOCALE	NA	
-E1-S5-08	W64	1	On a self-hosted runner the Windows job took a frontend export that another job had left on the machine. It now always downloads the release's own.	Inputs and pinning		CAUSE	INPUT	NA	
-E1-S5-09	W66	1	`SHA256SUMS` named three files by a folder that the GitHub Release does not have, so a download could not be checked.	File and archive metadata		CONFIG			
-E1-S5-10	W69	1	`dotnet tool restore` can run a tool from another job's folder on a shared runner. The migration job now has its own CLI home.	Toolchain identity		CAUSE	TOOL	NA	borderline: leftover state on a shared runner (INPUT?)
-E1-S6-01	W56	1	The WebAPI and job worker images differ in times only. Fixed with `SOURCE_DATE_EPOCH` and BuildKit's `rewrite-timestamp`.	Clock time		CAUSE	TIME	NA	
-E1-S6-02	W60	1	The MCP images kept files that build steps write as a side effect: font caches, Node's compile cache, test durations. Removed in each step.	Inputs and pinning		CAUSE	?	NA	side products of build steps (caches); no code fits
-E1-S6-03	W62	1	The migrations image, from the manual image script, had the same time difference as W56. Fixed the same way.	Clock time		CAUSE	TIME	NA	
-E1-S6-04	W65	1	Image tags point at attestations that hold the build's clock and a random id, so tags differ in every build. Compare the image manifest instead.	Clock time		CAUSE	TIME	NA	attestation also holds a random id (RANDOM)
-E1-S6-05	W67	1	The MCP images install Debian packages from the live archive. Now installed from a dated snapshot.	Inputs and pinning		CAUSE	INPUT	NA	
-E1-S6-06	W68	1	canvas downloads a prebuilt binary from GitHub without a checksum. Now added by its SHA-256.	Inputs and pinning		CAUSE	INPUT	NA	
-E1-M-01	E8	1	A command-line `PathMap` must use the shell's `$PWD`. `$(MSBuildProjectDirectory)` is ignored there without a warning.	Method		METHOD			
-E1-M-02	E9	1	Sorting one file list under two locales gave two different hash lists.	Method		METHOD			
-E1-M-03	E10	1	Deleting only `bin/` does not rebuild: MSBuild copies the old files from `obj/` again.	Method		METHOD			
-E1-M-04	W2	1	Deleting `obj/` between builds also deletes the restore's output, so both builds fail.	Method		METHOD			
-E1-M-05	W11	1	Our clean step missed the test project, which then built in only one of the two builds.	Method		METHOD			
-E1-M-06	W14	1	The shared droplet (1 CPU, 1 GB) could not compile WS.PEMS in 3 hours. A verifier needs several GB of RAM.	Method		METHOD			
-E1-M-07	W27	1	reprotest's second build reuses the compiler server that the first build started, so the varied environment never reaches the compiler. Fix: shut the build servers down before each build.	Method		METHOD			
-E1-M-08	W28	1	reprotest also fixes settings it does not vary: one CPU, `TZ=GMT+12`, `LANG=C.UTF-8`, `HOME` in the build folder.	Method		METHOD			
-E1-M-09	W35	1	With MSBuild's node reuse off, no compiler server or worker node survived any of 32 runs.	Method		METHOD			
-E1-M-10	W36	1	The working directory does not show which build a process belongs to; `HOME` does.	Method		METHOD			
-E1-M-11	W42	1	Stage 2 was first measured without the frontend export that CI copies into `wwwroot/`.	Method		METHOD			
-E1-M-12	W57	1	BuildKit reuses a cached `WORKDIR` step despite `--no-cache`, so one builder can hide a time difference.	Method		METHOD			
-E1-M-13	R1	1	The `aslr` axis alone changes nothing: both builds run with ASLR on. Only `kernel` turns it off.	Method		METHOD			
-E1-M-14	R2	1	The `kernel` axis varies two things: the reported kernel version and ASLR.	Method		METHOD			
-E1-M-15	R3	1	Axes change more than their names say: `build_path` moves `HOME`, and `user_group` replaces `PATH`.	Method		METHOD			
-E1-M-16	R4	1	The builds inherit the whole environment of the shell that starts reprotest, 105 variables in our case. Start it under `env -i`.	Method		METHOD			
-E1-M-17	R5	1	Under reprotest's fixed setting, the caller's other locale variables still apply. Only `LC_ALL`, `LC_MESSAGES` and `LANG` decide ICU's locale.	Method		METHOD			
-E1-M-18	R6	1	On a green run reprotest replaces the second build's output with a link to the first. Compare hashes across runs, not only verdicts.	Method		METHOD			
-E1-M-19	R7	1	The `time` axis silently skips its shift when the newest source file is over 398 days old.	Method		METHOD			
-E1-M-20	R8	1	reprotest's log names each build's varied axes and values, and its exit code tells pass, differ and fail apart.	Method		METHOD			
-E1-M-21	T1	1	npm, pip, gem, Maven and Go leave no process alive between reprotest's builds. .NET's compiler server does (W27).	Method		METHOD			
-E1-M-22	T2	1	The `time` axis cannot move the clock of a static binary: Go's compiler reads the real time.	Method		METHOD			
-E1-M-23	T3	1	Under `time`, pip's build fails the TLS check against PyPI.	Method		METHOD			
-E1-M-24	T4	1	reprotest's `HOME` does not reach Maven, which still uses the real `~/.m2`.	Method		METHOD			
-E2a-01		2a	Date in the package version	Azure SDK, System.ClientModel	8	CAUSE	TIME	NA	
-E2a-02		2a	Clock in the package version	IdentityModel 8.23.0	5	CAUSE	TIME	NA	
-E2a-03		2a	Copyright year from the clock	Swashbuckle, Stateless	4	CAUSE	TIME	NA	
-E2a-04		2a	npm under the time variation	Swashbuckle ReDoc, SwaggerUI	2	METHOD			libfaketime breaks npm; not a cause
-E2a-05		2a	Arcade's date-based build number	Build.Framework	1	CAUSE	TIME	NA	
-E2a-06		2a	Hash of the project path in the PDB	Quartz	4	CAUSE	PATH	NA	
-E2a-07		2a	PDB path not mapped	ClosedXML	1	CAUSE	PATH	NA	
-E2b-01		2b	Arcade's development versioning	Roslyn, EF Core, Sqlite	17	CAUSE	TIME	PROCESS	OfficialBuildId missing
-E2b-02		2b	Clock in the version	IdentityModel	9	CAUSE	TIME	PROCESS	check: is the version enough?
-E2b-03		2b	Date suffix on unofficial builds	Azure SDK, System.ClientModel	8	CAUSE	TIME	PROCESS	official-build flag missing
-E2b-04		2b	Copyright year from the build clock	Swashbuckle, Stateless	6	CAUSE	TIME	PROCESS	build date not recorded
-E2b-05		2b	Attributes written by the CI script	Bogus, YamlDotNet	3	CAUSE	CI	PROCESS	
-E2b-06		2b	Version computed from git	MediatR.Contracts, ExCSS	2	CAUSE	CI	SOURCE	
-E2b-07		2b	Targeting pack	SharpZipLib	2	CAUSE	TOOL	ENV	
-E2b-08		2b	RepositoryUrl form	two Serilog packages	2	CAUSE	CI	SOURCE	URL taken from the checkout
-E2b-09		2b	Signing key	RecyclableMemoryStream	1	CAUSE	CI	PROCESS	
-E2b-10		2b	Not inspected	Google.Protobuf, ShimSkiaSharp	5	CAUSE	?	?	not inspected
+id	old_id	experiment	finding	old_category	packages	type	category	rebuilder_lacked	note
+E1-S1-01	E1	1	Two clean builds of the empty class at the same path, machine and SDK: identical DLL and PDB.	Measured stable		No difference			
+E1-S1-02	E2	1	Two machines gave different DLLs from the same source. Both compilers were called 9.0.120, but one was Arch's build of csc and one was Microsoft's.	Toolchain identity		Cause	Compiler, runtime or tool used	Tool and dependency versions	
+E1-S1-03	E3	1	The two compilers have the same Roslyn code and emit the same IL, yet 70 of 4096 bytes differ: the PDB records the compiler's commit, and the DLL a hash of the PDB.	Toolchain identity		Cause	Compiler, runtime or tool used	Tool and dependency versions	
+E1-S1-04	E4	1	Microsoft's csc is a different binary on macOS and Linux, but both gave the same bytes. The output follows the compiler's Roslyn commit, not its file hash.	Toolchain identity		No difference			
+E1-S1-05	E5	1	The PE `TimeDateStamp` is part of a content hash, not a time. It changes only when the content changes.	Clock time		No difference			TimeDateStamp is a content hash
+E1-S1-06	E6	1	Another build path changed the DLL and the PDB: both hold absolute paths.	Build path		Cause	Build folder path	Not a rebuild	
+E1-S1-07	E7	1	Time, locale, umask, exec path and file order changed no byte of the empty class.	Measured stable		No difference			
+E1-S1-08	W1	1	Two clean builds of the whole solution at the same path: 0 of 1610 files differ.	Measured stable		No difference			
+E1-S1-09	W3	1	All four PDBs held absolute source paths.	Build path		Cause	Build folder path	Not a rebuild	
+E1-S1-10	W4	1	The DLL holds the PDB's path. A path 2 characters longer moves every address after it.	Build path		Cause	Build folder path	Not a rebuild	
+E1-S1-11	W5	1	Four generated regex types are named by a hash of the source file's path.	Build path		Cause	Build folder path	Not a rebuild	
+E1-S1-12	W6	1	`ContinuousIntegrationBuild` maps the source root only when Source Link finds `.git`. In an export it mapped only the NuGet cache. Fixed with an explicit `PathMap`.	Build path		Cause	Build folder path	Not a rebuild	
+E1-S1-13	W7	1	The Razor generator writes the absolute `.cshtml` path into generated C#, and `PathMap` does not reach that text. Fixed in WS.PEMS by deleting two unused pages; open for other projects.	Build path		Cause	Build folder path	Not a rebuild	
+E1-S1-14	W8	1	`spa.proxy.json` holds the path to `ClientApp/`. Development only, not shipped.	Build path		Cause	Build folder path	Not a rebuild	file does not ship
+E1-S1-15	W9	1	`staticwebassets.runtime.json` holds paths to `obj/` and the NuGet cache. Development only, not shipped.	Build path		Cause	Build folder path	Not a rebuild	file does not ship
+E1-S1-16	W10	1	A green result for time, locale, umask and exec path on stage 1. Withdrawn: the compiler server kept the control build's environment (W27).	Method		About the measurement			
+E1-S1-17	W12	1	MSBuild sorts the source files before the compiler sees them, so the directory's file order does not matter.	Measured stable		No difference			
+E1-S1-18	W13	1	Building with and without the compiler server gave the same 639 files.	Measured stable		No difference			
+E1-S1-19	W15	1	A cold restore on another machine resolved the same versions and hashes for all packages.	Inputs and pinning		No difference			
+E1-S1-20	W34	1	Stage 1 with the compiler inside the variation, nine axes: no difference.	Measured stable		No difference			
+E1-S1-21	W49	1	The explicit `PathMap` also rewrote `[CallerFilePath]`, which broke the tests' search for the solution folder.	Build path		Setup fault			side effect of the PATH fix
+E1-S1-22	W70	1	The branch's SDK installer refused every archive on older Python versions. Fixed in the installer.	Build and release configuration		Setup fault			
+E1-S2-01	W16	1	Two clean publishes with the release's own commands: 1238 identical files.	Measured stable		No difference			
+E1-S2-02	W17	1	The two json files of W8 and W9 do not ship. The shipped endpoints file has no paths.	Build path		No difference			
+E1-S2-03	W18	1	An empty `package-lock.json`, committed by mistake, shipped in the release.	Build and release configuration		Setup fault			
+E1-S2-04	W19	1	The release's version flags reach every assembly. A verifier must know the version string.	Build and release configuration		Cause	Release pipeline input	Build step, flag or key	verifier must know the version string
+E1-S2-05	W20	1	A publish with `-r linux-x64` puts the platform in the PDB path and the PE header. Compare a DLL only with the same publish command.	Build and release configuration		Cause	Release pipeline input	Build step, flag or key	verifier must know the publish command
+E1-S2-06	W21	1	323 of WebAPI's 746 files are copies from Microsoft's runtime packs, which no lock file records. The branch checks them by hash.	Inputs and pinning		Cause	Input chosen by name or version	Tool and dependency versions	runtime packs not in any lock file
+E1-S2-07	W22	1	NuGet lock files pin every package by content hash. A locked restore gives the same release.	Inputs and pinning		Cause	Input chosen by name or version	Not a rebuild	
+E1-S2-08	W23	1	`RuntimeIdentifiers` on every project made the libraries platform-specific and shipped Windows DLLs in the Linux release.	Build and release configuration		Setup fault			
+E1-S2-09	W24	1	A restore without the version flags made `deps.json` list our libraries as 1.0.0.	Build and release configuration		Setup fault			
+E1-S2-10	W25	1	Another build path on the final tree: no difference.	Build path		No difference			
+E1-S2-11	W26	1	Under Estonian the compiler orders the types it generates for collection expressions differently: 10 of 1237 files. A Roslyn defect, gone on SDK 10.	Locale		Cause	Language setting	Not a rebuild	compiler defect, gone on SDK 10
+E1-S2-12	W29	1	Clock +398 days, umask (contents) and exec path, now with the variation inside the compiler: no difference.	Measured stable		No difference			
+E1-S2-13	W30	1	File modes in the release follow the umask: 142 files change under umask 0002. Left to stage 4, whose zip packing sets the modes.	File and archive metadata		Cause	File or archive metadata	Not a rebuild	
+E1-S2-14	W31	1	311 `Last-Modified` dates come from a NuGet package's zip, not from the build clock. Stable.	Clock time		No difference			dates come from a package, not the clock
+E1-S2-15	W32	1	Time zone, environment, home, CPUs and another user: no difference.	Measured stable		No difference			
+E1-S2-16	W33	1	With eleven axes varied at once, the release equals the Estonian-only build: no other axis changes a byte. `LC_ALL=C.UTF-8` fixes it.	Locale		Cause	Language setting	Not a rebuild	only axis of eleven that changed bytes
+E1-S2-17	W45	1	The release's builds got the version by different routes. Now one `APP_VERSION` for every build.	Build and release configuration		Setup fault			
+E1-S2-18	W50	1	SDK 10 dates the compressed copies of static files with the time it wrote them. Fixed by turning compression off.	Clock time		Cause	Build clock	Not a rebuild	
+E1-S2-19	W58	1	GitHub's runner and our machine: our assemblies differ by the runtime patch the compiler ran on, 10.0.13 against 10.0.12. Fixed by installing the `global.json` SDK alone.	Toolchain identity		Cause	Compiler, runtime or tool used	Tool and dependency versions	
+E1-S2-20	W71	1	macOS on arm64 against GitHub's Linux x86-64 runner: nothing differs, frontend and zips included.	Toolchain identity		No difference			
+E1-S3-01	W37	1	Next.js draws a random build ID in every build and writes it into paths and pages: 110 of 998 files. Set to the release version.	Chance and timing		Cause	Randomness or parallel timing	Not a rebuild	
+E1-S3-02	W38	1	Two frontend builds at the same path, with the build ID fixed: identical.	Measured stable		No difference			
+E1-S3-03	W39	1	The frontend imports 7 files from outside `ClientApp`. Build it from an export of the whole commit.	Inputs and pinning		Cause	Input chosen by name or version	Exact source state	needs the whole commit
+E1-S3-04	W40	1	The release asked for Node `20.x`, a major version only. Now pinned in `.nvmrc` and read by every workflow.	Toolchain identity		Cause	Compiler, runtime or tool used	Tool and dependency versions	Node pinned by major version only
+E1-S3-05	W41	1	391 of 1509 lock entries had no content hash, so npm trusted the registry for them. Filled in.	Inputs and pinning		Cause	Input chosen by name or version	Not a rebuild	
+E1-S3-06	W43	1	Shared CSS files took their order from build timing: 4 of 998 files in 1 of 4 builds. All third-party CSS now imported in one place.	Chance and timing		Cause	Randomness or parallel timing	Not a rebuild	
+E1-S3-07	W44	1	Between two commits, the minifier gave other short names in the runtime chunk. Never within one commit, so it does not break reproducibility.	Chance and timing		No difference			differs between commits, never within one
+E1-S3-08	W46	1	The release's npm drops the `libc` field from the lock file. It changes which packages install, not the export of one commit.	Toolchain identity		Cause	Compiler, runtime or tool used	Tool and dependency versions	borderline: npm version changes what installs (INPUT?)
+E1-S3-09	W47	1	Webpack ordered the pages by build timing: two outputs over 26 builds, 109 of 990 files. A plugin sorts them by name.	Chance and timing		Cause	Randomness or parallel timing	Not a rebuild	
+E1-S3-10	W51	1	About 1 in 50 builds, two identical chunks swapped ids: webpack's module order followed timing. The plugin also sorts modules.	Chance and timing		Cause	Randomness or parallel timing	Not a rebuild	
+E1-S4-01	W48	1	The zips differ in every build though every entry's bytes are equal: times, order, modes, owner. Fixed by normalised packing.	File and archive metadata		Cause	File or archive metadata	Not a rebuild	borderline: zip times are TIME by rule 2, order FSORDER
+E1-S5-01	W52	1	The `ef bundle` migrator is built in a random `/tmp` folder: 93 of 827,679,078 bytes differ. Now a project in the repository, where `PathMap` applies.	Build path		Cause	Build folder path	Not a rebuild	
+E1-S5-02	W53	1	On .NET 10 the migration jobs failed before building: `dotnet ef` needs a restore first.	Build and release configuration		Setup fault			
+E1-S5-03	W54	1	On macOS the migrator's locked restore failed: the SDK added the Mac's platform, which the lock does not hold.	Build and release configuration		Setup fault			
+E1-S5-04	W55	1	The Windows release, built on Linux as its job builds it: 2132 files identical under no variation, all axes and Estonian.	Measured stable		No difference			
+E1-S5-05	W59	1	Signing gives each of 177 files a timestamped signature, so two signed builds always differ. Check a rebuild by pasting the release's signatures onto it.	Clock time		Cause	Build clock	Build step, flag or key	signature timestamps; rebuilder lacks the key
+E1-S5-06	W61	1	The SQL script from two exports, at two paths and under another locale and time zone: identical.	Measured stable		No difference			
+E1-S5-07	W63	1	`SHA256SUMS` lists the files in the locale's sort order. Fixed with `LC_ALL=C`.	Locale		Cause	Language setting	Not a rebuild	
+E1-S5-08	W64	1	On a self-hosted runner the Windows job took a frontend export that another job had left on the machine. It now always downloads the release's own.	Inputs and pinning		Cause	Input chosen by name or version	Not a rebuild	
+E1-S5-09	W66	1	`SHA256SUMS` named three files by a folder that the GitHub Release does not have, so a download could not be checked.	File and archive metadata		Setup fault			
+E1-S5-10	W69	1	`dotnet tool restore` can run a tool from another job's folder on a shared runner. The migration job now has its own CLI home.	Toolchain identity		Cause	Compiler, runtime or tool used	Not a rebuild	borderline: leftover state on a shared runner (INPUT?)
+E1-S6-01	W56	1	The WebAPI and job worker images differ in times only. Fixed with `SOURCE_DATE_EPOCH` and BuildKit's `rewrite-timestamp`.	Clock time		Cause	Build clock	Not a rebuild	
+E1-S6-02	W60	1	The MCP images kept files that build steps write as a side effect: font caches, Node's compile cache, test durations. Removed in each step.	Inputs and pinning		Cause	Cause unclear	Not a rebuild	side products of build steps (caches); no code fits
+E1-S6-03	W62	1	The migrations image, from the manual image script, had the same time difference as W56. Fixed the same way.	Clock time		Cause	Build clock	Not a rebuild	
+E1-S6-04	W65	1	Image tags point at attestations that hold the build's clock and a random id, so tags differ in every build. Compare the image manifest instead.	Clock time		Cause	Build clock	Not a rebuild	attestation also holds a random id (RANDOM)
+E1-S6-05	W67	1	The MCP images install Debian packages from the live archive. Now installed from a dated snapshot.	Inputs and pinning		Cause	Input chosen by name or version	Not a rebuild	
+E1-S6-06	W68	1	canvas downloads a prebuilt binary from GitHub without a checksum. Now added by its SHA-256.	Inputs and pinning		Cause	Input chosen by name or version	Not a rebuild	
+E1-M-01	E8	1	A command-line `PathMap` must use the shell's `$PWD`. `$(MSBuildProjectDirectory)` is ignored there without a warning.	Method		About the measurement			
+E1-M-02	E9	1	Sorting one file list under two locales gave two different hash lists.	Method		About the measurement			
+E1-M-03	E10	1	Deleting only `bin/` does not rebuild: MSBuild copies the old files from `obj/` again.	Method		About the measurement			
+E1-M-04	W2	1	Deleting `obj/` between builds also deletes the restore's output, so both builds fail.	Method		About the measurement			
+E1-M-05	W11	1	Our clean step missed the test project, which then built in only one of the two builds.	Method		About the measurement			
+E1-M-06	W14	1	The shared droplet (1 CPU, 1 GB) could not compile WS.PEMS in 3 hours. A verifier needs several GB of RAM.	Method		About the measurement			
+E1-M-07	W27	1	reprotest's second build reuses the compiler server that the first build started, so the varied environment never reaches the compiler. Fix: shut the build servers down before each build.	Method		About the measurement			
+E1-M-08	W28	1	reprotest also fixes settings it does not vary: one CPU, `TZ=GMT+12`, `LANG=C.UTF-8`, `HOME` in the build folder.	Method		About the measurement			
+E1-M-09	W35	1	With MSBuild's node reuse off, no compiler server or worker node survived any of 32 runs.	Method		About the measurement			
+E1-M-10	W36	1	The working directory does not show which build a process belongs to; `HOME` does.	Method		About the measurement			
+E1-M-11	W42	1	Stage 2 was first measured without the frontend export that CI copies into `wwwroot/`.	Method		About the measurement			
+E1-M-12	W57	1	BuildKit reuses a cached `WORKDIR` step despite `--no-cache`, so one builder can hide a time difference.	Method		About the measurement			
+E1-M-13	R1	1	The `aslr` axis alone changes nothing: both builds run with ASLR on. Only `kernel` turns it off.	Method		About the measurement			
+E1-M-14	R2	1	The `kernel` axis varies two things: the reported kernel version and ASLR.	Method		About the measurement			
+E1-M-15	R3	1	Axes change more than their names say: `build_path` moves `HOME`, and `user_group` replaces `PATH`.	Method		About the measurement			
+E1-M-16	R4	1	The builds inherit the whole environment of the shell that starts reprotest, 105 variables in our case. Start it under `env -i`.	Method		About the measurement			
+E1-M-17	R5	1	Under reprotest's fixed setting, the caller's other locale variables still apply. Only `LC_ALL`, `LC_MESSAGES` and `LANG` decide ICU's locale.	Method		About the measurement			
+E1-M-18	R6	1	On a green run reprotest replaces the second build's output with a link to the first. Compare hashes across runs, not only verdicts.	Method		About the measurement			
+E1-M-19	R7	1	The `time` axis silently skips its shift when the newest source file is over 398 days old.	Method		About the measurement			
+E1-M-20	R8	1	reprotest's log names each build's varied axes and values, and its exit code tells pass, differ and fail apart.	Method		About the measurement			
+E1-M-21	T1	1	npm, pip, gem, Maven and Go leave no process alive between reprotest's builds. .NET's compiler server does (W27).	Method		About the measurement			
+E1-M-22	T2	1	The `time` axis cannot move the clock of a static binary: Go's compiler reads the real time.	Method		About the measurement			
+E1-M-23	T3	1	Under `time`, pip's build fails the TLS check against PyPI.	Method		About the measurement			
+E1-M-24	T4	1	reprotest's `HOME` does not reach Maven, which still uses the real `~/.m2`.	Method		About the measurement			
+E2a-01		2a	Date in the package version	Azure SDK, System.ClientModel	8	Cause	Build clock	Not a rebuild	
+E2a-02		2a	Clock in the package version	IdentityModel 8.23.0	5	Cause	Build clock	Not a rebuild	
+E2a-03		2a	Copyright year from the clock	Swashbuckle, Stateless	4	Cause	Build clock	Not a rebuild	
+E2a-04		2a	npm under the time variation	Swashbuckle ReDoc, SwaggerUI	2	About the measurement			libfaketime breaks npm; not a cause
+E2a-05		2a	Arcade's date-based build number	Build.Framework	1	Cause	Build clock	Not a rebuild	
+E2a-06		2a	Hash of the project path in the PDB	Quartz	4	Cause	Build folder path	Not a rebuild	
+E2a-07		2a	PDB path not mapped	ClosedXML	1	Cause	Build folder path	Not a rebuild	
+E2b-01		2b	Arcade's development versioning	Roslyn, EF Core, Sqlite	17	Cause	Build clock	Build step, flag or key	OfficialBuildId missing
+E2b-02		2b	Clock in the version	IdentityModel	9	Cause	Build clock	Build step, flag or key	check: is the version enough?
+E2b-03		2b	Date suffix on unofficial builds	Azure SDK, System.ClientModel	8	Cause	Build clock	Build step, flag or key	official-build flag missing
+E2b-04		2b	Copyright year from the build clock	Swashbuckle, Stateless	6	Cause	Build clock	Build step, flag or key	build date not recorded
+E2b-05		2b	Attributes written by the CI script	Bogus, YamlDotNet	3	Cause	Release pipeline input	Build step, flag or key	
+E2b-06		2b	Version computed from git	MediatR.Contracts, ExCSS	2	Cause	Release pipeline input	Exact source state	
+E2b-07		2b	Targeting pack	SharpZipLib	2	Cause	Compiler, runtime or tool used	Tool and dependency versions	
+E2b-08		2b	RepositoryUrl form	two Serilog packages	2	Cause	Release pipeline input	Exact source state	URL taken from the checkout
+E2b-09		2b	Signing key	RecyclableMemoryStream	1	Cause	Release pipeline input	Build step, flag or key	
+E2b-10		2b	Not inspected	Google.Protobuf, ShimSkiaSharp	5	Cause	Cause unclear	Cause unclear	not inspected

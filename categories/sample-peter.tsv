@@ -1,4 +1,4 @@
-id	old_id	experiment	finding	packages	type	cause_A	missing_B	note
+id	old_id	experiment	finding	packages	type	category	rebuilder_lacked	note
 E1-S1-06	E6	1	Another build path changed the DLL and the PDB: both hold absolute paths.					
 E1-S1-21	W49	1	The explicit `PathMap` also rewrote `[CallerFilePath]`, which broke the tests' search for the solution folder.					
 E1-S2-11	W26	1	Under Estonian the compiler orders the types it generates for collection expressions differently: 10 of 1237 files. A Roslyn defect, gone on SDK 10.					
