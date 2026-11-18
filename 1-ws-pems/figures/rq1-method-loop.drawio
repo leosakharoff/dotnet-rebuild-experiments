@@ -7,13 +7,13 @@
         <mxCell id="setup" parent="1" value="&lt;b&gt;Before each build&lt;/b&gt;&lt;br&gt;Export the same commit outside Git, use the pinned SDK and hash its compiler.&lt;br&gt;Start with an empty environment, no bin/ or obj/, and build servers stopped." style="rounded=0;fillColor=#ffffff;strokeColor=#9aa4a8;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
           <mxGeometry as="geometry" x="36" y="0" width="590" height="60" />
         </mxCell>
-        <mxCell id="pair" parent="1" value="&lt;b&gt;Build twice&lt;/b&gt;&lt;br&gt;Run a baseline build, then rebuild&lt;br&gt;with one condition varied." style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+        <mxCell id="pair" parent="1" value="&lt;b&gt;Build twice&lt;/b&gt;&lt;br&gt;Run a baseline build, then rebuild&lt;br&gt;with one variation." style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
           <mxGeometry as="geometry" x="229" y="84" width="204" height="68" />
         </mxCell>
         <mxCell id="compare" parent="1" value="&lt;b&gt;Compare&lt;/b&gt;&lt;br&gt;File hashes&lt;br&gt;(SHA-256)" style="shape=rhombus;fillColor=#ffffff;strokeColor=#6e797e;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=0;" vertex="1">
           <mxGeometry as="geometry" x="259" y="176" width="144" height="74" />
         </mxCell>
-        <mxCell id="advance" parent="1" value="&lt;b&gt;Continue testing&lt;/b&gt;&lt;br&gt;Next condition&lt;br&gt;All conditions together&lt;br&gt;Next stage" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+        <mxCell id="advance" parent="1" value="&lt;b&gt;Continue testing&lt;/b&gt;&lt;br&gt;Next variation&lt;br&gt;All variations together&lt;br&gt;Next stage" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
           <mxGeometry as="geometry" x="36" y="166" width="168" height="94" />
         </mxCell>
         <mxCell id="fix" parent="1" value="&lt;b&gt;Apply a fix and retest&lt;/b&gt;" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
