@@ -23,7 +23,7 @@
 # beside the lab. OUT must point to a folder for the results. You can also
 # set:
 #
-#   LAB         the lab (default /private/tmp/rb1-phoenix). It must hold no
+#   LAB         the lab (default /private/tmp/rb1-ws-pems). It must hold no
 #               build output.
 #   DOTNET_DIR  the SDK folder (default ~/.dotnet). It holds both SDKs the
 #               commits ask for, 9.0.120 and 10.0.401; the lab's
@@ -103,7 +103,7 @@ case $OUT in
 esac
 # Absolute, because the run itself starts from inside the lab.
 OUT=$(realpath -m "$OUT")
-LAB=${LAB:-/private/tmp/rb1-phoenix}
+LAB=${LAB:-/private/tmp/rb1-ws-pems}
 MIN_CPUS=${MIN_CPUS:-2}
 
 # make-lab.sh writes the commit and its time beside the lab.

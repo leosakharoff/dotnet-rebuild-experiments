@@ -31,7 +31,7 @@ all required information. The remaining 117 record where the process stopped:
 
 - 75 packages have no assembly matching the package name under `lib/`: 27 ship
   no managed code, 45 are Humanizer satellite packages, two place their
-  assemblies under `runtimes/`, and one under `tools/`.
+  assemblies under `runtimes/`, and one under `shared/`.
 - 20 specify no commit.
 - 11 specify no repository.
 - 8 could not be fetched: 5 SkiaSharp and HarfBuzz packages use a dead `fwlink`
@@ -46,7 +46,7 @@ for every package that does not build.
 
 We used .NET SDK 10.0.403 with NuGet 7.9.0-rc.2412. We installed it alone from
 the official tarball after checking its SHA-512 checksum
-(`../tools/install-sdk.py`). One online restore per package filled a shared
+(`../shared/install-sdk.py`). One online restore per package filled a shared
 package cache. Every measured build runs with `--no-restore` from a clean clone
 at the declared commit (`core.autocrlf=false`, with submodules initialised).
 
@@ -143,7 +143,7 @@ Azure packages. The lab needs about 40 GB outside any repository.
 
 ```bash
 LAB=$HOME/determinism-lab && mkdir -p $LAB/tmp
-python3 -I ../tools/install-sdk.py 10.0.403 $LAB/sdk | tee $LAB/install-sdk.log
+python3 -I ../shared/install-sdk.py 10.0.403 $LAB/sdk | tee $LAB/install-sdk.log
 ```
 
 2. Everything, from `population.tsv` to `results/`. Every package, eight axes,

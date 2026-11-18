@@ -87,7 +87,7 @@ result (see Using the publisher's build system).
 ### Controlled build environment
 
 We install each derived SDK alone from Microsoft's archive after checking its
-SHA-512 hash (`../tools/install-sdk.py`). Each build starts from a fresh full
+SHA-512 hash (`../shared/install-sdk.py`). Each build starts from a fresh full
 clone at the named commit and an empty package cache. `NuGetAudit=false`
 prevents advisories published after the release from failing the restore.
 
@@ -106,14 +106,14 @@ package and from the package on nuget.org. This is the file `population.tsv`
 names for the package. It narrows part 2a's level 3, the assemblies, from all
 DLLs to the single DLL loaded by WS.PEMS.
 
-`../tools/dllreport.cs` reads both DLLs and hashes each section, metadata stream
+`../shared/dllreport.cs` reads both DLLs and hashes each section, metadata stream
 and resource separately. `scripts/level.py` then decides how well the pair
 matches:
 
 | match | what differs |
 |---|---|
 | identical | nothing |
-| identical without signatures | only the Authenticode block, the strong-name signature and the PE checksum (`../tools/stripsign.cs` cuts them and hashes the rest) |
+| identical without signatures | only the Authenticode block, the strong-name signature and the PE checksum (`../shared/stripsign.cs` cuts them and hashes the rest) |
 | same code | only the build identity: MVID, PE timestamp, PDB id and checksum |
 | other code | anything in IL, the metadata streams or the resources |
 
@@ -151,7 +151,7 @@ and network access to nuget.org, GitHub and Microsoft's SDK archives.
 
 ```bash
 LAB=$HOME/rebuild-lab                        # outside any repository
-python3 -I ../tools/install-sdk.py 10.0.403 $LAB/report-sdk
+python3 -I ../shared/install-sdk.py 10.0.403 $LAB/report-sdk
 ```
 
 2. Everything this machine can build, from `population.tsv` to `results/`. This
@@ -194,19 +194,19 @@ then run steps 2 and 3 again. Step 2 reuses existing builds.
 ### The publisher's build
 
 The publisher's build runs after step 2 in the same lab. It derives recipes from
-`publisher-build/packages.txt` and builds the four dotnet/dotnet recipes here.
+`scripts/publisher-build/packages.txt` and builds the four dotnet/dotnet recipes here.
 They require clang, cmake and ninja.
 
 ```bash
-python3 -I publisher-build/scripts/run-repo-batch.py $LAB
+python3 -I scripts/publisher-build/run-repo-batch.py $LAB
 ```
 
 The other recipes are listed in `$LAB/repo-runner.txt`. Run them on Windows in
-the same way, with `publisher-build/scripts/repo-build.py` or
-`publisher-build/scripts/nupkg-repository-build.yml`. Put their output under
+the same way, with `scripts/publisher-build/repo-build.py` or
+`scripts/publisher-build/nupkg-repository-build.yml`. Put their output under
 `$LAB/repo-runner/<name>/`. A second run classifies them into
 `$LAB/publisher-build.tsv`, in the form of
-`publisher-build/results/publisher-build.tsv`.
+`results/publisher-build.tsv`.
 
 ## Results
 
@@ -351,7 +351,7 @@ packages, ran on `arch` because `dotnet/dotnet` does not fit on a free runner.
 
 Of the 42 packages built on the publisher's host, 35 are reproduced. Every
 compared assembly is byte-for-byte identical after signatures are removed
-(`publisher-build/results/signature-stripped.txt`). The same recipes reached
+(`results/signature-stripped.txt`). The same recipes reached
 only the same-code match on Linux, and no VMR package is reproduced.
 
 All 25 packages whose compiler is unavailable in a public SDK built in this
@@ -362,7 +362,7 @@ Every value this build used is public: the repository's scripts and pipeline
 files at the named commit, and the build ID decoded from the shipped file
 version. Two steps that need Microsoft's internal resources were switched off:
 the internal feeds in `NuGet.config` and the optimization data (rules R5 and R5b
-in `publisher-build/scripts/derive-repo.py`). The reproduced assemblies did not
+in `scripts/publisher-build/derive-repo.py`). The reproduced assemblies did not
 need them. What the release lacks is the recipe: which entry point to run, and
 with which versioning and branding properties. The release metadata names none
 of them.
@@ -460,6 +460,12 @@ working repository's "best of all versions" from 28 October.
     figures.py                the match figure: python3 -I scripts/figures.py [THESIS_IMAGES]
     sdk-csc.json              SDK version to compiler version; derive.py reads and extends it
     nupkg-rebuild.yml         the GitHub workflow for the runner recipes; not active here
+    publisher-build/          the publisher's own build system, a diagnostic second build
+      packages.txt            the 99 Arcade packages, kept by hand; input to derive-repo.py
+      derive-repo.py          publisher recipes per repository and commit; --v5 is the final rule set
+      repo-build.py           one publisher recipe; reads rebuild.py and compare.py from scripts/
+      run-repo-batch.py       derive-repo.py and repo-build.py over packages.txt
+      nupkg-repository-build.yml   the workflow from the Windows run; not active here
   results/
     release-build.tsv         one row per package, with a source column
     compare.txt               the package listing of every compared build, one section each
@@ -467,19 +473,11 @@ working repository's "best of all versions" from 28 October.
     summary.md                printed by summary.py
     findings.md               the cause types, coded with the codebook
     categories.tsv            printed by summary.py
-  publisher-build/
-    packages.txt              the 99 Arcade packages, kept by hand; input to derive-repo.py
-    scripts/
-      derive-repo.py          publisher recipes per repository and commit; --v5 is the final rule set
-      repo-build.py           one publisher recipe; reads rebuild.py and compare.py from scripts/
-      run-repo-batch.py       derive-repo.py and repo-build.py over packages.txt
-      nupkg-repository-build.yml   the workflow from the Windows run; not active here
-    results/
-      publisher-build.tsv     one row per package, with a source column
-      signature-stripped.txt  complete-DLL hashes for the 35 reproduced packages
+    publisher-build.tsv       the publisher's build: one row per package, with a source column
+    signature-stripped.txt    complete-DLL hashes for the 35 packages the publisher's build reproduced
 ```
 
-`../tools/` holds `install-sdk.py`, `dllreport.cs` and `stripsign.cs`, shared
+`../shared/` holds `install-sdk.py`, `dllreport.cs` and `stripsign.cs`, shared
 with 2a and unchanged.
 
 `scripts/figures.py` draws `figures/match`, as PDF and PNG, from

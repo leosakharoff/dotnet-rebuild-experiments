@@ -5,7 +5,7 @@ Usage: python3 -I run-repo-batch.py LAB
 LAB is the release build's lab (2b-rebuild/scripts/run-batch.py): the publisher's build reads the release
 derivations in LAB/derive/ for each package's commit, project and file version. The steps:
 
- 1. derive the recipes (derive-repo.py) from ../packages.txt into LAB/repo-recipes/<name>/;
+ 1. derive the recipes (derive-repo.py) from packages.txt into LAB/repo-recipes/<name>/;
  2. build the recipes for dotnet/dotnet's inner repositories here, one at a time
     (repo-build.py, in its own process group, killed after four hours), into
     LAB/repo-build/<name>/; a runtime recipe needs clang, cmake and ninja;
@@ -51,7 +51,7 @@ def main():
 
     # 1. recipes
     if not os.path.isdir(recipes):
-        rb.sh([sys.executable, '-I', os.path.join(HERE, 'derive-repo.py'), os.path.join(HERE, '..', 'packages.txt'),
+        rb.sh([sys.executable, '-I', os.path.join(HERE, 'derive-repo.py'), os.path.join(HERE, 'packages.txt'),
                os.path.join(HERE, '..', '..', 'population.tsv'), os.path.join(lab, 'derive'), lab, recipes], log, timeout=14400)
     names = sorted(n for n in os.listdir(recipes) if os.path.exists(os.path.join(recipes, n, 'recipe.toml')))
     log(f"publisher's build: {len(names)} recipes; not covered: {open(os.path.join(recipes, 'not-covered.txt'), encoding='utf-8').read().strip() or 'none'}")

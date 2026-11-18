@@ -7,7 +7,7 @@ tag if the .nuspec names one, git config for the checkout's line endings,
 the build folder if the PDB records one, the SDK, the build command, where
 the package lands. WORKDIR must not exist. The script
 
-1. installs the recipe's SDK alone into WORKDIR/sdk (2-dependencies/tools/install-sdk.py);
+1. installs the recipe's SDK alone into WORKDIR/sdk (2-dependencies/shared/install-sdk.py);
 2. builds twice, each time from a fresh full clone: A in the recipe's
    clone_dir if it has one (the path the publisher built in), else in
    WORKDIR/A/src; then A2 in exactly A's paths again (clone, HOME and
@@ -39,7 +39,7 @@ and the shallow-clone and extra-runtime options used by the pilot's hand-written
 import datetime, hashlib, os, re, shutil, subprocess, sys, tomllib, urllib.error, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TOOLS = os.path.join(HERE, '..', '..', 'tools')
+TOOLS = os.path.join(HERE, '..', '..', 'shared')
 WINDOWS = os.name == 'nt'
 SECRET = re.compile('TOKEN|SECRET|KEY|PASSWORD|CREDENTIAL', re.I)
 

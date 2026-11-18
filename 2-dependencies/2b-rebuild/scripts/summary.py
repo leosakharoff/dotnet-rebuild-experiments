@@ -6,7 +6,7 @@ RESULTS (default ../results/) holds:
   release-build.tsv    run-batch.py's results.tsv, one row per package
   compare.txt          compare.py's listing of nuget.org's package against ours, one section
                        "=== <Package>-<version>" per compared package
-PUBLISHER_RESULTS (default ../publisher-build/results/) holds:
+PUBLISHER_RESULTS (default ../results/) holds:
   publisher-build.tsv  the publisher's build, one row per package: host (windows-2022 or linux),
                        publisher_match, and match_without_roslyn_rule (the level with the
                        release-branding properties for Roslyn too)
@@ -126,7 +126,7 @@ def group_table(title, counts, total):
 
 def main():
     results = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(HERE, '..', 'results')
-    publisher_results = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(HERE, '..', 'publisher-build', 'results')
+    publisher_results = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(HERE, '..', 'results')
     population = os.path.abspath(sys.argv[3]) if len(sys.argv) > 3 else os.path.join(HERE, '..', 'population.tsv')
     owner = {(r['package'], r['version']): r['owner'] for r in csv.DictReader(open(population, encoding='utf-8'), delimiter='\t')}
 

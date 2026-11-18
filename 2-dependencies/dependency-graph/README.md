@@ -117,7 +117,7 @@ nothing from the network.
 
 ## Running
 
-Run from `2-dependencies/graph/` with Python 3.11 or later. Step 1 needs
+Run from `2-dependencies/dependency-graph/` with Python 3.11 or later. Step 1 needs
 WS.PEMS's repository, so it ran once; its output, `results/edges.tsv`, is
 here. Step 4 needs network access to nuget.org, and PyYAML for the optional
 `dependencies.yml`. Steps 6 and 7 need matplotlib; step 7 also needs

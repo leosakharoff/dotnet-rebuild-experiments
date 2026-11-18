@@ -14,9 +14,9 @@
 #
 # To run it by hand, without reprotest, from inside a lab:
 #
-#   cd /private/tmp/rb1-phoenix
+#   cd /private/tmp/rb1-ws-pems
 #   env DOTNET_DIR=$HOME/.dotnet NODE_DIR=/private/tmp/rb1-node22 \
-#       COMMIT_TIME=$(cut -d' ' -f2 /private/tmp/rb1-phoenix.commit) bash ~/Dev/dotnet-rebuild-experiments/1-phoenix/scripts/4-zip/build.sh
+#       COMMIT_TIME=$(cut -d' ' -f2 /private/tmp/rb1-ws-pems.commit) bash ~/Dev/dotnet-rebuild-experiments/1-ws-pems/scripts/4-zip/build.sh
 #
 # COMMIT_TIME is the commit's time, which make-lab.sh writes beside the
 # lab. That leaves the build output in the lab, so make it again before

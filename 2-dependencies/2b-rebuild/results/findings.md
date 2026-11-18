@@ -2,7 +2,7 @@
 
 The causes behind the **55** release builds whose code differs from the published package, grouped into **10** cause types. Evidence: [Builds with other code](../README.md#builds-with-other-code). Results per package: [summary.md](summary.md) and [categories.tsv](categories.tsv).
 
-**Id.** `E2b-04` is cause type 4 in part 2b. **Code.** The cause, from the [codebook](../../../coding/codebook.md); after a slash, what a rebuilder lacked. METHOD marks a row that is about the measurement, not a cause. Experiment 2 counts cause types and packages; experiment 1 counts findings. The two are never added together.
+**Id.** `E2b-04` is cause type 4 in part 2b. **Code.** The cause, from the [codebook](../../../categories/codebook.md); after a slash, what a rebuilder lacked. METHOD marks a row that is about the measurement, not a cause. Experiment 2 counts cause types and packages; experiment 1 counts findings. The two are never added together.
 
 | Id | Cause type | Packages | n | Code | Note |
 | --- | --- | --- | --- | --- | --- |

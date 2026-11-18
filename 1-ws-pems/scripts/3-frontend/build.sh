@@ -14,8 +14,8 @@
 #
 # To run it by hand, without reprotest, from inside a lab:
 #
-#   cd /private/tmp/rb1-phoenix
-#   env NODE_DIR=/private/tmp/rb1-node22 bash ~/Dev/dotnet-rebuild-experiments/1-phoenix/scripts/3-frontend/build.sh
+#   cd /private/tmp/rb1-ws-pems
+#   env NODE_DIR=/private/tmp/rb1-node22 bash ~/Dev/dotnet-rebuild-experiments/1-ws-pems/scripts/3-frontend/build.sh
 #
 # That leaves node_modules/, .next/ and out/ in the lab, so make it again
 # before run-stage.sh.

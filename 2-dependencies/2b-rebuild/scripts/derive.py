@@ -54,7 +54,7 @@ import hashlib, json, os, re, shutil, subprocess, sys, tomllib, urllib.error, ur
 import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TOOLS = os.path.join(HERE, '..', '..', 'tools')
+TOOLS = os.path.join(HERE, '..', '..', 'shared')
 REPORT_SDK = os.environ.get('DLLREPORT_DOTNET', 'dotnet')   # Use a .NET 10 SDK for the file-based dllreport.cs.
 record, defaults, skipped = [], [], None
 

@@ -15,8 +15,8 @@
 #
 # To run it by hand, without reprotest, from inside a lab:
 #
-#   cd /private/tmp/rb1-phoenix
-#   env DOTNET_DIR=$HOME/.dotnet bash ~/Dev/dotnet-rebuild-experiments/1-phoenix/scripts/2-publish/build.sh
+#   cd /private/tmp/rb1-ws-pems
+#   env DOTNET_DIR=$HOME/.dotnet bash ~/Dev/dotnet-rebuild-experiments/1-ws-pems/scripts/2-publish/build.sh
 #
 # That leaves bin/, obj/ and release/ in the lab, so make it again before
 # run-stage.sh.

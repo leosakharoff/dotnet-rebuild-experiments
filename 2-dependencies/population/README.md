@@ -59,7 +59,7 @@ part measures. Each part's README explains why.
   reasons: 75 ship no assembly with the package's name under `lib/` (27 ship no
   managed code, 45 are Humanizer's satellite packages with one
   `Humanizer.resources.dll` per culture, 2 ship theirs under `runtimes/` and 1
-  under `tools/`), 20 name no commit, 11 no repository, 8 could not be fetched,
+  under `shared/`), 20 name no commit, 11 no repository, 8 could not be fetched,
   and 3 have no single project with that name.
 - 2b needs a commit and a compiler record. It derives the SDK from the compiler
   named by the release instead of using a fixed SDK. This selects 198 of the 303

@@ -159,7 +159,7 @@ env OUT=$HOME/Dev/speciale-2026/data/$(date +%F)-stage3 shared/run-stage.sh 3-fr
 `$(date +%F)` is today's date, as in `2026-11-11`, in bash and in fish.
 
 `make-lab.sh COMMIT` exports the commit into an empty lab,
-`/private/tmp/rb1-phoenix`.
+`/private/tmp/rb1-ws-pems`.
 
 `run-stage.sh STAGE AXIS` checks that the lab holds no build output. It finds the SDK and Node that the
 commit asks for, runs reprotest, and writes the run's folder and one row in
@@ -185,13 +185,13 @@ Stage 6 runs outside reprotest:
 
 When a run is red, the run's `store/` holds the kept files of both builds,
 under `control/source-root/` and `experiment-1/source-root/`.
-[dllreport.cs](../2-dependencies/tools/dllreport.cs) writes one report per
+[dllreport.cs](../2-dependencies/shared/dllreport.cs) writes one report per
 DLL: a hash for each part, the debug entries and the PDB's paths. A diff of
 two reports shows which parts differ, and often why. From inside `store/`:
 
 ```bash
-dotnet run ~/Dev/dotnet-rebuild-experiments/2-dependencies/tools/dllreport.cs -- control/source-root/PATH/X.dll > /private/tmp/report-control.txt
-dotnet run ~/Dev/dotnet-rebuild-experiments/2-dependencies/tools/dllreport.cs -- experiment-1/source-root/PATH/X.dll > /private/tmp/report-experiment.txt
+dotnet run ~/Dev/dotnet-rebuild-experiments/2-dependencies/shared/dllreport.cs -- control/source-root/PATH/X.dll > /private/tmp/report-control.txt
+dotnet run ~/Dev/dotnet-rebuild-experiments/2-dependencies/shared/dllreport.cs -- experiment-1/source-root/PATH/X.dll > /private/tmp/report-experiment.txt
 diff /private/tmp/report-control.txt /private/tmp/report-experiment.txt
 ```
 
@@ -335,7 +335,7 @@ On SDK 10 the locale defect was gone.
 ## Data and scripts
 
 ```
-1-phoenix/
+1-ws-pems/
   README.md
   figures/                      four figures as .drawio and .drawio.png; figures/README.md explains each step
   results/
@@ -397,7 +397,7 @@ paths, and the originals are still there.
 | `sample-dotnet.py` | `shared/` |
 | `labcheck.py` | Removed on 16 November 2026: a lab made new and empty by `git archive` is the commit's files and nothing else. It stays in Speciale2026's `experiments/` |
 | `pdbdump/` | `1-build/pdbdump/` |
-| `pe-diff-regions.py`, `md-strings.py` | Removed on 11 November 2026; `2-dependencies/tools/dllreport.cs` shows which parts of two DLLs differ |
+| `pe-diff-regions.py`, `md-strings.py` | Removed on 11 November 2026; `2-dependencies/shared/dllreport.cs` shows which parts of two DLLs differ |
 | `phoenix-fe/compare-chunks.py` | Removed on 11 November 2026; it reads the chunk logs of a webpack plugin that is in no WS.PEMS commit (E1-S3-10) |
 | `phoenix-rt/image-probe.sh`, `oci-diff.py` | `6-images/build-twice.sh`, renamed on 16 November 2026; `6-images/oci-diff.py` |
 | `phoenix-rt/oci-file.py` | `6-images/oci-file.py` |

@@ -45,7 +45,7 @@ lab path was replaced.
 import os, re, subprocess, sys, zipfile, urllib.request, shutil, collections
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TOOLS = os.path.join(HERE, '..', '..', '..', 'tools')
+TOOLS = os.path.join(HERE, '..', '..', '..', 'shared')
 REPORT_DOTNET = os.environ.get('DLLREPORT_DOTNET', 'dotnet')   # Use a .NET 10 SDK for the file-based dllreport.cs.
 INNER_KINDS = {'runtime': 'runtime', 'aspnetcore': 'aspnetcore', 'efcore': 'arcade', 'roslyn': 'roslyn',
                'msbuild': 'arcade', 'symreader': 'arcade', 'reverse-proxy': 'arcade'}

@@ -2,7 +2,7 @@
 
 The causes behind the **25** packages that stayed unreproducible with the deterministic-build configuration, grouped into **7** cause types. Evidence: [Packages not fixed by configuration](../README.md#packages-not-fixed-by-configuration). Results per package: [summary.md](summary.md) and [categories.tsv](categories.tsv).
 
-**Id.** `E2a-04` is cause type 4 in part 2a. **Code.** The cause, from the [codebook](../../../coding/codebook.md); after a slash, what a rebuilder lacked. METHOD marks a row that is about the measurement, not a cause. Experiment 2 counts cause types and packages; experiment 1 counts findings. The two are never added together.
+**Id.** `E2a-04` is cause type 4 in part 2a. **Code.** The cause, from the [codebook](../../../categories/codebook.md); after a slash, what a rebuilder lacked. METHOD marks a row that is about the measurement, not a cause. Experiment 2 counts cause types and packages; experiment 1 counts findings. The two are never added together.
 
 | Id | Cause type | Packages | n | Code | Why the configuration did not fix it |
 | --- | --- | --- | --- | --- | --- |

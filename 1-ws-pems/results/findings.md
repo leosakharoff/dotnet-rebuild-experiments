@@ -6,7 +6,7 @@
 
 **Id.** `E1-S3-02` is stage 3, finding 2; `E1-M-05` is about the method. The old id in brackets is the row of `notes/findings-table.md` in Speciale2026.
 
-**Code.** The cause, from the [codebook](../../coding/codebook.md). After a slash: what a rebuilder lacked, for findings that came from comparing with CI or another machine. CONFIG, STABLE and METHOD are findings that are not causes.
+**Code.** The cause, from the [codebook](../../categories/codebook.md). After a slash: what a rebuilder lacked, for findings that came from comparing with CI or another machine. CONFIG, STABLE and METHOD are findings that are not causes.
 
 **Fix in.** Where the fix belongs: *our build* (WS.PEMS's build was changed), *the rebuild* (whoever rebuilds or compares must do something), *upstream* (only the tool's maintainers can fix it; we pin or work around), *not needed* (measured, and it did not differ or does not ship). A dash: not yet decided.
 

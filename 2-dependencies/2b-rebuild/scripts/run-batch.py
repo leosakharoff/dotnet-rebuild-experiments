@@ -8,7 +8,7 @@ repository. Every package is keyed by name and version together (folders
 <Package>-<version>), so two versions of one package stay apart. The steps:
 
  0. the .NET 10 SDK that runs dllreport.cs, alone in LAB/report-sdk
-    (../tools/install-sdk.py, when the folder has none);
+    (../shared/install-sdk.py, when the folder has none);
  1. derive every package (derive.py) into LAB/derive/<key>/; a package with
     a derivation.txt from an earlier run is kept, a failed derivation is redone;
  2. choose where each recipe builds: a Windows recipe on a windows-2022
@@ -49,7 +49,7 @@ disk guard and copying into the data folder.
 import datetime, os, re, shutil, subprocess, sys, tomllib, zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TOOLS = os.path.join(HERE, '..', '..', 'tools')
+TOOLS = os.path.join(HERE, '..', '..', 'shared')
 RESULTS = os.path.join(HERE, '..', 'results')
 REPORT_SDK = '10.0.403'      # the .NET 10 SDK for the file-based dllreport.cs
 REPORT_DOTNET = 'dotnet'     # set by report_sdk() to LAB/report-sdk/dotnet

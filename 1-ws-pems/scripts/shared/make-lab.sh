@@ -20,7 +20,7 @@
 # You can set:
 #
 #   REPO  the WS.PEMS repository (default ~/Dev/Weel-Sandvig/WS.Phoenix-repro)
-#   LAB   the lab (default /private/tmp/rb1-phoenix)
+#   LAB   the lab (default /private/tmp/rb1-ws-pems)
 
 # Stop at the first command that fails, also inside a pipe (pipefail), and
 # at any variable that is not set.
@@ -31,7 +31,7 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 REPO=${REPO:-$HOME/Dev/Weel-Sandvig/WS.Phoenix-repro}
-LAB=${LAB:-/private/tmp/rb1-phoenix}
+LAB=${LAB:-/private/tmp/rb1-ws-pems}
 
 # The commit's full id and time. Stops here if there is no such commit.
 commit=$(git -C "$REPO" rev-parse --verify "$1^{commit}")

@@ -6,8 +6,8 @@
 #
 # To run it by hand, without reprotest, from inside a lab:
 #
-#   cd /private/tmp/rb1-phoenix
-#   env DOTNET_DIR=$HOME/.dotnet bash ~/Dev/dotnet-rebuild-experiments/1-phoenix/scripts/1-build/build.sh
+#   cd /private/tmp/rb1-ws-pems
+#   env DOTNET_DIR=$HOME/.dotnet bash ~/Dev/dotnet-rebuild-experiments/1-ws-pems/scripts/1-build/build.sh
 #
 # That leaves bin/ and obj/ in the lab, so export it again before run-stage.sh.
 #
