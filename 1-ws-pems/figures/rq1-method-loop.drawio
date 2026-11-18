@@ -1,57 +1,63 @@
-<?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net">
-  <diagram name="Comparison within each stage" id="rq1">
-    <mxGraphModel page="1" pageWidth="600" pageHeight="420" grid="0" background="#FFFFFF">
+  <diagram id="rq1" name="Repeat the comparison in each stage">
+    <mxGraphModel adaptiveColors="auto" page="1" grid="1" gridSize="4" pageWidth="630" pageHeight="334" background="#ffffff">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="setup" value="&lt;b&gt;Before each build&lt;/b&gt;&lt;br&gt;Export the same commit outside Git. Use the pinned SDK and hash its compiler.&lt;br&gt;Start with an empty environment, no bin/ or obj/, and build servers stopped." style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="8" y="8" width="584" height="68" />
+        <mxCell id="setup" parent="1" value="&lt;b&gt;Before each build&lt;/b&gt;&lt;br&gt;Export the same commit outside Git, use the pinned SDK and hash its compiler.&lt;br&gt;Start with an empty environment, no bin/ or obj/, and build servers stopped." style="rounded=0;fillColor=#ffffff;strokeColor=#9aa4a8;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+          <mxGeometry as="geometry" x="36" y="0" width="590" height="60" />
         </mxCell>
-        <mxCell id="pair" value="&lt;b&gt;Build twice&lt;/b&gt;&lt;br&gt;Run a baseline build, then rebuild&lt;br&gt;with one condition varied." style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="8" y="104" width="266" height="76" />
+        <mxCell id="pair" parent="1" value="&lt;b&gt;Build twice&lt;/b&gt;&lt;br&gt;Run a baseline build, then rebuild&lt;br&gt;with one condition varied." style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+          <mxGeometry as="geometry" x="229" y="84" width="204" height="68" />
         </mxCell>
-        <mxCell id="compare" value="&lt;b&gt;Compare the outputs&lt;/b&gt;&lt;br&gt;Check each file’s SHA-256 hash." style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="8" y="221" width="266" height="61" />
+        <mxCell id="compare" parent="1" value="&lt;b&gt;Compare&lt;/b&gt;&lt;br&gt;File hashes&lt;br&gt;(SHA-256)" style="shape=rhombus;fillColor=#ffffff;strokeColor=#6e797e;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=0;" vertex="1">
+          <mxGeometry as="geometry" x="259" y="176" width="144" height="74" />
         </mxCell>
-        <mxCell id="trace" value="&lt;b&gt;Trace the difference&lt;/b&gt;&lt;br&gt;Identify the file and field." style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="335" y="221" width="257" height="61" />
+        <mxCell id="advance" parent="1" value="&lt;b&gt;Continue testing&lt;/b&gt;&lt;br&gt;Next condition&lt;br&gt;All conditions together&lt;br&gt;Next stage" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+          <mxGeometry as="geometry" x="36" y="166" width="168" height="94" />
         </mxCell>
-        <mxCell id="fix" value="&lt;b&gt;Apply a fix and retest&lt;/b&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="335" y="104" width="257" height="76" />
+        <mxCell id="fix" parent="1" value="&lt;b&gt;Apply a fix and retest&lt;/b&gt;" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+          <mxGeometry as="geometry" x="458" y="89" width="168" height="58" />
         </mxCell>
-        <mxCell id="advance" value="&lt;b&gt;Continue testing&lt;/b&gt;&lt;br&gt;Try the next condition, then all&lt;br&gt;conditions together. Repeat the&lt;br&gt;procedure at the next stage." style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="8" y="335" width="266" height="82" />
+        <mxCell id="trace" parent="1" value="&lt;b&gt;Trace the difference&lt;/b&gt;&lt;br&gt;Identify the file and field." style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+          <mxGeometry as="geometry" x="458" y="184" width="168" height="58" />
         </mxCell>
-        <mxCell id="record" value="&lt;b&gt;Record external action&lt;/b&gt;&lt;br&gt;Describe what the verifier or&lt;br&gt;tool maintainer must do." style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="335" y="335" width="257" height="82" />
+        <mxCell id="record" parent="1" value="&lt;b&gt;Record external action&lt;/b&gt;&lt;br&gt;Describe what the verifier&lt;br&gt;or tool maintainer must do." style="rounded=0;fillColor=#ffffff;strokeColor=#9aa4a8;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+          <mxGeometry as="geometry" x="458" y="266" width="168" height="66" />
         </mxCell>
-        <mxCell id="edge-setup-pair" edge="1" source="setup" target="pair" parent="1" style="edgeStyle=none;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#111111;strokeWidth=1.4;exitX=0.2277;exitY=1;entryX=0.5;entryY=0;">
+        <mxCell id="match" parent="1" value="match" style="fillColor=none;strokeColor=none;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#17232a;strokeWidth=1;spacing=0;" vertex="1">
+          <mxGeometry as="geometry" x="210" y="193" width="44" height="18" />
+        </mxCell>
+        <mxCell id="differ" parent="1" value="differ" style="fillColor=none;strokeColor=none;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#17232a;strokeWidth=1;spacing=0;" vertex="1">
+          <mxGeometry as="geometry" x="409" y="193" width="44" height="18" />
+        </mxCell>
+        <mxCell id="setup--pair" parent="1" edge="1" source="setup" target="pair" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;rounded=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="edge-pair-compare" edge="1" source="pair" target="compare" parent="1" style="edgeStyle=none;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#111111;strokeWidth=1.4;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+        <mxCell id="pair--compare" parent="1" edge="1" source="pair" target="compare" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;rounded=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="edge-compare-trace" edge="1" source="compare" target="trace" parent="1" style="edgeStyle=none;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#111111;strokeWidth=1.4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+        <mxCell id="compare--advance" parent="1" edge="1" source="compare" target="advance" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;rounded=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="edge-trace-fix" edge="1" source="trace" target="fix" parent="1" style="edgeStyle=none;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#111111;strokeWidth=1.4;exitX=0.5;exitY=0;entryX=0.5;entryY=1;">
+        <mxCell id="compare--trace" parent="1" edge="1" source="compare" target="trace" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;rounded=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="edge-fix-pair" edge="1" source="fix" target="pair" parent="1" style="edgeStyle=none;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#111111;strokeWidth=1.4;exitX=0;exitY=0.5;entryX=1;entryY=0.5;">
+        <mxCell id="trace--fix" parent="1" edge="1" source="trace" target="fix" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=0.5;exitY=0;entryX=0.5;entryY=1;exitPerimeter=0;entryPerimeter=0;rounded=1;arcSize=16;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="edge-compare-advance" edge="1" source="compare" target="advance" parent="1" style="edgeStyle=none;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#111111;strokeWidth=1.4;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+        <mxCell id="fix--pair" parent="1" edge="1" source="fix" target="pair" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;rounded=1;arcSize=16;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="edge-trace-record" edge="1" source="trace" target="record" parent="1" style="edgeStyle=none;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#111111;strokeWidth=1.4;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+        <mxCell id="advance--pair" parent="1" edge="1" source="advance" target="pair" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=0.5;exitY=0;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;rounded=1;arcSize=16;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="120" y="118" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="trace--record" parent="1" edge="1" source="trace" target="record" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;rounded=0;">
           <mxGeometry as="geometry" relative="1" />
-        </mxCell>
-        <mxCell id="diff" value="Differ" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="275" y="224" width="58" height="24" />
-        </mxCell>
-        <mxCell id="match" value="Match" style="rounded=0;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=4;fontFamily=Helvetica;fontSize=16;fontColor=#000000;fillColor=#ffffff;strokeColor=#111111;strokeWidth=1.4;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="146" y="293" width="70" height="27" />
         </mxCell>
       </root>
     </mxGraphModel>
