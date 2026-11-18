@@ -1,95 +1,95 @@
 <mxfile host="app.diagrams.net">
   <diagram id="rq1" name="WS.PEMS source and release artifacts">
-    <mxGraphModel adaptiveColors="auto" grid="1" gridSize="4" page="1" pageWidth="600" pageHeight="636" background="#ffffff">
+    <mxGraphModel adaptiveColors="auto" grid="1" gridSize="4" page="1" pageWidth="628" pageHeight="726" background="#ffffff">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="source" value="&lt;b&gt;Source&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="12" y="0" width="282" height="24" />
+          <mxGeometry as="geometry" x="12" y="0" width="310" height="24" />
         </mxCell>
         <mxCell id="ships" value="&lt;b&gt;Ships as&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="330" y="0" width="238" height="24" />
+          <mxGeometry as="geometry" x="358" y="0" width="250" height="24" />
         </mxCell>
         <mxCell id="programs" value="" style="rounded=1;arcSize=8;fillColor=#f4f5f5;strokeColor=#b8bfc2;strokeWidth=1;container=1;collapsible=0;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="0" y="32" width="306" height="228" />
+          <mxGeometry as="geometry" x="0" y="32" width="334" height="258" />
         </mxCell>
-        <mxCell id="programs-title" value="&lt;b&gt;Programs: C# projects (src/)&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="programs">
-          <mxGeometry as="geometry" x="12" y="12" width="282" height="20" />
+        <mxCell id="programs-title" value="&lt;b&gt;Programs: C# projects in src/&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="programs">
+          <mxGeometry as="geometry" x="12" y="12" width="310" height="20" />
         </mxCell>
-        <mxCell id="programs-0" value="&lt;b&gt;WebAPI&lt;/b&gt;&lt;br&gt;Web server for the REST API and frontend." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="programs">
-          <mxGeometry as="geometry" x="12" y="36" width="282" height="52" />
+        <mxCell id="programs-0" value="&lt;b&gt;WebAPI&lt;/b&gt;&lt;br&gt;Serves the Next.js web app (ClientApp)&lt;br&gt;and its REST API." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="programs">
+          <mxGeometry as="geometry" x="12" y="36" width="310" height="62" />
         </mxCell>
         <mxCell id="programs-0-release" value="zip &amp;#160; &lt;b&gt;ws-pems&lt;/b&gt; (Linux, Windows)&lt;br&gt;image &amp;#160; &lt;b&gt;ws-pems&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;strokeColor=#9aa4a8;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="318" y="68" width="274" height="52" />
+          <mxGeometry as="geometry" x="346" y="68" width="274" height="62" />
         </mxCell>
         <mxCell id="programs-0-to-release" parent="1" edge="1" source="programs-0" target="programs-0-release" style="html=1;edgeStyle=none;rounded=0;jumpStyle=none;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="programs-1" value="&lt;b&gt;BackgroundJobExecutor&lt;/b&gt;&lt;br&gt;Runs background jobs." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="programs">
-          <mxGeometry as="geometry" x="12" y="100" width="282" height="52" />
+        <mxCell id="programs-1" value="&lt;b&gt;BackgroundJobExecutor&lt;/b&gt;&lt;br&gt;Collects plant data, computes emission averages&lt;br&gt;and writes scheduled reports." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="programs">
+          <mxGeometry as="geometry" x="12" y="110" width="310" height="62" />
         </mxCell>
         <mxCell id="programs-1-release" value="zip &amp;#160; &lt;b&gt;ws-pems-job-worker&lt;/b&gt; (Linux, Windows)&lt;br&gt;image &amp;#160; &lt;b&gt;ws-pems-job-worker&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;strokeColor=#9aa4a8;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="318" y="132" width="274" height="52" />
+          <mxGeometry as="geometry" x="346" y="142" width="274" height="62" />
         </mxCell>
         <mxCell id="programs-1-to-release" parent="1" edge="1" source="programs-1" target="programs-1-release" style="html=1;edgeStyle=none;rounded=0;jumpStyle=none;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="programs-2" value="&lt;b&gt;DbMigrator&lt;/b&gt;&lt;br&gt;Updates the database schema." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="programs">
-          <mxGeometry as="geometry" x="12" y="164" width="282" height="52" />
+        <mxCell id="programs-2" value="&lt;b&gt;DbMigrator&lt;/b&gt;&lt;br&gt;Creates or updates the database to match the&lt;br&gt;installed version of WS.PEMS." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="programs">
+          <mxGeometry as="geometry" x="12" y="184" width="310" height="62" />
         </mxCell>
         <mxCell id="programs-2-release" value="file&amp;nbsp; &lt;b&gt;ws-pems-db-migrator&lt;/b&gt; (Linux, Windows)" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;strokeColor=#9aa4a8;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="318" y="196" width="274" height="52" />
+          <mxGeometry as="geometry" x="346" y="216" width="274" height="62" />
         </mxCell>
         <mxCell id="programs-2-to-release" parent="1" edge="1" source="programs-2" target="programs-2-release" style="html=1;edgeStyle=none;rounded=0;jumpStyle=none;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
         <mxCell id="built-in" value="" style="rounded=1;arcSize=8;fillColor=#f4f5f5;strokeColor=#b8bfc2;strokeWidth=1;container=1;collapsible=0;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="0" y="276" width="592" height="108" />
+          <mxGeometry as="geometry" x="0" y="306" width="334" height="180" />
         </mxCell>
-        <mxCell id="built-in-title" value="&lt;b&gt;Built into the programs&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="built-in">
-          <mxGeometry as="geometry" x="12" y="12" width="568" height="20" />
+        <mxCell id="built-in-title" value="&lt;b&gt;Libraries: C# projects in src/&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="built-in">
+          <mxGeometry as="geometry" x="12" y="12" width="310" height="20" />
         </mxCell>
-        <mxCell id="built-in-0" value="&lt;b&gt;ApplicationCore&lt;/b&gt;&lt;br&gt;C# library, one folder per feature." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="built-in">
-          <mxGeometry as="geometry" x="12" y="36" width="181" height="60" />
+        <mxCell id="built-in-0" value="&lt;b&gt;ApplicationCore&lt;/b&gt;&lt;br&gt;Organises features such as alarms, live data&lt;br&gt;and reports into separate folders." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="built-in">
+          <mxGeometry as="geometry" x="12" y="36" width="310" height="60" />
         </mxCell>
-        <mxCell id="built-in-1" value="&lt;b&gt;Infrastructure&lt;/b&gt;&lt;br&gt;C# library for data access." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="built-in">
-          <mxGeometry as="geometry" x="205" y="36" width="181" height="60" />
-        </mxCell>
-        <mxCell id="built-in-2" value="&lt;b&gt;ClientApp&lt;/b&gt;&lt;br&gt;WebAPI’s Next.js frontend." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="built-in">
-          <mxGeometry as="geometry" x="398" y="36" width="181" height="60" />
+        <mxCell id="built-in-1" value="&lt;b&gt;Infrastructure&lt;/b&gt;&lt;br&gt;Handles database access, calculations,&lt;br&gt;file parsing and PDF reports." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="built-in">
+          <mxGeometry as="geometry" x="12" y="108" width="310" height="60" />
         </mxCell>
         <mxCell id="node" value="" style="rounded=1;arcSize=8;fillColor=#f4f5f5;strokeColor=#b8bfc2;strokeWidth=1;container=1;collapsible=0;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="0" y="400" width="306" height="228" />
+          <mxGeometry as="geometry" x="0" y="502" width="334" height="216" />
         </mxCell>
-        <mxCell id="node-title" value="&lt;b&gt;Node services (mcp/)&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="node">
-          <mxGeometry as="geometry" x="12" y="12" width="282" height="20" />
+        <mxCell id="node-title" value="&lt;b&gt;AI services: Node projects in mcp/&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="node">
+          <mxGeometry as="geometry" x="12" y="12" width="310" height="20" />
         </mxCell>
-        <mxCell id="node-0" value="&lt;b&gt;server&lt;/b&gt;&lt;br&gt;Provides tools for AI assistants." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="node">
-          <mxGeometry as="geometry" x="12" y="36" width="282" height="52" />
+        <mxCell id="node-0" value="&lt;b&gt;server&lt;/b&gt;&lt;br&gt;Lets AI assistants read WS.PEMS data via MCP." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="node">
+          <mxGeometry as="geometry" x="12" y="36" width="310" height="48" />
         </mxCell>
         <mxCell id="node-0-release" value="image &amp;#160; &lt;b&gt;wspems-mcp-server&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;strokeColor=#9aa4a8;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="318" y="436" width="274" height="52" />
+          <mxGeometry as="geometry" x="346" y="538" width="274" height="48" />
         </mxCell>
         <mxCell id="node-0-to-release" parent="1" edge="1" source="node-0" target="node-0-release" style="html=1;edgeStyle=none;rounded=0;jumpStyle=none;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="node-1" value="&lt;b&gt;chat-server&lt;/b&gt;&lt;br&gt;Connects chat to the MCP server." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="node">
-          <mxGeometry as="geometry" x="12" y="100" width="282" height="52" />
+        <mxCell id="node-1" value="&lt;b&gt;chat-server&lt;/b&gt;&lt;br&gt;Runs the chat window and asks the server." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="node">
+          <mxGeometry as="geometry" x="12" y="96" width="310" height="48" />
         </mxCell>
         <mxCell id="node-1-release" value="image &amp;#160; &lt;b&gt;wspems-chat-server&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;strokeColor=#9aa4a8;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="318" y="500" width="274" height="52" />
+          <mxGeometry as="geometry" x="346" y="598" width="274" height="48" />
         </mxCell>
         <mxCell id="node-1-to-release" parent="1" edge="1" source="node-1" target="node-1-release" style="html=1;edgeStyle=none;rounded=0;jumpStyle=none;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
-        <mxCell id="node-2" value="&lt;b&gt;auth-broker&lt;/b&gt;&lt;br&gt;Handles MCP sign-in (OAuth)." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="node">
-          <mxGeometry as="geometry" x="12" y="164" width="282" height="52" />
+        <mxCell id="node-2" value="&lt;b&gt;auth-broker&lt;/b&gt;&lt;br&gt;Signs users in with OAuth for assistant access." style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;" vertex="1" parent="node">
+          <mxGeometry as="geometry" x="12" y="156" width="310" height="48" />
         </mxCell>
         <mxCell id="node-2-release" value="image &amp;#160; &lt;b&gt;wspems-mcp-auth-broker&lt;/b&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;spacing=12;rounded=0;fillColor=#ffffff;strokeColor=#435057;strokeWidth=1;strokeColor=#9aa4a8;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="318" y="564" width="274" height="52" />
+          <mxGeometry as="geometry" x="346" y="658" width="274" height="48" />
         </mxCell>
         <mxCell id="node-2-to-release" parent="1" edge="1" source="node-2" target="node-2-release" style="html=1;edgeStyle=none;rounded=0;jumpStyle=none;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="libraries-note" value="The libraries ship only as part of the&lt;br&gt;three compiled programs." vertex="1" parent="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#17232a;strokeColor=none;fillColor=none;spacing=0;">
+          <mxGeometry as="geometry" x="358" y="376" width="250" height="40" />
         </mxCell>
       </root>
     </mxGraphModel>
