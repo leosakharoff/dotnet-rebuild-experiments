@@ -1,0 +1,21 @@
+experiment	id	finding	packages	type	cause_A	missing_B	note
+1	E6	Another build path changed the DLL and the PDB: both hold absolute paths.					
+1	W49	The explicit `PathMap` also rewrote `[CallerFilePath]`, which broke the tests' search for the solution folder.					
+1	W26	Under Estonian the compiler orders the types it generates for collection expressions differently: 10 of 1237 files. A Roslyn defect, gone on SDK 10.					
+1	W56	The WebAPI and job worker images differ in times only. Fixed with `SOURCE_DATE_EPOCH` and BuildKit's `rewrite-timestamp`.					
+1	W59	Signing gives each of 177 files a timestamped signature, so two signed builds always differ. Check a rebuild by pasting the release's signatures onto it.					
+1	W37	Next.js draws a random build ID in every build and writes it into paths and pages: 110 of 998 files. Set to the release version.					
+1	W44	Between two commits, the minifier gave other short names in the runtime chunk. Never within one commit, so it does not break reproducibility.					
+1	E2	Two machines gave different DLLs from the same source. Both compilers were called 9.0.120, but one was Arch's build of csc and one was Microsoft's.					
+1	W46	The release's npm drops the `libc` field from the lock file. It changes which packages install, not the export of one commit.					
+1	W60	The MCP images kept files that build steps write as a side effect: font caches, Node's compile cache, test durations. Removed in each step.					
+1	W48	The zips differ in every build though every entry's bytes are equal: times, order, modes, owner. Fixed by normalised packing.					
+1	W19	The release's version flags reach every assembly. A verifier must know the version string.					
+2a	2a-C01	Date in the package version	8				
+2a	2a-C04	npm under the time variation	2				
+2a	2a-C06	Hash of the project path in the PDB	4				
+2b	2b-C08	Arcade's development versioning	17				
+2b	2b-C12	Attributes written by the CI script	3				
+2b	2b-C13	Version computed from git	2				
+2b	2b-C14	Targeting pack	2				
+2b	2b-C15	RepositoryUrl form	2				
