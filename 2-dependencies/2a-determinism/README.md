@@ -165,6 +165,8 @@ python3 -I scripts/summary.py $LAB results    # results/summary.md, results/cate
 
 ## Results
 
+The causes, coded as in experiment 1: [results/findings.md](results/findings.md).
+
 The experiment ran on `arch` from 2 November at 17:43 to 3 November at 08:49,
 2026. The 1008 verdicts from the 1 to 2 November run were carried over
       unchanged. The remaining packages were built during the night of 2
@@ -383,6 +385,7 @@ Three differences in the study designs limit a direct comparison:
     runs.tsv                  one row per run (package, condition in `mode`, axis, verdict at three levels)
     categories.tsv            one row per package with its category at each level
     summary.md                the tables printed by summary.py
+    findings.md               the cause types, coded with the codebook
     environment.txt           host, SDK and tools as they were when the run was made
 ```
 

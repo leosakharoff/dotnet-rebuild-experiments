@@ -248,9 +248,9 @@ timing-dependent order. Signed files can never be rebuilt byte for byte,
 because each signature carries its own timestamp; a rebuild is checked by
 copying the release's signatures onto it.
 
-Every finding has an id and is listed twice in [findings/](findings/):
-[by stage](findings/by-stage.md), before and after the fixes, and
-[by cause category](findings/by-category.md).
+Every finding is listed once, with its code and status, in
+[results/findings.md](results/findings.md).
+[results/stages.md](results/stages.md) shows each stage before and after the fixes.
 
 ### Stage 1: build
 
@@ -318,7 +318,7 @@ On SDK 10 the locale defect was gone.
 
 - The runs above were on one machine. The checks across machines (GitHub's
   runner, the laptop and a Mac) are in
-  [findings/by-stage.md](findings/by-stage.md), under "Across machines".
+  [results/stages.md](results/stages.md), under "Across machines".
 - Not every axis was run: file order needs `disorderfs`, which this machine
   does not have. ASLR alone cannot be varied with reprotest. Stages 4 and 6
   were tested with fewer axes than stages 1-3.
@@ -338,9 +338,9 @@ On SDK 10 the locale defect was gone.
 1-phoenix/
   README.md
   figures/                      four figures as .drawio and .drawio.png; figures/README.md explains each step
-  findings/
-    by-stage.md                 every finding, stage by stage, before and after the fixes
-    by-category.md              the same findings by cause category
+  results/
+    findings.md                 every finding once: id, code, where the fix belongs, status
+    stages.md                   each stage before and after the fixes, with its findings
   scripts/
     commits.md                  every commit on the branch; marks each stage's before and after
     shared/

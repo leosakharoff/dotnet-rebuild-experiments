@@ -210,6 +210,8 @@ the same way, with `publisher-build/scripts/repo-build.py` or
 
 ## Results
 
+The causes, coded as in experiment 1: [results/findings.md](results/findings.md).
+
 The run took place on 27 October 2026. The third-party packages ran from 13:05
 to 13:55, and the Microsoft packages from 10:50 to 12:38.
 
@@ -463,6 +465,7 @@ working repository's "best of all versions" from 28 October.
     compare.txt               the package listing of every compared build, one section each
     environment.txt           one line per host
     summary.md                printed by summary.py
+    findings.md               the cause types, coded with the codebook
     categories.tsv            printed by summary.py
   publisher-build/
     packages.txt              the 99 Arcade packages, kept by hand; input to derive-repo.py

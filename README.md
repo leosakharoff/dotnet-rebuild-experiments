@@ -10,10 +10,22 @@ byte for byte, and how much of that information the release provides.
 
 ## Experiments
 
+| Part | Question | Folder | Findings | Figures |
+| --- | --- | --- | --- | --- |
+| Experiment 1 | RQ1: what it takes to make WS.PEMS's release reproducible | [1-phoenix/](1-phoenix/) | [findings](1-phoenix/results/findings.md) · [by stage](1-phoenix/results/stages.md) | [figures](1-phoenix/figures/) |
+| Experiment 2a | RQ2a: do the NuGet packages build deterministically | [2a-determinism/](2-dependencies/2a-determinism/) | [findings](2-dependencies/2a-determinism/results/findings.md) | [figures](2-dependencies/2a-determinism/figures/) |
+| Experiment 2b | RQ2b: can the published packages be rebuilt | [2b-rebuild/](2-dependencies/2b-rebuild/) | [findings](2-dependencies/2b-rebuild/results/findings.md) | [figures](2-dependencies/2b-rebuild/figures/) |
+| Coding | one set of cause codes for both experiments | [coding/](coding/) | [codebook](coding/codebook.md) · [codes](coding/coding.tsv) | |
+
+Each experiment folder has the same layout: a README (method, how to run it,
+results, caveats, data and scripts), `figures/`, `scripts/` and `results/`.
+
 [Experiment 1: WS.PEMS](1-phoenix/) tests the application's own build. After
-pinning its build inputs, we obtained matching output across three machines:
-1002 files and five container images. Its README gives the stage plan, how to
-run each stage, and the results stage by stage.
+the fixes, two runs on the same Arch machine gave identical output: 1002 files
+and five container images. A separate check compared the same commit on
+GitHub's runner, our Linux laptop and a Mac; its result is under
+[Across machines](1-phoenix/results/stages.md#across-machines). The README
+gives the stage plan, how to run each stage, and the results stage by stage.
 
 Experiment 2 examines WS.PEMS's 341 NuGet package versions in two parts:
 
