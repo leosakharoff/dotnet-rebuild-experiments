@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="rq1" name="WS.PEMS source and release artifacts">
-    <mxGraphModel adaptiveColors="auto" grid="1" gridSize="4" page="1" pageWidth="456" pageHeight="527" background="#ffffff">
+    <mxGraphModel adaptiveColors="auto" grid="1" gridSize="4" page="1" pageWidth="456" pageHeight="552" background="#ffffff">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -224,22 +224,22 @@
           <mxGeometry as="geometry" relative="1" />
         </mxCell>
         <mxCell id="filekey" parent="1" vertex="1" value="" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=1;fontFamily=Helvetica;fontSize=12;fontColor=#253139;fillColor=#ffffff;strokeColor=#79868c;strokeWidth=1;shape=note;size=4;fillColor=#ffffff;strokeColor=#67747a;">
-          <mxGeometry as="geometry" x="8" y="503" width="14" height="16" />
+          <mxGeometry as="geometry" x="238" y="503" width="14" height="16" />
         </mxCell>
         <mxCell id="filelegend" parent="1" vertex="1" value="file on the release page" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=1;fontFamily=Helvetica;fontSize=11;fontColor=#253139;fillColor=#ffffff;strokeColor=#79868c;strokeWidth=1;fillColor=none;strokeColor=none;">
-          <mxGeometry as="geometry" x="29" y="502" width="174" height="18" />
+          <mxGeometry as="geometry" x="264" y="502" width="174" height="18" />
         </mxCell>
         <mxCell id="imagekey0" parent="1" vertex="1" value="" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=1;fontFamily=Helvetica;fontSize=12;fontColor=#253139;fillColor=#ffffff;strokeColor=#79868c;strokeWidth=1;fillColor=#eef0f1;strokeColor=#67747a;">
-          <mxGeometry as="geometry" x="230" y="512" width="14" height="7" />
+          <mxGeometry as="geometry" x="238" y="534" width="14" height="7" />
         </mxCell>
         <mxCell id="imagekey1" parent="1" vertex="1" value="" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=1;fontFamily=Helvetica;fontSize=12;fontColor=#253139;fillColor=#ffffff;strokeColor=#79868c;strokeWidth=1;fillColor=#eef0f1;strokeColor=#67747a;">
-          <mxGeometry as="geometry" x="231" y="509" width="14" height="7" />
+          <mxGeometry as="geometry" x="239" y="531" width="14" height="7" />
         </mxCell>
         <mxCell id="imagekey2" parent="1" vertex="1" value="" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=1;fontFamily=Helvetica;fontSize=12;fontColor=#253139;fillColor=#ffffff;strokeColor=#79868c;strokeWidth=1;fillColor=#eef0f1;strokeColor=#67747a;">
-          <mxGeometry as="geometry" x="232" y="506" width="14" height="7" />
+          <mxGeometry as="geometry" x="240" y="528" width="14" height="7" />
         </mxCell>
         <mxCell id="imagelegend" parent="1" vertex="1" value="container image (5)" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=1;fontFamily=Helvetica;fontSize=11;fontColor=#253139;fillColor=#ffffff;strokeColor=#79868c;strokeWidth=1;fillColor=none;strokeColor=none;">
-          <mxGeometry as="geometry" x="254" y="502" width="172" height="18" />
+          <mxGeometry as="geometry" x="264" y="526" width="172" height="18" />
         </mxCell>
       </root>
     </mxGraphModel>
