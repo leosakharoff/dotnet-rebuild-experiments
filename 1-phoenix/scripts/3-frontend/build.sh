@@ -42,7 +42,7 @@ if [ "$(node --version)" != "v$(cat $app/.nvmrc)" ]; then
 fi
 
 # The job's environment besides Node. GitHub sets CI=true in every step.
-# Next takes APP_VERSION as its build ID (W37).
+# Next takes APP_VERSION as its build ID (E1-S3-01).
 export CI=true
 export npm_config_cache=/private/tmp/rb1-npm
 export npm_config_update_notifier=false

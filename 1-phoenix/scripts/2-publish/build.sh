@@ -35,7 +35,7 @@ export DOTNET_NOLOGO=1
 export MSBUILDDISABLENODEREUSE=1
 
 # The release job pins the locale, because the compiler in SDK 9 sorts
-# some generated types by the culture (W26). This overrides reprotest's
+# some generated types by the culture (E1-S2-11). This overrides reprotest's
 # locales variation, as the job's setting overrides the runner's locale.
 export LC_ALL=C.UTF-8
 

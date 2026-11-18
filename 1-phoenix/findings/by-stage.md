@@ -16,7 +16,7 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 | --- | --- |
 | • Same path: 0 of 1610 files differ<br>• Another build path: all 10 compared files differ<br>• Estonian locale: our 4 assemblies differ | • Every shipped file identical on every axis<br>• 2 development files still hold the path; they do not ship |
 
-**Findings:** [W3](by-category.md#w3) · [W4](by-category.md#w4) · [W5](by-category.md#w5) · [W6](by-category.md#w6) · [W7](by-category.md#w7) · [W26](by-category.md#w26) · [W49](by-category.md#w49) · [W8](by-category.md#w8) 🔴 · [W9](by-category.md#w9) 🔴
+**Findings:** [E1-S1-09](by-category.md#e1-s1-09) · [E1-S1-10](by-category.md#e1-s1-10) · [E1-S1-11](by-category.md#e1-s1-11) · [E1-S1-12](by-category.md#e1-s1-12) · [E1-S1-13](by-category.md#e1-s1-13) · [E1-S2-11](by-category.md#e1-s2-11) · [E1-S1-21](by-category.md#e1-s1-21) · [E1-S1-14](by-category.md#e1-s1-14) 🔴 · [E1-S1-15](by-category.md#e1-s1-15) 🔴
 
 ## Stage 2: Publish
 
@@ -26,7 +26,7 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 | --- | --- |
 | • Extra and wrong files: a stray lock file, Windows DLLs, libraries listed as 1.0.0<br>• Estonian locale: 10 of 1237 files<br>• SDK 10: 1 file dated with the build time | • 0 of 2121 files differ on SDK 10<br>• 0 of 2227 with the frontend in place (SDK 9)<br>• File modes follow the umask; stage 4 sets them |
 
-**Findings:** [W18](by-category.md#w18) · [W23](by-category.md#w23) · [W24](by-category.md#w24) · [W26](by-category.md#w26) · [W33](by-category.md#w33) · [W50](by-category.md#w50) · [W45](by-category.md#w45) · [W30](by-category.md#w30) 🔴
+**Findings:** [E1-S2-03](by-category.md#e1-s2-03) · [E1-S2-08](by-category.md#e1-s2-08) · [E1-S2-09](by-category.md#e1-s2-09) · [E1-S2-11](by-category.md#e1-s2-11) · [E1-S2-16](by-category.md#e1-s2-16) · [E1-S2-18](by-category.md#e1-s2-18) · [E1-S2-17](by-category.md#e1-s2-17) · [E1-S2-13](by-category.md#e1-s2-13) 🔴
 
 ## Stage 3: Frontend
 
@@ -36,7 +36,7 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 | --- | --- |
 | • Same path: 110 of 998 files (random build ID)<br>• 1 build in 4: 4 files (CSS order)<br>• 26 builds: two outputs, 109 of 990 files (page order)<br>• About 1 build in 50: 5 files (chunk ids) | • 0 files differ within one commit<br>• Two open points do not change the bytes of one commit |
 
-**Findings:** [W37](by-category.md#w37) · [W43](by-category.md#w43) · [W47](by-category.md#w47) · [W51](by-category.md#w51) · [W39](by-category.md#w39) · [W40](by-category.md#w40) · [W41](by-category.md#w41) · [W44](by-category.md#w44) 🔴 · [W46](by-category.md#w46) 🔴
+**Findings:** [E1-S3-01](by-category.md#e1-s3-01) · [E1-S3-06](by-category.md#e1-s3-06) · [E1-S3-09](by-category.md#e1-s3-09) · [E1-S3-10](by-category.md#e1-s3-10) · [E1-S3-03](by-category.md#e1-s3-03) · [E1-S3-04](by-category.md#e1-s3-04) · [E1-S3-05](by-category.md#e1-s3-05) · [E1-S3-07](by-category.md#e1-s3-07) 🔴 · [E1-S3-08](by-category.md#e1-s3-08) 🔴
 
 ## Stage 4: Zip
 
@@ -46,7 +46,7 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 | --- | --- |
 | • Different in every build, as CI packs them<br>• Times in 1237 of 1847 entries; 140 entries in another order<br>• Under all axes also modes and owner | • Identical in 4 builds with normalised packing |
 
-**Findings:** [W48](by-category.md#w48) · [W30](by-category.md#w30) 🔴
+**Findings:** [E1-S4-01](by-category.md#e1-s4-01) · [E1-S2-13](by-category.md#e1-s2-13) 🔴
 
 ## Stage 5: The release
 
@@ -56,7 +56,7 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 | --- | --- |
 | • Migrator: 93 of 827,679,078 bytes<br>• Checksum file: line order follows the locale<br>• Signing: 177 files and both zips differ | • Migrator, SQL script and Windows release (2132 files) identical<br>• Checksum file fixed with LC_ALL=C<br>• Signed files identical after pasting the release's signatures |
 
-**Findings:** [W52](by-category.md#w52) · [W53](by-category.md#w53) · [W54](by-category.md#w54) · [W61](by-category.md#w61) · [W55](by-category.md#w55) · [W63](by-category.md#w63) · [W66](by-category.md#w66) · [W59](by-category.md#w59) · [W64](by-category.md#w64) · [W69](by-category.md#w69)
+**Findings:** [E1-S5-01](by-category.md#e1-s5-01) · [E1-S5-02](by-category.md#e1-s5-02) · [E1-S5-03](by-category.md#e1-s5-03) · [E1-S5-06](by-category.md#e1-s5-06) · [E1-S5-04](by-category.md#e1-s5-04) · [E1-S5-07](by-category.md#e1-s5-07) · [E1-S5-09](by-category.md#e1-s5-09) · [E1-S5-05](by-category.md#e1-s5-05) · [E1-S5-08](by-category.md#e1-s5-08) · [E1-S5-10](by-category.md#e1-s5-10)
 
 ## Stage 6: Container
 
@@ -66,7 +66,7 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 | --- | --- |
 | • WebAPI and job worker: times only, 123 of 1408 file entries<br>• MCP images: caches written during the build<br>• Image tags: different in every build | • The same image manifest in two builds<br>• Compare the manifest, not the tag |
 
-**Findings:** [W56](by-category.md#w56) · [W60](by-category.md#w60) · [W62](by-category.md#w62) · [W65](by-category.md#w65) · [W67](by-category.md#w67) · [W68](by-category.md#w68)
+**Findings:** [E1-S6-01](by-category.md#e1-s6-01) · [E1-S6-02](by-category.md#e1-s6-02) · [E1-S6-03](by-category.md#e1-s6-03) · [E1-S6-04](by-category.md#e1-s6-04) · [E1-S6-05](by-category.md#e1-s6-05) · [E1-S6-06](by-category.md#e1-s6-06)
 
 ## Across machines
 
@@ -76,4 +76,4 @@ Each id links to the finding in the category view. 🔴 marks a finding that is 
 | --- | --- |
 | • Two compilers both called 9.0.120 gave different DLLs<br>• GitHub against our laptop: our assemblies differ by the runtime patch the compiler ran on | • Identical with the global.json SDK installed alone<br>• macOS on arm64 against GitHub's Linux: nothing differs<br>• The shared droplet was too small to compile WS.PEMS |
 
-**Findings:** [E2](by-category.md#e2) · [E3](by-category.md#e3) · [W58](by-category.md#w58) · [W71](by-category.md#w71) · [W14](by-category.md#w14) 🔴
+**Findings:** [E1-S1-02](by-category.md#e1-s1-02) · [E1-S1-03](by-category.md#e1-s1-03) · [E1-S2-19](by-category.md#e1-s2-19) · [E1-S2-20](by-category.md#e1-s2-20) · [E1-M-06](by-category.md#e1-m-06) 🔴

@@ -6,14 +6,14 @@ Use two codes to describe a finding. **A** identifies what caused an output diff
 
 | Code | Use when | Example | Literature |
 | --- | --- | --- | --- |
-| `TIME` | The build clock affects a value in the output, such as a version, copyright year, file timestamp, or signature timestamp. | W59; Azure SDK date in version | Bajaj Build Timestamp; Lamb & Zacchiroli |
-| `PATH` | The directory from which the build runs affects the output. | E6; Quartz path hash | Bajaj Build Path |
-| `LOCALE` | The language or region setting affects the output, for example by changing how names are sorted. | W26 | Bajaj Locale |
-| `RANDOM` | A random value or the completion order of parallel work affects the output. This can happen across builds in the same environment. | W37, W51 | Bajaj Randomness, Build ID |
+| `TIME` | The build clock affects a value in the output, such as a version, copyright year, file timestamp, or signature timestamp. | E1-S5-05; Azure SDK date in version | Bajaj Build Timestamp; Lamb & Zacchiroli |
+| `PATH` | The directory from which the build runs affects the output. | E1-S1-06; Quartz path hash | Bajaj Build Path |
+| `LOCALE` | The language or region setting affects the output, for example by changing how names are sorted. | E1-S2-11 | Bajaj Locale |
+| `RANDOM` | A random value or the completion order of parallel work affects the output. This can happen across builds in the same environment. | E1-S3-01, E1-S3-10 | Bajaj Randomness, Build ID |
 | `FSORDER` | The output depends on the order in which the file system lists files. | none in RQ1; 2a's `fileordering` axis | Bajaj Filesystem Ordering |
-| `META` | The file contents match, but metadata such as permissions, ownership, or archive fields other than timestamps differs. | W48 | Bajaj Archive Metadata, File Permission |
-| `TOOL` | A different compiler, runtime, or tool affects the output, even if it reports the same version. | E2, E3; SharpZipLib targeting pack | Solarin RC01 |
-| `INPUT` | A dependency or file selected by name or version supplies different bytes in another build. | W22, W67 | Bajaj Package Dependency |
+| `META` | The file contents match, but metadata such as permissions, ownership, or archive fields other than timestamps differs. | E1-S4-01 | Bajaj Archive Metadata, File Permission |
+| `TOOL` | A different compiler, runtime, or tool affects the output, even if it reports the same version. | E1-S1-02, E1-S1-03; SharpZipLib targeting pack | Solarin RC01 |
+| `INPUT` | A dependency or file selected by name or version supplies different bytes in another build. | E1-S2-07, E1-S6-05 | Bajaj Package Dependency |
 | `CI` | The publisher’s pipeline changes the output through an additional step or input, such as a generated attribute, a version derived from Git, or a signing key. | Bogus, MediatR.Contracts | Solarin RC02, RC03 |
 
 ## B. What was missing for the rebuild?
@@ -32,7 +32,7 @@ For comparisons against a separately produced reference, such as a CI artifact, 
 
 Keep these findings because they record what was corrected, tested, or learned about the method. Leave A blank.
 
-- `CONFIG` marks a fault in the project or workflow setup that we found and corrected, such as RQ1’s W18 and W23.
+- `CONFIG` marks a fault in the project or workflow setup that we found and corrected, such as RQ1’s E1-S2-03 and E1-S2-08.
 - `STABLE` records a variation that changed no bytes.
 - `METHOD` records something that affected how we measured or interpreted a result, such as `libfaketime` under npm in 2a.
 

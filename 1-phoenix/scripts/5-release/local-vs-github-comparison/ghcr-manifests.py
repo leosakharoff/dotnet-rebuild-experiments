@@ -5,7 +5,7 @@
 
 Reads the index the tag points at from GHCR's registry API and prints its
 digest, the linux/amd64 image manifest's digest and the attestation
-manifest's, as W65 says a rebuild is compared: by the image manifest, not the
+manifest's, as E1-S6-04 says a rebuild is compared: by the image manifest, not the
 tag. With LOCAL, also the image manifest digest of that OCI file
 (rebuild.sh here writes one without attestations) and "same" or "DIFF". GH_TOKEN needs read:packages; it is
 exchanged for a pull token and never printed.

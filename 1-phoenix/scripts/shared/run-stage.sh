@@ -51,10 +51,10 @@
 # What this script adds around reprotest:
 #
 # - reprotest starts under env -i with five variables, so the builds do
-#   not inherit whatever the starting shell had (reprotest-probe R4).
+#   not inherit whatever the starting shell had (reprotest-probe E1-M-16).
 # - The .NET build servers are stopped before the run. Any compiler server,
 #   MSBuild node or node process from our folders still running after it is
-#   listed in leftover.txt (W27).
+#   listed in leftover.txt (E1-M-07).
 # - sample-dotnet.py records the dotnet and node processes once a second,
 #   so we can check afterwards that the variation reached them.
 #
@@ -250,7 +250,7 @@ case $status in
 esac
 
 # When reprotest finds no differences, it replaces the experiment's store
-# with a link to the control's (R6). Say "link" then, not the control's
+# with a link to the control's (E1-M-18). Say "link" then, not the control's
 # hash again.
 control=$(short_hash "$store/control/source-root/hashes.sha256")
 if [ -L "$store/experiment-1" ]; then

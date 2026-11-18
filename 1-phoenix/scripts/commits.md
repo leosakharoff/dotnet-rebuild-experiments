@@ -35,7 +35,7 @@ measured with the commands of their time.
 
 Stage 2's before is not stage 1's after: 2-publish/build.sh stops on
 `e6e924230` with NETSDK1047. `2570034bd` is the last commit before the
-locale pin (W26). The fixes between them, W18, W23 and W24, change what
+locale pin (E1-S2-11). The fixes between them, E1-S2-03, E1-S2-08 and E1-S2-09, change what
 the release ships, which reprotest does not see.
 
 The list is first-parent, so it leaves out the commits the two merges

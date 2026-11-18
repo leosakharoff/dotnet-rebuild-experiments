@@ -24,7 +24,7 @@
 # does. Before that, they get neither, as the job then did.
 #
 # Three things differ from the job, and none changes the image manifest,
-# which is what is compared (W65): no cache, so each build starts from
+# which is what is compared (E1-S6-04): no cache, so each build starts from
 # nothing; no provenance or SBOM, which differ in every build; and the
 # images go to OCI tarballs instead of the registry.
 #

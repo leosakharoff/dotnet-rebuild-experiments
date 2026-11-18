@@ -328,7 +328,7 @@ On SDK 10 the locale defect was gone.
 - The Windows release was built on Linux, as its CI job builds it, not on
   Windows.
 - `run-stage.sh` compares file contents only. The 142 file modes that follow the
-  umask in stage 2 (W30) are not seen by it.
+  umask in stage 2 (E1-S2-13) are not seen by it.
 - Not reported to the tools' maintainers yet: the compiler's locale order,
   the SDK 10 timestamps, and webpack's orders in Next.js.
 
@@ -349,7 +349,7 @@ On SDK 10 the locale defect was gone.
       sample-dotnet.py          records the dotnet and node processes once a second during a run
     1-build/
       build.sh, artifacts.txt   dotnet build of the two programs; keeps the bin folders whole
-      pdbdump/                  prints a PDB's document table and embedded sources; found the Razor paths PathMap misses (W7)
+      pdbdump/                  prints a PDB's document table and embedded sources; found the Razor paths PathMap misses (E1-S1-13)
     2-publish/
       build.sh, artifacts.txt   the locked restore and two self-contained linux-x64 publishes; keeps release/ whole
     3-frontend/
@@ -398,7 +398,7 @@ paths, and the originals are still there.
 | `labcheck.py` | Removed on 16 November 2026: a lab made new and empty by `git archive` is the commit's files and nothing else. It stays in Speciale2026's `experiments/` |
 | `pdbdump/` | `1-build/pdbdump/` |
 | `pe-diff-regions.py`, `md-strings.py` | Removed on 11 November 2026; `2-dependencies/tools/dllreport.cs` shows which parts of two DLLs differ |
-| `phoenix-fe/compare-chunks.py` | Removed on 11 November 2026; it reads the chunk logs of a webpack plugin that is in no WS.PEMS commit (W51) |
+| `phoenix-fe/compare-chunks.py` | Removed on 11 November 2026; it reads the chunk logs of a webpack plugin that is in no WS.PEMS commit (E1-S3-10) |
 | `phoenix-rt/image-probe.sh`, `oci-diff.py` | `6-images/build-twice.sh`, renamed on 16 November 2026; `6-images/oci-diff.py` |
 | `phoenix-rt/oci-file.py` | `6-images/oci-file.py` |
 | `phoenix-rt/attest-*.py`, `faketime-tests.sh` | Not here: one-off checks, done. They stay in Speciale2026 beside the notes of 14 and 21 October that used them |

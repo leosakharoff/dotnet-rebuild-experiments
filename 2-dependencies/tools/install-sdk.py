@@ -7,7 +7,7 @@ Read the archive URL for this machine (linux-x64, or win-x64 on Windows)
 and its SHA-512 from Microsoft's release metadata for the SDK's channel.
 Check the hash and unpack into DIR, which must be empty or missing. With nothing
 else in DIR, the compiler runs on the runtime that came with this SDK and no
-other (W58: csc rolls forward to the newest runtime it finds, and the PDB
+other (E1-S2-19: csc rolls forward to the newest runtime it finds, and the PDB
 records which one).
 
 With --runtime, add shared runtime VERSION (only its shared/ folder) to
