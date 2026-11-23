@@ -2,11 +2,11 @@
 
 Experiment 1 produced 93 findings: 34 causes of differences, 4 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 20 checks that found no difference and 26 findings about how we measured.
 We saw 26 of the 34 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
-One finding is [still open](#e1-s3-08). Four measurement findings describe limitations.
+Four measurement findings describe limitations.
 In `E1-S3-02`, `S3` means stage 3 and `02` means finding 2. The prefix `E1-M` identifies a measurement finding.
 The [identifier table](../../categories/codes.tsv) lists the old identifiers. The [stage guide](stages.md) shows each stage before and after the fixes.
 
-**Outcome** says how each cause was dealt with. *Code and settings*: WS.PEMS's source code or project configuration changed (project files, lock files, version pins). *Build scripts*: the CI workflow, release scripts or Dockerfiles changed (commands, flags, environment variables, installation, packing). *Verifier action*: the release stays as it is, and someone who rebuilds it to check it must take an extra step. *Files outside the release*: the difference is in a development file that does not ship, so no fix is needed. *Open issue*: not yet resolved.
+**Outcome** says how each cause was dealt with. *Code and settings*: WS.PEMS's source code or project configuration changed (project files, lock files, version pins). *Build scripts*: the CI workflow, release scripts or Dockerfiles changed (commands, flags, environment variables, installation, packing). *Verifier action*: the release stays as it is, and someone who rebuilds it to check it must take an extra step. *Files outside the release*: the difference is in a development file that does not ship, so no fix is needed.
 
 ## Causes of differences
 
@@ -43,7 +43,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s3-04"></a> **E1-S3-04** | The release requested Node `20.x`, which specified only the major version. | Build tool version | Pinned an exact version in `.nvmrc`. Every workflow reads it and installs Node by hash. | Code and settings. Each workflow also reads the Node pin and installs Node by hash. |
 | <a name="e1-s3-05"></a> **E1-S3-05** | Of 1,509 package lock entries, 391 lacked a content hash. For those entries, npm trusted the registry. | Package dependency | Filled in the missing hashes. | Code and settings. Added the missing hashes to the package lock file. |
 | <a name="e1-s3-06"></a> **E1-S3-06** | Build timing probably changed the order of shared style sheets. Four of 998 files differed in one of four builds. | Randomness | Imported all third-party style sheets in one place, `_app.tsx`. | Code and settings. Moved the third-party style imports into _app.tsx. |
-| <a name="e1-s3-08"></a> **E1-S3-08** | The release’s version of npm dropped `libc` from 30 entries when it wrote the lock file. That could change which packages npm installs. The export of a given commit stayed the same. | Build tool version | None yet. | Open issue. |
+| <a name="e1-s3-08"></a> **E1-S3-08** | The release’s version of npm dropped `libc` from 30 entries when it wrote the lock file. That could change which packages npm installs. The export of a given commit stayed the same. | Build tool version | Pinned npm 11.21.2 by hash in `package.json` (`packageManager`). The frontend workflow and the WebAPI Dockerfile install exactly that npm and check its version. npm 11 keeps `libc` when it writes the lock. | Code and settings. Every build installs the pinned npm. So far checked on macOS only. |
 | <a name="e1-s3-09"></a> **E1-S3-09** | Webpack ordered pages by build timing. Across 26 builds, it produced two outputs that differed in 109 of 990 files. | Randomness | Added a plugin that sorts page entries by name before webpack creates chunks. | Code and settings. Added a plugin to sort page entries. |
 | <a name="e1-s3-10"></a> **E1-S3-10** | In about one build in 50, two identical chunks swapped identifiers because webpack ordered modules by timing. | Randomness | Extended the sorting plugin to modules and their links. | Code and settings. Extended the plugin to sort modules and their links. |
 

@@ -2,8 +2,6 @@
 
 What each stage looked like before and after the fixes, and the findings behind it. Every finding is listed once, with its code and status, in [findings.md](findings.md). Stage 5 groups the release's other outputs, which the findings table in Speciale2026 files under stages 2 and 4; stage 6 holds the images, which it numbers 5. Hashes made before the move to SDK 10 (12 October 2026) do not compare with later ones.
 
-🔴 marks a finding that is still open.
-
 ## Stage 1: Build
 
 *Our DLLs and PDBs, deps.json, runtimeconfig.json*
@@ -30,9 +28,9 @@ What each stage looked like before and after the fixes, and the findings behind 
 
 | Before the fixes | After the fixes |
 | --- | --- |
-| • Same path: 110 of 998 files (random build ID)<br>• 1 build in 4: 4 files (CSS order)<br>• 26 builds: two outputs, 109 of 990 files (page order)<br>• About 1 build in 50: 5 files (chunk ids) | • 0 files differ within one commit<br>• One open point ([E1-S3-08](findings.md#e1-s3-08)) does not change the bytes of one commit |
+| • Same path: 110 of 998 files (random build ID)<br>• 1 build in 4: 4 files (CSS order)<br>• 26 builds: two outputs, 109 of 990 files (page order)<br>• About 1 build in 50: 5 files (chunk ids) | • 0 files differ within one commit<br>• npm pinned by hash, so the lock keeps `libc` ([E1-S3-08](findings.md#e1-s3-08)) |
 
-**Findings:** [E1-S3-01](findings.md#e1-s3-01) · [E1-S3-06](findings.md#e1-s3-06) · [E1-S3-09](findings.md#e1-s3-09) · [E1-S3-10](findings.md#e1-s3-10) · [E1-S3-03](findings.md#e1-s3-03) · [E1-S3-04](findings.md#e1-s3-04) · [E1-S3-05](findings.md#e1-s3-05) · [E1-S3-07](findings.md#e1-s3-07) · [E1-S3-08](findings.md#e1-s3-08) 🔴
+**Findings:** [E1-S3-01](findings.md#e1-s3-01) · [E1-S3-06](findings.md#e1-s3-06) · [E1-S3-09](findings.md#e1-s3-09) · [E1-S3-10](findings.md#e1-s3-10) · [E1-S3-03](findings.md#e1-s3-03) · [E1-S3-04](findings.md#e1-s3-04) · [E1-S3-05](findings.md#e1-s3-05) · [E1-S3-07](findings.md#e1-s3-07) · [E1-S3-08](findings.md#e1-s3-08)
 
 ## Stage 4: Zip
 

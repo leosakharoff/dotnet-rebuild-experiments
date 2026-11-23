@@ -136,7 +136,8 @@ brackets; see the first lines of `make-lab.sh` and `run-stage.sh`.
   `global.json` chooses one.
 - Node 20.20.2 in `/opt/rb1-node` and Node 22.23.3 in
   `/private/tmp/rb1-node22` (`NODE_DIR`). The frontend's `.nvmrc` chooses
-  one.
+  one. From `765ea6aa2` on, `package.json` pins npm 11.21.2, so the Node 22
+  for later commits is `/private/tmp/rb1-node22-npm11`.
 - For stages 3-6: the npm cache `/private/tmp/rb1-npm`, filled once
   by `npm ci` with network in an export of the frontend.
 - For stages 4 and 5: Info-ZIP 3.0 as `/private/tmp/rb1-tools/zip`, which
