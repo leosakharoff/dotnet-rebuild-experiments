@@ -1,12 +1,12 @@
 # Experiment 1 findings
 
-Experiment 1 produced 93 findings: 35 causes of differences, 3 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 21 checks that found no difference and 25 findings about how we measured.
-We saw 27 of the 35 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
+Experiment 1 produced 93 findings: 34 causes of differences, 4 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 20 checks that found no difference and 26 findings about how we measured.
+We saw 26 of the 34 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
 One finding is [still open](#e1-s3-08). Four measurement findings describe limitations.
 In `E1-S3-02`, `S3` means stage 3 and `02` means finding 2. The prefix `E1-M` identifies a measurement finding.
 The [identifier table](../../categories/codes.tsv) lists the old identifiers. The [stage guide](stages.md) shows each stage before and after the fixes.
 
-**Outcome** says how each cause was dealt with. *Code and settings*: WS.PEMS's source code or project configuration changed (project files, lock files, version pins). *Build scripts*: the CI workflow, release scripts or Dockerfiles changed (commands, flags, environment variables, installation, packing). *Verifier action*: the release stays as it is, and someone who rebuilds it to check it must take an extra step. *Tool defect*: only the tool's maintainers can fix it; we work around it. *Files outside the release*: the difference is in a development file that does not ship, so no fix is needed. *Open issue*: not yet resolved.
+**Outcome** says how each cause was dealt with. *Code and settings*: WS.PEMS's source code or project configuration changed (project files, lock files, version pins). *Build scripts*: the CI workflow, release scripts or Dockerfiles changed (commands, flags, environment variables, installation, packing). *Verifier action*: the release stays as it is, and someone who rebuilds it to check it must take an extra step. *Files outside the release*: the difference is in a development file that does not ship, so no fix is needed. *Open issue*: not yet resolved.
 
 ## Causes of differences
 
@@ -15,10 +15,9 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | Finding ID | What we found | Cause | What we changed | Outcome |
 | --- | --- | --- | --- | --- |
 | <a name="e1-s1-02"></a> **E1-S1-02** | The same source produced different assemblies on two machines. Arch and Microsoft both called their compiler 9.0.120. The debug symbols recorded each compiler's commit ([E1-S1-03](#e1-s1-03)). | Build tool version | Pinned the development kit to 10.0.401 in `global.json`, disabled roll-forward and installed it by hash in the release workflow. | Verifier action. A verifier needs Microsoft's SDK build, not only its version number; the build scripts now install it by hash. |
-| <a name="e1-s1-09"></a> **E1-S1-09** | All four debug symbol files recorded absolute source paths, so changing the build folder changed them ([E1-S1-06](#e1-s1-06)). | Build path | Mapped the source paths with `PathMap`. | Code and settings. Mapped the source paths with PathMap. |
+| <a name="e1-s1-09"></a> **E1-S1-09** | All four debug symbol files recorded absolute source paths, so changing the build folder changed them ([E1-S1-06](#e1-s1-06)). In an export without `.git`, `ContinuousIntegrationBuild` left them unmapped ([E1-S1-12](#e1-s1-12)). | Build path | Mapped the source paths with `PathMap`. | Code and settings. Mapped the source paths with PathMap. |
 | <a name="e1-s1-10"></a> **E1-S1-10** | The assembly stored the path to its debug symbols. Two extra characters in that path shifted every address that followed. | Build path | Mapped the path with `PathMap`. | Code and settings. Mapped the debug symbol path with PathMap. |
 | <a name="e1-s1-11"></a> **E1-S1-11** | The names of four generated regular expression types included a hash of the source file’s path. | Build path | Mapped the source path with `PathMap`. | Code and settings. Mapped the source path with PathMap. |
-| <a name="e1-s1-12"></a> **E1-S1-12** | In a source export without `.git`, `ContinuousIntegrationBuild` mapped only the NuGet cache. Source Link missed the source root. | Build path | Anchored an explicit `PathMap` to the repository root. | Code and settings. Anchored PathMap to the repository root. |
 | <a name="e1-s1-13"></a> **E1-S1-13** | Razor wrote the absolute `.cshtml` path into generated C# code, beyond the reach of `PathMap`. | Build path | Deleted two unused Razor pages. | Code and settings. Removed two unused Razor pages. |
 | <a name="e1-s1-14"></a> **E1-S1-14** | `spa.proxy.json` contained the path to `ClientApp/`. | Build path | None needed. | Files outside the release. The development file does not ship. |
 | <a name="e1-s1-15"></a> **E1-S1-15** | `staticwebassets.runtime.json` contained paths to `obj/` and the NuGet cache. | Build path | None needed. | Files outside the release. The development file does not ship. |
@@ -29,7 +28,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | --- | --- | --- | --- | --- |
 | <a name="e1-s2-04"></a> **E1-S2-04** | The release workflow passed its version string to every assembly. | CI/CD modification | None needed. | Verifier action. A verifier needs the release's version string. |
 | <a name="e1-s2-05"></a> **E1-S2-05** | Publishing with `-r linux-x64` put the platform in the debug symbol path and the executable header. | CI/CD modification | None needed. | Verifier action. A verifier must use the release's publish command. |
-| <a name="e1-s2-06"></a> **E1-S2-06** | Microsoft’s runtime packs supplied 323 of the web application’s 746 files. The package lock files did not record them. | Package dependency | Checked the packs by hash against `nuget-downloads.lock.json`. | Tool defect. No lock file records the runtime packs; the build scripts check them by hash. |
+| <a name="e1-s2-06"></a> **E1-S2-06** | Microsoft’s runtime packs supplied 323 of the web application’s 746 files. The package lock files did not record them. | Package dependency | Checked the packs by hash against `nuget-downloads.lock.json`. | Build scripts. No lock file records the runtime packs, so the build scripts check them by hash. |
 | <a name="e1-s2-07"></a> **E1-S2-07** | NuGet lock files record a content hash for every package. Restoring from those hashes reproduced the release. | Package dependency | Added lock files and enabled locked restores in the release workflow. | Code and settings. The release workflow also enforces a locked restore. |
 | <a name="e1-s2-11"></a> **E1-S2-11** | Under Estonian settings, Roslyn reordered the types it generated for collection expressions. That changed 10 of 1,237 files. | Locale | Set `LC_ALL=C.UTF-8`. | Build scripts. Set LC_ALL=C.UTF-8 as a workaround for the compiler defect. |
 | <a name="e1-s2-18"></a> **E1-S2-18** | Version 10 of the development kit stamped compressed copies of static files with the time it wrote them. | Build timestamp | Turned off compression with `CompressionEnabled=false`. | Code and settings. Static asset compression turned off in the web application. |
@@ -52,7 +51,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 
 | Finding ID | What we found | Cause | What we changed | Outcome |
 | --- | --- | --- | --- | --- |
-| <a name="e1-s4-01"></a> **E1-S4-01** | The archive changed on every build even though each file’s contents matched. Entry times, order, permissions and ownership differed; the permissions followed the umask ([E1-S2-13](#e1-s2-13)). | Archive metadata and file permissions | Standardised all four in `scripts/pack-release-zip.sh`. | Build scripts. Changed the repository's release packing script. |
+| <a name="e1-s4-01"></a> **E1-S4-01** | The archive changed on every build even though each file’s contents matched. Entry times, order, permissions and ownership differed; the permissions followed the umask ([E1-S2-13](#e1-s2-13)). Between two builds without variation, only the times and the order differed. | Build timestamp | Standardised all four in `scripts/pack-release-zip.sh`. | Build scripts. Changed the repository's release packing script. |
 
 ### Stage 5. Release
 
@@ -61,7 +60,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s5-01"></a> **E1-S5-01** | `ef bundle` built the migration program in a random folder under `/tmp`. Of 827,679,078 bytes, 93 differed. | Build path | Moved the migration program into the repository as a project so that `PathMap` applied. | Code and settings. Moved the migration program into the repository so PathMap applied. |
 | <a name="e1-s5-05"></a> **E1-S5-05** | Signing added a timestamped signature to each of 177 files. Signing twice gave different bytes. | Build timestamp | For comparison, copied the original release signatures onto the rebuilt files. | Verifier action. Copy the release signatures onto the rebuilt files before comparing them. |
 | <a name="e1-s5-07"></a> **E1-S5-07** | The order of files in `SHA256SUMS` could depend on the language setting used to sort them. Three language settings gave the same order. | Locale | Set `LC_ALL=C` when sorting the file list. | Build scripts. Set LC_ALL=C when sorting the checksum list, as a precaution. |
-| <a name="e1-s5-08"></a> **E1-S5-08** | On a shared runner, the Windows job picked up a frontend export left by another job. | Package dependency | Made the Windows job download the export for its own release every time. | Build scripts. The Windows job downloads the frontend export for its own release. |
+| <a name="e1-s5-08"></a> **E1-S5-08** | On a shared runner, the Windows job picked up a frontend export left by another job. Found in the published v1.0.50. | Package dependency | Made the Windows job download the export for its own release every time. | Build scripts. The Windows job downloads the frontend export for its own release. |
 | <a name="e1-s5-10"></a> **E1-S5-10** | On a shared runner, `dotnet tool restore` could run a tool from another job’s folder. | Build tool version | Gave the migration job its own home folder for the command-line tools. | Build scripts. The migration job uses its own tool home folder. |
 
 ### Stage 6. Container images
@@ -84,6 +83,7 @@ These findings described a cause that another finding already counts. They keep 
 | <a name="e1-s1-03"></a> **E1-S1-03** | Two compilers with the same Roslyn code produced the same instructions, yet 70 of 4,096 bytes differed. The debug symbols recorded the compiler commit, and the assembly recorded the symbols’ hash. | [E1-S1-02](#e1-s1-02) |
 | <a name="e1-s1-06"></a> **E1-S1-06** | Changing the build folder changed the assembly and its debug symbols. Both contained absolute paths. | [E1-S1-09](#e1-s1-09), [E1-S1-10](#e1-s1-10) |
 | <a name="e1-s2-13"></a> **E1-S2-13** | With `umask 0002`, 142 release files had different permissions. | [E1-S4-01](#e1-s4-01) |
+| <a name="e1-s1-12"></a> **E1-S1-12** | In a source export without `.git`, `ContinuousIntegrationBuild` mapped only the NuGet cache. Source Link missed the source root. The same files and hashes differed as before, so this explains why our first fix failed. | [E1-S1-09](#e1-s1-09), [E1-S1-10](#e1-s1-10), [E1-S1-11](#e1-s1-11) |
 
 ## Compared with CI or another machine
 
@@ -100,6 +100,7 @@ A rebuild by someone else would hit these causes unless they had something the r
 | [E1-S3-04](#e1-s3-04) | Build tool version | Environment |
 | [E1-S3-08](#e1-s3-08) | Build tool version | Environment |
 | [E1-S5-05](#e1-s5-05) | Build timestamp | Build process |
+| [E1-S5-08](#e1-s5-08) | Package dependency | Build process |
 
 ## Setup faults
 
@@ -122,7 +123,6 @@ A rebuild by someone else would hit these causes unless they had something the r
 | <a name="e1-s1-01"></a> **E1-S1-01** | Built the empty class twice from scratch with the same path, machine and development kit. | The assembly and its debug symbols were identical. |
 | <a name="e1-s1-04"></a> **E1-S1-04** | Built with Microsoft’s compiler on macOS and Linux. The compiler binaries differed. | The output bytes matched. They followed the Roslyn commit rather than the compiler file’s hash. |
 | <a name="e1-s1-05"></a> **E1-S1-05** | Checked when the executable header’s `TimeDateStamp` changed. | It is part of a content hash. It changed only with the content. |
-| <a name="e1-s1-07"></a> **E1-S1-07** | Varied time, language, default file permissions, executable search path and file order when building the empty class. | No byte changed. |
 | <a name="e1-s1-08"></a> **E1-S1-08** | Built the whole solution twice from scratch at the same path. | All 1,610 files matched. |
 | <a name="e1-s1-17"></a> **E1-S1-17** | Checked how MSBuild orders source files. | MSBuild sorted source files before compilation, so their directory order could not matter. |
 | <a name="e1-s1-18"></a> **E1-S1-18** | Built with and without the compiler server. | All 639 files matched. |
@@ -145,6 +145,7 @@ A rebuild by someone else would hit these causes unless they had something the r
 
 | Finding ID | What we found | What we changed | Outcome |
 | --- | --- | --- | --- |
+| <a name="e1-s1-07"></a> **E1-S1-07** | Time, language, default file permissions, executable search path and file order changed no byte of the empty class. As in [E1-S1-16](#e1-s1-16), the compiler server most likely kept the first build’s environment. | Withdrew the result. Stage 1 was checked again with the compiler under the varied settings ([E1-S1-20](#e1-s1-20)) and for file order ([E1-S1-17](#e1-s1-17)). | Result withdrawn. |
 | <a name="e1-s1-16"></a> **E1-S1-16** | Stage 1 initially passed checks for time, language, default file permissions and executable search path. The compiler server had kept the first build’s environment. | Withdrew the result. See the correction in [E1-M-07](#e1-m-07). | Result withdrawn. |
 | <a name="e1-m-01"></a> **E1-M-01** | On the command line, `PathMap` silently ignored `$(MSBuildProjectDirectory)`. | Use the shell’s `$PWD` for the path. | Verifier action. |
 | <a name="e1-m-02"></a> **E1-M-02** | Sorting the same file list under two language settings produced differently ordered lists of hashes. | Set `LC_ALL=C` in every step that sorts. | Verifier action. |

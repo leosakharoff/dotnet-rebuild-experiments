@@ -6,12 +6,12 @@ Each finding gets up to two categories. **A** says what caused an output differe
 
 | Category | Use when | Example | Literature |
 | --- | --- | --- | --- |
-| **Build timestamp** | The build clock affects a value in the output, such as a version, copyright year, file timestamp, or signature timestamp. | E1-S5-05; Azure SDK date in version | Bajaj Build Timestamp; Lamb & Zacchiroli |
+| **Build timestamp** | The build clock affects a value in the output, such as a version, copyright year, file timestamp, or signature timestamp. | E1-S5-05, E1-S4-01 (zip entry times); Azure SDK date in version | Bajaj Build Timestamp; Lamb & Zacchiroli |
 | **Build path** | The directory from which the build runs affects the output. | E1-S1-09; Quartz path hash | Bajaj Build Path |
 | **Locale** | The language or region setting affects the output, for example by changing how names are sorted. | E1-S2-11 | Bajaj Locale |
 | **Randomness** | A random value or the completion order of parallel work affects the output. This can happen across builds in the same environment. | E1-S3-01, E1-S3-10 | Bajaj Randomness, Build ID |
-| **Filesystem ordering** | The output depends on the order in which the file system lists files. | none in RQ1; 2a's `fileordering` axis | Bajaj Filesystem Ordering |
-| **Archive metadata and file permissions** | The file contents match, but metadata such as permissions, ownership, or archive fields other than timestamps differs. | E1-S4-01 | Bajaj Archive Metadata, File Permission |
+| **Filesystem ordering** | The output depends on the order in which the file system lists files. | no cause of its own in RQ1: E1-S4-01's zip entry order is noted under its timestamp; 2a's `fileordering` axis | Bajaj Filesystem Ordering |
+| **Archive metadata and file permissions** | The file contents match, but metadata such as permissions, ownership, or archive fields other than timestamps differs. | none in RQ1: E1-S4-01's modes and owner differ only under variation, and its times decide the code (rules 2 and 3) | Bajaj Archive Metadata, File Permission |
 | **Build tool version** | A different compiler, runtime, or tool affects the output, even if it reports the same version. | E1-S1-02; SharpZipLib targeting pack | Solarin RC01 |
 | **Package dependency** | A dependency or file selected by name or version supplies different bytes in another build. | E1-S2-07, E1-S6-05 | Bajaj Package Dependency |
 | **CI/CD modification** | The publisher’s pipeline changes the output through an additional step or input, such as a generated attribute, a version derived from Git, or a signing key. | Bogus, MediatR.Contracts | Solarin RC02, RC03 |
