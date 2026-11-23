@@ -586,7 +586,7 @@
         <mxCell id="verifier-mark" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#ffffff;strokeWidth=1;">
           <mxGeometry as="geometry" x="363" y="243.0" width="6" height="6" />
         </mxCell>
-        <mxCell id="verifier-label" value="Verifier must act" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
+        <mxCell id="verifier-label" value="Verifier action" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="378" y="243" width="140" height="15" />
         </mxCell>
         <mxCell id="other-stem" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
