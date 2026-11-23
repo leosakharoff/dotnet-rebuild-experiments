@@ -108,4 +108,4 @@ E2b-06		2b	Version computed from git	MediatR.Contracts, ExCSS	2	Cause	CI/CD modi
 E2b-07		2b	Targeting pack	SharpZipLib, MediatR.Extensions.Microsoft.DependencyInjection	2	Cause	Build tool version	Environment	
 E2b-08		2b	RepositoryUrl form	two Serilog packages	2	Cause	CI/CD modification	Source state	URL taken from the checkout
 E2b-09		2b	Signing key	RecyclableMemoryStream	1	Cause	CI/CD modification	Build process	
-E2b-10		2b	Not inspected	Google.Protobuf, ShimSkiaSharp, Identity.Web (3)	5	Not examined			not read; a limit of the study, not a cause
+E2b-10		2b	Not examined	Google.Protobuf, ShimSkiaSharp, Identity.Web (3)	5	Not examined			not read; a limit of the study, not a cause
