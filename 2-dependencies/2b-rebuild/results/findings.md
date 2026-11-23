@@ -19,4 +19,4 @@ A separate check with the publisher’s build system reproduced 35 more Microsof
 | <a name="e2b-07"></a> **E2b-07** | The rebuild used a different targeting pack. | SharpZipLib, MediatR.Extensions.Microsoft.DependencyInjection | 2 | The display name in `TargetFrameworkAttribute` differs, and so do the assembly’s intermediate instructions. | Build tool version | Environment |
 | <a name="e2b-08"></a> **E2b-08** | The build takes the repository URL from the checkout. | Serilog.Settings.Configuration, Serilog.Extensions.Logging | 2 | `RepositoryUrl` differs by the `.git` suffix. | CI/CD modification | Source state |
 | <a name="e2b-09"></a> **E2b-09** | Signing uses a key stored outside the repository. | RecyclableMemoryStream | 1 | The strong name and the key in `InternalsVisibleTo` differ. | CI/CD modification | Build process |
-| <a name="e2b-10"></a> **E2b-10** | Cause not examined. | Google.Protobuf, ShimSkiaSharp, Identity.Web 3 | 5 | Difference not examined. | Unknown | Unknown |
+| <a name="e2b-10"></a> **E2b-10** | Cause not examined. | Google.Protobuf, ShimSkiaSharp, Identity.Web 3 | 5 | Difference not examined. | Not examined | – |

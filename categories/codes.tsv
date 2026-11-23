@@ -63,7 +63,7 @@ E1-S5-08	W64	1	On a self-hosted runner the Windows job took a frontend export th
 E1-S5-09	W66	1	`SHA256SUMS` named three files by a folder that the GitHub Release does not have, so a download could not be checked.	File and archive metadata		Setup fault			
 E1-S5-10	W69	1	`dotnet tool restore` can run a tool from another job's folder on a shared runner. The migration job now has its own CLI home.	Toolchain identity		Cause	Build tool version	Not a rebuild	borderline: leftover state on a shared runner (INPUT?)
 E1-S6-01	W56	1	The WebAPI and job worker images differ in times only. Fixed with `SOURCE_DATE_EPOCH` and BuildKit's `rewrite-timestamp`.	Clock time		Cause	Build timestamp	Not a rebuild	
-E1-S6-02	W60	1	The MCP images kept files that build steps write as a side effect: font caches, Node's compile cache, test durations. Removed in each step.	Inputs and pinning		Cause	Unknown	Not a rebuild	side products of build steps (caches); no code fits
+E1-S6-02	W60	1	The MCP images kept files that build steps write as a side effect: font caches, Node's compile cache, test durations. Removed in each step.	Inputs and pinning		Cause	Randomness	Not a rebuild	vitest's results file differed in test durations and their order (timing); the font caches and Node's compile cache were removed without establishing why they differed
 E1-S6-03	W62	1	The migrations image, from the manual image script, had the same time difference as W56. Fixed the same way.	Clock time		Cause	Build timestamp	Not a rebuild	
 E1-S6-04	W65	1	Image tags point at attestations that hold the build's clock and a random id, so tags differ in every build. Compare the image manifest instead.	Clock time		Cause	Build timestamp	Not a rebuild	attestation also holds a random id (RANDOM)
 E1-S6-05	W67	1	The MCP images install Debian packages from the live archive. Now installed from a dated snapshot.	Inputs and pinning		Cause	Package dependency	Not a rebuild	
@@ -108,4 +108,4 @@ E2b-06		2b	Version computed from git	MediatR.Contracts, ExCSS	2	Cause	CI/CD modi
 E2b-07		2b	Targeting pack	SharpZipLib, MediatR.Extensions.Microsoft.DependencyInjection	2	Cause	Build tool version	Environment	
 E2b-08		2b	RepositoryUrl form	two Serilog packages	2	Cause	CI/CD modification	Source state	URL taken from the checkout
 E2b-09		2b	Signing key	RecyclableMemoryStream	1	Cause	CI/CD modification	Build process	
-E2b-10		2b	Not inspected	Google.Protobuf, ShimSkiaSharp, Identity.Web (3)	5	Cause	Unknown	Unknown	not read
+E2b-10		2b	Not inspected	Google.Protobuf, ShimSkiaSharp, Identity.Web (3)	5	Not examined			not read; a limit of the study, not a cause

@@ -42,7 +42,7 @@ Keep these findings because they record what was corrected, tested, or learned a
 2. Assign **Build timestamp** to a timestamp difference wherever it appears, including in an archive or a signature.
 3. The category describes why the two compared outputs differ, so one package can get different categories in different comparisons. Azure's date suffix is **Build timestamp** in 2a, where two of our own builds differ because the build reads the clock, and **CI/CD modification** in 2b, where our build differs from the published one because the official pipeline drops the suffix. If two categories fit within one comparison, choose the earliest cause and note the other.
 4. Assign B = **Not a rebuild** whenever the comparison is between two builds of our own.
-5. If no code fits, enter **Unknown** and add a note explaining why.
+5. If no code fits, mark the cause **unclassified** and add a note explaining why. A difference nobody examined is not a cause: record it as **not examined**.
 
 ## Counting and review
 
