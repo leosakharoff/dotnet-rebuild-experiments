@@ -12,7 +12,7 @@ What each stage looked like before and after the fixes, and the findings behind 
 | --- | --- |
 | • Same path: 0 of 1610 files differ<br>• Another build path: all 10 compared files differ<br>• Estonian locale: our 4 assemblies differ | • Every shipped file identical on every axis<br>• 2 development files still hold the path; they do not ship |
 
-**Findings:** [E1-S1-09](findings.md#e1-s1-09) · [E1-S1-10](findings.md#e1-s1-10) · [E1-S1-11](findings.md#e1-s1-11) · [E1-S1-12](findings.md#e1-s1-12) · [E1-S1-13](findings.md#e1-s1-13) · [E1-S2-11](findings.md#e1-s2-11) · [E1-S1-21](findings.md#e1-s1-21) · [E1-S1-14](findings.md#e1-s1-14) 🔴 · [E1-S1-15](findings.md#e1-s1-15) 🔴
+**Findings:** [E1-S1-09](findings.md#e1-s1-09) · [E1-S1-10](findings.md#e1-s1-10) · [E1-S1-11](findings.md#e1-s1-11) · [E1-S1-12](findings.md#e1-s1-12) · [E1-S1-13](findings.md#e1-s1-13) · [E1-S2-11](findings.md#e1-s2-11) · [E1-S1-21](findings.md#e1-s1-21) · [E1-S1-14](findings.md#e1-s1-14) · [E1-S1-15](findings.md#e1-s1-15)
 
 ## Stage 2: Publish
 
@@ -22,7 +22,7 @@ What each stage looked like before and after the fixes, and the findings behind 
 | --- | --- |
 | • Extra and wrong files: a stray lock file, Windows DLLs, libraries listed as 1.0.0<br>• Estonian locale: 10 of 1237 files<br>• SDK 10: 1 file dated with the build time | • 0 of 2121 files differ on SDK 10<br>• 0 of 2227 with the frontend in place (SDK 9)<br>• File modes follow the umask; stage 4 sets them |
 
-**Findings:** [E1-S2-03](findings.md#e1-s2-03) · [E1-S2-08](findings.md#e1-s2-08) · [E1-S2-09](findings.md#e1-s2-09) · [E1-S2-11](findings.md#e1-s2-11) · [E1-S2-16](findings.md#e1-s2-16) · [E1-S2-18](findings.md#e1-s2-18) · [E1-S2-17](findings.md#e1-s2-17) · [E1-S2-13](findings.md#e1-s2-13) 🔴
+**Findings:** [E1-S2-03](findings.md#e1-s2-03) · [E1-S2-08](findings.md#e1-s2-08) · [E1-S2-09](findings.md#e1-s2-09) · [E1-S2-11](findings.md#e1-s2-11) · [E1-S2-16](findings.md#e1-s2-16) · [E1-S2-18](findings.md#e1-s2-18) · [E1-S2-17](findings.md#e1-s2-17) · [E1-S2-13](findings.md#e1-s2-13)
 
 ## Stage 3: Frontend
 
@@ -30,9 +30,9 @@ What each stage looked like before and after the fixes, and the findings behind 
 
 | Before the fixes | After the fixes |
 | --- | --- |
-| • Same path: 110 of 998 files (random build ID)<br>• 1 build in 4: 4 files (CSS order)<br>• 26 builds: two outputs, 109 of 990 files (page order)<br>• About 1 build in 50: 5 files (chunk ids) | • 0 files differ within one commit<br>• Two open points do not change the bytes of one commit |
+| • Same path: 110 of 998 files (random build ID)<br>• 1 build in 4: 4 files (CSS order)<br>• 26 builds: two outputs, 109 of 990 files (page order)<br>• About 1 build in 50: 5 files (chunk ids) | • 0 files differ within one commit<br>• One open point ([E1-S3-08](findings.md#e1-s3-08)) does not change the bytes of one commit |
 
-**Findings:** [E1-S3-01](findings.md#e1-s3-01) · [E1-S3-06](findings.md#e1-s3-06) · [E1-S3-09](findings.md#e1-s3-09) · [E1-S3-10](findings.md#e1-s3-10) · [E1-S3-03](findings.md#e1-s3-03) · [E1-S3-04](findings.md#e1-s3-04) · [E1-S3-05](findings.md#e1-s3-05) · [E1-S3-07](findings.md#e1-s3-07) 🔴 · [E1-S3-08](findings.md#e1-s3-08) 🔴
+**Findings:** [E1-S3-01](findings.md#e1-s3-01) · [E1-S3-06](findings.md#e1-s3-06) · [E1-S3-09](findings.md#e1-s3-09) · [E1-S3-10](findings.md#e1-s3-10) · [E1-S3-03](findings.md#e1-s3-03) · [E1-S3-04](findings.md#e1-s3-04) · [E1-S3-05](findings.md#e1-s3-05) · [E1-S3-07](findings.md#e1-s3-07) · [E1-S3-08](findings.md#e1-s3-08) 🔴
 
 ## Stage 4: Zip
 
@@ -42,7 +42,7 @@ What each stage looked like before and after the fixes, and the findings behind 
 | --- | --- |
 | • Different in every build, as CI packs them<br>• Times in 1237 of 1847 entries; 140 entries in another order<br>• Under all axes also modes and owner | • Identical in 4 builds with normalised packing |
 
-**Findings:** [E1-S4-01](findings.md#e1-s4-01) · [E1-S2-13](findings.md#e1-s2-13) 🔴
+**Findings:** [E1-S4-01](findings.md#e1-s4-01) · [E1-S2-13](findings.md#e1-s2-13)
 
 ## Stage 5: The release
 
@@ -72,4 +72,4 @@ What each stage looked like before and after the fixes, and the findings behind 
 | --- | --- |
 | • Two compilers both called 9.0.120 gave different DLLs<br>• GitHub against our laptop: our assemblies differ by the runtime patch the compiler ran on | • Identical with the global.json SDK installed alone<br>• macOS on arm64 against GitHub's Linux: nothing differs<br>• The shared droplet was too small to compile WS.PEMS |
 
-**Findings:** [E1-S1-02](findings.md#e1-s1-02) · [E1-S1-03](findings.md#e1-s1-03) · [E1-S2-19](findings.md#e1-s2-19) · [E1-S2-20](findings.md#e1-s2-20) · [E1-M-06](findings.md#e1-m-06) 🔴
+**Findings:** [E1-S1-02](findings.md#e1-s1-02) · [E1-S1-03](findings.md#e1-s1-03) · [E1-S2-19](findings.md#e1-s2-19) · [E1-S2-20](findings.md#e1-s2-20) · [E1-M-06](findings.md#e1-m-06)
