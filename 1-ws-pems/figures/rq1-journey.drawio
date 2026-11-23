@@ -148,7 +148,7 @@
         <mxCell id="s2-name" value="&lt;b&gt;2 Publish&lt;/b&gt;" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="125" y="12" width="112" height="20" />
         </mxCell>
-        <mxCell id="s2-number" value="9 causes" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
+        <mxCell id="s2-number" value="8 causes" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="125" y="34" width="112" height="16" />
         </mxCell>
         <mxCell id="s2-segment" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1.6;endArrow=none;endFill=1;endSize=5;">
@@ -168,75 +168,66 @@
         </mxCell>
         <mxCell id="E1-S2-05-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="149.0" y="88" />
-            <mxPoint as="targetPoint" x="149.0" y="69" />
+            <mxPoint as="sourcePoint" x="150.52" y="88" />
+            <mxPoint as="targetPoint" x="150.52" y="69" />
           </mxGeometry>
         </mxCell>
         <mxCell id="E1-S2-05-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#ffffff;strokeWidth=1;">
-          <mxGeometry as="geometry" x="146.0" y="66.0" width="6" height="6" />
+          <mxGeometry as="geometry" x="147.52" y="66.0" width="6" height="6" />
         </mxCell>
         <mxCell id="E1-S2-06-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="159.67" y="88" />
-            <mxPoint as="targetPoint" x="159.67" y="69" />
+            <mxPoint as="sourcePoint" x="162.71" y="88" />
+            <mxPoint as="targetPoint" x="162.71" y="69" />
           </mxGeometry>
         </mxCell>
         <mxCell id="E1-S2-06-outcome-a" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="156.67" y="66.0" />
-            <mxPoint as="targetPoint" x="162.67" y="72.0" />
+            <mxPoint as="sourcePoint" x="159.71" y="66.0" />
+            <mxPoint as="targetPoint" x="165.71" y="72.0" />
           </mxGeometry>
         </mxCell>
         <mxCell id="E1-S2-06-outcome-b" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="156.67" y="72.0" />
-            <mxPoint as="targetPoint" x="162.67" y="66.0" />
+            <mxPoint as="sourcePoint" x="159.71" y="72.0" />
+            <mxPoint as="targetPoint" x="165.71" y="66.0" />
           </mxGeometry>
         </mxCell>
         <mxCell id="E1-S2-07-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="170.33" y="88" />
-            <mxPoint as="targetPoint" x="170.33" y="69" />
+            <mxPoint as="sourcePoint" x="174.90" y="88" />
+            <mxPoint as="targetPoint" x="174.90" y="69" />
           </mxGeometry>
         </mxCell>
         <mxCell id="E1-S2-07-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
-          <mxGeometry as="geometry" x="167.33" y="66.0" width="6" height="6" />
+          <mxGeometry as="geometry" x="171.90" y="66.0" width="6" height="6" />
         </mxCell>
         <mxCell id="E1-S2-11-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="181.0" y="88" />
-            <mxPoint as="targetPoint" x="181.0" y="69" />
+            <mxPoint as="sourcePoint" x="187.10" y="88" />
+            <mxPoint as="targetPoint" x="187.10" y="69" />
           </mxGeometry>
         </mxCell>
         <mxCell id="E1-S2-11-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
-          <mxGeometry as="geometry" x="178.0" y="66.0" width="6" height="6" />
+          <mxGeometry as="geometry" x="184.10" y="66.0" width="6" height="6" />
         </mxCell>
         <mxCell id="E1-S2-13-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="191.67" y="88" />
-            <mxPoint as="targetPoint" x="191.67" y="69" />
+            <mxPoint as="sourcePoint" x="199.29" y="88" />
+            <mxPoint as="targetPoint" x="199.29" y="69" />
           </mxGeometry>
         </mxCell>
         <mxCell id="E1-S2-13-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
-          <mxGeometry as="geometry" x="188.67" y="66.0" width="6" height="6" />
-        </mxCell>
-        <mxCell id="E1-S2-16-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="202.33" y="88" />
-            <mxPoint as="targetPoint" x="202.33" y="69" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="E1-S2-16-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
-          <mxGeometry as="geometry" x="199.33" y="66.0" width="6" height="6" />
+          <mxGeometry as="geometry" x="196.29" y="66.0" width="6" height="6" />
         </mxCell>
         <mxCell id="E1-S2-18-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="213.0" y="88" />
-            <mxPoint as="targetPoint" x="213.0" y="69" />
+            <mxPoint as="sourcePoint" x="211.48" y="88" />
+            <mxPoint as="targetPoint" x="211.48" y="69" />
           </mxGeometry>
         </mxCell>
         <mxCell id="E1-S2-18-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
-          <mxGeometry as="geometry" x="210.0" y="66.0" width="6" height="6" />
+          <mxGeometry as="geometry" x="208.48" y="66.0" width="6" height="6" />
         </mxCell>
         <mxCell id="E1-S2-19-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">

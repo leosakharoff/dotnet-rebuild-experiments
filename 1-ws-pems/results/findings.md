@@ -1,6 +1,6 @@
 # Experiment 1 findings
 
-Experiment 1 produced 93 findings: 39 causes of differences, 9 setup faults, 20 checks that found no difference and 25 findings about how we measured.
+Experiment 1 produced 93 findings: 38 causes of differences, 9 setup faults, 21 checks that found no difference and 25 findings about how we measured.
 One finding is [still open](#e1-s3-08). Four measurement findings describe limitations.
 In `E1-S3-02`, `S3` means stage 3 and `02` means finding 2. The prefix `E1-M` identifies a measurement finding.
 The [identifier table](../../categories/codes.tsv) lists the old identifiers. The [stage guide](stages.md) shows each stage before and after the fixes.
@@ -34,7 +34,6 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s2-07"></a> **E1-S2-07** | NuGet lock files record a content hash for every package. Restoring from those hashes reproduced the release. | Package dependency | Added lock files and enabled locked restores in the release workflow. | Fixed in the project. The release workflow also enforces a locked restore. |
 | <a name="e1-s2-11"></a> **E1-S2-11** | Under Estonian settings, Roslyn reordered the types it generated for collection expressions. That changed 10 of 1,237 files. | Locale | Set `LC_ALL=C.UTF-8`. | Fixed in the build scripts. Set LC_ALL=C.UTF-8 as a workaround for the compiler defect. |
 | <a name="e1-s2-13"></a> **E1-S2-13** | With `umask 0002`, 142 release files had different permissions. | Archive metadata and file permissions | Set file permissions when packing the archive in stage 4. | Fixed in the build scripts. Stage 4 sets the file permissions during packing. |
-| <a name="e1-s2-16"></a> **E1-S2-16** | Varying eleven settings together gave the same release as varying only the language to Estonian. | Locale | Set `LC_ALL=C.UTF-8`. | Fixed in the build scripts. Set LC_ALL=C.UTF-8. |
 | <a name="e1-s2-18"></a> **E1-S2-18** | Version 10 of the development kit stamped compressed copies of static files with the time it wrote them. | Build timestamp | Turned off compression with `CompressionEnabled=false`. | Fixed in the project. Static asset compression turned off in the web application. |
 | <a name="e1-s2-19"></a> **E1-S2-19** | The compiler ran on different runtime patches on the GitHub runner and our machine, 10.0.13 and 10.0.12. The assemblies differed. | Build tool version | Installed only the kit named in `global.json` in an empty folder. Checked its hash and that only its own runtime was present. | Fixed in the build scripts. Installed the kit named in global.json alone and checked its hash and runtime. |
 
@@ -128,6 +127,7 @@ These causes showed up when we compared our build with one we did not make ourse
 | <a name="e1-s2-12"></a> **E1-S2-12** | Moved the clock forward 398 days and varied the default file permissions and executable search path. The compiler ran under the varied settings. | File contents matched. The permissions themselves are covered in [E1-S2-13](#e1-s2-13). |
 | <a name="e1-s2-14"></a> **E1-S2-14** | Checked the source of 311 `Last-Modified` dates. | The dates came from a NuGet package archive and were independent of the build clock. |
 | <a name="e1-s2-15"></a> **E1-S2-15** | Varied the time zone, environment, home folder, processor count and user. | No difference founds appeared. |
+| <a name="e1-s2-16"></a> **E1-S2-16** | Varied eleven settings together, the language set to Estonian among them. | The release equalled the Estonian-only build: no other setting changed a byte. The one cause is [E1-S2-11](#e1-s2-11). |
 | <a name="e1-s2-20"></a> **E1-S2-20** | Compared macOS on `arm64` with GitHub’s Linux runner on `x86-64`. | The compared outputs matched, including the frontend and release archives. |
 | <a name="e1-s3-02"></a> **E1-S3-02** | Built the frontend twice at the same path with a fixed build identifier. | The outputs were identical. |
 | <a name="e1-s3-07"></a> **E1-S3-07** | Compared the minifier’s short names in the runtime chunk within and between commits. | Names changed only between commits. Rebuilding the same commit preserved them. |

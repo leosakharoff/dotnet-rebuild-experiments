@@ -36,7 +36,7 @@ E1-S2-12	W29	1	Clock +398 days, umask (contents) and exec path, now with the var
 E1-S2-13	W30	1	File modes in the release follow the umask: 142 files change under umask 0002. Left to stage 4, whose zip packing sets the modes.	File and archive metadata		Cause	Archive metadata and file permissions	Not a rebuild	
 E1-S2-14	W31	1	311 `Last-Modified` dates come from a NuGet package's zip, not from the build clock. Stable.	Clock time		No difference found			dates come from a package, not the clock
 E1-S2-15	W32	1	Time zone, environment, home, CPUs and another user: no difference.	Measured stable		No difference found			
-E1-S2-16	W33	1	With eleven axes varied at once, the release equals the Estonian-only build: no other axis changes a byte. `LC_ALL=C.UTF-8` fixes it.	Locale		Cause	Locale	Not a rebuild	only axis of eleven that changed bytes
+E1-S2-16	W33	1	With eleven axes varied at once, the release equals the Estonian-only build: no other axis changes a byte. `LC_ALL=C.UTF-8` fixes it.	Locale		No difference found			confirms E1-S2-11: with all eleven axes varied, only the locale changed bytes
 E1-S2-17	W45	1	The release's builds got the version by different routes. Now one `APP_VERSION` for every build.	Build and release configuration		Setup fault			
 E1-S2-18	W50	1	SDK 10 dates the compressed copies of static files with the time it wrote them. Fixed by turning compression off.	Clock time		Cause	Build timestamp	Not a rebuild	
 E1-S2-19	W58	1	GitHub's runner and our machine: our assemblies differ by the runtime patch the compiler ran on, 10.0.13 against 10.0.12. Fixed by installing the `global.json` SDK alone.	Toolchain identity		Cause	Build tool version	Environment	
