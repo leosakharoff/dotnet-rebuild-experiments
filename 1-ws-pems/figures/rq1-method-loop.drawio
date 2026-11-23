@@ -22,8 +22,8 @@
         <mxCell id="trace" parent="1" value="&lt;b&gt;Trace the difference&lt;/b&gt;&lt;br&gt;Identify the file and field." style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
           <mxGeometry as="geometry" x="458" y="184" width="168" height="58" />
         </mxCell>
-        <mxCell id="record" parent="1" value="&lt;b&gt;Record external action&lt;/b&gt;&lt;br&gt;Describe what the verifier&lt;br&gt;or tool maintainer must do." style="rounded=0;fillColor=#ffffff;strokeColor=#9aa4a8;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
-          <mxGeometry as="geometry" x="458" y="266" width="168" height="66" />
+        <mxCell id="record" parent="1" value="&lt;b&gt;Record verifier action&lt;/b&gt;&lt;br&gt;Describe the verifier&#39;s step." style="rounded=0;fillColor=#ffffff;strokeColor=#9aa4a8;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
+          <mxGeometry as="geometry" x="458" y="266" width="168" height="58" />
         </mxCell>
         <mxCell id="match" parent="1" value="match" style="fillColor=none;strokeColor=none;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#17232a;strokeWidth=1;spacing=0;" vertex="1">
           <mxGeometry as="geometry" x="210" y="193" width="44" height="18" />
