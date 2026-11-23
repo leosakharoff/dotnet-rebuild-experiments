@@ -544,7 +544,7 @@
             <mxPoint as="targetPoint" x="563" y="243.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="other-label" value="No fix by us" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
+        <mxCell id="other-label" value="No fix needed" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="572" y="243" width="140" height="15" />
         </mxCell>
       </root>

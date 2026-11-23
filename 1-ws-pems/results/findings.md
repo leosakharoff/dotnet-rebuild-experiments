@@ -47,7 +47,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s3-09"></a> **E1-S3-09** | Webpack ordered pages by build timing. Across 26 builds, it produced two outputs that differed in 109 of 990 files. | Randomness | Added a plugin that sorts page entries by name before webpack creates chunks. | Code and settings. Added a plugin to sort page entries. |
 | <a name="e1-s3-10"></a> **E1-S3-10** | In about one build in 50, two identical chunks swapped identifiers because webpack ordered modules by timing. | Randomness | Extended the sorting plugin to modules and their links. | Code and settings. Extended the plugin to sort modules and their links. |
 
-### Stage 4. Release archives
+### Stage 4. Zip
 
 | Finding ID | What we found | Cause | What we changed | Outcome |
 | --- | --- | --- | --- | --- |
@@ -63,7 +63,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s5-08"></a> **E1-S5-08** | On a shared runner, the Windows job picked up a frontend export left by another job. Found in the published v1.0.50. | Package dependency | Made the Windows job download the export for its own release every time. | Build scripts. The Windows job downloads the frontend export for its own release. |
 | <a name="e1-s5-10"></a> **E1-S5-10** | On a shared runner, `dotnet tool restore` could run a tool from another job’s folder. | Build tool version | Gave the migration job its own home folder for the command-line tools. | Build scripts. The migration job uses its own tool home folder. |
 
-### Stage 6. Container images
+### Stage 6. Images
 
 | Finding ID | What we found | Cause | What we changed | Outcome |
 | --- | --- | --- | --- | --- |
