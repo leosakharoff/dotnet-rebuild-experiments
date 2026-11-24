@@ -508,10 +508,10 @@
         <mxCell id="fixed-mark" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
           <mxGeometry as="geometry" x="193" y="243.0" width="6" height="6" />
         </mxCell>
-        <mxCell id="legend-lead" value="One mark = one cause we found:" parent="1" vertex="1" style="html=1;whiteSpace=nowrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
+        <mxCell id="legend-lead" value="One mark = one cause. Its fix:" parent="1" vertex="1" style="html=1;whiteSpace=nowrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="6" y="243" width="180" height="15" />
         </mxCell>
-<mxCell id="fixed-label" value="Fixed by us" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
+<mxCell id="fixed-label" value="In WS.PEMS" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="208" y="243" width="140" height="15" />
         </mxCell>
         <mxCell id="verifier-stem" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
@@ -523,7 +523,7 @@
         <mxCell id="verifier-mark" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#ffffff;strokeWidth=1;">
           <mxGeometry as="geometry" x="363" y="243.0" width="6" height="6" />
         </mxCell>
-        <mxCell id="verifier-label" value="Verifier action" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
+        <mxCell id="verifier-label" value="By the verifier" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="378" y="243" width="140" height="15" />
         </mxCell>
         <mxCell id="other-stem" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
@@ -544,7 +544,7 @@
             <mxPoint as="targetPoint" x="563" y="243.0" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="other-label" value="No fix needed" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
+        <mxCell id="other-label" value="Not needed" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="572" y="243" width="140" height="15" />
         </mxCell>
       </root>
