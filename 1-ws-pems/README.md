@@ -94,8 +94,8 @@ confirm the cause before the fix.
 
 Stage 4, zip. The zips packed as CI packs them (`zip -r`), and with a
 normalised packing: fixed times, sorted names, fixed modes, no extra fields.
-Compared entry by entry: name, content, time, mode, owner, order. Only with
-no variation and with all axes at once.
+Compared entry by entry: name, content, time, mode, owner, order. With no
+variation, with the locale alone and with all axes at once.
 
 Stage 5, the release. Since 16 November 2026 `5-release/build.sh` builds
 the whole release as the workflow's jobs do, one after the other. The
@@ -302,7 +302,7 @@ On SDK 10 the locale defect was gone.
 | Database migrator, two paths | 93 of 827,679,078 bytes differ | `dotnet ef migrations bundle` builds the migrator in a random `/tmp` folder, and that path reaches the binary | Migrator kept as a project in the repository, where `PathMap` applies: identical |
 | SQL script | Identical |  | None needed |
 | Windows release, built on Linux | 2132 files identical under no variation, all axes and the Estonian locale |  | None needed |
-| Checksum file | Line order follows the locale | The shell lists the files in the locale's sort order | `LC_ALL=C` before the file list |
+| Checksum file | Could follow the locale: C, en_US and da_DK gave the same order; Estonian was not installed | The shell sorts the file list in the locale's order | `LC_ALL=C` before the file list, as a precaution |
 | Windows signing, twice | 177 files and both zips differ | Each signature carries its own timestamp | Copy the release's signatures onto the rebuild: identical |
 | The whole release, after the fixes | Identical under no variation and all axes: the nine files of the release page |  |  |
 
@@ -321,8 +321,11 @@ On SDK 10 the locale defect was gone.
   runner, the laptop and a Mac) are in
   [results/stages.md](results/stages.md), under "Across machines".
 - Not every axis was run: file order needs `disorderfs`, which this machine
-  does not have. ASLR alone cannot be varied with reprotest. Stages 4 and 6
-  were tested with fewer axes than stages 1-3.
+  does not have. ASLR alone cannot be varied with reprotest. Stage 4 and the
+  Windows release had no variation, the locale alone and all axes at once;
+  the rest of stage 5 had a few variations or two plain builds; stage 6
+  had two plain builds and no variation. In stages 4 and 5 the release
+  jobs' `LC_ALL=C.UTF-8` held .NET's locale fixed even under all axes.
 - Few repetitions: many results rest on two builds. Rare races were found
   only by repetition, about once in 50 builds.
 - Hashes before and after the SDK change (12 October 2026) do not compare.

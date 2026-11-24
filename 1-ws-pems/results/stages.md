@@ -48,7 +48,7 @@ What each stage looked like before and after the fixes, and the findings behind 
 
 | Before the fixes | After the fixes |
 | --- | --- |
-| • Migrator: 93 of 827,679,078 bytes<br>• Checksum file: line order follows the locale<br>• Signing: 177 files and both zips differ | • Migrator, SQL script and Windows release (2132 files) identical<br>• Checksum file fixed with LC_ALL=C<br>• Signed files identical after pasting the release's signatures |
+| • Migrator: 93 of 827,679,078 bytes<br>• Checksum file: line order could follow the locale (three locales gave the same order)<br>• Signing: 177 files and both zips differ | • Migrator, SQL script and Windows release (2132 files) identical<br>• Checksum file fixed with LC_ALL=C<br>• Signed files identical after pasting the release's signatures |
 
 **Findings:** [E1-S5-01](findings.md#e1-s5-01) · [E1-S5-02](findings.md#e1-s5-02) · [E1-S5-03](findings.md#e1-s5-03) · [E1-S5-06](findings.md#e1-s5-06) · [E1-S5-04](findings.md#e1-s5-04) · [E1-S5-07](findings.md#e1-s5-07) · [E1-S5-09](findings.md#e1-s5-09) · [E1-S5-05](findings.md#e1-s5-05) · [E1-S5-08](findings.md#e1-s5-08) · [E1-S5-10](findings.md#e1-s5-10)
 
