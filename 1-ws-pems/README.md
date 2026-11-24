@@ -364,8 +364,9 @@ On SDK 10 the locale defect was gone.
       build.sh, artifacts.txt   the whole release, unsigned: stage 4, then the Windows, migration and checksums jobs; keeps the nine files on the release page
       windows-signature-test.sh the only place anything is signed: a test certificate, the signatures copied onto a rebuild, three negative controls
       local-vs-github-comparison/  does our rebuild give the same bytes as GitHub's build of a tag? Yes for v0.0.0-thesis.6
-        rebuild.sh              rebuilds each job of the release workflow locally from the tag
-        compare.sh              compares every output of the tag's CI run with the rebuild; exits 1 on any difference
+        rebuild.sh              rebuilds each job of the release workflow locally from the tag; with the release's build-manifest.json (from v0.0.0-thesis.7), checks the commit and the pinned tools against it first
+        compare.sh              compares every output of the tag's CI run with the rebuild; with a manifest, regenerates it from the rebuilt files and compares it byte for byte; exits 1 on any difference
+        manifest.py             reads a release's build-manifest.json for the two scripts, and lists which subjects differ between two manifests
         ghcr-manifests.py       compares a pushed image tag with a local image by its image manifest
     6-images/
       build-twice.sh            builds each of the release's images twice as its job does and compares them
