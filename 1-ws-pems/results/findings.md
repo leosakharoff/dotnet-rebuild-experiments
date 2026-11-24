@@ -1,7 +1,7 @@
 # Experiment 1 findings
 
-Experiment 1 produced 93 findings: 32 causes of differences in the release, 2 differences [outside the release](#outside-the-release), 4 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 20 checks that found no difference and 26 findings about how we measured.
-We saw 24 of the 32 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
+Experiment 1 produced 94 findings: 33 causes of differences in the release, 2 differences [outside the release](#outside-the-release), 4 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 20 checks that found no difference and 26 findings about how we measured.
+We saw 25 of the 33 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
 Four measurement findings describe limitations.
 In `E1-S3-02`, `S3` means stage 3 and `02` means finding 2. The prefix `E1-M` identifies a measurement finding.
 The [identifier table](../../categories/codes.tsv) lists the old identifiers. The [stage guide](stages.md) shows each stage before and after the fixes. The [rebuilds](rebuilds.md) record the three rebuilds of the published release.
@@ -71,6 +71,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s6-04"></a> **E1-S6-04** | Image tags pointed to attestations containing the build time and a random identifier. The tags changed on every build. | Build timestamp | Use the image manifest for the comparison. | By the verifier. Compare the image manifest. |
 | <a name="e1-s6-05"></a> **E1-S6-05** | The `MCP` images installed Debian packages from the live archive. | Package dependency | Installed the packages from a dated snapshot. | In WS.PEMS (build scripts). The image build installs Debian packages from a dated snapshot. |
 | <a name="e1-s6-06"></a> **E1-S6-06** | `canvas` downloaded a prebuilt binary from GitHub without checking its contents. | Package dependency | Added the binary by its `SHA-256` hash. | In WS.PEMS (build scripts). The image build checks the prebuilt canvas binary by its SHA-256. |
+| <a name="e1-s6-07"></a> **E1-S6-07** | Built for `linux/amd64` on an arm64 Mac under Apple's emulator Rosetta, each root `RUN` step left Rosetta's empty cache folders (`/root/.cache/rosetta`) in its layer, so `ws-pems` differed from GHCR in one layer. | Build tool version | Mounted a temporary file system over `/root/.cache` in every root `RUN` step an image keeps, so nothing of Rosetta's reaches a layer. The x86-64 output is unchanged. | In WS.PEMS (build scripts). The Dockerfiles keep Rosetta's cache out of the image layers. |
 
 ## Merged findings
 
@@ -94,9 +95,9 @@ These findings are differences in development files that never ship. RQ1 asks ab
 
 ## Compared with CI or another machine
 
-A rebuild by someone else would hit these causes unless they had something the release does not record. The last column names what was missing, in the three gaps of Solarin et al. (2026): environment, source state and build process.
+A verifier's rebuild would hit these causes unless they had something the release does not record. The last column names what was missing, in the three gaps of Solarin et al. (2026): environment, source state and build process.
 
-| Finding ID | Cause | What a rebuilder lacked |
+| Finding ID | Cause | What a verifier lacked |
 | --- | --- | --- |
 | [E1-S1-02](#e1-s1-02) | Build tool version | Environment |
 | [E1-S2-04](#e1-s2-04) | CI/CD modification | Build process |
@@ -108,6 +109,7 @@ A rebuild by someone else would hit these causes unless they had something the r
 | [E1-S3-08](#e1-s3-08) | Build tool version | Environment |
 | [E1-S5-05](#e1-s5-05) | Build timestamp | Build process |
 | [E1-S5-08](#e1-s5-08) | Package dependency | Build process |
+| [E1-S6-07](#e1-s6-07) | Build tool version | Environment |
 
 ## Setup faults
 

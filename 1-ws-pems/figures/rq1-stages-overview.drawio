@@ -22,13 +22,13 @@
         <mxCell id="zip" parent="1" value="&lt;b&gt;4 Zip&lt;/b&gt; · 1 cause&lt;br&gt;The release archives" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
           <mxGeometry as="geometry" x="0" y="305" width="278" height="55" />
         </mxCell>
-        <mxCell id="images" parent="1" value="&lt;b&gt;6 Images (extra)&lt;/b&gt; · 6 causes&lt;br&gt;5 container images" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;dashed=1;" vertex="1">
+        <mxCell id="images" parent="1" value="&lt;b&gt;6 Images (extra)&lt;/b&gt; · 7 causes&lt;br&gt;5 container images" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;dashed=1;" vertex="1">
           <mxGeometry as="geometry" x="302" y="305" width="278" height="55" />
         </mxCell>
         <mxCell id="release" parent="1" value="&lt;b&gt;5 Release&lt;/b&gt; · 5 causes&lt;br&gt;All release files, unsigned and signed" style="rounded=0;fillColor=#ffffff;strokeColor=#435057;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=#17232a;strokeWidth=1;spacing=12;" vertex="1">
           <mxGeometry as="geometry" x="0" y="384" width="278" height="55" />
         </mxCell>
-        <mxCell id="total" parent="1" value="32 causes across the six stages" style="fillColor=none;strokeColor=none;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#17232a;strokeWidth=1;spacing=0;" vertex="1">
+        <mxCell id="total" parent="1" value="33 causes across the six stages" style="fillColor=none;strokeColor=none;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=#17232a;strokeWidth=1;spacing=0;" vertex="1">
           <mxGeometry as="geometry" x="302" y="384" width="278" height="55" />
         </mxCell>
         <mxCell id="commit--build" parent="1" edge="1" source="commit" target="build" style="html=1;strokeColor=#28373e;strokeWidth=1.6;endArrow=block;endFill=1;endSize=5;edgeStyle=none;jumpStyle=none;exitX=0.2396551724137931;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;rounded=0;">
