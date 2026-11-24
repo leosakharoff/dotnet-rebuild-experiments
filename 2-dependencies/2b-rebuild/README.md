@@ -255,8 +255,9 @@ Core provider; ScottPlot; TimeZoneConverter; and UnitsNet.
 Cronos, Hangfire.InMemory, NodaTime, Microsoft.Identity.Abstractions,
 Microsoft.Identity.Web.Certificateless, .Diagnostics, .TokenCache and
 Microsoft.OpenApi matched as *identical without signatures*. These eight cases
-were assessed from DLL reports. The complete signature-stripped files were not
-hashed.
+were first assessed from DLL reports. On 24 November the complete
+signature-stripped DLLs of the 27 October build were hashed with `stripsign.cs`:
+all eight are identical ([note](https://github.com/peterjuulm/Speciale2026/blob/main/notes/2026-11-24-rq2b-g1-stripsign.md)).
 
 ### Builds with other code
 
@@ -422,9 +423,11 @@ working repository's "best of all versions" from 28 October.
   `RepositoryUrl` read from the shipped DLL. Matching these attributes alone is
   not evidence. The evidence comes from the IL, metadata and resources.
 - The eight release-build rows matched as identical without signatures were
-  assessed from report lines, not from hashes of the complete DLL produced with
-  `stripsign.cs`. The 35 corresponding publisher-build rows were hashed as
-  complete DLLs.
+  first assessed from report lines. On 24 November their complete DLLs, the 27
+  October build's own output, were hashed with `stripsign.cs` and all eight are
+  identical ([note](https://github.com/peterjuulm/Speciale2026/blob/main/notes/2026-11-24-rq2b-g1-stripsign.md)). They were not rebuilt again, except Cronos on 3
+  November, which gave the same bytes. The 35 corresponding publisher-build
+  rows were hashed as complete DLLs.
 - Rule 3 selects the lowest SDK containing the compiler. Higher SDKs with the
   same compiler are listed but not tested.
 - Rule 7 reads `AssemblyName` directly from the `.csproj` text instead of
@@ -538,8 +541,9 @@ Checked on 3 November:
   runs the same commands as the copy here for this recipe. The row matches the
   stored one in SDK, match, A equal to A2 and differing lines, and the shipped
   `Cronos.dll` is byte-for-byte the DLL of the 27 October run.
-- Not run from here: `repo-build.py`, `run-repo-batch.py`, and `stripsign.cs` on
-  the eight rows matched as identical without signatures. The copy of
+- Not run from here: `repo-build.py` and `run-repo-batch.py`. `stripsign.cs` on
+  the eight rows matched as identical without signatures ran on 24 November
+  (see the caveat above). The copy of
   `rebuild.py` here has not run on Windows.
 
 Every recipe, `derivation.txt` (then named `facts.txt`), build log and DLL

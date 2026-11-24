@@ -101,7 +101,7 @@ E2a-05		2a	Arcade's date-based build number	Build.Framework	1	Cause	Build timest
 E2a-06		2a	Hash of the project path in the PDB	Quartz	4	Cause	Build path	Not a rebuild	observed	
 E2a-07		2a	PDB path not mapped	ClosedXML	1	Cause	Build path	Not a rebuild	observed	
 E2b-01		2b	Arcade's development versioning	Roslyn 7, EF Core 7, Sqlite, DiaSymReader, Build.Framework	17	Cause	CI/CD modification	Build process	observed	the official pipeline sets OfficialBuildId; without it Arcade writes 42.42.42.42424 (Build.Framework falls back to the date)
-E2b-02		2b	Clock in the version	IdentityModel	9	Cause	Build timestamp	Build process	observed	check: is the version enough?
+E2b-02		2b	Clock in the version	IdentityModel	9	Cause	CI/CD modification	Build process	observed	rule 3, as E2b-03: the published release is 8.23.0, the official pipeline builds it without the preview suffix; our rebuild lacks that input and takes the suffix from the clock. Recoded from Build timestamp on 24 Nov (supervisor G4). Open: is the version the whole difference?
 E2b-03		2b	Date suffix on unofficial builds	Azure SDK, System.ClientModel	8	Cause	CI/CD modification	Build process	observed	the official pipeline drops the date suffix; our build adds it from the clock
 E2b-04		2b	Copyright year from the build clock	Swashbuckle, Stateless	6	Cause	Build timestamp	Build process	observed	build date not recorded
 E2b-05		2b	Attributes written by the CI script	Bogus, YamlDotNet, FluentModbus	3	Cause	CI/CD modification	Build process	observed	

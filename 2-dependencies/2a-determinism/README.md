@@ -101,9 +101,19 @@ command to see whether it builds at all. That build is not compared, so each of
 the 127 measured packages was built 33 times. The 85 runs from 1 November that
 vary all eight at once (see Results) each add two builds to their package.
 
-`kernel` is not varied because it requires a second kernel. `user_group` and
-`domain_host` are also excluded. Reprotest runs both through `sudo`, and the lab
-ran as an ordinary user without it.
+`kernel` is not varied. The plan assumed it needs a second kernel, but
+reprotest's `kernel` variation only changes what `uname` reports
+(`setarch <arch> --uname-2.6`, reprotest 0.7.32 `build.py`); it was not run
+(checked 24 November 2026). `user_group` and `domain_host` are also excluded.
+Reprotest runs both through `sudo`, and the lab ran as an ordinary user without
+it.
+
+Benedetti et al. also vary eight conditions one at a time, but not the same
+eight. Their replication package (OSF, `src/reprotest/reprotest.go`, and Table
+I in its `external_resources.pdf`) runs `environment`, `fileordering`, `kernel`,
+`locales`, `exec_path`, `time`, `timezone` and `umask`, with the build path held
+constant, and has no run with all variations at once. This experiment adds
+`build_path` and the all-at-once run and leaves out `kernel`.
 
 ### Comparison and classification
 
@@ -329,14 +339,17 @@ The reported rates are Maven (2.1% as is and 92.6% with configuration), RubyGems
 (0% and 97.1%) and PyPI (12.2% as is). Cargo and npm were reported as 100% as
 is.
 
-Three differences in the study designs limit a direct comparison:
+Four differences in the study designs limit a direct comparison:
 
 - This experiment measured 127 packages from 68 repositories, whereas Benedetti
   et al. measured 4000 randomly selected packages per ecosystem. The 25
   unreproducible packages in this experiment come from seven repositories.
 - No patched package manager was tested.
-- The `time` variation used reprotest's full range, which Benedetti et al.
-  reduced.
+- The `time` variation used reprotest's full range. Benedetti et al. write that
+  they reduced it, but their replication package does not show how.
+- Benedetti et al. held the build path constant and varied `kernel`; this
+  experiment varied `build_path`, its main cause of differences, and not
+  `kernel`.
 
 ## Caveats
 
