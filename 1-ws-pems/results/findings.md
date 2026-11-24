@@ -1,12 +1,12 @@
 # Experiment 1 findings
 
-Experiment 1 produced 93 findings: 34 causes of differences, 4 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 20 checks that found no difference and 26 findings about how we measured.
-We saw 26 of the 34 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
+Experiment 1 produced 93 findings: 32 causes of differences in the release, 2 differences [outside the release](#outside-the-release), 4 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 20 checks that found no difference and 26 findings about how we measured.
+We saw 24 of the 32 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
 Four measurement findings describe limitations.
 In `E1-S3-02`, `S3` means stage 3 and `02` means finding 2. The prefix `E1-M` identifies a measurement finding.
 The [identifier table](../../categories/codes.tsv) lists the old identifiers. The [stage guide](stages.md) shows each stage before and after the fixes. The [rebuilds](rebuilds.md) record the three rebuilds of the published release.
 
-**Fix** says how each cause was fixed. *In WS.PEMS*: WS.PEMS changed, either its code and settings (source code, project files, lock files, version pins) or its build scripts (the CI workflow, release scripts or Dockerfiles: commands, flags, environment variables, installation, packing); the cell says which. *By the verifier*: the release stays as it is, and someone who rebuilds it to check it must take an extra step. *Not needed*: the difference is in a development file that does not ship. The tables of setup faults and measurement findings keep an **Outcome** column and use the same terms where they apply.
+**Fix** says how each cause was fixed. *In WS.PEMS*: WS.PEMS changed, either its code and settings (source code, project files, lock files, version pins) or its build scripts (the CI workflow, release scripts or Dockerfiles: commands, flags, environment variables, installation, packing); the cell says which. *By the verifier*: the release stays as it is, and someone who rebuilds it to check it must take an extra step. The tables of setup faults and measurement findings keep an **Outcome** column and use the same terms where they apply.
 
 ## Causes of differences
 
@@ -19,8 +19,6 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s1-10"></a> **E1-S1-10** | The assembly stored the path to its debug symbols. Two extra characters in that path shifted every address that followed. | Build path | Mapped the path with `PathMap`. | In WS.PEMS (code and settings). Mapped the debug symbol path with PathMap. |
 | <a name="e1-s1-11"></a> **E1-S1-11** | The names of four generated regular expression types included a hash of the source file’s path. | Build path | Mapped the source path with `PathMap`. | In WS.PEMS (code and settings). Mapped the source path with PathMap. |
 | <a name="e1-s1-13"></a> **E1-S1-13** | Razor wrote the absolute `.cshtml` path into generated C# code, beyond the reach of `PathMap`. | Build path | Deleted two unused Razor pages. | In WS.PEMS (code and settings). Removed two unused Razor pages. |
-| <a name="e1-s1-14"></a> **E1-S1-14** | `spa.proxy.json` contained the path to `ClientApp/`. | Build path | None needed. | Not needed. The development file does not ship. |
-| <a name="e1-s1-15"></a> **E1-S1-15** | `staticwebassets.runtime.json` contained paths to `obj/` and the NuGet cache. | Build path | None needed. | Not needed. The development file does not ship. |
 
 ### Stage 2. Publish
 
@@ -84,6 +82,15 @@ These findings described a cause that another finding already counts. They keep 
 | <a name="e1-s1-06"></a> **E1-S1-06** | Changing the build folder changed the assembly and its debug symbols. Both contained absolute paths. | [E1-S1-09](#e1-s1-09), [E1-S1-10](#e1-s1-10) |
 | <a name="e1-s2-13"></a> **E1-S2-13** | With `umask 0002`, 142 release files had different permissions. | [E1-S4-01](#e1-s4-01) |
 | <a name="e1-s1-12"></a> **E1-S1-12** | In a source export without `.git`, `ContinuousIntegrationBuild` mapped only the NuGet cache. Source Link missed the source root. The same files and hashes differed as before, so this explains why our first fix failed. | [E1-S1-09](#e1-s1-09), [E1-S1-10](#e1-s1-10), [E1-S1-11](#e1-s1-11) |
+
+## Outside the release
+
+These findings are differences in development files that never ship. RQ1 asks about the release, so they are not causes ([codebook](../../categories/codebook.md), rule 8). [E1-S2-02](#e1-s2-02) checked that neither file is released.
+
+| Finding ID | What we found | What we changed |
+| --- | --- | --- |
+| <a name="e1-s1-14"></a> **E1-S1-14** | `spa.proxy.json` contained the path to `ClientApp/`. | None needed. |
+| <a name="e1-s1-15"></a> **E1-S1-15** | `staticwebassets.runtime.json` contained paths to `obj/` and the NuGet cache. | None needed. |
 
 ## Compared with CI or another machine
 

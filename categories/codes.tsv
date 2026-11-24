@@ -12,8 +12,8 @@ E1-S1-10	W4	1	The DLL holds the PDB's path. A path 2 characters longer moves eve
 E1-S1-11	W5	1	Four generated regex types are named by a hash of the source file's path.	Build path		Cause	Build path	Not a rebuild	observed	
 E1-S1-12	W6	1	`ContinuousIntegrationBuild` maps the source root only when Source Link finds `.git`. In an export it mapped only the NuGet cache. Fixed with an explicit `PathMap`.	Build path		Merged				merged into E1-S1-09, E1-S1-10 and E1-S1-11: the same differing files and hashes; it explains why the first fix failed
 E1-S1-13	W7	1	The Razor generator writes the absolute `.cshtml` path into generated C#, and `PathMap` does not reach that text. Fixed in WS.PEMS by deleting two unused pages; open for other projects.	Build path		Cause	Build path	Not a rebuild	observed	
-E1-S1-14	W8	1	`spa.proxy.json` holds the path to `ClientApp/`. Development only, not shipped.	Build path		Cause	Build path	Not a rebuild	observed	file does not ship
-E1-S1-15	W9	1	`staticwebassets.runtime.json` holds paths to `obj/` and the NuGet cache. Development only, not shipped.	Build path		Cause	Build path	Not a rebuild	observed	file does not ship
+E1-S1-14	W8	1	`spa.proxy.json` holds the path to `ClientApp/`. Development only, not shipped.	Build path		Outside the release				a development file that does not ship, so not a cause of an unreproducible release (E1-S2-02 shows it is not released)
+E1-S1-15	W9	1	`staticwebassets.runtime.json` holds paths to `obj/` and the NuGet cache. Development only, not shipped.	Build path		Outside the release				a development file that does not ship, so not a cause of an unreproducible release (E1-S2-02 shows it is not released)
 E1-S1-16	W10	1	A green result for time, locale, umask and exec path on stage 1. Withdrawn: the compiler server kept the control build's environment (W27).	Method		Measurement				
 E1-S1-17	W12	1	MSBuild sorts the source files before the compiler sees them, so the directory's file order does not matter.	Measured stable		No difference found				
 E1-S1-18	W13	1	Building with and without the compiler server gave the same 639 files.	Measured stable		No difference found				

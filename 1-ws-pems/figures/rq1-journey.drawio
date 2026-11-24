@@ -7,7 +7,7 @@
         <mxCell id="s1-name" value="&lt;b&gt;1 Build&lt;/b&gt;" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=14;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="6" y="12" width="119" height="20" />
         </mxCell>
-        <mxCell id="s1-number" value="7 causes" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
+        <mxCell id="s1-number" value="5 causes" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="6" y="34" width="119" height="16" />
         </mxCell>
         <mxCell id="s1-segment" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1.6;endArrow=none;endFill=1;endSize=5;">
@@ -18,84 +18,48 @@
         </mxCell>
         <mxCell id="E1-S1-02-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="19.15" y="88" />
-            <mxPoint as="targetPoint" x="19.15" y="69" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="E1-S1-02-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#ffffff;strokeWidth=1;">
-          <mxGeometry as="geometry" x="16.15" y="66.0" width="6" height="6" />
-        </mxCell>
-        <mxCell id="E1-S1-09-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="34.60" y="88" />
             <mxPoint as="targetPoint" x="34.60" y="69" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E1-S1-09-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
+        <mxCell id="E1-S1-02-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#ffffff;strokeWidth=1;">
           <mxGeometry as="geometry" x="31.60" y="66.0" width="6" height="6" />
         </mxCell>
-        <mxCell id="E1-S1-10-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
+        <mxCell id="E1-S1-09-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="50.05" y="88" />
             <mxPoint as="targetPoint" x="50.05" y="69" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E1-S1-10-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
+        <mxCell id="E1-S1-09-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
           <mxGeometry as="geometry" x="47.05" y="66.0" width="6" height="6" />
         </mxCell>
-        <mxCell id="E1-S1-11-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
+        <mxCell id="E1-S1-10-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="65.50" y="88" />
             <mxPoint as="targetPoint" x="65.50" y="69" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E1-S1-11-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
+        <mxCell id="E1-S1-10-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
           <mxGeometry as="geometry" x="62.50" y="66.0" width="6" height="6" />
         </mxCell>
-        <mxCell id="E1-S1-13-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
+        <mxCell id="E1-S1-11-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="80.95" y="88" />
             <mxPoint as="targetPoint" x="80.95" y="69" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E1-S1-13-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
+        <mxCell id="E1-S1-11-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
           <mxGeometry as="geometry" x="77.95" y="66.0" width="6" height="6" />
         </mxCell>
-        <mxCell id="E1-S1-14-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
+        <mxCell id="E1-S1-13-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="96.40" y="88" />
             <mxPoint as="targetPoint" x="96.40" y="69" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="E1-S1-14-outcome-a" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="93.40" y="66.0" />
-            <mxPoint as="targetPoint" x="99.40" y="72.0" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="E1-S1-14-outcome-b" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="93.40" y="72.0" />
-            <mxPoint as="targetPoint" x="99.40" y="66.0" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="E1-S1-15-tick" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="111.85" y="88" />
-            <mxPoint as="targetPoint" x="111.85" y="69" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="E1-S1-15-outcome-a" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="108.85" y="66.0" />
-            <mxPoint as="targetPoint" x="114.85" y="72.0" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="E1-S1-15-outcome-b" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="108.85" y="72.0" />
-            <mxPoint as="targetPoint" x="114.85" y="66.0" />
-          </mxGeometry>
+        <mxCell id="E1-S1-13-outcome" value="" parent="1" vertex="1" style="shape=ellipse;strokeColor=#28373e;fillColor=#28373e;strokeWidth=1;">
+          <mxGeometry as="geometry" x="93.40" y="66.0" width="6" height="6" />
         </mxCell>
         <mxCell id="s1-match" value="match" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;rounded=0;fillColor=#ffffff;strokeColor=#9aa4a8;strokeWidth=1;spacing=3;">
           <mxGeometry as="geometry" x="87" y="99" width="42" height="21" />
@@ -525,27 +489,6 @@
         </mxCell>
         <mxCell id="verifier-label" value="By the verifier" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
           <mxGeometry as="geometry" x="378" y="243" width="140" height="15" />
-        </mxCell>
-        <mxCell id="other-stem" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="560" y="254" />
-            <mxPoint as="targetPoint" x="560" y="246" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="other-mark-a" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="557" y="243.0" />
-            <mxPoint as="targetPoint" x="563" y="249.0" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="other-mark-b" parent="1" edge="1" style="html=1;edgeStyle=none;rounded=0;strokeColor=#28373e;strokeWidth=1;endArrow=none;endFill=1;endSize=5;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="557" y="249.0" />
-            <mxPoint as="targetPoint" x="563" y="243.0" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="other-label" value="Not needed" parent="1" vertex="1" style="html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Helvetica;fontColor=#17232a;fontSize=11;fillColor=none;strokeColor=none;spacing=0;">
-          <mxGeometry as="geometry" x="572" y="243" width="140" height="15" />
         </mxCell>
       </root>
     </mxGraphModel>

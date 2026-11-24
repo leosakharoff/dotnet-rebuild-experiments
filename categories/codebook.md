@@ -35,6 +35,7 @@ Keep these findings because they record what was corrected, tested, or learned a
 - **Setup fault** marks a fault in the project or workflow setup that we found and corrected, such as RQ1’s E1-S2-03 and E1-S2-08.
 - **No difference found** records a variation that changed no bytes.
 - **Measurement** records something that affected how we measured or interpreted a result, such as `libfaketime` under npm in 2a.
+- **Outside the release** marks a difference in a file that is never released, such as RQ1’s development files E1-S1-14 and E1-S1-15. RQ1 asks about the release, so such a difference is not a cause (rule 8).
 - **Merged** marks a finding that describes a cause another finding already counts, such as E1-S1-03, which explains why the compilers of E1-S1-02 differ. The note names the finding it was merged into. It keeps its identifier and is not counted again.
 
 ## Coding rules
@@ -46,6 +47,7 @@ Keep these findings because they record what was corrected, tested, or learned a
 5. If no code fits, mark the cause **unclassified** and add a note explaining why. A difference nobody examined is not a cause: record it as **not examined**.
 6. Count one cause once. If two findings describe the same difference in the same artefacts, or one explains the other, count the more complete one and mark the other **Merged**, naming the finding it joins.
 7. Record for each cause in RQ1 how it was found, in the column `evidence`: **observed** if we saw it as differing bytes, or as a build that failed on one side; **inspection** if we found an input that could change the bytes but never saw it do so, such as an unpinned version or a download without a checksum.
+8. In RQ1, a cause must change, or be able to change, a file or image that is released. Record a difference confined to files that never ship as **Outside the release**.
 
 ## Counting and review
 
