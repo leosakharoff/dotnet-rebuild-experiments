@@ -4,7 +4,7 @@ Experiment 1 produced 94 findings: 33 causes of differences in the release, 2 di
 We saw 25 of the 33 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
 Four measurement findings describe limitations.
 In `E1-S3-02`, `S3` means stage 3 and `02` means finding 2. The prefix `E1-M` identifies a measurement finding.
-The [identifier table](../../categories/codes.tsv) lists the old identifiers. The [stage guide](stages.md) shows each stage before and after the fixes. The [rebuilds](rebuilds.md) record the three rebuilds of the published release.
+The [identifier table](../../categories/codes.tsv) lists the old identifiers. The [stage guide](stages.md) shows each stage before and after the fixes. The [rebuilds](rebuilds.md) record the five rebuilds of the published prerelease `v0.0.0-thesis.6`.
 
 **Fix** says how each cause was fixed. *In WS.PEMS*: WS.PEMS changed, either its code and settings (source code, project files, lock files, version pins) or its build scripts (the CI workflow, release scripts or Dockerfiles: commands, flags, environment variables, installation, packing); the cell says which. *By the verifier*: the release stays as it is, and someone who rebuilds it to check it must take an extra step. The tables of setup faults and measurement findings keep an **Outcome** column and use the same terms where they apply.
 
