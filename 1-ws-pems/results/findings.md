@@ -1,7 +1,7 @@
 # Experiment 1 findings
 
-Experiment 1 produced 94 findings: 33 causes of differences in the release, 2 differences [outside the release](#outside-the-release), 4 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 20 checks that found no difference and 26 findings about how we measured.
-We saw 25 of the 33 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
+Experiment 1 produced 96 findings: 35 causes of differences in the release, 2 differences [outside the release](#outside-the-release), 4 findings [merged](#merged-findings) into one of those causes, 9 setup faults, 20 checks that found no difference and 26 findings about how we measured.
+We saw 27 of the 35 causes as differing bytes. We found the other 8 by inspecting the build: [E1-S2-06](#e1-s2-06), [E1-S2-07](#e1-s2-07), [E1-S3-04](#e1-s3-04), [E1-S3-05](#e1-s3-05), [E1-S5-07](#e1-s5-07), [E1-S5-10](#e1-s5-10), [E1-S6-03](#e1-s6-03), [E1-S6-06](#e1-s6-06).
 Four measurement findings describe limitations.
 In `E1-S3-02`, `S3` means stage 3 and `02` means finding 2. The prefix `E1-M` identifies a measurement finding.
 The [identifier table](../../categories/codes.tsv) lists the old identifiers. The [stage guide](stages.md) shows each stage before and after the fixes. The [rebuilds](rebuilds.md) record the five rebuilds of the published prerelease `v0.0.0-thesis.6`.
@@ -14,7 +14,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 
 | Finding ID | What we found | Cause | What we changed | Fix |
 | --- | --- | --- | --- | --- |
-| <a name="e1-s1-02"></a> **E1-S1-02** | The same source produced different assemblies on two machines. Arch and Microsoft both called their compiler 9.0.120. The debug symbols recorded each compiler's commit ([E1-S1-03](#e1-s1-03)). | Build tool version | Pinned the development kit to 10.0.401 in `global.json`, disabled roll-forward and installed it by hash in the release workflow. | By the verifier. A verifier needs Microsoft's SDK build, not only its version number; the build scripts now install it by hash. |
+| <a name="e1-s1-02"></a> **E1-S1-02** | The same source produced different assemblies on two machines. Arch and Microsoft both called their compiler 9.0.120. The debug symbols recorded each compiler's commit ([E1-S1-03](#e1-s1-03)). | Build tool version | Pinned the development kit to 10.0.401 in `global.json`, disabled roll-forward and installed it by hash in the release workflow. | In WS.PEMS (build scripts). Since `v0.0.0-thesis.7` the release's build record, `build-manifest.json`, names Microsoft's SDK build by hash and `rebuild.sh` installs it. Before that, by the verifier. |
 | <a name="e1-s1-09"></a> **E1-S1-09** | All four debug symbol files recorded absolute source paths, so changing the build folder changed them ([E1-S1-06](#e1-s1-06)). In an export without `.git`, `ContinuousIntegrationBuild` left them unmapped ([E1-S1-12](#e1-s1-12)). | Build path | Mapped the source paths with `PathMap`. | In WS.PEMS (code and settings). Mapped the source paths with PathMap. |
 | <a name="e1-s1-10"></a> **E1-S1-10** | The assembly stored the path to its debug symbols. Two extra characters in that path shifted every address that followed. | Build path | Mapped the path with `PathMap`. | In WS.PEMS (code and settings). Mapped the debug symbol path with PathMap. |
 | <a name="e1-s1-11"></a> **E1-S1-11** | The names of four generated regular expression types included a hash of the source file’s path. | Build path | Mapped the source path with `PathMap`. | In WS.PEMS (code and settings). Mapped the source path with PathMap. |
@@ -24,20 +24,21 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 
 | Finding ID | What we found | Cause | What we changed | Fix |
 | --- | --- | --- | --- | --- |
-| <a name="e1-s2-04"></a> **E1-S2-04** | The release workflow passed its version string to every assembly. | CI/CD modification | None needed. | By the verifier. A verifier needs the release's version string. |
-| <a name="e1-s2-05"></a> **E1-S2-05** | Publishing with `-r linux-x64` put the platform in the debug symbol path and the executable header. | CI/CD modification | None needed. | By the verifier. A verifier must use the release's publish command. |
+| <a name="e1-s2-04"></a> **E1-S2-04** | The release workflow passed its version string to every assembly. | CI/CD modification | Recorded `APP_VERSION` in `build-manifest.json`; `rebuild.sh` passes it to every job. | In WS.PEMS (build scripts). Since `v0.0.0-thesis.7`; before that, by the verifier. |
+| <a name="e1-s2-05"></a> **E1-S2-05** | Publishing with `-r linux-x64` put the platform in the debug symbol path and the executable header. | CI/CD modification | Moved each job's commands into `scripts/release/`, which `rebuild.sh` runs. | In WS.PEMS (build scripts). Since `v0.0.0-thesis.7`; before that, by the verifier. |
 | <a name="e1-s2-06"></a> **E1-S2-06** | Microsoft’s runtime packs supplied 323 of the web application’s 746 files. The package lock files did not record them. | Package dependency | Checked the packs by hash against `nuget-downloads.lock.json`. | In WS.PEMS (build scripts). No lock file records the runtime packs, so the build scripts check them by hash. |
 | <a name="e1-s2-07"></a> **E1-S2-07** | NuGet lock files record a content hash for every package. Restoring from those hashes reproduced the release. | Package dependency | Added lock files and enabled locked restores in the release workflow. | In WS.PEMS (code and settings). The release workflow also enforces a locked restore. |
 | <a name="e1-s2-11"></a> **E1-S2-11** | Under Estonian settings, Roslyn reordered the types it generated for collection expressions. That changed 10 of 1,237 files. | Locale | Set `LC_ALL=C.UTF-8`. | In WS.PEMS (build scripts). Set LC_ALL=C.UTF-8 as a workaround for the compiler defect. |
 | <a name="e1-s2-18"></a> **E1-S2-18** | Version 10 of the development kit stamped compressed copies of static files with the time it wrote them. | Build timestamp | Turned off compression with `CompressionEnabled=false`. | In WS.PEMS (code and settings). Static asset compression turned off in the web application. |
 | <a name="e1-s2-19"></a> **E1-S2-19** | The compiler ran on different runtime patches on the GitHub runner and our machine, 10.0.13 and 10.0.12. The assemblies differed. | Build tool version | Installed only the kit named in `global.json` in an empty folder. Checked its hash and that only its own runtime was present. | In WS.PEMS (build scripts). Installed the kit named in global.json alone and checked its hash and runtime. |
+| <a name="e1-s2-21"></a> **E1-S2-21** | The WebAPI's Windows `web.config` ended with `<!--ProjectGuid: …-->` when the .NET CLI's telemetry was on, as on GitHub's runners, and without it when `DOTNET_CLI_TELEMETRY_OPTOUT=1`, as in our rebuild. Found when a rebuild on our laptop was compared with a dry run of the release workflow. | Environment variable | Set `DOTNET_CLI_TELEMETRY_OPTOUT=1` in the job scripts (`0e497595d`). | In WS.PEMS (build scripts). Every job builds with telemetry off. |
 
 ### Stage 3. Frontend
 
 | Finding ID | What we found | Cause | What we changed | Fix |
 | --- | --- | --- | --- | --- |
 | <a name="e1-s3-01"></a> **E1-S3-01** | Next.js wrote a new random build identifier into paths and pages on every build. This changed 110 of 998 files. | Randomness | Used the release version from `APP_VERSION` as the build identifier. | In WS.PEMS (code and settings). The build ID is set to the release version. |
-| <a name="e1-s3-03"></a> **E1-S3-03** | The frontend imported seven files from outside `ClientApp/`. | Package dependency | No code change. Rebuild from an export of the whole commit. | By the verifier. Rebuild the frontend from an export of the whole commit. |
+| <a name="e1-s3-03"></a> **E1-S3-03** | The frontend imported seven files from outside `ClientApp/`. | Package dependency | `rebuild.sh` builds every job in a fresh clone of the whole release commit. | In WS.PEMS (build scripts). Since `v0.0.0-thesis.7`; before that, by the verifier. |
 | <a name="e1-s3-04"></a> **E1-S3-04** | The release requested Node `20.x`, which specified only the major version. | Build tool version | Pinned an exact version in `.nvmrc`. Every workflow reads it and installs Node by hash. | In WS.PEMS (code and settings). Each workflow also reads the Node pin and installs Node by hash. |
 | <a name="e1-s3-05"></a> **E1-S3-05** | Of 1,509 package lock entries, 391 lacked a content hash. For those entries, npm trusted the registry. | Package dependency | Filled in the missing hashes. | In WS.PEMS (code and settings). Added the missing hashes to the package lock file. |
 | <a name="e1-s3-06"></a> **E1-S3-06** | Build timing probably changed the order of shared style sheets. Four of 998 files differed in one of four builds. | Randomness | Imported all third-party style sheets in one place, `_app.tsx`. | In WS.PEMS (code and settings). Moved the third-party style imports into _app.tsx. |
@@ -60,6 +61,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s5-07"></a> **E1-S5-07** | The order of files in `SHA256SUMS` could depend on the language setting used to sort them. Three language settings gave the same order. | Locale | Set `LC_ALL=C` when sorting the file list. | In WS.PEMS (build scripts). Set LC_ALL=C when sorting the checksum list, as a precaution. |
 | <a name="e1-s5-08"></a> **E1-S5-08** | On a shared runner, the Windows job picked up a frontend export left by another job. Found in the published v1.0.50. | Package dependency | Made the Windows job download the export for its own release every time. | In WS.PEMS (build scripts). The Windows job downloads the frontend export for its own release. |
 | <a name="e1-s5-10"></a> **E1-S5-10** | On a shared runner, `dotnet tool restore` could run a tool from another job’s folder. | Build tool version | Gave the migration job its own home folder for the command-line tools. | In WS.PEMS (build scripts). The migration job uses its own tool home folder. |
+| <a name="e1-s5-11"></a> **E1-S5-11** | The release's SQL script differed on a Mac set to Danish: .NET on macOS takes its culture from the system's region, not from `LC_ALL`, and wrote a migration's storage parameter as `0,01` instead of `0.01`. Found when the Mac rebuilt a dry run of the release. | Locale | Ran `dotnet ef migrations script` with `DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1` (`96e2990a6`). | In WS.PEMS (build scripts). The SQL is generated in the invariant culture on every system. |
 
 ### Stage 6. Images
 
@@ -68,7 +70,7 @@ The [identifier table](../../categories/codes.tsv) lists the old identifiers. Th
 | <a name="e1-s6-01"></a> **E1-S6-01** | Only timestamps differed in the web application and job worker images. | Build timestamp | Set `SOURCE_DATE_EPOCH` and enabled BuildKit’s `rewrite-timestamp`. | In WS.PEMS (build scripts). Set SOURCE_DATE_EPOCH and enabled rewrite-timestamp. |
 | <a name="e1-s6-02"></a> **E1-S6-02** | A test report left in the `MCP` images listed different test durations, in a different order, in each build. Font caches and Node’s compile cache, also left by build steps, were removed without establishing why they differed. | Randomness | Removed those files in each step that created them. | In WS.PEMS (build scripts). Each image build step removes the files it creates as side effects. |
 | <a name="e1-s6-03"></a> **E1-S6-03** | The manual image script built the migrations image without the timestamp settings of [E1-S6-01](#e1-s6-01). Not measured before the fix. | Build timestamp | Applied the same `SOURCE_DATE_EPOCH` and `rewrite-timestamp` settings. | In WS.PEMS (build scripts). Applied the timestamp settings in the manual image script. |
-| <a name="e1-s6-04"></a> **E1-S6-04** | Image tags pointed to attestations containing the build time and a random identifier. The tags changed on every build. | Build timestamp | Use the image manifest for the comparison. | By the verifier. Compare the image manifest. |
+| <a name="e1-s6-04"></a> **E1-S6-04** | Image tags pointed to attestations containing the build time and a random identifier. The tags changed on every build. | Build timestamp | Published the images without attestations, so each tag names the image manifest itself. | In WS.PEMS (build scripts). Since `v0.0.0-thesis.7`; before that, by the verifier. |
 | <a name="e1-s6-05"></a> **E1-S6-05** | The `MCP` images installed Debian packages from the live archive. | Package dependency | Installed the packages from a dated snapshot. | In WS.PEMS (build scripts). The image build installs Debian packages from a dated snapshot. |
 | <a name="e1-s6-06"></a> **E1-S6-06** | `canvas` downloaded a prebuilt binary from GitHub without checking its contents. | Package dependency | Added the binary by its `SHA-256` hash. | In WS.PEMS (build scripts). The image build checks the prebuilt canvas binary by its SHA-256. |
 | <a name="e1-s6-07"></a> **E1-S6-07** | Built for `linux/amd64` on an arm64 Mac under Apple's emulator Rosetta, each root `RUN` step left Rosetta's empty cache folders (`/root/.cache/rosetta`) in its layer, so `ws-pems` differed from GHCR in one layer. | Build tool version | Mounted a temporary file system over `/root/.cache` in every root `RUN` step an image keeps, so nothing of Rosetta's reaches a layer. The x86-64 output is unchanged. | In WS.PEMS (build scripts). The Dockerfiles keep Rosetta's cache out of the image layers. |
@@ -95,7 +97,7 @@ These findings are differences in development files that never ship. RQ1 asks ab
 
 ## Compared with CI or another machine
 
-A verifier's rebuild would hit these causes unless they had something the release does not record. The last column names what was missing, in the three gaps of Solarin et al. (2026): environment, source state and build process.
+A verifier's rebuild would hit these causes unless they had something the release did not record. Since `v0.0.0-thesis.7`, the release's build record and `rebuild.sh` supply all of it except the signing key of [E1-S5-05](#e1-s5-05). The last column names what was missing, in the three gaps of Solarin et al. (2026): environment, source state and build process.
 
 | Finding ID | Cause | What a verifier lacked |
 | --- | --- | --- |
@@ -104,11 +106,13 @@ A verifier's rebuild would hit these causes unless they had something the releas
 | [E1-S2-05](#e1-s2-05) | CI/CD modification | Build process |
 | [E1-S2-06](#e1-s2-06) | Package dependency | Environment |
 | [E1-S2-19](#e1-s2-19) | Build tool version | Environment |
+| [E1-S2-21](#e1-s2-21) | Environment variable | Environment |
 | [E1-S3-03](#e1-s3-03) | Package dependency | Source state |
 | [E1-S3-04](#e1-s3-04) | Build tool version | Environment |
 | [E1-S3-08](#e1-s3-08) | Build tool version | Environment |
 | [E1-S5-05](#e1-s5-05) | Build timestamp | Build process |
 | [E1-S5-08](#e1-s5-08) | Package dependency | Build process |
+| [E1-S5-11](#e1-s5-11) | Locale | Environment |
 | [E1-S6-07](#e1-s6-07) | Build tool version | Environment |
 
 ## Setup faults

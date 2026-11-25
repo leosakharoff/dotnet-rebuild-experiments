@@ -15,6 +15,7 @@ Each finding gets up to two categories. **A** says what caused an output differe
 | **Build tool version** | A different compiler, runtime, or tool affects the output, even if it reports the same version. | E1-S1-02; SharpZipLib targeting pack | Solarin RC01 |
 | **Package dependency** | A dependency or file selected by name or version supplies different bytes in another build. | E1-S2-07, E1-S6-05 | Bajaj Package Dependency |
 | **CI/CD modification** | The publisher’s pipeline changes the output through an additional step or input, such as a generated attribute, a version derived from Git, or a signing key. | Bogus, MediatR.Contracts | Solarin RC02, RC03 |
+| **Environment variable** | A variable in the build environment that no other category covers changes the output, for example a tool's opt-out setting. Locale, time zone and `SOURCE_DATE_EPOCH` also arrive as environment variables but keep their own categories. | E1-S2-21 (.NET CLI telemetry) | reprotest's `environment variables` variation (Benedetti); related to Solarin RC07 |
 
 ## B. What was missing for the rebuild?
 
